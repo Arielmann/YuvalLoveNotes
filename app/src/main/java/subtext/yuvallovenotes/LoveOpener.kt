@@ -4,7 +4,7 @@ class LoveOpener {
     var text = ""
 
     override fun toString(): String {
-        return "LoveOpener(text='$text')"
+        return text + "\n\n"
     }
 
 

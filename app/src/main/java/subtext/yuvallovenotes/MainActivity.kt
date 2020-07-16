@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +34,12 @@ class MainActivity : AppCompatActivity() {
         Backendless.Data.of(LoveOpener::class.java).find(object : AsyncCallback<List<LoveOpener>> {
 
             override fun handleResponse(response: List<LoveOpener>?) {
-                println("ariel mann ${response.toString()}")
+//                println("ariel mann ${response.toString()}")
+                arielTV.text = response.toString()
+
+                val sendWhatsapp = WhatsAppSender()
+                sendWhatsapp.send(this@MainActivity, BuildConfig.MOBILE_NUMBER)
+
             }
 
             override fun handleFault(fault: BackendlessFault?) {

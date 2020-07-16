@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 28
@@ -13,6 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField "String", "MOBILE_NUMBER", "\""+getPhoneNumber()+"\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -23,6 +24,12 @@ android {
         }
     }
 
+}
+
+def getPhoneNumber() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("phoneNumber");
 }
 
 dependencies {
@@ -42,6 +49,8 @@ dependencies {
     }
     implementation "androidx.core:core-ktx:+"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.sun.mail:android-mail:1.6.0'
+    implementation 'com.sun.mail:android-activation:1.6.0'
 }
 repositories {
     mavenCentral()
