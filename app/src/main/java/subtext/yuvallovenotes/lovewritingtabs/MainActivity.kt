@@ -12,6 +12,7 @@ import com.backendless.exceptions.BackendlessFault
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.WhatsAppSender
+import subtext.yuvallovenotes.backendless.LocalBackendless
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.lovewritingtabs.ui.main.SectionsPagerAdapter
 
@@ -29,20 +30,19 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            Thread {
-                /*     val lovePhrase = LoveOpener();
-                     lovePhrase.text = "שלום אהובתי"
+            LocalBackendless.findLoveOpeners(object : AsyncCallback<List<LoveOpener>> {
 
-                     Backendless.Data.of(LoveOpener::class.java).save(lovePhrase, object : AsyncCallback<LoveOpener> {
-                         override fun handleResponse(response: LoveOpener?) {
-                             retrieveData()
-                         }
+                override fun handleResponse(response: List<LoveOpener>?) {
+                    return response!!.toMutableList().shuffle()
 
-                         override fun handleFault(fault: BackendlessFault?) {
-                             println("Backendless error ${fault.toString()}")
-                         }
-                     })*/
-            }.start()
+//                    val sendWhatsapp = WhatsAppSender()
+//                    sendWhatsapp.send(this@MainActivity, BuildConfig.MOBILE_NUMBER, text)
+
+                }
+
+                override fun handleFault(fault: BackendlessFault?) {
+                    println("Backendless Error: ${fault.toString()}")
+                }})
         }
 
 
@@ -61,8 +61,6 @@ class MainActivity : AppCompatActivity() {
             override fun handleFault(fault: BackendlessFault?) {
                 println("Backendless Error: ${fault.toString()}")
             }
-
-
         })
     }
 }

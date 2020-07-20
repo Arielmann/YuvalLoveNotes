@@ -1,7 +1,5 @@
 package subtext.yuvallovenotes.loveletters
 
-class LoveOpener : AbstractLoveItem(){
-
+class LoveClosure : AbstractLoveItem(){
     override var text: String = ""
-
 }
