@@ -1,5 +1,5 @@
 package subtext.yuvallovenotes.loveletters
 
-class LovePhrase {
-    var text = "";
+class LovePhrase : LoveItem() {
+    override var text = "";
 }

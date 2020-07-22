@@ -12,7 +12,8 @@ import com.backendless.exceptions.BackendlessFault
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.WhatsAppSender
-import subtext.yuvallovenotes.backendless.LocalBackendless
+import subtext.yuvallovenotes.backendless.LoveNotesBackendless
+import subtext.yuvallovenotes.loveletters.LoveItem
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.lovewritingtabs.ui.main.SectionsPagerAdapter
 
@@ -27,22 +28,34 @@ class MainActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         val fab: FloatingActionButton = findViewById(R.id.fab)
-
+        val opener = LoveOpener();
+        opener.text = "אהובתי"
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show()
-            LocalBackendless.findLoveOpeners(object : AsyncCallback<List<LoveOpener>> {
+            /*   LoveNotesBackendless.findLoveOpeners(object : AsyncCallback<List<LoveOpener>> {
 
-                override fun handleResponse(response: List<LoveOpener>?) {
-                    return response!!.toMutableList().shuffle()
+                   override fun handleResponse(response: List<LoveOpener>?) {
+                       return response!!.toMutableList().shuffle()
 
-//                    val sendWhatsapp = WhatsAppSender()
-//                    sendWhatsapp.send(this@MainActivity, BuildConfig.MOBILE_NUMBER, text)
+   //                    val sendWhatsapp = WhatsAppSender()
+   //                    sendWhatsapp.send(this@MainActivity, BuildConfig.MOBILE_NUMBER, text)
 
+                   }
+
+                   override fun handleFault(fault: BackendlessFault?) {
+                       println("Backendless Error: ${fault.toString()}")
+                   }})*/
+
+            LoveNotesBackendless.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
+                override fun handleFault(fault: BackendlessFault?) {
+                       println("Backendless error: ${fault.toString()}")
+                    TODO("Not yet implemented")
                 }
 
-                override fun handleFault(fault: BackendlessFault?) {
-                    println("Backendless Error: ${fault.toString()}")
-                }})
+                override fun handleResponse(response: List<LoveItem>?) {
+                       println("Backendless response: ${response.toString()}")
+                }
+            })
         }
 
 
