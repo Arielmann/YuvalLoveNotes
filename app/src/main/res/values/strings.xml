@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">YuvalLoveNotes</string>
-    <string name="ln_backendless_app_id">DD0D7F6F-92A5-A4D2-FFFA-9C2ACE774C00</string>
-    <string name="ln_backendless_android_api_key">D382D561-1A59-4180-BB09-1FC9472618AA</string>
-    <string name="title_activity_love_writing_tabs">LoveWritingTabsActivity</string>
+    <string name="title_activity_love_writing_tabs">MainActivity</string>
     <string name="tab_title_love_generator_frag">Generate</string>
     <string name="tab_title_love_writer_frag">New Phrase</string>
     <string name="tab_title_love_editor_frag">Edit</string>
+    <string name="send">שלח</string>
+    <string name="success_message">Item Saved</string>
 </resources>

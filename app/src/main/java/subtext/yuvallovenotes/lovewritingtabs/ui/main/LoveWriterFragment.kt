@@ -1,16 +1,18 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import kotlinx.android.synthetic.main.fragment_love_generator_tab.*
 import kotlinx.android.synthetic.main.fragment_love_writer_tab.*
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.backendless.LoveNotesBackendless
+import subtext.yuvallovenotes.loveletters.LoveClosure
+import subtext.yuvallovenotes.loveletters.LoveOpener
+import subtext.yuvallovenotes.loveletters.LovePhrase
 
 /**
  * A placeholder fragment containing a simple view.
@@ -31,9 +33,33 @@ class LoveWriterFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root: View = inflater.inflate(R.layout.fragment_love_writer_tab, container, false)
         pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
-            loveOpenerEditText.text = Editable.Factory.getInstance().newEditable(it)
         })
         return root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setOnClickListeners();
+    }
+
+    private fun setOnClickListeners() {
+        loveOpenerSenderBtn.setOnClickListener {
+            val opener = LoveOpener();
+            opener.text = loveOpenerEditText.text.toString()
+            context?.let { it1 -> LoveNotesBackendless.saveLoveOpener(it1, opener) }
+        }
+
+        lovePhraseSendBtn.setOnClickListener {
+            val phrase = LovePhrase();
+            phrase.text = lovePhraseEditText.text.toString()
+            context?.let { it1 -> LoveNotesBackendless.saveLovePhrase(it1, phrase) }
+        }
+
+        loveClosureSendBtn.setOnClickListener {
+            val closure = LoveClosure();
+            closure.text = loveClosureEditText.text.toString()
+            context?.let { it1 -> LoveNotesBackendless.saveLoveClosure(it1, closure) }
+        }
     }
 
     companion object {

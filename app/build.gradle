@@ -13,7 +13,9 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "MOBILE_NUMBER", "\"" + getPhoneNumber() + "\""
+        buildConfigField "String", "MOBILE_NUMBER", "\"" + getLocalProperty("phoneNumber") + "\""
+        buildConfigField "String", "BACKENDLESS_APP_ID", "\"" + getLocalProperty("backendlessAppID") + "\""
+        buildConfigField "String", "BACKENDLESS_ANDROID_API_KEY", "\"" + getLocalProperty("backendlessAndroidApiKey") + "\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -26,10 +28,10 @@ android {
 
 }
 
-def getPhoneNumber() {
+def getLocalProperty(String propKey) {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
-    return properties.getProperty("phoneNumber");
+    return properties.getProperty(propKey);
 }
 
 dependencies {
