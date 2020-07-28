@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">YuvalLoveNotes</string>
+    <string name="app_title">מכתבים ליובל</string>
     <string name="title_activity_love_writing_tabs">MainActivity</string>
-    <string name="tab_title_love_generator_frag">Generate</string>
-    <string name="tab_title_love_writer_frag">New Phrase</string>
-    <string name="tab_title_love_editor_frag">Edit</string>
-    <string name="send">שלח</string>
-    <string name="success_message">Item Saved</string>
+    <string name="tab_title_love_generator_frag">מכתב חדש</string>
+    <string name="tab_title_love_writer_frag">משפט חדש</string>
+    <string name="tab_title_love_editor_frag">עריכה</string>
+    <string name="btn_title_send">שלח</string>
+    <string name="btn_title_generate_new_letter">צור מכתב</string>
+    <string name="item_save_success_message_title">הצלחה</string>
+    <string name="error_message_title">Error:</string>
 </resources>

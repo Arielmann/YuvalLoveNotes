@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
@@ -13,12 +12,11 @@ import kotlinx.android.synthetic.main.fragment_love_generator_tab.*
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.LOG_TAG
-import subtext.yuvallovenotes.backendless.LoveNotesBackendless
 import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveItem
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
-import subtext.yuvallovenotes.whtsapp.WhatsAppSender
+import subtext.yuvallovenotes.whatsapp.WhatsAppSender
 
 /**
  * A placeholder fragment containing a simple view.
@@ -32,22 +30,19 @@ class LoveGeneratorFragment() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModelProvider = ViewModelProvider(this)
-        pageViewModel = pageViewModelProvider.get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root: View = inflater.inflate(R.layout.fragment_love_generator_tab, container, false)
-        pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
-            println("$LOG_TAG Initial love generator generation")
-            LoveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
-        })
+        pageViewModel = pageViewModelProvider.get(PageViewModel::class.java).apply {
+            setLoveNotesBackendless(context)
+        }
         return root
     }
 
     override fun onStart() {
         super.onStart()
+        pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
         setOnClickListeners();
     }
 
@@ -59,6 +54,7 @@ class LoveGeneratorFragment() : Fragment() {
                 handleFault(BackendlessFault("Bad response. Result returned from server is $response"))
                 return
             }
+            pageViewModel.loveItems = response.toMutableList()
 
             this@LoveGeneratorFragment.activity?.runOnUiThread {
                 var lastIndex = 3
@@ -96,7 +92,7 @@ class LoveGeneratorFragment() : Fragment() {
     }
     private val loveGeneratorListener: View.OnClickListener = View.OnClickListener {
         println("$LOG_TAG Generate button clicked. Generating love letter")
-        LoveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
+        pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
     }
 
     private val loveSendListener: View.OnClickListener = View.OnClickListener {

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.whtsapp
+package subtext.yuvallovenotes.whatsapp
 
 import android.content.Context
 import android.content.Intent

@@ -1,19 +1,16 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import android.content.Context
 import androidx.lifecycle.ViewModel
+import subtext.yuvallovenotes.backendless.LoveNotesBackendless
+import subtext.yuvallovenotes.loveletters.LoveItem
 
 class PageViewModel : ViewModel() {
 
-    private val _index = MutableLiveData<Int>()
+    lateinit var loveNotesBackendless : LoveNotesBackendless
+    var loveItems : MutableList<LoveItem> = mutableListOf()
 
-    val text: LiveData<String> = Transformations.map(_index) {
-        ""
-    }
-
-    fun setIndex(index: Int) {
-        _index.value = index
+    fun setLoveNotesBackendless(context: Context?) {
+        loveNotesBackendless = LoveNotesBackendless(context)
     }
 }

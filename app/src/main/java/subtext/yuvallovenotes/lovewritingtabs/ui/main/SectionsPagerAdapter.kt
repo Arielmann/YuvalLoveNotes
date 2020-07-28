@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.lovewritingtabs.ui.main.editor.LoveEditorFragment
 
 @ExperimentalStdlibApi
 private val TABS = listOf(

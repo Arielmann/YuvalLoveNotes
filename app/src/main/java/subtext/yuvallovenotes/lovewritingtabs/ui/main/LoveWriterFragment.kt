@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.fragment_love_writer_tab.*
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.backendless.LoveNotesBackendless
 import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
@@ -25,16 +23,13 @@ class LoveWriterFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModelProvider = ViewModelProvider(this)
-        pageViewModel = pageViewModelProvider.get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val root: View = inflater.inflate(R.layout.fragment_love_writer_tab, container, false)
-        pageViewModel.text.observe(viewLifecycleOwner, Observer<String> {
-        })
-        return root
+        pageViewModel = pageViewModelProvider.get(PageViewModel::class.java).apply {
+            setLoveNotesBackendless(context)
+        }
+        return inflater.inflate(R.layout.fragment_love_writer_tab, container, false)
     }
 
     override fun onStart() {
@@ -46,19 +41,19 @@ class LoveWriterFragment : Fragment() {
         loveOpenerSenderBtn.setOnClickListener {
             val opener = LoveOpener();
             opener.text = loveOpenerEditText.text.toString()
-            context?.let { it1 -> LoveNotesBackendless.saveLoveOpener(it1, opener) }
+            pageViewModel.loveNotesBackendless.saveLoveOpener(opener)
         }
 
         lovePhraseSendBtn.setOnClickListener {
             val phrase = LovePhrase();
             phrase.text = lovePhraseEditText.text.toString()
-            context?.let { it1 -> LoveNotesBackendless.saveLovePhrase(it1, phrase) }
+            pageViewModel.loveNotesBackendless.saveLovePhrase(phrase)
         }
 
         loveClosureSendBtn.setOnClickListener {
             val closure = LoveClosure();
             closure.text = loveClosureEditText.text.toString()
-            context?.let { it1 -> LoveNotesBackendless.saveLoveClosure(it1, closure) }
+            pageViewModel.loveNotesBackendless.saveLoveClosure(closure)
         }
     }
 

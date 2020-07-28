@@ -34,7 +34,7 @@
         android:layout_marginStart="@dimen/love_generator_buttons_margin"
         android:layout_marginLeft="@dimen/love_generator_buttons_margin"
         android:layout_marginBottom="100dp"
-        android:text="Generate"
+        android:text="@string/btn_title_generate_new_letter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -45,7 +45,7 @@
         android:layout_marginEnd="@dimen/love_generator_buttons_margin"
         android:layout_marginRight="@dimen/love_generator_buttons_margin"
         app:layout_constraintBottom_toBottomOf="@+id/loveLetterGeneratorBtn"
-        android:text="Send"
+        android:text="@string/btn_title_send"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/loveLetterGeneratorBtn" />
 
