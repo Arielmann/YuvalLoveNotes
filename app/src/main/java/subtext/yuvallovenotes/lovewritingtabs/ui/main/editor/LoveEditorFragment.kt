@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,7 +12,11 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import kotlinx.android.synthetic.main.fragment_love_editor_tab.*
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveItem
+import subtext.yuvallovenotes.loveletters.LoveOpener
+import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.lovewritingtabs.ui.main.PageViewModel
 
 /**
@@ -19,8 +24,6 @@ import subtext.yuvallovenotes.lovewritingtabs.ui.main.PageViewModel
  */
 class LoveEditorFragment : Fragment() {
 
-    private lateinit var adapter: ListAdapter
-    private lateinit var layoutManager: LinearLayoutManager
     private lateinit var pageViewModelProvider: ViewModelProvider
     private lateinit var pageViewModel: PageViewModel
 
@@ -39,27 +42,30 @@ class LoveEditorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // RecyclerView node initialized here
-        // set a LinearLayoutManager to handle Android
-        // RecyclerView behavior
-        pageViewModel.loveNotesBackendless.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
-            override fun handleFault(fault: BackendlessFault?) {
-                TODO("Not yet implemented")
-            }
+        if (pageViewModel.loveItems.isEmpty()) {
+            pageViewModel.loveNotesBackendless.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
 
-            override fun handleResponse(response: List<LoveItem>?) {
-                activity?.runOnUiThread(Runnable {
+                override fun handleResponse(response: List<LoveItem>?) {
+
+                    if (response.isNullOrEmpty()) {
+                        handleFault(BackendlessFault("Bad response. Result returned from server is $response"))
+                        return
+                    }
+
+                    pageViewModel.loveItems = response.toMutableList()
+
                     list_recycler_view.apply {
                         layoutManager = LinearLayoutManager(activity)
-                        if (response != null) {
-                            adapter = ListAdapter(response.toMutableList())
-                        }
+                        adapter = ListAdapter(pageViewModel.loveItems)
                     }
-                })
+                }
 
-            }
-        })
-        // set the custom adapter to the RecyclerView
+                override fun handleFault(fault: BackendlessFault?) {
+                    Toast.makeText(context, fault.toString(), Toast.LENGTH_LONG).show()
+                }
+
+            })
+        }
     }
 
     companion object {

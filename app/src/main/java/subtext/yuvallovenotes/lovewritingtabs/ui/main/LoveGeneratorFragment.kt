@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.backendless.async.callback.AsyncCallback
@@ -86,7 +87,7 @@ class LoveGeneratorFragment() : Fragment() {
 
         override fun handleFault(fault: BackendlessFault?) {
             println("$LOG_TAG Backendless error: ${fault.toString()}")
-            TODO("Not yet implemented")
+            Toast.makeText(context, fault.toString(), Toast.LENGTH_LONG).show()
         }
 
     }

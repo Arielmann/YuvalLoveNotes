@@ -4,6 +4,7 @@ import java.util.*
 
 abstract class LoveItem {
 
+    var objectId: String? = null
     var lastUsed : Date? = null
     var numOfUsages = 0
     abstract var text: String

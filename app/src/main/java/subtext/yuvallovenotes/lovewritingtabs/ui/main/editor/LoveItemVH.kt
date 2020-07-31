@@ -7,18 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.loveletters.LoveItem
 
-class LoveItemVH(inflater: LayoutInflater, parent: ViewGroup) :
+class LoveItemVH(inflater: LayoutInflater, parent: ViewGroup):
 
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.list_item, parent, false)) {
-        private var mTitleView: TextView? = null
-
+    RecyclerView.ViewHolder(inflater.inflate(R.layout.love_item_edit_vh, parent, false)) {
+        private var itemEditText: TextView? = null
 
         init {
-            mTitleView = itemView.findViewById(R.id.list_title)
+            itemEditText = itemView.findViewById(R.id.loveItemEditorTv)
         }
 
         fun bind(item: LoveItem) {
-            mTitleView?.text = item.text
+            itemEditText?.text = item.text
         }
-
     }

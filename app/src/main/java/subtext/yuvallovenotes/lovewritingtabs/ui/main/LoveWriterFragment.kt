@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.backendless.async.callback.AsyncCallback
+import com.backendless.exceptions.BackendlessFault
 import kotlinx.android.synthetic.main.fragment_love_writer_tab.*
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.loveletters.LoveClosure
@@ -39,21 +42,60 @@ class LoveWriterFragment : Fragment() {
 
     private fun setOnClickListeners() {
         loveOpenerSenderBtn.setOnClickListener {
+            loveOpenerSenderBtn.isClickable = false
             val opener = LoveOpener();
             opener.text = loveOpenerEditText.text.toString()
-            pageViewModel.loveNotesBackendless.saveLoveOpener(opener)
+            pageViewModel.loveNotesBackendless.saveLoveOpener(opener, object : AsyncCallback<LoveOpener> {
+                override fun handleResponse(response: LoveOpener?) {
+                    loveOpenerSenderBtn.isClickable = true
+                    println("Backendless response ${response.toString()}")
+                    Toast.makeText(context, R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
+                    loveOpenerEditText.text.clear()
+                }
+
+                override fun handleFault(fault: BackendlessFault?) {
+                    loveOpenerSenderBtn.isClickable = true
+                    println("Backendless error ${fault.toString()}")
+                }
+            })
         }
 
         lovePhraseSendBtn.setOnClickListener {
+            lovePhraseSendBtn.isClickable = false
             val phrase = LovePhrase();
             phrase.text = lovePhraseEditText.text.toString()
-            pageViewModel.loveNotesBackendless.saveLovePhrase(phrase)
+            pageViewModel.loveNotesBackendless.saveLovePhrase(phrase, object : AsyncCallback<LovePhrase> {
+                override fun handleResponse(response: LovePhrase?) {
+                    lovePhraseSendBtn.isClickable = true
+                    println("Backendless response ${response.toString()}")
+                    Toast.makeText(context, R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
+                    lovePhraseEditText.text.clear()
+                }
+
+                override fun handleFault(fault: BackendlessFault?) {
+                    lovePhraseSendBtn.isClickable = true
+                    println("Backendless error ${fault.toString()}")
+                }
+            })
         }
 
         loveClosureSendBtn.setOnClickListener {
+            loveClosureSendBtn.isClickable = false
             val closure = LoveClosure();
             closure.text = loveClosureEditText.text.toString()
-            pageViewModel.loveNotesBackendless.saveLoveClosure(closure)
+            pageViewModel.loveNotesBackendless.saveLoveClosure(closure, object : AsyncCallback<LoveClosure> {
+                override fun handleResponse(response: LoveClosure?) {
+                    loveClosureSendBtn.isClickable = true
+                    println("Backendless response ${response.toString()}")
+                    Toast.makeText(context, R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
+                    loveClosureEditText.text.clear()
+                }
+
+                override fun handleFault(fault: BackendlessFault?) {
+                    loveClosureSendBtn.isClickable = true
+                    println("Backendless error ${fault.toString()}")
+                }
+            })
         }
     }
 

@@ -2,11 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/list_title"
+        android:id="@+id/loveItemEditorTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
@@ -18,15 +18,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/list_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
+    <View
+        android:id="@+id/loveItemEditorBoundary"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/cardview_dark_background"
         android:layout_marginTop="48dp"
-        android:paddingLeft="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/list_title"
-        app:layout_constraintStart_toStartOf="@+id/list_title"
-        app:layout_constraintTop_toBottomOf="@+id/list_title" />
+        app:layout_constraintEnd_toEndOf="@+id/loveItemEditorTv"
+        app:layout_constraintStart_toStartOf="@+id/loveItemEditorTv"
+        app:layout_constraintTop_toBottomOf="@+id/loveItemEditorTv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

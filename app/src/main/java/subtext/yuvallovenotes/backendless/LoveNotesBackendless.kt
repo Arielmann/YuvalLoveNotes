@@ -5,7 +5,6 @@ import android.widget.Toast
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
-import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.LOG_TAG
 import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveItem
@@ -78,66 +77,29 @@ class LoveNotesBackendless(val context: Context?) {
         }.start()
     }
 
-    fun saveLoveOpener(opener: LoveOpener) {
-        if (verifyItemSaveOperation(opener, ",")) {
-
+    fun saveLoveOpener(opener: LoveOpener, callback: AsyncCallback<LoveOpener>) {
+        if (verifyItemSaveOperation(opener, ",", callback)) {
             Thread {
-                Backendless.Data.of(LoveOpener::class.java).save(opener, object : AsyncCallback<LoveOpener> {
-                    override fun handleResponse(response: LoveOpener?) {
-                        println("Backendless response ${response.toString()}")
-                        Toast.makeText(contextWeakReference.get(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun handleFault(fault: BackendlessFault?) {
-                        println("Backendless error ${fault.toString()}")
-                    }
-                })
+                Backendless.Data.of(LoveOpener::class.java).save(opener, callback)
             }.start()
         }
     }
 
-    fun saveLovePhrase(phrase: LovePhrase) {
-        if (verifyItemSaveOperation(phrase, ".")) {
+    fun saveLovePhrase(phrase: LovePhrase, callback: AsyncCallback<LovePhrase>) {
+        if (verifyItemSaveOperation(phrase, ".", callback)) {
             Thread {
-                Backendless.Data.of(LovePhrase::class.java).save(phrase, object : AsyncCallback<LovePhrase> {
-                    override fun handleResponse(response: LovePhrase?) {
-                        println("Backendless response ${response.toString()}")
-                        Toast.makeText(contextWeakReference.get(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun handleFault(fault: BackendlessFault?) {
-                        println("Backendless error ${fault.toString()}")
-                    }
-                })
+                Backendless.Data.of(LovePhrase::class.java).save(phrase, callback)
             }.start()
         }
     }
 
-    fun saveLoveClosure(closure: LoveClosure) {
-        if (verifyItemSaveOperation(closure, ".")) {
-            Thread {
-                Backendless.Data.of(LoveClosure::class.java).save(closure, object : AsyncCallback<LoveClosure> {
-                    override fun handleResponse(response: LoveClosure?) {
-                        println("Backendless response ${response.toString()}")
-                        Toast.makeText(contextWeakReference.get(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
-                    }
-
-                    override fun handleFault(fault: BackendlessFault?) {
-                        println("Backendless error ${fault.toString()}")
-                        Toast.makeText(contextWeakReference.get(), (contextWeakReference.get()?.getString(R.string.error_message_title)
-                                ?: "Error") + fault.toString(), Toast.LENGTH_LONG).show()
-                    }
-                })
-            }.start()
-        }
-    }
-
-    private fun verifyItemSaveOperation(item: LoveItem, lastChar: String): Boolean {
+    private fun verifyItemSaveOperation(item: LoveItem, lastChar: String, callback: AsyncCallback<out LoveItem>): Boolean {
         if(!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return false
         if (item.text.isEmpty()) {
             val errorMsg = "INVALID LOVE ITEM. empty or null text"
             println(LOG_TAG + errorMsg)
             Toast.makeText(contextWeakReference.get(), errorMsg, Toast.LENGTH_LONG).show()
+            callback.handleFault(BackendlessFault("INVALID LOVE ITEM. empty or null text"))
             return false
         }
 
@@ -146,4 +108,13 @@ class LoveNotesBackendless(val context: Context?) {
         }
         return true
     }
+
+    fun saveLoveClosure(closure: LoveClosure, callback: AsyncCallback<LoveClosure>) {
+        if (verifyItemSaveOperation(closure, ".", callback)) {
+            Thread {
+                Backendless.Data.of(LoveClosure::class.java).save(closure, callback)
+            }.start()
+        }
+    }
+
 }
