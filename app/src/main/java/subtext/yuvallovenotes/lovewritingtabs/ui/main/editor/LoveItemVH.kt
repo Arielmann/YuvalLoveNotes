@@ -20,3 +20,10 @@ class LoveItemVH(inflater: LayoutInflater, parent: ViewGroup):
             itemEditText?.text = item.text
         }
     }
+
+fun <T : RecyclerView.ViewHolder> T.listen(event: (position: Int, type: Int) -> Unit): T {
+    itemView.setOnClickListener {
+        event.invoke(getAdapterPosition(), getItemViewType())
+    }
+    return this
+}

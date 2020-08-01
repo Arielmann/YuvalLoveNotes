@@ -1,9 +1,13 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main.editor
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -19,9 +23,6 @@ import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.lovewritingtabs.ui.main.PageViewModel
 
-/**
- * A placeholder fragment containing a simple view.
- */
 class LoveEditorFragment : Fragment() {
 
     private lateinit var pageViewModelProvider: ViewModelProvider
@@ -42,7 +43,6 @@ class LoveEditorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (pageViewModel.loveItems.isEmpty()) {
             pageViewModel.loveNotesBackendless.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
 
                 override fun handleResponse(response: List<LoveItem>?) {
@@ -65,7 +65,19 @@ class LoveEditorFragment : Fragment() {
                 }
 
             })
+    }
+
+    private fun showDialog(title: String) {
+        val dialog = Dialog(activity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setContentView(R.layout.edit_item_dialog)
+        val body = dialog.findViewById(R.id.editorDialogTV) as TextView
+        body.text = title
+        val yesBtn = dialog.findViewById(R.id.editorDialogDoneBtn) as Button
+        yesBtn.setOnClickListener {
+            dialog.dismiss()
         }
+        dialog.show()
     }
 
     companion object {

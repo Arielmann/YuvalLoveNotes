@@ -15,9 +15,7 @@ import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 class LoveWriterFragment : Fragment() {
 
     private lateinit var pageViewModelProvider: ViewModelProvider

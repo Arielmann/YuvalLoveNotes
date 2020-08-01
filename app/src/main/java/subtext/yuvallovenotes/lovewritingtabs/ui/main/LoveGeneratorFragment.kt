@@ -19,9 +19,7 @@ import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 @ExperimentalStdlibApi
 class LoveGeneratorFragment() : Fragment() {
 
