@@ -16,21 +16,20 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import kotlinx.android.synthetic.main.fragment_love_editor_tab.*
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.loveletters.LoveClosure
 import subtext.yuvallovenotes.loveletters.LoveItem
-import subtext.yuvallovenotes.loveletters.LoveOpener
-import subtext.yuvallovenotes.loveletters.LovePhrase
+import subtext.yuvallovenotes.loveletters.LoveItemType
 import subtext.yuvallovenotes.lovewritingtabs.ui.main.PageViewModel
 
 class LoveEditorFragment : Fragment() {
 
     private lateinit var pageViewModelProvider: ViewModelProvider
     private lateinit var pageViewModel: PageViewModel
+    private lateinit var loveItemsOffestsMap: Map<LoveItemType, Int>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         pageViewModelProvider = ViewModelProvider(this)
+        loveItemsOffestsMap = hashMapOf(LoveItemType.OPENER to 40, LoveItemType.PHRASE to 50, LoveItemType.CLOSURE to 60)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
