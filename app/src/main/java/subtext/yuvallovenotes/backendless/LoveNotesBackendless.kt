@@ -21,8 +21,9 @@ import java.util.concurrent.Future
 class LoveNotesBackendless(val context: Context?) {
 
     companion object {
-        private const val DEFAULT_PAGE_SIZE: Int = 3
+        private const val DEFAULT_PAGE_SIZE: Int = 100
         private const val DEFAULT_OFFSET: Int = 0
+        private const val OFFSET_GAP: Int = 100
     }
 
     private val contextWeakReference: WeakReference<Context?> = WeakReference(context)
@@ -39,15 +40,16 @@ class LoveNotesBackendless(val context: Context?) {
         return Backendless.Data.of(LoveClosure::class.java).objectCount
     }
 
-    private fun generateLoveItemsOffsetsMap(): Map<LoveItemType, Int> {
+    private fun generateLoveItemsPossibleOffsetsMap(): Map<LoveItemType, Int> {
         val taskExecutor: ExecutorService = Executors.newFixedThreadPool(3)
         val tasks: MutableList<Callable<Pair<LoveItemType, Int>>> = generateObjectCountCallables()
         val futures: List<Future<*>> = taskExecutor.invokeAll(tasks)
 
         val finalResults: MutableMap<LoveItemType, Int> = EnumMap(LoveItemType::class.java)
         futures.forEach {
-            val objectCountPair: Pair<LoveItemType, Int> = it.get() as Pair<LoveItemType, Int>
-            finalResults[objectCountPair.first] = objectCountPair.second
+            val loveTypeToObjectCountPair: Pair<LoveItemType, Int> = it.get() as Pair<LoveItemType, Int>
+            //Setting a random offset if object count in table is higher than 100
+            finalResults[loveTypeToObjectCountPair.first] = if (loveTypeToObjectCountPair.second > 100) loveTypeToObjectCountPair.second - OFFSET_GAP else DEFAULT_OFFSET
         }
         taskExecutor.shutdown()
         return finalResults
@@ -73,7 +75,7 @@ class LoveNotesBackendless(val context: Context?) {
     fun findAllLoveData(callback: AsyncCallback<List<LoveItem>>) {
         if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return
         val taskExecutor: ExecutorService = Executors.newFixedThreadPool(3)
-        val tasks: MutableList<out Callable<MutableList<out LoveItem>>> = generateLoveItemsMutableListsCallables(generateLoveItemsOffsetsMap()) // your tasks
+        val tasks: MutableList<out Callable<MutableList<out LoveItem>>> = generateLoveItemsMutableListsCallables(generateLoveItemsPossibleOffsetsMap()) // your tasks
         val futures: List<Future<*>> = taskExecutor.invokeAll(tasks)
 
         val finalResults: MutableList<LoveItem> = mutableListOf()
@@ -114,39 +116,12 @@ class LoveNotesBackendless(val context: Context?) {
 
     private fun randomOffset(type: LoveItemType, possibleOffsetsMap: Map<LoveItemType, Int>): Int {
         @Suppress("UnnecessaryVariable")
-        val offset : Int = (0..maxOffset(type, possibleOffsetsMap)).random()
-        return offset
-    }
-
-    private fun maxOffset(type: LoveItemType, possibleOffsetsMap: Map<LoveItemType, Int>): Int {
-        @Suppress("UnnecessaryVariable")
-        var result = possibleOffsetsMap[type] ?: error {
+        var offset = possibleOffsetsMap[type] ?: error {
             Toast.makeText(contextWeakReference.get(), "Invalid offset of love item type ${type.name}, using $DEFAULT_OFFSET instead", LENGTH_LONG).show()
             DEFAULT_OFFSET
         }
-        result = if(result > 3) result - DEFAULT_PAGE_SIZE else DEFAULT_OFFSET
-        return result
-    }
-
-    fun findLoveOpeners(callback: AsyncCallback<List<LoveOpener>>) {
-        if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return
-        Thread {
-            Backendless.Data.of(LoveOpener::class.java).find(callback)
-        }.start()
-    }
-
-    fun findLovePhrases(callback: AsyncCallback<List<LoveOpener>>) {
-        if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return
-        Thread {
-            Backendless.Data.of(LoveOpener::class.java).find(callback)
-        }.start()
-    }
-
-    fun findLoveClosures(callback: AsyncCallback<List<LoveOpener>>) {
-        if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return
-        Thread {
-            Backendless.Data.of(LoveOpener::class.java).find(callback)
-        }.start()
+        offset = (0..offset).random()
+        return offset
     }
 
     fun saveLoveOpener(opener: LoveOpener, callback: AsyncCallback<LoveOpener>) {
