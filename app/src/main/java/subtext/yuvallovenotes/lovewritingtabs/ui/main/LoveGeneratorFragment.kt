@@ -1,6 +1,7 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class LoveGeneratorFragment() : Fragment() {
         super.onStart()
         pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
         setOnClickListeners();
+        loveLetterTV.movementMethod = ScrollingMovementMethod()
     }
 
     private val findAllLoveDataBackendlessListener = object : AsyncCallback<List<LoveItem>> {

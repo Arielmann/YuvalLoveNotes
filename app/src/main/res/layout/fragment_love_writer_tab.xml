@@ -5,6 +5,7 @@
     android:id="@+id/loveGeneratorCL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/love_generator_bg"
     tools:context=".lovewritingtabs.ui.main.LoveWriterFragment">
 
     <EditText
@@ -13,6 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:hint="@string/hint_love_opener"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/lovePhraseEditText"
         app:layout_constraintStart_toStartOf="@+id/lovePhraseEditText"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,10 +25,10 @@
 
     <Button
         android:id="@+id/loveOpenerSenderBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_tabs_buttons_size"
+        android:layout_height="@dimen/main_tabs_buttons_size"
         android:layout_marginTop="16dp"
-        android:text="@string/btn_title_send"
+        android:background="@drawable/send_btn"
         app:layout_constraintEnd_toEndOf="@+id/loveOpenerEditText"
         app:layout_constraintStart_toStartOf="@+id/loveOpenerEditText"
         app:layout_constraintTop_toBottomOf="@+id/loveOpenerEditText" />
@@ -35,6 +39,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:hint="@string/love_phrase_hint"
+        android:textColor="@color/white"
+        android:textColorHint="@color/white"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loveOpenerSenderBtn"
@@ -43,10 +50,10 @@
 
     <Button
         android:id="@+id/lovePhraseSendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_tabs_buttons_size"
+        android:layout_height="@dimen/main_tabs_buttons_size"
         android:layout_marginTop="16dp"
-        android:text="@string/btn_title_send"
+        android:background="@drawable/send_btn"
         app:layout_constraintEnd_toEndOf="@+id/lovePhraseEditText"
         app:layout_constraintStart_toStartOf="@+id/lovePhraseEditText"
         app:layout_constraintTop_toBottomOf="@+id/lovePhraseEditText" />
@@ -57,6 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:hint="@string/hint_love_closure"
+        android:textColorHint="@color/white"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lovePhraseSendBtn"
@@ -65,10 +75,10 @@
 
     <Button
         android:id="@+id/loveClosureSendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_tabs_buttons_size"
+        android:layout_height="@dimen/main_tabs_buttons_size"
         android:layout_marginTop="16dp"
-        android:text="@string/btn_title_send"
+        android:background="@drawable/send_btn"
         app:layout_constraintEnd_toEndOf="@+id/loveClosureEditText"
         app:layout_constraintStart_toStartOf="@+id/loveClosureEditText"
         app:layout_constraintTop_toBottomOf="@+id/loveClosureEditText" />

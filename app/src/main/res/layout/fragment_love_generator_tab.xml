@@ -5,13 +5,16 @@
     android:id="@+id/loveGeneratorCL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/love_generator_bg"
     tools:context=".lovewritingtabs.ui.main.LoveGeneratorFragment"
     android:windowSoftInputMode="stateAlwaysHidden">
 
     <TextView
         android:id="@+id/loveLetterTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="370dp"
+        android:scrollbars="vertical"
+        android:textColor="@color/white"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
@@ -29,23 +32,23 @@
 
     <Button
         android:id="@+id/loveLetterGeneratorBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_tabs_buttons_size"
+        android:layout_height="@dimen/main_tabs_buttons_size"
         android:layout_marginStart="@dimen/love_generator_buttons_margin"
         android:layout_marginLeft="@dimen/love_generator_buttons_margin"
         android:layout_marginTop="16dp"
-        android:text="@string/btn_title_generate_new_letter"
+        android:background="@drawable/generate_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loveLetterTV" />
 
     <Button
         android:id="@+id/loveLetterSendBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/main_tabs_buttons_size"
+        android:layout_height="@dimen/main_tabs_buttons_size"
         android:layout_marginEnd="@dimen/love_generator_buttons_margin"
         android:layout_marginRight="@dimen/love_generator_buttons_margin"
         app:layout_constraintBottom_toBottomOf="@+id/loveLetterGeneratorBtn"
-        android:text="@string/btn_title_send"
+        android:background="@drawable/send_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/loveLetterGeneratorBtn" />
 
