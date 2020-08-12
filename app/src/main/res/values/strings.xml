@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">YuvalLoveNotes</string>
-       <string name="app_title">מכתבים ליובל</string>
+    <string name="app_title">מכתבים ליובל</string>
     <string name="title_activity_love_writing_tabs">MainActivity</string>
     <string name="tab_title_love_generator_frag">מכתב חדש</string>
     <string name="tab_title_love_writer_frag">משפט חדש</string>
@@ -14,19 +14,19 @@
     <string name="hint_love_opener">פתיחה</string>
     <string name="title_activity_settings">הגדרות</string>
 
-   <!-- <string name="app_title">Letters For Yuval</string>
-    <string name="title_activity_love_writing_tabs">MainActivity</string>
-    <string name="tab_title_love_generator_frag">New Letter</string>
-    <string name="tab_title_love_writer_frag">Write New Sentence</string>
-    <string name="tab_title_love_editor_frag">Edit</string>
-    <string name="btn_title_send">Send</string>
-    <string name="btn_title_generate_new_letter">Generate</string>
-    <string name="item_save_success_message_title">Success</string>
-    <string name="error_message_title">Error:</string>
-    <string name="love_phrase_hint">Love Phrase</string>
-    <string name="hint_love_closure">Letter Closure</string>
-    <string name="hint_love_opener">Letter Opening</string>
-    <string name="title_activity_settings">Settings</string>-->
+    <!-- <string name="app_title">Letters For Yuval</string>
+     <string name="title_activity_love_writing_tabs">MainActivity</string>
+     <string name="tab_title_love_generator_frag">New Letter</string>
+     <string name="tab_title_love_writer_frag">Write New Sentence</string>
+     <string name="tab_title_love_editor_frag">Edit</string>
+     <string name="btn_title_send">Send</string>
+     <string name="btn_title_generate_new_letter">Generate</string>
+     <string name="item_save_success_message_title">Success</string>
+     <string name="error_message_title">Error:</string>
+     <string name="love_phrase_hint">Love Phrase</string>
+     <string name="hint_love_closure">Letter Closure</string>
+     <string name="hint_love_opener">Letter Opening</string>
+     <string name="title_activity_settings">Settings</string>-->
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

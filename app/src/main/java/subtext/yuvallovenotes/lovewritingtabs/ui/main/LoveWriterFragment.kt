@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
+import kotlinx.android.synthetic.main.fragment_love_generator_tab.*
 import kotlinx.android.synthetic.main.fragment_love_writer_tab.*
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.loveletters.LoveClosure
@@ -39,6 +40,7 @@ class LoveWriterFragment : Fragment() {
     }
 
     private fun setOnClickListeners() {
+        loveOpenerSenderBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
         loveOpenerSenderBtn.setOnClickListener {
             loveOpenerSenderBtn.isClickable = false
             val opener = LoveOpener();
@@ -58,6 +60,7 @@ class LoveWriterFragment : Fragment() {
             })
         }
 
+        lovePhraseSendBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
         lovePhraseSendBtn.setOnClickListener {
             lovePhraseSendBtn.isClickable = false
             val phrase = LovePhrase();
@@ -77,6 +80,7 @@ class LoveWriterFragment : Fragment() {
             })
         }
 
+        loveClosureSendBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
         loveClosureSendBtn.setOnClickListener {
             loveClosureSendBtn.isClickable = false
             val closure = LoveClosure();

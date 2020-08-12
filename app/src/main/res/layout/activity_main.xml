@@ -26,6 +26,7 @@
             android:minHeight="?actionBarSize"
             android:padding="@dimen/appbar_padding"
             android:text="@string/app_title"
+            android:fontFamily="sans-serif-black"
             android:background="@drawable/header_small_bg"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 

@@ -32,23 +32,31 @@
 
     <Button
         android:id="@+id/loveLetterGeneratorBtn"
-        android:layout_width="@dimen/main_tabs_buttons_size"
-        android:layout_height="@dimen/main_tabs_buttons_size"
+        android:layout_width="@dimen/main_tabs_buttons_width"
+        android:layout_height="@dimen/main_tabs_buttons_height"
+        android:text="@string/btn_title_generate_new_letter"
+        android:textColor="@color/white"
+        android:background="@drawable/main_tabs_empty_button"
         android:layout_marginStart="@dimen/love_generator_buttons_margin"
         android:layout_marginLeft="@dimen/love_generator_buttons_margin"
         android:layout_marginTop="16dp"
-        android:background="@drawable/generate_btn"
+        android:fontFamily="sans-serif-black"
+        android:paddingBottom="@dimen/main_tabs_empty_btn_text_padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/loveLetterTV" />
 
     <Button
         android:id="@+id/loveLetterSendBtn"
-        android:layout_width="@dimen/main_tabs_buttons_size"
-        android:layout_height="@dimen/main_tabs_buttons_size"
+        android:layout_width="@dimen/main_tabs_buttons_width"
+        android:layout_height="@dimen/main_tabs_buttons_height"
+        android:text="@string/btn_title_send"
+        android:textColor="@color/white"
+        android:background="@drawable/main_tabs_empty_button"
+        android:fontFamily="sans-serif-black"
+        android:paddingBottom="@dimen/main_tabs_empty_btn_text_padding"
         android:layout_marginEnd="@dimen/love_generator_buttons_margin"
         android:layout_marginRight="@dimen/love_generator_buttons_margin"
         app:layout_constraintBottom_toBottomOf="@+id/loveLetterGeneratorBtn"
-        android:background="@drawable/send_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/loveLetterGeneratorBtn" />
 

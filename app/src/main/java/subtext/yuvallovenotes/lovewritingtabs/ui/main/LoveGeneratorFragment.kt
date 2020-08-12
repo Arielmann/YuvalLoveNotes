@@ -103,7 +103,9 @@ class LoveGeneratorFragment() : Fragment() {
     }
 
     private fun setOnClickListeners() {
+        loveLetterGeneratorBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
         loveLetterGeneratorBtn.setOnClickListener(loveGeneratorListener)
+        loveLetterSendBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
         loveLetterSendBtn.setOnClickListener(loveSendListener)
     }
 
