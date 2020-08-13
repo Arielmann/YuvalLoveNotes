@@ -1,6 +1,7 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,10 @@ class LoveWriterFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        setOnClickListeners();
+        setOnClickListeners()
+        loveOpenerEditText.movementMethod = ScrollingMovementMethod()
+        lovePhraseEditText.movementMethod = ScrollingMovementMethod()
+        loveClosureEditText.movementMethod = ScrollingMovementMethod()
     }
 
     private fun setOnClickListeners() {
