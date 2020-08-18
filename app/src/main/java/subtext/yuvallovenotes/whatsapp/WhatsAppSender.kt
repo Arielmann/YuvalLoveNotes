@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 
 class WhatsAppSender {
-    fun send(context: Context?, mobileNumber: String, msg: String) {
+    fun send(context: Context?, mobileNumber: String?, msg: String) {
         //NOTE : please use with country code first 2digits without plus signed
 
         //NOTE : please use with country code first 2digits without plus signed

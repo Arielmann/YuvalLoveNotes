@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">YuvalLoveNotes</string>
     <string name="app_title">מכתבים ליובל</string>
-    <string name="title_activity_love_writing_tabs">MainActivity</string>
+    <string name="title_activity_love_writing_tabs">מכתבים ליובל</string>
     <string name="tab_title_love_generator_frag">מכתב חדש</string>
     <string name="tab_title_love_writer_frag">משפט חדש</string>
     <string name="tab_title_love_editor_frag">עריכה</string>
@@ -29,12 +29,11 @@
      <string name="title_activity_settings">Settings</string>-->
 
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
+    <string name="prefs_main_header">ראשי</string>
 
     <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
+    <string name="pref_key_target_phone_number">pref_key_target_phone_number</string>
+    <string name="pref_title_target_phone_number">טלפון לשליחת הודעות</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>

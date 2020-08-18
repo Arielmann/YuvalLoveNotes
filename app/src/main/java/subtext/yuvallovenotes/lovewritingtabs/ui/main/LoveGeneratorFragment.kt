@@ -1,5 +1,6 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import kotlinx.android.synthetic.main.fragment_love_generator_tab.*
@@ -44,7 +46,7 @@ class LoveGeneratorFragment() : Fragment() {
         super.onStart()
         pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
         setOnClickListeners();
-        loveLetterTV.movementMethod = ScrollingMovementMethod()
+        loveLetterEditText.movementMethod = ScrollingMovementMethod()
     }
 
     private val findAllLoveDataBackendlessListener = object : AsyncCallback<List<LoveItem>> {
@@ -81,7 +83,7 @@ class LoveGeneratorFragment() : Fragment() {
                     text = text.plus(closures.random().text)
                 }
 
-                loveLetterTV.text = text
+                loveLetterEditText.setText(text)
             }
         }
 
@@ -99,7 +101,11 @@ class LoveGeneratorFragment() : Fragment() {
     private val loveSendListener: View.OnClickListener = View.OnClickListener {
         println("$LOG_TAG Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
-        sendWhatsapp.send(context, BuildConfig.MOBILE_NUMBER, loveLetterTV.text.toString())
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER).ifBlank{
+            BuildConfig.MOBILE_NUMBER
+        }
+        sendWhatsapp.send(context, phoneNumber, loveLetterEditText.text.toString())
     }
 
     private fun setOnClickListeners() {
