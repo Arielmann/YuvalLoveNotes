@@ -74,6 +74,7 @@ class LoveGeneratorFragment() : Fragment() {
                 if(!openers.isNullOrEmpty()) {
                     text = text.plus(openers.randomOrNull()?.text + "\n\n")
                 }
+
                 phrasesForThisLetter.forEach { phrase ->
                     text = text.plus(phrase.text + "\n\n")
 

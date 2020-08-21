@@ -133,7 +133,7 @@ class LoveNotesBackendless(val context: Context?) {
     }
 
     fun saveLovePhrase(phrase: LovePhrase, callback: AsyncCallback<LovePhrase>) {
-        if (verifyItemSaveOperation(phrase, ".", callback)) {
+        if (verifyItemSaveOperation(phrase, "", callback)) {
             Thread {
                 Backendless.Data.of(LovePhrase::class.java).save(phrase, callback)
             }.start()
@@ -157,7 +157,7 @@ class LoveNotesBackendless(val context: Context?) {
     }
 
     fun saveLoveClosure(closure: LoveClosure, callback: AsyncCallback<LoveClosure>) {
-        if (verifyItemSaveOperation(closure, ".", callback)) {
+        if (verifyItemSaveOperation(closure, "", callback)) {
             Thread {
                 Backendless.Data.of(LoveClosure::class.java).save(closure, callback)
             }.start()
