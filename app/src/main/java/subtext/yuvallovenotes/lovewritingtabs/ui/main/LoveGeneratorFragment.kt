@@ -44,7 +44,9 @@ class LoveGeneratorFragment() : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
+        if(pageViewModel.loveItems.isEmpty()) {
+            pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
+        }
         setOnClickListeners();
         loveLetterEditText.movementMethod = ScrollingMovementMethod()
     }
