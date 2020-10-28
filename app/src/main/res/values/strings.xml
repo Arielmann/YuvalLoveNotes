@@ -32,6 +32,8 @@
     <string name="prefs_main_header">ראשי</string>
 
     <!-- Messages Preferences -->
+    <string name="pref_key_number_of_love_phrases">pref_key_number_of_love_phrases</string>
+    <string name="pref_title_number_of_love_phrases">כמות טקסטים במכתב</string>
     <string name="pref_key_target_phone_number">pref_key_target_phone_number</string>
     <string name="pref_title_target_phone_number">טלפון לשליחת הודעות</string>
 

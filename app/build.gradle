@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        release {
+            storePassword '12345678'
+            keyAlias = 'key0'
+            keyPassword '12345678'
+            storeFile file ("D:\\Software_In_Dev\\YuvalLoveNotes\\keystore\\localkeystore.jks")
+        }
+    }
     compileSdkVersion 28
 
 
@@ -22,6 +30,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            debuggable false
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

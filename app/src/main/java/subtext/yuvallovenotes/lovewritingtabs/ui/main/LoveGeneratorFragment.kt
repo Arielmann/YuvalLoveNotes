@@ -1,6 +1,5 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
@@ -21,6 +20,7 @@ import subtext.yuvallovenotes.loveletters.LoveItem
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
+
 
 
 @ExperimentalStdlibApi
@@ -62,7 +62,10 @@ class LoveGeneratorFragment() : Fragment() {
             pageViewModel.loveItems = response.toMutableList()
 
             this@LoveGeneratorFragment.activity?.runOnUiThread {
-                var lastIndex = 3
+                val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+                val keyNumberOfLovePhrases = getString(R.string.pref_key_number_of_love_phrases)
+                val defaultLovePhrasesNumber = 3
+                var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultLovePhrasesNumber.toString()).toIntOrNull().takeIf { it != null && it > 0 } ?: defaultLovePhrasesNumber
                 val allPhrases: List<LovePhrase> = response.filterIsInstance<LovePhrase>().shuffled()
                 if (allPhrases.getOrNull(lastIndex) == null) {
                     lastIndex = allPhrases.size
