@@ -18,7 +18,7 @@ private val TABS = listOf(
  * one of the sections/tabs/pages.
  */
 @ExperimentalStdlibApi
-class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class LoveLettersPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.

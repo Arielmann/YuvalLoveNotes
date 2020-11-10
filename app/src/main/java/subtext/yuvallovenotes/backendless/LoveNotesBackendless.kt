@@ -100,7 +100,6 @@ class LoveNotesBackendless(val context: Context?) {
         val lovePhrasesCallable: Callable<MutableList<out LoveItem>> = Callable {
             queryBuilder.setOffset(randomOffset(LoveItemType.PHRASE, possibleOffsetsMap))
             Backendless.Data.of(LovePhrase::class.java).find(queryBuilder)
-//            Backendless.Data.of(LovePhrase::class.java).find()
         }
 
         val loveClosuresCallable: Callable<MutableList<out LoveItem>> = Callable {
@@ -145,7 +144,7 @@ class LoveNotesBackendless(val context: Context?) {
         if (item.text.isEmpty()) {
             val errorMsg = "INVALID LOVE ITEM. empty or null text"
             println(LOG_TAG + errorMsg)
-            Toast.makeText(contextWeakReference.get(), errorMsg, Toast.LENGTH_LONG).show()
+            Toast.makeText(contextWeakReference.get(), errorMsg, LENGTH_LONG).show()
             callback.handleFault(BackendlessFault("INVALID LOVE ITEM. empty or null text"))
             return false
         }

@@ -22,9 +22,8 @@ import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
 
 
-
 @ExperimentalStdlibApi
-class LoveGeneratorFragment() : Fragment() {
+class LoveGeneratorFragment : Fragment() {
 
     private lateinit var pageViewModelProvider: ViewModelProvider
     private lateinit var pageViewModel: PageViewModel
@@ -47,7 +46,7 @@ class LoveGeneratorFragment() : Fragment() {
         if(pageViewModel.loveItems.isEmpty()) {
             pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
         }
-        setOnClickListeners();
+        setOnClickListeners()
         loveLetterEditText.movementMethod = ScrollingMovementMethod()
     }
 
@@ -65,7 +64,7 @@ class LoveGeneratorFragment() : Fragment() {
                 val prefs = PreferenceManager.getDefaultSharedPreferences(context)
                 val keyNumberOfLovePhrases = getString(R.string.pref_key_number_of_love_phrases)
                 val defaultLovePhrasesNumber = 3
-                var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultLovePhrasesNumber.toString()).toIntOrNull().takeIf { it != null && it > 0 } ?: defaultLovePhrasesNumber
+                var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultLovePhrasesNumber.toString())!!.toIntOrNull().takeIf { it != null && it > 0 } ?: defaultLovePhrasesNumber
                 val allPhrases: List<LovePhrase> = response.filterIsInstance<LovePhrase>().shuffled()
                 if (allPhrases.getOrNull(lastIndex) == null) {
                     lastIndex = allPhrases.size
@@ -108,7 +107,7 @@ class LoveGeneratorFragment() : Fragment() {
         println("$LOG_TAG Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER).ifBlank{
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER)!!.ifBlank{
             BuildConfig.MOBILE_NUMBER
         }
         sendWhatsapp.send(context, phoneNumber, loveLetterEditText.text.toString())

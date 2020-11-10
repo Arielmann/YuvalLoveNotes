@@ -9,7 +9,7 @@
     <string name="btn_title_generate_new_letter">צור מכתב</string>
     <string name="item_save_success_message_title">הצלחה</string>
     <string name="error_message_title">Error:</string>
-    <string name="love_phrase_hint">משפט של אהבה</string>
+    <string name="love_phrase_hint">טקסט אהבה</string>
     <string name="hint_love_closure">סיומת</string>
     <string name="hint_love_opener">פתיחה</string>
     <string name="title_activity_settings">הגדרות</string>
