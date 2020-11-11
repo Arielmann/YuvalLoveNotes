@@ -1,15 +1,22 @@
 package subtext.yuvallovenotes.loveletters
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import subtext.yuvallovenotes.crossapplication.models.IDFetcher
 import java.util.*
 
-abstract class LoveItem {
+@Entity(tableName = "love_item_table")
+open class LoveItem() : IDFetcher {
 
-    var objectId: String? = null
-    var lastUsed : Date? = null
-    var numOfUsages = 0
-    abstract var text: String
+    @PrimaryKey var objectId: String = ""
+    @ColumnInfo(name = "text") var text: String = ""
 
     override fun toString(): String {
-        return text + "\n\n" + "Last Used:" + lastUsed + "\n\n"
+        return "$text\n\n"
+    }
+
+    override fun fetch(): String? {
+        return objectId
     }
 }

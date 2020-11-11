@@ -1,7 +1,6 @@
 package subtext.yuvallovenotes.loveletters
 
-class LoveOpener : LoveItem(){
+import androidx.room.Entity
 
-    override var text: String = ""
-
-}
+@Entity(tableName = "love_opener_table")
+class LoveOpener : LoveItem()

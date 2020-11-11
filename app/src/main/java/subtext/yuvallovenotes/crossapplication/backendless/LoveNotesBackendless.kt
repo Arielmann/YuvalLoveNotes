@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.backendless
+package subtext.yuvallovenotes.crossapplication.backendless
 
 import android.content.Context
 import android.widget.Toast
@@ -9,7 +9,7 @@ import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
 import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.LOG_TAG
 import subtext.yuvallovenotes.loveletters.*
-import subtext.yuvallovenotes.utils.LoveUtils
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import java.lang.ref.WeakReference
 import java.util.*
 import java.util.concurrent.Callable

@@ -1,13 +1,11 @@
-package subtext.yuvallovenotes.utils
+package subtext.yuvallovenotes.crossapplication.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
-import androidx.annotation.RequiresApi
 
 object LoveUtils {
 

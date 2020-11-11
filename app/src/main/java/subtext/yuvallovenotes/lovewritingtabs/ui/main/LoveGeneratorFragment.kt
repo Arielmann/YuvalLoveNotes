@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
@@ -20,31 +19,21 @@ import subtext.yuvallovenotes.loveletters.LoveItem
 import subtext.yuvallovenotes.loveletters.LoveOpener
 import subtext.yuvallovenotes.loveletters.LovePhrase
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
+import org.koin.android.ext.android.get
 
-
-@ExperimentalStdlibApi
 class LoveGeneratorFragment : Fragment() {
 
-    private lateinit var pageViewModelProvider: ViewModelProvider
-    private lateinit var pageViewModel: PageViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        pageViewModelProvider = ViewModelProvider(this)
-    }
+    private var loveViewModel: LoveViewModel = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root: View = inflater.inflate(R.layout.fragment_love_generator_tab, container, false)
-        pageViewModel = pageViewModelProvider.get(PageViewModel::class.java).apply {
-            setLoveNotesBackendless(context)
-        }
         return root
     }
 
     override fun onStart() {
         super.onStart()
-        if(pageViewModel.loveItems.isEmpty()) {
-            pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
+        if (loveViewModel.loveItems.isEmpty()) {
+            loveViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
         }
         setOnClickListeners()
         loveLetterEditText.movementMethod = ScrollingMovementMethod()
@@ -58,13 +47,14 @@ class LoveGeneratorFragment : Fragment() {
                 handleFault(BackendlessFault("Bad response. Result returned from server is $response"))
                 return
             }
-            pageViewModel.loveItems = response.toMutableList()
+            loveViewModel.loveItems = response.toMutableList()
 
             this@LoveGeneratorFragment.activity?.runOnUiThread {
                 val prefs = PreferenceManager.getDefaultSharedPreferences(context)
                 val keyNumberOfLovePhrases = getString(R.string.pref_key_number_of_love_phrases)
                 val defaultLovePhrasesNumber = 3
-                var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultLovePhrasesNumber.toString())!!.toIntOrNull().takeIf { it != null && it > 0 } ?: defaultLovePhrasesNumber
+                var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultLovePhrasesNumber.toString())!!.toIntOrNull().takeIf { it != null && it > 0 }
+                        ?: defaultLovePhrasesNumber
                 val allPhrases: List<LovePhrase> = response.filterIsInstance<LovePhrase>().shuffled()
                 if (allPhrases.getOrNull(lastIndex) == null) {
                     lastIndex = allPhrases.size
@@ -75,7 +65,7 @@ class LoveGeneratorFragment : Fragment() {
 
                 var text = ""
 
-                if(!openers.isNullOrEmpty()) {
+                if (!openers.isNullOrEmpty()) {
                     text = text.plus(openers.randomOrNull()?.text + "\n\n")
                 }
 
@@ -84,7 +74,7 @@ class LoveGeneratorFragment : Fragment() {
 
                 }
 
-                if(!closures.isNullOrEmpty()) {
+                if (!closures.isNullOrEmpty()) {
                     text = text.plus(closures.random().text)
                 }
 
@@ -100,23 +90,23 @@ class LoveGeneratorFragment : Fragment() {
     }
     private val loveGeneratorListener: View.OnClickListener = View.OnClickListener {
         println("$LOG_TAG Generate button clicked. Generating love letter")
-        pageViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
+        loveViewModel.loveNotesBackendless.findAllLoveData(findAllLoveDataBackendlessListener)
     }
 
     private val loveSendListener: View.OnClickListener = View.OnClickListener {
         println("$LOG_TAG Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER)!!.ifBlank{
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER)!!.ifBlank {
             BuildConfig.MOBILE_NUMBER
         }
         sendWhatsapp.send(context, phoneNumber, loveLetterEditText.text.toString())
     }
 
     private fun setOnClickListeners() {
-        loveLetterGeneratorBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
+        loveLetterGeneratorBtn.setOnTouchListener(loveViewModel.onButtonsTouchListener)
         loveLetterGeneratorBtn.setOnClickListener(loveGeneratorListener)
-        loveLetterSendBtn.setOnTouchListener(pageViewModel.onButtonsTouchListener)
+        loveLetterSendBtn.setOnTouchListener(loveViewModel.onButtonsTouchListener)
         loveLetterSendBtn.setOnClickListener(loveSendListener)
     }
 

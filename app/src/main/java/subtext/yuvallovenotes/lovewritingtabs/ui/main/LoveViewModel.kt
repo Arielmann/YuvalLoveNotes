@@ -1,19 +1,19 @@
 package subtext.yuvallovenotes.lovewritingtabs.ui.main
 
-import android.content.Context
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.MotionEvent
 import android.view.View
 import androidx.lifecycle.ViewModel
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.backendless.LoveNotesBackendless
+import subtext.yuvallovenotes.crossapplication.backendless.LoveNotesBackendless
 import subtext.yuvallovenotes.loveletters.LoveItem
 
-class PageViewModel : ViewModel() {
+class LoveViewModel(application: YuvalLoveNotesApp) : ViewModel() {
 
-    lateinit var loveNotesBackendless : LoveNotesBackendless
-    var loveItems : MutableList<LoveItem> = mutableListOf()
+    var loveNotesBackendless: LoveNotesBackendless = LoveNotesBackendless(application)
+    var loveItems: MutableList<LoveItem> = mutableListOf()
 
+    @SuppressLint("ClickableViewAccessibility")
     val onButtonsTouchListener: View.OnTouchListener = View.OnTouchListener { view: View, motionEvent: MotionEvent ->
         when (motionEvent.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -30,9 +30,5 @@ class PageViewModel : ViewModel() {
             }
         }
         false
-    }
-
-    fun setLoveNotesBackendless(context: Context?) {
-        loveNotesBackendless = LoveNotesBackendless(context)
     }
 }
