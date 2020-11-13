@@ -43,4 +43,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="key_was_database_populated_first_time">key_was_database_populated_first_time</string>
 </resources>

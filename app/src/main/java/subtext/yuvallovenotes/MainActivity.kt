@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_main.*
-import subtext.yuvallovenotes.lovewritingtabs.ui.main.LoveLettersPagerAdapter
+import subtext.yuvallovenotes.lovetabs.ui.main.LoveLettersPagerAdapter
 import subtext.yuvallovenotes.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {

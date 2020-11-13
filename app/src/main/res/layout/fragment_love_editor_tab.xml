@@ -5,7 +5,7 @@
     android:id="@+id/loveGeneratorCL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".lovewritingtabs.ui.main.editor.LoveEditorFragment">
+    tools:context=".lovetabs.ui.main.editor.LoveEditorFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_recycler_view"

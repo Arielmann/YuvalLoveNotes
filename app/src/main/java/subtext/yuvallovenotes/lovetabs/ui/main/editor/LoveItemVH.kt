@@ -1,11 +1,11 @@
-package subtext.yuvallovenotes.lovewritingtabs.ui.main.editor
+package subtext.yuvallovenotes.lovetabs.ui.main.editor
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.loveletters.LoveItem
+import subtext.yuvallovenotes.loveitems.LoveItem
 
 class LoveItemVH(inflater: LayoutInflater, parent: ViewGroup):
 

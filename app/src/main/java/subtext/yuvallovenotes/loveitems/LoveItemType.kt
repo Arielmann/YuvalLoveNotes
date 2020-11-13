@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.loveletters
+package subtext.yuvallovenotes.loveitems
 
 enum class LoveItemType {
     OPENER, PHRASE, CLOSURE

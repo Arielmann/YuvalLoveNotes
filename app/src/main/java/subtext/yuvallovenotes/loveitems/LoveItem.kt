@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.loveletters
+package subtext.yuvallovenotes.loveitems
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,16 +7,15 @@ import subtext.yuvallovenotes.crossapplication.models.IDFetcher
 import java.util.*
 
 @Entity(tableName = "love_item_table")
-open class LoveItem() : IDFetcher {
+open class LoveItem(@PrimaryKey var id: String = UUID.randomUUID().toString(), @ColumnInfo(name = "text") var text: String = "") : IDFetcher {
 
-    @PrimaryKey var objectId: String = ""
-    @ColumnInfo(name = "text") var text: String = ""
+    var objectId: String? = null //Forced by backendless library
 
     override fun toString(): String {
         return "$text\n\n"
     }
 
     override fun fetch(): String? {
-        return objectId
+        return id
     }
 }

@@ -7,8 +7,8 @@ import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
-import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.LOG_TAG
-import subtext.yuvallovenotes.loveletters.*
+import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.APP_TAG
+import subtext.yuvallovenotes.loveitems.*
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import java.lang.ref.WeakReference
 import java.util.*
@@ -18,7 +18,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 
-class LoveNotesBackendless(val context: Context?) {
+class LoveNetworkCalls(val context: Context?) {
 
     companion object {
         private const val DEFAULT_PAGE_SIZE: Int = 100
@@ -49,6 +49,7 @@ class LoveNotesBackendless(val context: Context?) {
         futures.forEach {
             val loveTypeToObjectCountPair: Pair<LoveItemType, Int> = it.get() as Pair<LoveItemType, Int>
             //Setting a random offset if object count in table is higher than 100
+            // TODO: check what happens for tables with object count > 200 (does offset > 100 makes app crash?)
             finalResults[loveTypeToObjectCountPair.first] = if (loveTypeToObjectCountPair.second > 100) loveTypeToObjectCountPair.second - OFFSET_GAP else DEFAULT_OFFSET
         }
         taskExecutor.shutdown()
@@ -123,44 +124,41 @@ class LoveNotesBackendless(val context: Context?) {
         return offset
     }
 
-    fun saveLoveOpener(opener: LoveOpener, callback: AsyncCallback<LoveOpener>) {
-        if (verifyItemSaveOperation(opener, ",", callback)) {
+    private fun verifyItemSaveOperation(item: LoveItem, callback: AsyncCallback<out LoveItem>, onSuccess: () -> Unit): Boolean {
+        if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return false
+        if (item.text.isBlank()) {
+            val errorMsg = "INVALID LOVE ITEM. empty or null text"
+            println(APP_TAG + errorMsg)
+            Toast.makeText(contextWeakReference.get(), errorMsg, LENGTH_LONG).show()
+            callback.handleFault(BackendlessFault("INVALID LOVE ITEM. empty or null text"))
+            return false
+        }
+
+        onSuccess.invoke()
+        return true
+    }
+
+    fun save(opener: LoveOpener, callback: AsyncCallback<LoveOpener>) {
+        verifyItemSaveOperation(opener, callback) {
             Thread {
                 Backendless.Data.of(LoveOpener::class.java).save(opener, callback)
             }.start()
         }
     }
 
-    fun saveLovePhrase(phrase: LovePhrase, callback: AsyncCallback<LovePhrase>) {
-        if (verifyItemSaveOperation(phrase, "", callback)) {
+    fun save(phrase: LovePhrase, callback: AsyncCallback<LovePhrase>) {
+        verifyItemSaveOperation(phrase, callback) {
             Thread {
                 Backendless.Data.of(LovePhrase::class.java).save(phrase, callback)
             }.start()
         }
     }
 
-    private fun verifyItemSaveOperation(item: LoveItem, lastChar: String, callback: AsyncCallback<out LoveItem>): Boolean {
-        if (!LoveUtils.isNetworkAvailable(contextWeakReference.get())) return false
-        if (item.text.isEmpty()) {
-            val errorMsg = "INVALID LOVE ITEM. empty or null text"
-            println(LOG_TAG + errorMsg)
-            Toast.makeText(contextWeakReference.get(), errorMsg, LENGTH_LONG).show()
-            callback.handleFault(BackendlessFault("INVALID LOVE ITEM. empty or null text"))
-            return false
-        }
-
-        if (!item.text.takeLast(1).contentEquals(lastChar)) {
-            item.text = item.text + lastChar
-        }
-        return true
-    }
-
-    fun saveLoveClosure(closure: LoveClosure, callback: AsyncCallback<LoveClosure>) {
-        if (verifyItemSaveOperation(closure, "", callback)) {
+    fun save(closure: LoveClosure, callback: AsyncCallback<LoveClosure>) {
+        verifyItemSaveOperation(closure, callback) {
             Thread {
                 Backendless.Data.of(LoveClosure::class.java).save(closure, callback)
             }.start()
         }
     }
-
 }

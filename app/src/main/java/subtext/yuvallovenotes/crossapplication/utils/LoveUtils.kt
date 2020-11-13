@@ -1,9 +1,12 @@
 package subtext.yuvallovenotes.crossapplication.utils
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 
@@ -39,6 +42,27 @@ object LoveUtils {
         }
         Toast.makeText(context, "No internet connection", LENGTH_LONG).show()
         return false
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun newOnTouchListenerWithViewClickUIBehaviour(): View.OnTouchListener {
+      return View.OnTouchListener { view: View, motionEvent: MotionEvent ->
+            when (motionEvent.action) {
+                MotionEvent.ACTION_DOWN -> {
+//                println("${YuvalLoveNotesApp.LOG_TAG} Action Down")
+                    view.alpha = 0.5f
+                }
+                MotionEvent.ACTION_UP -> {
+//                println("${YuvalLoveNotesApp.LOG_TAG} Action Up")
+                    view.alpha = 1f
+                }
+
+                MotionEvent.ACTION_CANCEL -> {
+                    view.alpha = 1f
+                }
+            }
+            false
+        }
     }
 
 }

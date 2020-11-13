@@ -1,10 +1,9 @@
-package subtext.yuvallovenotes.lovewritingtabs.ui.main.editor
+package subtext.yuvallovenotes.lovetabs.ui.main.editor
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import subtext.yuvallovenotes.loveletters.LoveItem
+import subtext.yuvallovenotes.loveitems.LoveItem
 
 class ListAdapter(private val list: MutableList<LoveItem>) : RecyclerView.Adapter<LoveItemVH>() {
 

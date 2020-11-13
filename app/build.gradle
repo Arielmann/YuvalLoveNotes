@@ -93,26 +93,23 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
 
-// Kotlin components
+    // Kotlin components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
 
 
-    //Work Manager - Kotlin + coroutines
-    def work_version = "2.4.0"
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-
-// Material design
+    // Material design
     implementation "com.google.android.material:material:1.2.1"
 
-//ViewPager2
+    //ViewPager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
-    //Dependency Injection - Koin
-    implementation 'org.koin:koin-core:2.1.5'
-    implementation "org.koin:koin-android-scope:2.0.0"
-    implementation "org.koin:koin-android-viewmodel:2.0.0"
+    //Koin
+    def koin_version = '2.2.0'
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
 
     //Firebase
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
@@ -120,7 +117,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
 
-// Testing
+    //Testing
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.10"

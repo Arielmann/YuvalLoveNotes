@@ -11,16 +11,16 @@ import org.koin.core.context.startKoin
 
 class YuvalLoveNotesApp : Application() {
 
+    companion object {
+        val APP_TAG = YuvalLoveNotesApp::class.simpleName
+        lateinit var context: Context
+    }
+
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
         setupKoin()
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
-    }
-
-    companion object {
-        const val LOG_TAG = "YuvTag"
-        lateinit var context: Context
     }
 
     private fun setupKoin() {
