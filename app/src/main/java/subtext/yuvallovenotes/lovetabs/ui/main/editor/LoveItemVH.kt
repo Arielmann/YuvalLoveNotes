@@ -9,7 +9,7 @@ import subtext.yuvallovenotes.loveitems.LoveItem
 
 class LoveItemVH(inflater: LayoutInflater, parent: ViewGroup):
 
-    RecyclerView.ViewHolder(inflater.inflate(R.layout.love_item_edit_vh, parent, false)) {
+    RecyclerView.ViewHolder(inflater.inflate(R.layout.vh_love_item_edit, parent, false)) {
         private var itemEditText: TextView? = null
 
         init {

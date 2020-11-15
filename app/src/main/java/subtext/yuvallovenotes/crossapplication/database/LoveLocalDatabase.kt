@@ -18,7 +18,7 @@ import subtext.yuvallovenotes.loveitems.LoveOpener
 import subtext.yuvallovenotes.loveitems.LovePhrase
 
 // Annotates class to be a Room Database with a table (entity) of the Quality class
-@Database(entities = [LoveItem::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 1, exportSchema = false)
+@Database(entities = [LoveItem::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 2, exportSchema = false)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
     private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)

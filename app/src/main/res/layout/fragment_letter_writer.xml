@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/love_generator_bg"
-    tools:context=".lovetabs.ui.main.writer.LoveWriterFragment">
+    tools:context=".lovetabs.ui.main.writer.LetterWriterFragment">
 
     <EditText
         android:id="@+id/loveOpenerEditText"

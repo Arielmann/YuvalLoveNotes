@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/letterGeneratorFragment">
+
+    <fragment
+        android:id="@+id/letterGeneratorFragment"
+        android:name="subtext.yuvallovenotes.lovetabs.ui.main.generator.LetterGeneratorFragment"
+        android:label="fragment_letter_generator"
+        tools:layout="@layout/fragment_letter_generator">
+    </fragment>
+
+</navigation>
