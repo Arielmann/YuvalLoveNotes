@@ -30,6 +30,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 GlobalScope.launch(Dispatchers.IO) {
+                    database.loveDao().deleteAllLoveItems()
 //                    database.loveDao().deleteAllLoveOpeners()
 //                    database.loveDao().deleteAllLovePhrases()
 //                    database.loveDao().deleteAllLoveClosures()

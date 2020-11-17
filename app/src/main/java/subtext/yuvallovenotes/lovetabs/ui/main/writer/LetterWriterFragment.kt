@@ -17,7 +17,7 @@ import subtext.yuvallovenotes.databinding.FragmentLetterWriterBinding
 import subtext.yuvallovenotes.loveitems.LoveClosure
 import subtext.yuvallovenotes.loveitems.LoveOpener
 import subtext.yuvallovenotes.loveitems.LovePhrase
-import subtext.yuvallovenotes.lovetabs.viewmodel.LetterViewModel
+import subtext.yuvallovenotes.lovetabs.viewmodel.LoveItemsViewModel
 
 class LetterWriterFragment : Fragment() {
 
@@ -27,7 +27,7 @@ class LetterWriterFragment : Fragment() {
     }
 
     private lateinit var binding: FragmentLetterWriterBinding
-    private var letterViewModel: LetterViewModel = get()
+    private var loveItemsViewModel: LoveItemsViewModel = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLetterWriterBinding.inflate(inflater, container, false)
@@ -49,10 +49,9 @@ class LetterWriterFragment : Fragment() {
            binding.loveOpenerSenderBtn.isClickable = false
             val opener = LoveOpener()
             opener.text = binding.loveOpenerEditText.text.toString()
-            letterViewModel.loveNetworkCalls.save(opener, object : AsyncCallback<LoveOpener> {
+            loveItemsViewModel.loveNetworkCalls.save(opener, object : AsyncCallback<LoveOpener> {
                 override fun handleResponse(response: LoveOpener?) {
                     binding.loveOpenerSenderBtn.isClickable = true
-                    println("Backendless response ${response.toString()}")
                     Toast.makeText(requireContext(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
                     binding.loveOpenerEditText.text.clear()
                 }
@@ -69,10 +68,9 @@ class LetterWriterFragment : Fragment() {
             binding.lovePhraseSendBtn.isClickable = false
             val phrase = LovePhrase()
             phrase.text = binding.lovePhraseEditText.text.toString()
-            letterViewModel.loveNetworkCalls.save(phrase, object : AsyncCallback<LovePhrase> {
+            loveItemsViewModel.loveNetworkCalls.save(phrase, object : AsyncCallback<LovePhrase> {
                 override fun handleResponse(response: LovePhrase?) {
                     binding.lovePhraseSendBtn.isClickable = true
-                    println("Backendless response ${response.toString()}")
                     Toast.makeText(requireContext(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
                     binding.lovePhraseEditText.text.clear()
                 }
@@ -89,10 +87,9 @@ class LetterWriterFragment : Fragment() {
             binding.loveClosureSendBtn.isClickable = false
             val closure = LoveClosure()
             closure.text = binding.loveClosureEditText.text.toString()
-            letterViewModel.loveNetworkCalls.save(closure, object : AsyncCallback<LoveClosure> {
+            loveItemsViewModel.loveNetworkCalls.save(closure, object : AsyncCallback<LoveClosure> {
                 override fun handleResponse(response: LoveClosure?) {
                     binding.loveClosureSendBtn.isClickable = true
-                    println("Backendless response ${response.toString()}")
                     Toast.makeText(requireContext(), R.string.item_save_success_message_title, Toast.LENGTH_LONG).show()
                     binding.loveClosureEditText.text.clear()
                 }
@@ -106,7 +103,7 @@ class LetterWriterFragment : Fragment() {
     }
 
     private fun observeDataUpdates() {
-        letterViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
+        loveItemsViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
             // Update the cached copy of the lovePhrases in the adapter.
             if (areAvailable) {
                 Log.d(TAG, "Love items available")

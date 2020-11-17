@@ -13,11 +13,10 @@ import subtext.yuvallovenotes.loveitems.LovePhrase
 class LoveRepository(context: Context) {
 
     private val loveDao: LoveDao = LoveLocalDatabase.getDatabase().loveDao()
-    var loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    fun getAllLocalDBLoveItems(): LiveData<List<LoveItem>> {
+    fun getAllLocalDBLoveItems(): LiveData<MutableList<LoveItem>> {
         return loveDao.getAllLoveItems()
     }
 
@@ -37,20 +36,20 @@ class LoveRepository(context: Context) {
         loveDao.insertLoveItem(item)
     }
 
+    suspend fun insertAllLoveItems(items: List<LoveItem>) {
+        loveDao.insertAllLoveItems(items)
+    }
+
+    fun getLoveItemByTextSync(text: String): LoveItem? {
+        return loveDao.getLoveItemByTextSync(text)
+    }
+
+
     suspend fun insertLoveOpener(opener: LoveOpener) {
         loveDao.insertLoveOpener(opener)
     }
 
     suspend fun insertLovePhrase(phrase: LovePhrase) {
-        /*    loveNetworkCalls.save(phrase, object : AsyncCallback<LovePhrase> {
-                override fun handleResponse(response: LovePhrase?) {
-                    TODO("Not yet implemented")
-                }
-
-                override fun handleFault(fault: BackendlessFault?) {
-                    TODO("Not yet implemented")
-                }
-            })*/
         loveDao.insertLovePhrase(phrase)
     }
 
@@ -66,14 +65,6 @@ class LoveRepository(context: Context) {
         loveDao.insertAllLoveClosures(closures)
     }
 
-    suspend fun update(phrase: LovePhrase) {
-        loveDao.updateLovePhrase(phrase)
-    }
-
-    suspend fun delete(phrase: LovePhrase) {
-        loveDao.deleteLovePhrase(phrase)
-    }
-
     fun getLovePhraseById(phrase: LovePhrase): LiveData<LovePhrase> {
         return loveDao.getLovePhraseById(phrase.id)
     }
@@ -81,5 +72,4 @@ class LoveRepository(context: Context) {
     fun getLovePhraseByIdSync(phrase: LovePhrase): LoveItem? {
         return loveDao.getLovePhraseByIdSync(phrase.id)
     }
-
 }

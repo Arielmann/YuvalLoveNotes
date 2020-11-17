@@ -2,8 +2,8 @@ package subtext.yuvallovenotes.crossapplication.service_locator
 
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import subtext.yuvallovenotes.lovetabs.viewmodel.LetterViewModel
+import subtext.yuvallovenotes.lovetabs.viewmodel.LoveItemsViewModel
 
 val viewModelModule = module {
-    viewModel { LetterViewModel(get()) }
+    viewModel { LoveItemsViewModel(get()) }
 }

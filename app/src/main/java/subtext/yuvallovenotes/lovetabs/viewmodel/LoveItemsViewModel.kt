@@ -1,7 +1,11 @@
 package subtext.yuvallovenotes.lovetabs.viewmodel
 
 import android.content.Context
-import androidx.lifecycle.*
+import android.util.Log.d
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.preference.PreferenceManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,12 +19,17 @@ import subtext.yuvallovenotes.loveitems.LoveOpener
 import subtext.yuvallovenotes.loveitems.LovePhrase
 import java.util.*
 
-class LetterViewModel(context: Context) : ViewModel() {
+class LoveItemsViewModel(context: Context) : ViewModel() {
+
+    companion object {
+        private val TAG: String = LoveItemsViewModel::class.simpleName!!
+    }
 
     private val loveRepository: LoveRepository = LoveRepository(context)
     val loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
-    private var loveItems: LiveData<List<LoveItem>>
+
+    internal var loveItems: LiveData<MutableList<LoveItem>>
     private var loveOpeners: LiveData<List<LoveOpener>>
     private var lovePhrases: LiveData<List<LovePhrase>>
     private var loveClosures: LiveData<List<LoveClosure>>
@@ -76,22 +85,16 @@ class LetterViewModel(context: Context) : ViewModel() {
         }
     }
 
+    fun populateLoveLettersList() {
+        for (i in 0..100) {
+            loveItems.value?.add(generateRandomLetter())
+        }
+    }
+
     fun insertLoveOpener(opener: LoveOpener) {
         viewModelScope.launch(Dispatchers.IO) {
             loveRepository.insertLoveOpener(opener)
         }
-    }
-
-    fun insertRandomLoveLettersToLocalDatabase() {
-       if(areAllLoveItemsAvailable.value == true){
-
-           lovePhrases.value?.forEach { _ ->
-               val item = LoveItem(UUID.randomUUID().toString(), newLetterText())
-               if(loveItems.value?.find { it.text == item.text } == null) {
-                   insertLoveItem(item)
-               }
-           }
-       }
     }
 
     fun lovePhrasesAmountInLetter(allPhrases: List<LovePhrase>): Int {
@@ -107,7 +110,7 @@ class LetterViewModel(context: Context) : ViewModel() {
         return lastIndex
     }
 
-    fun newLetterText(openers: List<LoveOpener>, phrases: List<LovePhrase>, closures: List<LoveClosure>): String {
+    fun generateRandomLetter(openers: List<LoveOpener>, phrases: List<LovePhrase>, closures: List<LoveClosure>): String {
         var result = ""
         if (!openers.isNullOrEmpty()) {
             result = result.plus(openers.randomOrNull()?.text + "\n\n")
@@ -124,26 +127,32 @@ class LetterViewModel(context: Context) : ViewModel() {
         return result
     }
 
-    fun newLetterText(): String {
-        var result = ""
+    fun generateRandomLetter(): LoveItem {
+        var text = ""
         areAllLoveItemsAvailable.value?.let {
             val allPhrases: List<LovePhrase> = lovePhrases.value!!.shuffled()
             val finalPhrasesPoolForSingleLetter: List<LovePhrase> = allPhrases.subList(0, lovePhrasesAmountInLetter(allPhrases))
             val openers: List<LoveOpener> = loveOpeners.value!!
             val closures: List<LoveClosure> = loveClosures.value!!
             if (!openers.isNullOrEmpty()) {
-                result = result.plus(openers.randomOrNull()?.text + "\n\n")
+                text = text.plus(openers.randomOrNull()?.text + "\n\n")
             }
 
             finalPhrasesPoolForSingleLetter.forEach { phrase ->
-                result = result.plus(phrase.text + "\n\n")
+                text = text.plus(phrase.text + "\n\n")
 
             }
 
             if (!closures.isNullOrEmpty()) {
-                result = result.plus(closures.random().text)
+                text = text.plus(closures.random().text)
             }
         }
+        val letter = LoveItem(UUID.randomUUID().toString(), text)
+        return letter
+    }
+
+    fun randomLetter(): LoveItem? {
+        val result = loveItems.value?.randomOrNull()
         return result
     }
 

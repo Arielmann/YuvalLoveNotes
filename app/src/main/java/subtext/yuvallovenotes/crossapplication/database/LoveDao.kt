@@ -19,8 +19,11 @@ interface LoveDao {
     @Query("SELECT * FROM love_item_table WHERE id=:id ")
     fun getLoveItemByIdSync(id: String): LoveItem?
 
+    @Query("SELECT * FROM love_item_table WHERE text=:text ")
+    fun getLoveItemByTextSync(text: String) : LoveItem?
+
     @Query("SELECT * from love_item_table")
-    fun getAllLoveItems(): LiveData<List<LoveItem>>
+    fun getAllLoveItems(): LiveData<MutableList<LoveItem>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoveItem(item: LoveItem)
@@ -99,5 +102,4 @@ interface LoveDao {
 
     @Query("DELETE FROM love_closure_table")
     suspend fun deleteAllLoveClosures()
-
 }

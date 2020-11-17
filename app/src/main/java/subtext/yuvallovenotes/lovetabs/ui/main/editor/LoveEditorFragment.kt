@@ -12,7 +12,7 @@ import com.backendless.exceptions.BackendlessFault
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.loveitems.LoveItem
-import subtext.yuvallovenotes.lovetabs.viewmodel.LetterViewModel
+import subtext.yuvallovenotes.lovetabs.viewmodel.LoveItemsViewModel
 
 class LoveEditorFragment : Fragment() {
 
@@ -20,7 +20,7 @@ class LoveEditorFragment : Fragment() {
         private val TAG: String = LoveEditorFragment::class.simpleName!!
     }
 
-    private var letterViewModel: LetterViewModel = get()
+    private var loveItemsViewModel: LoveItemsViewModel = get()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root: View = inflater.inflate(R.layout.fragment_letter_editor, container, false)
@@ -32,7 +32,7 @@ class LoveEditorFragment : Fragment() {
 
         observeDataUpdates()
 
-        letterViewModel.loveNetworkCalls.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
+        loveItemsViewModel.loveNetworkCalls.findAllLoveData(object : AsyncCallback<List<LoveItem>> {
 
             override fun handleResponse(response: List<LoveItem>?) {
 
@@ -41,7 +41,7 @@ class LoveEditorFragment : Fragment() {
                     return
                 }
 
-                letterViewModel.loveItemsFromNetwork = response.toMutableList()
+                loveItemsViewModel.loveItemsFromNetwork = response.toMutableList()
 
                 /*list_recycler_view.apply {
                     layoutManager = LinearLayoutManager(activity)
@@ -57,7 +57,7 @@ class LoveEditorFragment : Fragment() {
     }
 
     private fun observeDataUpdates() {
-        letterViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
+        loveItemsViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
             // Update the cached copy of the lovePhrases in the adapter.
             if (areAvailable) {
                 Log.d(TAG, "Love items available")

@@ -6,6 +6,7 @@ import androidx.room.PrimaryKey
 import subtext.yuvallovenotes.crossapplication.models.IDFetcher
 import java.util.*
 
+//Todo: add isFavourite
 @Entity(tableName = "love_item_table")
 open class LoveItem(@PrimaryKey var id: String = UUID.randomUUID().toString(),
                     @ColumnInfo(name = "text") var text: String = "",
