@@ -46,15 +46,15 @@ class LetterGeneratorFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         //Todo: remove, code should depend on local db
-       /* if (loveItemsViewModel.loveItemsFromNetwork.isEmpty()) {
+     /*   if (loveItemsViewModel.loveItemsFromNetwork.isEmpty()) {
             loveItemsViewModel.loveNetworkCalls.findAllLoveData(findAllLoveDataBackendlessListener)
         }*/
     }
 
     private fun observeDataUpdates() {
-        loveItemsViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
+        loveItemsViewModel.areLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
             if (areAvailable) {
-                loveItemsViewModel.loveItems.observeOnce(viewLifecycleOwner, { results ->
+                loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, { results ->
                     d(TAG, "Love items available: $results")
                     d(TAG, "Love items size: ${results?.size}")
                     loveItemsViewModel.populateLoveLettersList()

@@ -12,13 +12,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveItem
-import subtext.yuvallovenotes.loveitems.LoveOpener
-import subtext.yuvallovenotes.loveitems.LovePhrase
+import subtext.yuvallovenotes.loveitems.*
 
 // Annotates class to be a Room Database with a table (entity) of the Quality class
-@Database(entities = [LoveItem::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 2, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 3, exportSchema = false)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
     private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)
@@ -30,7 +27,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 GlobalScope.launch(Dispatchers.IO) {
-                    database.loveDao().deleteAllLoveItems()
+//                    database.loveDao().deleteAllLoveLetters()
 //                    database.loveDao().deleteAllLoveOpeners()
 //                    database.loveDao().deleteAllLovePhrases()
 //                    database.loveDao().deleteAllLoveClosures()

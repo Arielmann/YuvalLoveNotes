@@ -1,7 +1,6 @@
 package subtext.yuvallovenotes.lovetabs.viewmodel
 
 import android.content.Context
-import android.util.Log.d
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
@@ -13,10 +12,7 @@ import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.backendless.LoveNetworkCalls
 import subtext.yuvallovenotes.crossapplication.database.LoveRepository
-import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveItem
-import subtext.yuvallovenotes.loveitems.LoveOpener
-import subtext.yuvallovenotes.loveitems.LovePhrase
+import subtext.yuvallovenotes.loveitems.*
 import java.util.*
 
 class LoveItemsViewModel(context: Context) : ViewModel() {
@@ -29,33 +25,33 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     val loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
 
-    internal var loveItems: LiveData<MutableList<LoveItem>>
+    internal var loveLetters: LiveData<MutableList<LoveLetter>>
     private var loveOpeners: LiveData<List<LoveOpener>>
     private var lovePhrases: LiveData<List<LovePhrase>>
     private var loveClosures: LiveData<List<LoveClosure>>
-    var areAllLoveItemsAvailable: MediatorLiveData<Boolean> = MediatorLiveData()
+    var areLoveItemsAvailable: MediatorLiveData<Boolean> = MediatorLiveData()
 
     init {
-        areAllLoveItemsAvailable.value = false
-        loveItems = loveRepository.getAllLocalDBLoveItems()
+        areLoveItemsAvailable.value = false
+        loveLetters = loveRepository.getAllLocalDBLoveLetters()
         loveOpeners = loveRepository.getAllLocalDBLoveOpeners()
         lovePhrases = loveRepository.getAllLocalDBLovePhrases()
         loveClosures = loveRepository.getAllLocalDBLoveClosure()
 
-        areAllLoveItemsAvailable.addSource(loveOpeners) { openers ->
-            areAllLoveItemsAvailable.value = openers.isEmpty() == false &&
+        areLoveItemsAvailable.addSource(loveOpeners) { openers ->
+            areLoveItemsAvailable.value = openers.isEmpty() == false &&
                     lovePhrases.value?.isNullOrEmpty() == false &&
                     loveClosures.value?.isNullOrEmpty() == false
         }
 
-        areAllLoveItemsAvailable.addSource(lovePhrases) { phrases ->
-            areAllLoveItemsAvailable.value = phrases.isEmpty() == false &&
+        areLoveItemsAvailable.addSource(lovePhrases) { phrases ->
+            areLoveItemsAvailable.value = phrases.isEmpty() == false &&
                     loveOpeners.value?.isNullOrEmpty() == false &&
                     loveClosures.value?.isNullOrEmpty() == false
         }
 
-        areAllLoveItemsAvailable.addSource(loveClosures) { closures ->
-            areAllLoveItemsAvailable.value = closures.isEmpty() == false &&
+        areLoveItemsAvailable.addSource(loveClosures) { closures ->
+            areLoveItemsAvailable.value = closures.isEmpty() == false &&
                     loveOpeners.value?.isNullOrEmpty() == false &&
                     lovePhrases.value?.isNullOrEmpty() == false
         }
@@ -79,15 +75,15 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun insertLoveItem(item: LoveItem) {
+    fun insertLoveItem(letter: LoveLetter) {
         viewModelScope.launch(Dispatchers.IO) {
-            loveRepository.insertLoveItem(item)
+            loveRepository.insertLoveLetter(letter)
         }
     }
 
     fun populateLoveLettersList() {
         for (i in 0..100) {
-            loveItems.value?.add(generateRandomLetter())
+            loveLetters.value?.add(generateRandomLetter())
         }
     }
 
@@ -127,9 +123,9 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         return result
     }
 
-    fun generateRandomLetter(): LoveItem {
+    private fun generateRandomLetter(): LoveLetter {
         var text = ""
-        areAllLoveItemsAvailable.value?.let {
+        areLoveItemsAvailable.value?.let {
             val allPhrases: List<LovePhrase> = lovePhrases.value!!.shuffled()
             val finalPhrasesPoolForSingleLetter: List<LovePhrase> = allPhrases.subList(0, lovePhrasesAmountInLetter(allPhrases))
             val openers: List<LoveOpener> = loveOpeners.value!!
@@ -147,12 +143,12 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                 text = text.plus(closures.random().text)
             }
         }
-        val letter = LoveItem(UUID.randomUUID().toString(), text)
+        val letter = LoveLetter(UUID.randomUUID().toString(), text)
         return letter
     }
 
-    fun randomLetter(): LoveItem? {
-        val result = loveItems.value?.randomOrNull()
+    fun randomLetter(): LoveLetter? {
+        val result = loveLetters.value?.randomOrNull()
         return result
     }
 

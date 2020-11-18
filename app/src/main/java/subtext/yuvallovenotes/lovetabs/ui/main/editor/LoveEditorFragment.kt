@@ -57,7 +57,7 @@ class LoveEditorFragment : Fragment() {
     }
 
     private fun observeDataUpdates() {
-        loveItemsViewModel.areAllLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
+        loveItemsViewModel.areLoveItemsAvailable.observe(viewLifecycleOwner, { areAvailable ->
             // Update the cached copy of the lovePhrases in the adapter.
             if (areAvailable) {
                 Log.d(TAG, "Love items available")

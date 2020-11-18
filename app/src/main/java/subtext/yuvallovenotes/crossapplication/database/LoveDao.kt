@@ -3,7 +3,7 @@ package subtext.yuvallovenotes.crossapplication.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveItem
+import subtext.yuvallovenotes.loveitems.LoveLetter
 import subtext.yuvallovenotes.loveitems.LoveOpener
 import subtext.yuvallovenotes.loveitems.LovePhrase
 
@@ -11,37 +11,36 @@ import subtext.yuvallovenotes.loveitems.LovePhrase
 @Dao
 interface LoveDao {
 
-    //Love Item
+    //Love Letter
+    @Query("SELECT * FROM love_letter_table WHERE id=:id ")
+    fun getLoveLetterById(id: String): LiveData<LoveLetter>
 
-    @Query("SELECT * FROM love_item_table WHERE id=:id ")
-    fun getLoveItemById(id: String): LiveData<LoveItem>
+    @Query("SELECT * FROM love_letter_table WHERE id=:id ")
+    fun getLoveLetterByIdSync(id: String): LoveLetter?
 
-    @Query("SELECT * FROM love_item_table WHERE id=:id ")
-    fun getLoveItemByIdSync(id: String): LoveItem?
+    @Query("SELECT * FROM love_letter_table WHERE text=:text ")
+    fun getLoveLetterByTextSync(text: String) : LoveLetter?
 
-    @Query("SELECT * FROM love_item_table WHERE text=:text ")
-    fun getLoveItemByTextSync(text: String) : LoveItem?
-
-    @Query("SELECT * from love_item_table")
-    fun getAllLoveItems(): LiveData<MutableList<LoveItem>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLoveItem(item: LoveItem)
+    @Query("SELECT * from love_letter_table")
+    fun getAllLoveLetters(): LiveData<MutableList<LoveLetter>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllLoveItems(items: List<LoveItem?>?)
+    suspend fun insertLoveLetter(item: LoveLetter)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllLoveLetters(items: List<LoveLetter?>?)
 
     @Update
-    suspend fun updateLoveItem(item: LoveItem)
+    suspend fun updateLoveLetter(item: LoveLetter)
 
-    @Query("SELECT EXISTS (SELECT 1 FROM love_item_table WHERE id = :id)")
-    fun isLoveItemExists(id: String): Boolean
+    @Query("SELECT EXISTS (SELECT 1 FROM love_letter_table WHERE id = :id)")
+    fun isLoveLetterExists(id: String): Boolean
 
-    @Query("DELETE FROM love_item_table")
-    suspend fun deleteAllLoveItems()
+    @Query("DELETE FROM love_letter_table")
+    suspend fun deleteAllLoveLetters()
 
-    @Query("DELETE FROM love_item_table WHERE id=:id")
-    suspend fun deleteLoveItem(id: String)
+    @Query("DELETE FROM love_letter_table WHERE id=:id")
+    suspend fun deleteLoveLetter(id: String)
 
 
   //Love Opener
@@ -90,7 +89,6 @@ interface LoveDao {
 
 
     //Love Closure
-
     @Query("SELECT * from love_closure_table")
     fun getAllLoveClosures(): LiveData<List<LoveClosure>>
 
@@ -102,4 +100,5 @@ interface LoveDao {
 
     @Query("DELETE FROM love_closure_table")
     suspend fun deleteAllLoveClosures()
+    
 }

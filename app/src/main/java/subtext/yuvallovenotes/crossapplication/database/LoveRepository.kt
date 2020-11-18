@@ -2,9 +2,8 @@ package subtext.yuvallovenotes.crossapplication.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import subtext.yuvallovenotes.crossapplication.backendless.LoveNetworkCalls
 import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveItem
+import subtext.yuvallovenotes.loveitems.LoveLetter
 import subtext.yuvallovenotes.loveitems.LoveOpener
 import subtext.yuvallovenotes.loveitems.LovePhrase
 
@@ -16,8 +15,8 @@ class LoveRepository(context: Context) {
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
-    fun getAllLocalDBLoveItems(): LiveData<MutableList<LoveItem>> {
-        return loveDao.getAllLoveItems()
+    fun getAllLocalDBLoveLetters(): LiveData<MutableList<LoveLetter>> {
+        return loveDao.getAllLoveLetters()
     }
 
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {
@@ -32,16 +31,16 @@ class LoveRepository(context: Context) {
         return loveDao.getAllLoveClosures()
     }
 
-    suspend fun insertLoveItem(item: LoveItem) {
-        loveDao.insertLoveItem(item)
+    suspend fun insertLoveLetter(item: LoveLetter) {
+        loveDao.insertLoveLetter(item)
     }
 
-    suspend fun insertAllLoveItems(items: List<LoveItem>) {
-        loveDao.insertAllLoveItems(items)
+    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
+        loveDao.insertAllLoveLetters(items)
     }
 
-    fun getLoveItemByTextSync(text: String): LoveItem? {
-        return loveDao.getLoveItemByTextSync(text)
+    fun getLoveLetterByTextSync(text: String): LoveLetter? {
+        return loveDao.getLoveLetterByTextSync(text)
     }
 
 
@@ -69,7 +68,7 @@ class LoveRepository(context: Context) {
         return loveDao.getLovePhraseById(phrase.id)
     }
 
-    fun getLovePhraseByIdSync(phrase: LovePhrase): LoveItem? {
+    fun getLovePhraseByIdSync(phrase: LovePhrase): LovePhrase? {
         return loveDao.getLovePhraseByIdSync(phrase.id)
     }
 }
