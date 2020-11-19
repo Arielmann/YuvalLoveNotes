@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="subtext.yuvallovenotes">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".YuvalLoveNotesApp"
         android:allowBackup="true"
@@ -9,10 +12,12 @@
         android:roundIcon="@mipmap/lovers_logo_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/BlankAppBackground"/>
+            android:theme="@style/BlankScreen"/>
+
         <activity
             android:name=".MainActivity"
             android:label="@string/title_activity_love_writing_tabs">
@@ -22,9 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    </application>
 
 </manifest>

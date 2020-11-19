@@ -2,14 +2,14 @@ package subtext.yuvallovenotes.crossapplication.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveLetter
-import subtext.yuvallovenotes.loveitems.LoveOpener
-import subtext.yuvallovenotes.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
-class LoveRepository(context: Context) {
+class LoveItemsRepository(context: Context) {
 
     private val loveDao: LoveDao = LoveLocalDatabase.getDatabase().loveDao()
 
@@ -37,6 +37,11 @@ class LoveRepository(context: Context) {
 
     suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
         loveDao.insertAllLoveLetters(items)
+    }
+
+
+    fun getLoveLetterById(id: String): LiveData<LoveLetter> {
+        return loveDao.getLoveLetterById(id)
     }
 
     fun getLoveLetterByTextSync(text: String): LoveLetter? {

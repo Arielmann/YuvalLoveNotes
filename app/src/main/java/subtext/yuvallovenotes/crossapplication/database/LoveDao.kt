@@ -2,10 +2,10 @@ package subtext.yuvallovenotes.crossapplication.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveLetter
-import subtext.yuvallovenotes.loveitems.LoveOpener
-import subtext.yuvallovenotes.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 
 @Dao

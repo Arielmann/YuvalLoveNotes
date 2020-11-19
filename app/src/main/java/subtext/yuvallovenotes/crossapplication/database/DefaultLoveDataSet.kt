@@ -1,8 +1,8 @@
 package subtext.yuvallovenotes.crossapplication.database
 
-import subtext.yuvallovenotes.loveitems.LoveClosure
-import subtext.yuvallovenotes.loveitems.LoveOpener
-import subtext.yuvallovenotes.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 object DefaultLoveDataSet {
 

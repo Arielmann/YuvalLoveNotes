@@ -7,9 +7,42 @@
 
     <fragment
         android:id="@+id/letterGeneratorFragment"
-        android:name="subtext.yuvallovenotes.lovetabs.ui.main.generator.LetterGeneratorFragment"
+        android:name="subtext.yuvallovenotes.lovelettersgenerator.ui.LetterGeneratorFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_letter_generator">
+
+        <action
+            android:id="@+id/navigate_to_letter_list"
+            app:destination="@id/letterListFragment"
+            app:popUpTo="@id/letterListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/fade_out" />
+
+
+        <argument
+            android:name="@string/letter_id"
+            android:defaultValue=""
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/letterListFragment"
+        android:name="subtext.yuvallovenotes.lovelettersoverview.LetterListFragment"
+        android:label="developmentTabsActivity"
+        tools:layout="@layout/fragment_letter_list">
+
+        <action
+            android:id="@+id/navigate_to_letter_generator"
+            app:destination="@id/letterGeneratorFragment"
+            app:popUpTo="@id/letterGeneratorFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
 </navigation>

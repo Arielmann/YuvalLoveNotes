@@ -8,7 +8,7 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
 import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.APP_TAG
-import subtext.yuvallovenotes.loveitems.*
+import subtext.yuvallovenotes.crossapplication.models.loveitems.*
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import java.lang.ref.WeakReference
 import java.util.*

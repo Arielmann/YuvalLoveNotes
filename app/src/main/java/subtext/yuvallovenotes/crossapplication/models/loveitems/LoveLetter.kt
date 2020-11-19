@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.loveitems
+package subtext.yuvallovenotes.crossapplication.models.loveitems
 
 import androidx.room.Entity
 import java.util.UUID

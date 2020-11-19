@@ -44,12 +44,15 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="key_was_database_populated_first_time">key_was_database_populated_first_time</string>
+    <string name="letter_id">letter_id</string>
+
+    //Content Descriptions
     <string name="content_desc_new_letter">New Letter</string>
     <string name="content_desc_share_with_whatsapp">Share with whatsapp</string>
     <string name="content_desc_more_options">More options</string>
     <string name="content_desc_create_letter">Create letter screen</string>
     <string name="content_desc_all_letters">All letters screen</string>
     <string name="error_msg_whatsapp_not_installed">Whatsapp is not install on your phone. Please install the app and try again</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
 </resources>
