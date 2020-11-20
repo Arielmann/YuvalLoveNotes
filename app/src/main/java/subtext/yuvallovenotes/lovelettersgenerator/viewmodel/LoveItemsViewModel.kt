@@ -23,6 +23,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository(context)
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
+
     //todo: cleanup
     val loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)
 
@@ -86,10 +87,16 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    //todo: insert all letters to database on first launch
+    fun updateLetter(currentLetter: LoveLetter) {
+        viewModelScope.launch(Dispatchers.IO) {
+            loveItemsRepository.updateLoveLetter(currentLetter)
+        }
+    }
+
     fun populateLettersList() {
         for (i in 0..100) {
-            loveLetters.value?.add(generateRandomLetter())
+            insertLetter(generateRandomLetter())
+//            loveLetters.value?.add(generateRandomLetter())
         }
     }
 
@@ -106,7 +113,8 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         return lastIndex
     }
 
-    fun generateRandomLetter(openers: List<LoveOpener>, phrases: List<LovePhrase>, closures: List<LoveClosure>): String {
+    //todo: cleanup
+    fun generateRandomLetterText(openers: List<LoveOpener>, phrases: List<LovePhrase>, closures: List<LoveClosure>): String {
         var result = ""
         if (!openers.isNullOrEmpty()) {
             result = result.plus(openers.randomOrNull()?.text + "\n\n")
@@ -125,25 +133,40 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     private fun generateRandomLetter(): LoveLetter {
         var text = ""
+        var opener = LoveOpener()
+        var finalPhrasesPoolForSingleLetter: List<LovePhrase> = mutableListOf()
+        var closure = LoveClosure()
+
         areLoveItemsAvailable.value?.let {
-            val allPhrases: List<LovePhrase> = lovePhrases.value!!.shuffled()
-            val finalPhrasesPoolForSingleLetter: List<LovePhrase> = allPhrases.subList(0, lovePhrasesAmountInLetter(allPhrases))
-            val openers: List<LoveOpener> = loveOpeners.value!!
-            val closures: List<LoveClosure> = loveClosures.value!!
-            if (!openers.isNullOrEmpty()) {
-                text = text.plus(openers.randomOrNull()?.text + "\n\n")
+            loveOpeners.value?.let {
+                opener = it.randomOrNull() ?: opener
+                text = text.plus(opener.text + "\n\n")
             }
 
-            finalPhrasesPoolForSingleLetter.forEach { phrase ->
-                text = text.plus(phrase.text + "\n\n")
-
+            lovePhrases.value?.let { allPhrases ->
+                finalPhrasesPoolForSingleLetter = allPhrases.subList(0, lovePhrasesAmountInLetter(allPhrases))
+                finalPhrasesPoolForSingleLetter.forEach { phrase ->
+                    text = text.plus(phrase.text + "\n\n")
+                }
             }
 
-            if (!closures.isNullOrEmpty()) {
-                text = text.plus(closures.random().text)
+            loveClosures.value?.let {
+                closure = it.randomOrNull() ?: closure
+                text = text.plus(closure.text + "\n\n")
             }
         }
-        val letter = LoveLetter(UUID.randomUUID().toString(), text)
+
+        val id : String = run {
+            val phrasesIds = run{
+                var ids = ""
+                finalPhrasesPoolForSingleLetter.forEach {
+                    ids = ids.plus(it.id)
+                }
+            }
+            opener.id.plus(phrasesIds).plus(closure.id)
+        }
+
+        val letter = LoveLetter(id, text)
         return letter
     }
 
@@ -151,4 +174,5 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         val result = loveLetters.value?.randomOrNull()
         return result
     }
+
 }

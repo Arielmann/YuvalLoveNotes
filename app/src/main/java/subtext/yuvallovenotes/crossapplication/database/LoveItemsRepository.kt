@@ -19,6 +19,26 @@ class LoveItemsRepository(context: Context) {
         return loveDao.getAllLoveLetters()
     }
 
+    fun getLoveLetterById(id: String): LiveData<LoveLetter> {
+        return loveDao.getLoveLetterById(id)
+    }
+
+    fun getLoveLetterByTextSync(text: String): LoveLetter? {
+        return loveDao.getLoveLetterByTextSync(text)
+    }
+
+    suspend fun insertLoveLetter(item: LoveLetter) {
+        loveDao.insertLoveLetter(item)
+    }
+
+    suspend fun updateLoveLetter(currentLetter: LoveLetter) {
+        loveDao.updateLoveLetter(currentLetter)
+    }
+
+    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
+        loveDao.insertAllLoveLetters(items)
+    }
+
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {
         return loveDao.getAllLoveOpeners()
     }
@@ -31,22 +51,6 @@ class LoveItemsRepository(context: Context) {
         return loveDao.getAllLoveClosures()
     }
 
-    suspend fun insertLoveLetter(item: LoveLetter) {
-        loveDao.insertLoveLetter(item)
-    }
-
-    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
-        loveDao.insertAllLoveLetters(items)
-    }
-
-
-    fun getLoveLetterById(id: String): LiveData<LoveLetter> {
-        return loveDao.getLoveLetterById(id)
-    }
-
-    fun getLoveLetterByTextSync(text: String): LoveLetter? {
-        return loveDao.getLoveLetterByTextSync(text)
-    }
 
 
     suspend fun insertLoveOpener(opener: LoveOpener) {

@@ -25,13 +25,13 @@ interface LoveDao {
     fun getAllLoveLetters(): LiveData<MutableList<LoveLetter>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertLoveLetter(item: LoveLetter)
+    suspend fun insertLoveLetter(letter: LoveLetter)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllLoveLetters(items: List<LoveLetter?>?)
+    suspend fun insertAllLoveLetters(letters: List<LoveLetter?>?)
 
     @Update
-    suspend fun updateLoveLetter(item: LoveLetter)
+    suspend fun updateLoveLetter(letter: LoveLetter)
 
     @Query("SELECT EXISTS (SELECT 1 FROM love_letter_table WHERE id = :id)")
     fun isLoveLetterExists(id: String): Boolean
@@ -100,5 +100,5 @@ interface LoveDao {
 
     @Query("DELETE FROM love_closure_table")
     suspend fun deleteAllLoveClosures()
-    
+
 }
