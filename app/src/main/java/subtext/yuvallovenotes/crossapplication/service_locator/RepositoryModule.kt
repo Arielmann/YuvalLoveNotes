@@ -4,5 +4,5 @@ import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { LoveItemsRepository(get()) }
+    single { LoveItemsRepository() }
 }

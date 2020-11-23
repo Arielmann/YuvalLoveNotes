@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="default_love_phrases_amount_for_single_letter">3</integer>
+    <integer name="default_love_phrases_amount_for_single_letter">1</integer>
 </resources>

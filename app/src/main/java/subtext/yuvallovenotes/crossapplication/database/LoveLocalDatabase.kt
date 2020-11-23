@@ -13,34 +13,9 @@ import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 4, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 5, exportSchema = false)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
-    private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)
-    abstract fun loveDao(): LoveDao
-
-    private class LoveLettersDatabaseCallback() : RoomDatabase.Callback() {
-
-        override fun onOpen(db: SupportSQLiteDatabase) {
-            super.onOpen(db)
-            INSTANCE?.let { database ->
-                GlobalScope.launch(Dispatchers.IO) {
-//                    database.loveDao().deleteAllLoveLetters()
-//                    database.loveDao().deleteAllLoveOpeners()
-//                    database.loveDao().deleteAllLovePhrases()
-//                    database.loveDao().deleteAllLoveClosures()
-                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.key_was_database_populated_first_time)
-                    if (!database.sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) {
-                        database.loveDao().insertAllLoveOpeners(DefaultLoveDataSet.openers)
-                        database.loveDao().insertAllLovePhrases(DefaultLoveDataSet.phrases)
-                        database.loveDao().insertAllLoveClosures(DefaultLoveDataSet.closures)
-                        //Todo: mark true only after success
-                        database.sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
-                    }
-                }
-            }
-        }
-    }
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -54,7 +29,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
                 return tempInstance
             }
             synchronized(this) {
-                val instance = Room.databaseBuilder(YuvalLoveNotesApp.context, LoveLocalDatabase::class.java, "love_letters_database")
+                val instance = Room.databaseBuilder(YuvalLoveNotesApp.context, LoveLocalDatabase::class.java, "love_items_database")
                         .fallbackToDestructiveMigration()
                         .addCallback(LoveLettersDatabaseCallback())
                         .build()
@@ -64,4 +39,67 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         }
     }
 
+    abstract fun loveDao(): LoveDao
+
+    private class LoveLettersDatabaseCallback() : RoomDatabase.Callback() {
+
+        fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
+            var text = ""
+            var opener = LoveOpener()
+            var closure = LoveClosure()
+
+            opener = DefaultLoveDataSet.openers.randomOrNull() ?: opener
+            text = text.plus(opener.text + "\n\n")
+
+            /*    val allPhrasesShuffled = DefaultLoveDataSet.phrases.shuffled()
+                finalPhrasesPoolForSingleLetter = allPhrasesShuffled.subList(0, lovePhrasesAmountInLetter(allPhrases))
+                finalPhrasesPoolForSingleLetter.forEach { phrase ->
+                    text = text.plus(phrase.text + "\n\n")
+                }*/
+
+            text = text.plus(lovePhrase.text + "\n\n")
+
+            closure = DefaultLoveDataSet.closures.randomOrNull() ?: closure
+            text = text.plus(closure.text + "\n\n")
+
+            val id = opener.id.plus(lovePhrase.id).plus(closure.id)
+
+            val letter = LoveLetter(id, text)
+            return letter
+        }
+
+        fun populateLettersList(db: LoveLocalDatabase) {
+            for (i in 0..10) {
+                GlobalScope.launch(Dispatchers.IO) {
+                    DefaultLoveDataSet.phrases.forEach {
+                        db.loveDao().insertLoveLetter(generateRandomLetter(it))
+                    }
+                }
+            }
+        }
+
+        override fun onOpen(database: SupportSQLiteDatabase) {
+            super.onOpen(database)
+            INSTANCE?.let { db ->
+
+                val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)
+                GlobalScope.launch(Dispatchers.IO) {
+//                    db.loveDao().deleteAllLoveLetters()
+//                    db.loveDao().deleteAllLoveOpeners()
+//                    db.loveDao().deleteAllLovePhrases()
+//                    db.loveDao().deleteAllLoveClosures()
+                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.key_was_database_populated_first_time)
+                    //Todo: set to be correct condition
+                    if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, true)) { //Only populate once, after app is installed
+//                        db.loveDao().insertAllLoveOpeners(DefaultLoveDataSet.openers)
+//                        db.loveDao().insertAllLovePhrases(DefaultLoveDataSet.phrases)
+//                        db.loveDao().insertAllLoveClosures(DefaultLoveDataSet.closures)
+                        //Todo: mark true only after success
+                        populateLettersList(db)
+                        sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
+                    }
+                }
+            }
+        }
+    }
 }

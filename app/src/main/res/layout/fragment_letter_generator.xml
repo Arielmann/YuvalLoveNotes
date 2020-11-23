@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/love_generator_bg"
     android:windowSoftInputMode="stateAlwaysHidden"
-    tools:context=".lovelettersgenerator.ui.LetterGeneratorFragment">
+    tools:context=".lovelettersgenerator.LetterGeneratorFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appTabsCL"

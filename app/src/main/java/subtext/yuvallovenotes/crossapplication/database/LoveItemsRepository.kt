@@ -1,6 +1,5 @@
 package subtext.yuvallovenotes.crossapplication.database
 
-import android.content.Context
 import androidx.lifecycle.LiveData
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
@@ -9,12 +8,17 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
-class LoveItemsRepository(context: Context) {
+class LoveItemsRepository {
 
     private val loveDao: LoveDao = LoveLocalDatabase.getDatabase().loveDao()
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
+
+    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
+        loveDao.insertAllLoveLetters(items)
+    }
+
     fun getAllLocalDBLoveLetters(): LiveData<MutableList<LoveLetter>> {
         return loveDao.getAllLoveLetters()
     }
@@ -35,10 +39,6 @@ class LoveItemsRepository(context: Context) {
         loveDao.updateLoveLetter(currentLetter)
     }
 
-    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
-        loveDao.insertAllLoveLetters(items)
-    }
-
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {
         return loveDao.getAllLoveOpeners()
     }
@@ -50,8 +50,6 @@ class LoveItemsRepository(context: Context) {
     fun getAllLocalDBLoveClosure(): LiveData<List<LoveClosure>> {
         return loveDao.getAllLoveClosures()
     }
-
-
 
     suspend fun insertLoveOpener(opener: LoveOpener) {
         loveDao.insertLoveOpener(opener)

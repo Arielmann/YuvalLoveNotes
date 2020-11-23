@@ -6,9 +6,5 @@ import java.util.UUID
 @Entity(tableName = "love_letter_table")
 class LoveLetter(id: String = UUID.randomUUID().toString(), text: String = "") : LoveItem(id, text){
 
-/*    constructor(opener: LoveOpener, phrases: List<LovePhrase>, closure: LoveClosure){
-
-    }*/
-
     var objectId: String? = null //Forced by backendless library
 }

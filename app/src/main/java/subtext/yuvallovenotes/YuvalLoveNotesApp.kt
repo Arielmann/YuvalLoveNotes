@@ -8,6 +8,7 @@ import com.backendless.Backendless
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import subtext.yuvallovenotes.crossapplication.database.LoveLocalDatabase
 
 class YuvalLoveNotesApp : Application() {
 
@@ -19,6 +20,7 @@ class YuvalLoveNotesApp : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
+        LoveLocalDatabase.getDatabase() //Setting up for the first time
         setupKoin()
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
     }

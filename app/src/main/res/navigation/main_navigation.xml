@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/letterGeneratorFragment"
-        android:name="subtext.yuvallovenotes.lovelettersgenerator.ui.LetterGeneratorFragment"
+        android:name="subtext.yuvallovenotes.lovelettersgenerator.LetterGeneratorFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_letter_generator">
 

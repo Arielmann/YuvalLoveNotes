@@ -36,6 +36,12 @@
     <string name="pref_title_number_of_love_phrases">כמות טקסטים במכתב</string>
     <string name="pref_key_target_phone_number">pref_key_target_phone_number</string>
     <string name="pref_title_target_phone_number">טלפון לשליחת הודעות</string>
+    <string name="pref_key_show_only_letters_created_by_user">pref_key_show_only_letters_created_by_user</string>
+    <string name="pref_title_show_only_letters_created_by_user">הגרל רק מתוך המכתבים שנוצרו בידך</string>
+
+    <!--Titles for user-->
+    <string name="title_item_deleted">Item deleted</string>
+    <string name="title_undo">Undo</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
