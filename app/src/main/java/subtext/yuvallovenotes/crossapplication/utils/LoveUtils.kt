@@ -6,8 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
-import android.view.MotionEvent
-import android.view.View
+import android.util.Log.w
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import com.google.i18n.phonenumbers.NumberParseException
@@ -19,6 +18,8 @@ import java.lang.reflect.InvocationTargetException
 import java.util.*
 
 object LoveUtils {
+
+    private val TAG = LoveUtils::class.simpleName
 
     fun getFunctionName(): String {
         return object {}.javaClass.enclosingMethod.name
@@ -52,12 +53,20 @@ object LoveUtils {
         return false
     }
 
-    internal fun isPhoneNumberValid(countryCode : Int, number: String): Boolean {
+    internal fun isPhoneNumberValid(countryCode: String, number: String): Boolean {
+
+        if (!countryCode.contains("+")) {
+            w(TAG, "county code does not contain + character and therefore is invalid")
+            return false
+        }
+
         return try {
-            val locale = LocaleToCountryCode.findLocaleByCode(countryCode)?.name ?: getDeviceCountryCode(YuvalLoveNotesApp.context)
+            val locale = LocaleToCountryCode.findLocaleByCode(countryCode.replace("+", "").toInt())?.name
+                    ?: getDeviceCountryCode(YuvalLoveNotesApp.context)
             val phoneNumber = PhoneNumberUtil.getInstance().parseAndKeepRawInput(number, locale)
             PhoneNumberUtil.getInstance().isValidNumber(phoneNumber)
         } catch (e: NumberParseException) {
+            e.printStackTrace()
             false
         }
     }

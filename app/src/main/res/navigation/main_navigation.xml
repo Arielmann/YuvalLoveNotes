@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/enterLoverNumberFragment">
+    app:startDestination="@id/enterUserNameFragment">
 
     <fragment
         android:id="@+id/enterUserNameFragment"
@@ -12,12 +12,23 @@
         tools:layout="@layout/fragment_enter_user_name">
 
         <action
-            android:id="@+id/action_enterUserNameFrag_to_enterLoverNameFrag"
+            android:id="@+id/navigateToEnterLoverNameFrag"
             app:destination="@id/enterLoverNameFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_out_right"
             app:popExitAnim="@anim/slide_in_left" />
+
+        <action
+            android:id="@+id/navigate_to_letter_generator"
+            app:destination="@id/letterGeneratorFragment"
+            app:popUpTo="@id/enterUserNameFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_out_right"
+            app:popExitAnim="@anim/slide_in_left" />
+
 
     </fragment>
 
@@ -28,7 +39,7 @@
         tools:layout="@layout/fragment_enter_lover_name">
 
         <action
-            android:id="@+id/action_enterLoverNameFrag_to_enterLoverNumberFrag"
+            android:id="@+id/navigateToLoverNumberFrag"
             app:destination="@id/enterLoverNumberFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -44,8 +55,10 @@
         tools:layout="@layout/fragment_enter_lover_number">
 
         <action
-            android:id="@+id/action_enterNumberFrag_to_enterLoveGeneratorFrag"
+            android:id="@+id/navigateToLetterGeneratorFrag"
             app:destination="@id/letterGeneratorFragment"
+            app:popUpTo="@id/enterLoverNumberFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_out_right"
@@ -91,6 +104,7 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/fade_out" />
+
     </fragment>
 
 </navigation>

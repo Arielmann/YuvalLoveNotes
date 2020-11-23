@@ -9,7 +9,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNumberBinding
@@ -53,21 +52,16 @@ class EnterLoverNumberFragment : Fragment() {
     private fun setOnDoneButtonClickListener() {
         binding.loverNumberDoneBtn.setOnClickListener {
 
-            try {
-                val countryCode = binding.loversPhoneNumberRegionInputEditText.text.toString().replace("+", "")
-                val localNumber = binding.loversPhoneNumberInputEditText.text.toString()
-                if (LoveUtils.isPhoneNumberValid(countryCode.toInt(), localNumber)) {
-                    sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_region_number), "+".plus(countryCode)).apply()
-                    sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_phone_number), "+".plus(countryCode).plus(localNumber)).apply()
-                    findNavController().navigate(EnterLoverNumberFragmentDirections.actionEnterNumberFragToEnterLoveGeneratorFrag())
-                } else {
-                    Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
-                }
-            } catch (e: NumberFormatException) {
-                e.printStackTrace()
+            val countryCode = binding.loversPhoneNumberRegionInputEditText.text.toString()
+            val localNumber = binding.loversPhoneNumberInputEditText.text.toString()
+            if (LoveUtils.isPhoneNumberValid(countryCode, localNumber)) {
+                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_region_number), countryCode).apply()
+                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_phone_number), countryCode.plus(localNumber)).apply()
+                findNavController().popBackStack(R.id.enterUserNameFragment, false)
+                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
+            } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
             }
         }
     }
-
 }
