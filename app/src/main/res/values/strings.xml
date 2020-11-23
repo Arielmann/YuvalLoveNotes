@@ -32,16 +32,27 @@
     <string name="prefs_main_header">ראשי</string>
 
     <!-- Messages Preferences -->
+    <string name="pref_key_user_name">pref_key_user_name</string>
+    <string name="pref_key_lover_name">pref_key_lover_name</string>
     <string name="pref_key_number_of_love_phrases">pref_key_number_of_love_phrases</string>
     <string name="pref_title_number_of_love_phrases">כמות טקסטים במכתב</string>
     <string name="pref_key_target_phone_number">pref_key_target_phone_number</string>
-    <string name="pref_title_target_phone_number">טלפון לשליחת הודעות</string>
+    <string name="pref_key_target_region_number">pref_key_target_region_number</string>
+    <string name="pref_title_target_phone_number">Phone number for sending messages</string>
     <string name="pref_key_show_only_letters_created_by_user">pref_key_show_only_letters_created_by_user</string>
-    <string name="pref_title_show_only_letters_created_by_user">הגרל רק מתוך המכתבים שנוצרו בידך</string>
+    <string name="pref_title_show_only_letters_created_by_user">Use only letters created by user</string>
 
     <!--Titles for user-->
+    <string name="title_what_is_your_name">Your name</string>
+    <string name="title_what_is_your_lover_name">Your chosen one\'s name</string>
+    <string name="title_what_is_your_lovers_phone_number">Phone number of your chosen one</string>
     <string name="title_item_deleted">Item deleted</string>
     <string name="title_undo">Undo</string>
+
+    <!--Errors-->
+    <string name="error_no_user_name_inserted">Please insert your name</string>
+    <string name="error_no_lover_name_inserted">Please insert chosen one\'s name</string>
+    <string name="error_invalid_lover_number_inserted">Please insert a valid phone number</string>
 
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
@@ -58,7 +69,12 @@
     <string name="content_desc_more_options">More options</string>
     <string name="content_desc_create_letter">Create letter screen</string>
     <string name="content_desc_all_letters">All letters screen</string>
+    <string name="content_desc_back">Back</string>
     <string name="error_msg_whatsapp_not_installed">Whatsapp is not install on your phone. Please install the app and try again</string>
+    <string name="title_next">Next</string>
+    <string name="title_done">Done</string>
+    <string name="title_welcome">Love Letters</string>
 
+    <string name="default_country_code">IL</string> <!--Israel-->
 
 </resources>

@@ -20,6 +20,7 @@
 
         <activity
             android:name=".MainActivity"
+            android:theme="@style/SplashScreen"
             android:label="@string/title_activity_love_writing_tabs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,0 +1,3 @@
+Header Gradient codes : Right #AD0064 , Left #FF9953
+
+Background Colors :Black #253A4B , Pink #F23B5F

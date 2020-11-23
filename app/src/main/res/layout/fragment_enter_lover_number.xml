@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.EnterUserNameFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loverNumberTabCL"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Used as a wrapping button for making it easier to press-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/enterLoverNumberImageContainerCL"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/enterLoverNumberBackIV"
+                android:layout_width="@dimen/nav_back_btn_width"
+                android:layout_height="@dimen/nav_back_btn_height"
+                android:layout_gravity="start"
+                android:layout_marginStart="16dp"
+                android:background="@null"
+                android:src="@drawable/ic_arrow_back_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/content_desc_back" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/enterLoverNumberTitleTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="@string/title_what_is_your_lovers_phone_number"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/loversPhoneNumberInputEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/loversPhoneNumberRegionInputEditText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:gravity="left"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_enter_user_detail"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlHardcoded" />
+
+    <TextView
+        android:id="@+id/hyphenTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberInputEditText"
+        app:layout_constraintRight_toLeftOf="@+id/loversPhoneNumberInputEditText"
+        app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
+        app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberInputEditText" />
+
+    <EditText
+        android:id="@+id/loversPhoneNumberInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:importantForAutofill="no"
+        android:gravity="left"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:inputType="number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_enter_user_detail"
+        app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberRegionInputEditText"
+        app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
+        tools:ignore="RtlHardcoded,TextFields" />
+
+    <Button
+        android:id="@+id/loverNumberDoneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/title_done"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

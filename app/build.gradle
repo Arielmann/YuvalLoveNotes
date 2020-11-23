@@ -11,7 +11,7 @@ android {
             storePassword '12345678'
             keyAlias = 'key0'
             keyPassword '12345678'
-            storeFile file ("D:\\Software_In_Dev\\YuvalLoveNotes\\keystore\\localkeystore.jks")
+            storeFile file("D:\\Software_In_Dev\\YuvalLoveNotes\\keystore\\localkeystore.jks")
         }
     }
     compileSdkVersion 30
@@ -129,6 +129,10 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.4.10"
+
+    //Phone number utils
+    implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.0'
+
 
 }
 repositories {
