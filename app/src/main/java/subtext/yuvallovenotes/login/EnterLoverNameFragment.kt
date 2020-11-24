@@ -40,7 +40,7 @@ class EnterLoverNameFragment : Fragment() {
         binding.loverNameDoneBtn.setOnClickListener {
             if (!binding.loverNameInputEditText.text.isBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_name), binding.loverNameInputEditText.text.toString()).apply()
-                findNavController().navigate(EnterLoverNameFragmentDirections.navigateToLoverNumberFrag())
+                findNavController().navigate(EnterLoverNameFragmentDirections.navigateToLoverNumber())
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_no_lover_name_inserted), Toast.LENGTH_LONG).show()
             }

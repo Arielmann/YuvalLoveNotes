@@ -33,7 +33,7 @@ class EnterUserNameFragment : Fragment() {
         binding.loverNameDoneBtn.setOnClickListener {
             if (!binding.userNameInputEditText.text.isBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_user_name), binding.userNameInputEditText.text.toString()).apply()
-                findNavController().navigate(EnterUserNameFragmentDirections.navigateToEnterLoverNameFrag())
+                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLoverName())
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_no_user_name_inserted), Toast.LENGTH_LONG).show()
             }

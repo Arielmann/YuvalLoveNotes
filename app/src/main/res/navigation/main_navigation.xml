@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/enterUserNameFragment">
+    app:startDestination="@id/letterGeneratorFragment"> <!--todo: starts in enter user name fragment-->
 
     <fragment
         android:id="@+id/enterUserNameFragment"
@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_enter_user_name">
 
         <action
-            android:id="@+id/navigateToEnterLoverNameFrag"
+            android:id="@+id/navigate_to_lover_name"
             app:destination="@id/enterLoverNameFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_enter_lover_name">
 
         <action
-            android:id="@+id/navigateToLoverNumberFrag"
+            android:id="@+id/navigate_to_lover_number"
             app:destination="@id/enterLoverNumberFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -55,7 +55,7 @@
         tools:layout="@layout/fragment_enter_lover_number">
 
         <action
-            android:id="@+id/navigateToLetterGeneratorFrag"
+            android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
             app:popUpTo="@id/enterLoverNumberFragment"
             app:popUpToInclusive="true"
@@ -81,6 +81,14 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/fade_out" />
 
+        <action
+            android:id="@+id/navigate_to_settings"
+            app:destination="@id/settingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/fade_out" />
+
 
         <argument
             android:name="@string/letter_id"
@@ -92,7 +100,6 @@
     <fragment
         android:id="@+id/letterListFragment"
         android:name="subtext.yuvallovenotes.lovelettersoverview.LetterListFragment"
-        android:label="developmentTabsActivity"
         tools:layout="@layout/fragment_letter_list">
 
         <action
@@ -105,6 +112,22 @@
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/fade_out" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="subtext.yuvallovenotes.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+
+        <action
+            android:id="@+id/navigate_to_letter_generator"
+            app:destination="@id/letterGeneratorFragment"
+            app:popUpTo="@id/letterGeneratorFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/fade_out" />
     </fragment>
 
 </navigation>

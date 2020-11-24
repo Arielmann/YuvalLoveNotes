@@ -14,14 +14,8 @@
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/BlankScreen"/>
-
-        <activity
             android:name=".MainActivity"
-            android:theme="@style/SplashScreen"
-            android:label="@string/title_activity_love_writing_tabs">
+            android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

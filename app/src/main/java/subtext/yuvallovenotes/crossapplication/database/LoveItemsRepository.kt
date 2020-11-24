@@ -39,6 +39,10 @@ class LoveItemsRepository {
         loveDao.updateLoveLetter(currentLetter)
     }
 
+    suspend fun deleteLetter(letter: LoveLetter) {
+        loveDao.deleteLoveLetter(letter.id)
+    }
+
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {
         return loveDao.getAllLoveOpeners()
     }
