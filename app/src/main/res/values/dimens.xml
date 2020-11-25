@@ -16,4 +16,5 @@
     <dimen name="text_size_enter_user_detail">30sp</dimen>
     <dimen name="nav_back_btn_width">25dp</dimen>
     <dimen name="nav_back_btn_height">25dp</dimen>
+    <dimen name="more_options_dialog_buttons_padding">4dp</dimen>
 </resources>

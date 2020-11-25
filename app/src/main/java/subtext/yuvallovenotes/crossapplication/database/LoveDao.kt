@@ -24,10 +24,10 @@ interface LoveDao {
     @Query("SELECT * from love_letter_table")
     fun getAllLoveLetters(): LiveData<MutableList<LoveLetter>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoveLetter(letter: LoveLetter)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLoveLetters(letters: List<LoveLetter?>?)
 
     @Update
@@ -48,10 +48,10 @@ interface LoveDao {
     @Query("SELECT * from love_opener_table")
     fun getAllLoveOpeners(): LiveData<List<LoveOpener>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoveOpener(opener: LoveOpener)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLoveOpeners(openers: List<LoveOpener>)
 
     @Query("DELETE FROM love_opener_table")
@@ -69,10 +69,10 @@ interface LoveDao {
     @Query("SELECT * from love_phrase_table")
     fun getAllLovePhrases(): LiveData<List<LovePhrase>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLovePhrase(phrase: LovePhrase)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLovePhrases(phrases: List<LovePhrase>)
 
     @Update
@@ -92,10 +92,10 @@ interface LoveDao {
     @Query("SELECT * from love_closure_table")
     fun getAllLoveClosures(): LiveData<List<LoveClosure>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoveClosure(closure: LoveClosure)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLoveClosures(closures: List<LoveClosure?>?)
 
     @Query("DELETE FROM love_closure_table")

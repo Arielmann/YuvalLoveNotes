@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import kotlinx.android.synthetic.main.more_options_dialog.view.*
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
@@ -35,7 +34,7 @@ class LetterGeneratorFragment : Fragment() {
         private val GENERATOR_SPINNER_TAG = "$TAG GENERATOR_SPINNER_TAG"
     }
 
-    private var systemForcesSpinnerAutoClick: Boolean = true
+    private var spinnerItemSelectionAllowed: Boolean = false
     private var currentLetter: LoveLetter? = null
     private lateinit var binding: FragmentLetterGeneratorBinding
     private var loveItemsViewModel: LoveItemsViewModel = get()
@@ -48,7 +47,7 @@ class LetterGeneratorFragment : Fragment() {
         override fun afterTextChanged(newText: android.text.Editable?) {
             this@LetterGeneratorFragment.currentLetter?.let {
                 it.text = newText.toString()
-                if (!newText.toString().isBlank()) {
+                if (!newText.toString().isBlank() && (it.isCreatedByUser)) {
                     loveItemsViewModel.updateLetter(it)
                     d(TAG, "updating love letter")
                 }
@@ -64,7 +63,7 @@ class LetterGeneratorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         displayLetterData()
-//        setMoreOptionsSpinner()
+        setMoreOptionsSpinner()
         setButtonsOnClickListeners()
     }
 
@@ -73,7 +72,7 @@ class LetterGeneratorFragment : Fragment() {
         super.onStart()
         d(TAG, "onStart. ignore first spinner auto click")
         binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
-        systemForcesSpinnerAutoClick = true
+        spinnerItemSelectionAllowed = false
         //Todo: cleanup, code should depend on local db
         /* if (loveItemsViewModel.loveItemsFromNetwork.isEmpty()) {
              loveItemsViewModel.loveNetworkCalls.findAllLoveData(findAllLoveDataBackendlessListener.findAllLoveDataBackendlessListener)
@@ -147,67 +146,16 @@ class LetterGeneratorFragment : Fragment() {
 
 
     private val openSpinnerClickListener: View.OnClickListener = View.OnClickListener {
-//        systemForcesSpinnerAutoClick = true
-        showMessageBox("")
-//        setMoreOptionsSpinner()
-//        binding.letterGeneratorMoreOptionsSpinner.performClick()
-//        binding.letterGeneratorMoreOptionsSpinner.visibility = View.VISIBLE
-    }
-
-    private fun setIdleSpinnerAdapter() {
-        d(GENERATOR_SPINNER_TAG, "setting idle adapter")
-//        var items = arrayOf("", "Share", "Settings")
-        val itemsArrayResID = R.array.empty_spinner_array
-//        binding.letterGeneratorMoreOptionsSpinner.setSelection(0, false)
-//        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, items)
-//        adapter.setDropDownViewResource(R.layout.spinner_item_layout)
-//        binding.letterGeneratorMoreOptionsSpinner.adapter = adapter
-        ArrayAdapter.createFromResource(requireContext(), itemsArrayResID, android.R.layout.simple_spinner_item).also { adapter ->
-            adapter.setDropDownViewResource(R.layout.spinner_item_layout)
-            binding.letterGeneratorMoreOptionsSpinner.adapter = adapter
-            binding.letterGeneratorMoreOptionsSpinner.setSelection(2)
-        }
-    }
-
-    fun showMessageBox(text: String){
-
-        //Inflate the dialog as custom view
-        val messageBoxView = LayoutInflater.from(activity).inflate(R.layout.more_options_dialog, null)
-
-        //AlertDialogBuilder
-        val messageBoxBuilder = AlertDialog.Builder(activity).setView(messageBoxView)
-
-        //setting text values
-        messageBoxView.shareBtn.text = "Share"
-        messageBoxView.message_box_content.text = "Settings"
-
-        //show dialog
-        val messageBoxInstance = messageBoxBuilder.create()
-        messageBoxInstance.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        val wmlp: WindowManager.LayoutParams = messageBoxInstance.window!!.attributes
-        wmlp.dimAmount = 0.0f //No dim
-        wmlp.gravity = Gravity.TOP or Gravity.LEFT
-//        wmlp.x = 100 //x position
-
-//        wmlp.y = 100 //y position
-        messageBoxInstance.show()
-
-        //set Listener
-        messageBoxView.setOnClickListener(){
-            //close dialog
-            messageBoxInstance.dismiss()
-        }
+        spinnerItemSelectionAllowed = true //User clicked - allow spinner clicks
+        binding.letterGeneratorMoreOptionsSpinner.performClick()
+        binding.letterGeneratorMoreOptionsSpinner.visibility = View.VISIBLE
     }
 
     private fun setMoreOptionsSpinner() {
-        d(GENERATOR_SPINNER_TAG, "setMoreOptionsSpinner")
-//        var items = arrayOf("", "Share", "Settings")
+        d(GENERATOR_SPINNER_TAG, "setMoreOptionsSpinner called")
         val itemsArrayResID = R.array.more_options_array
-//        binding.letterGeneratorMoreOptionsSpinner.setSelection(0, false)
-//        val adapter: ArrayAdapter<String> = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_item, items)
-//        adapter.setDropDownViewResource(R.layout.spinner_item_layout)
-//        binding.letterGeneratorMoreOptionsSpinner.adapter = adapter
         if (binding.letterGeneratorMoreOptionsSpinner.adapter == null) {
+            d(GENERATOR_SPINNER_TAG, "setting more options spinner adapter")
             ArrayAdapter.createFromResource(requireContext(), itemsArrayResID, android.R.layout.simple_spinner_item).also { adapter ->
                 adapter.setDropDownViewResource(R.layout.spinner_item_layout)
                 binding.letterGeneratorMoreOptionsSpinner.adapter = adapter
@@ -221,13 +169,11 @@ class LetterGeneratorFragment : Fragment() {
                         (parent.getChildAt(0) as TextView).setTextColor(ContextCompat.getColor(requireContext(), R.color.transparent))
                     }
                     val items = resources.getStringArray(itemsArrayResID).map { n -> n.toLowerCase(Locale.getDefault()) }
-//                    if (systemForcesSpinnerAutoClick) {
-//                        d(GENERATOR_SPINNER_TAG, "System forcing spinner first item click for first time. ignoring...")
-//                        systemForcesSpinnerAutoClick = false
-//                    } else {
-                        when ( parent.getItemAtPosition(pos).toString().toLowerCase(Locale.getDefault())) {
+                    if (spinnerItemSelectionAllowed) {
+                        when (parent.getItemAtPosition(pos).toString().toLowerCase(Locale.getDefault())) {
                             items[0] -> {
                                 d(GENERATOR_SPINNER_TAG, "Sharing letter in general sharing options")
+                                spinnerItemSelectionAllowed = false
                                 val sendIntent: Intent = Intent().apply {
                                     action = Intent.ACTION_SEND
                                     putExtra(Intent.EXTRA_TEXT, "Send your letter")
@@ -236,26 +182,26 @@ class LetterGeneratorFragment : Fragment() {
                                 }
                                 val shareIntent = Intent.createChooser(sendIntent, null)
                                 startActivity(shareIntent)
-                                setIdleSpinnerAdapter()
                             }
 
                             items[1] -> {
                                 d(GENERATOR_SPINNER_TAG, "Settings clicked")
-//                            findNavController().navigate(R.id.navigate_to_settings)
+                                spinnerItemSelectionAllowed = false
+                                findNavController().navigate(R.id.navigate_to_settings)
                                 binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
-                                setIdleSpinnerAdapter()
                             }
                         }
-//                    }
+                    } else {
+                        d(GENERATOR_SPINNER_TAG, "System tried to force spinner item click. ignoring...")
+                    }
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    d(TAG, "More options spinner: nothing selected")
+                    d(GENERATOR_SPINNER_TAG, "More options spinner: nothing selected")
                     binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
                 }
             }
         }
     }
-
 }
 

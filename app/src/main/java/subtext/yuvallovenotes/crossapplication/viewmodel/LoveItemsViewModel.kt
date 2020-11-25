@@ -131,66 +131,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    /*  fun populateLettersList() {
-          for (i in 0..100) {
-              insertLetter(generateRandomLetter())
-          }
-      }*/
-
-/*    fun lovePhrasesAmountInLetter(allPhrases: List<LovePhrase>): Int {
-        val context = YuvalLoveNotesApp.context
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val keyNumberOfLovePhrases = context.getString(R.string.pref_key_number_of_love_phrases)
-        val defaultPhrasesAmountForLetter = context.resources.getInteger(R.integer.default_love_phrases_amount_for_single_letter)
-        var lastIndex: Int = prefs.getString(keyNumberOfLovePhrases, defaultPhrasesAmountForLetter.toString())!!.toIntOrNull().takeIf { it != null && it > 0 }
-                ?: defaultPhrasesAmountForLetter
-        if (allPhrases.getOrNull(lastIndex) == null) {
-            lastIndex = allPhrases.size
-        }
-        return lastIndex
-    }
-
-    private fun generateRandomLetter(): LoveLetter {
-        var text = ""
-        var opener = LoveOpener()
-        var finalPhrasesPoolForSingleLetter: List<LovePhrase> = mutableListOf()
-        var closure = LoveClosure()
-
-        areLoveItemsAvailable.value?.let {
-            loveOpeners.value?.let { openers ->
-                opener = openers.randomOrNull() ?: opener
-                text = text.plus(opener.text + "\n\n")
-            }
-
-            lovePhrases.value?.let { allPhrases ->
-                val allPhrasesShuffled = allPhrases.shuffled()
-                finalPhrasesPoolForSingleLetter = allPhrasesShuffled.subList(0, lovePhrasesAmountInLetter(allPhrases))
-                finalPhrasesPoolForSingleLetter.forEach { phrase ->
-                    text = text.plus(phrase.text + "\n\n")
-                }
-            }
-
-            loveClosures.value?.let { closures ->
-                closure = closures.randomOrNull() ?: closure
-                text = text.plus(closure.text + "\n\n")
-            }
-        }
-
-        val id : String = run {
-            val phrasesIds = run{
-                var ids = ""
-                finalPhrasesPoolForSingleLetter.forEach {
-                    ids = ids.plus(it.id)
-                }
-                ids
-            }
-            opener.id.plus(phrasesIds).plus(closure.id)
-        }
-
-        val letter = LoveLetter(id, text)
-        return letter
-    }*/
-
     fun randomLetter(): LoveLetter? {
         val optionalLetters = loveLetters.value
         val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)

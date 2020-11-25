@@ -3,21 +3,18 @@
 
 <!--    <PreferenceCategory app:title="@string/prefs_main_header">-->
 
-        <EditTextPreference
-            android:inputType="number"
-            android:digits="0123456789"
-            android:key="@string/pref_key_number_of_love_phrases"
-            app:title="@string/pref_title_number_of_love_phrases"
-            android:defaultValue="3"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
+        <CheckBoxPreference
+            android:inputType="phone"
+            android:key="@string/pref_key_show_only_letters_created_by_user"
+            app:title="@string/pref_title_show_only_letters_created_by_user"
+            android:defaultValue="false"
             app:useSimpleSummaryProvider="true" />
 
-
-        <EditTextPreference
+        <Preference
             android:inputType="phone"
             android:key="@string/pref_key_target_phone_number"
             app:title="@string/pref_title_target_phone_number"
+            app:dialogTitle="@string/pref_title_target_phone_number"
             android:defaultValue=" "
             android:selectAllOnFocus="true"
             android:singleLine="true"
