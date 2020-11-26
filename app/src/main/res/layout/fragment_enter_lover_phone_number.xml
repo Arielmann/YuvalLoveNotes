@@ -51,7 +51,7 @@
         android:text="@string/title_what_is_your_lovers_phone_number"
         android:textColor="@color/white"
         android:textSize="22sp"
-        app:layout_constraintBottom_toTopOf="@+id/loversPhoneNumberInputEditText"
+        app:layout_constraintBottom_toTopOf="@+id/loversLocalPhoneNumberInputEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -77,13 +77,13 @@
         android:layout_height="wrap_content"
         android:text="-"
         android:textSize="22sp"
-        app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberInputEditText"
-        app:layout_constraintRight_toLeftOf="@+id/loversPhoneNumberInputEditText"
+        app:layout_constraintBottom_toBottomOf="@+id/loversLocalPhoneNumberInputEditText"
+        app:layout_constraintRight_toLeftOf="@+id/loversLocalPhoneNumberInputEditText"
         app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
-        app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberInputEditText" />
+        app:layout_constraintTop_toTopOf="@+id/loversLocalPhoneNumberInputEditText" />
 
     <EditText
-        android:id="@+id/loversPhoneNumberInputEditText"
+        android:id="@+id/loversLocalPhoneNumberInputEditText"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:importantForAutofill="no"

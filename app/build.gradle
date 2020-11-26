@@ -24,7 +24,6 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField "String", "MOBILE_NUMBER", "\"" + getLocalProperty("phoneNumber") + "\""
         buildConfigField "String", "BACKENDLESS_APP_ID", "\"" + getLocalProperty("backendlessAppID") + "\""
         buildConfigField "String", "BACKENDLESS_ANDROID_API_KEY", "\"" + getLocalProperty("backendlessAndroidApiKey") + "\""
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -69,6 +68,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc03"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -83,7 +83,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.sun.mail:android-mail:1.6.0'
     implementation 'com.sun.mail:android-activation:1.6.0'
-    implementation 'androidx.preference:preference:1.1.1'
+    implementation 'androidx.preference:preference-ktx:1.1.1'
 
     //Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.1'
@@ -121,7 +121,7 @@ dependencies {
 
     //Firebase
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
-    implementation 'com.google.android.gms:play-services-auth:18.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:22.0.0'
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
 
@@ -132,6 +132,9 @@ dependencies {
 
     //Phone number utils
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.0'
+
+    //AdMob
+//    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
 
 }

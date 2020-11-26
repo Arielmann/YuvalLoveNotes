@@ -1,30 +1,30 @@
 package subtext.yuvallovenotes.lovelettersgenerator
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Layout
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.AlignmentSpan
 import android.util.Log.d
-import android.view.*
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.TextView
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
+import com.sun.mail.imap.protocol.FetchResponse.getItem
 import org.koin.android.ext.android.get
-import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
-import java.util.*
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -47,7 +47,7 @@ class LetterGeneratorFragment : Fragment() {
         override fun afterTextChanged(newText: android.text.Editable?) {
             this@LetterGeneratorFragment.currentLetter?.let {
                 it.text = newText.toString()
-                if (!newText.toString().isBlank() && (it.isCreatedByUser)) {
+                if (!newText.toString().isBlank()) {
                     loveItemsViewModel.updateLetter(it)
                     d(TAG, "updating love letter")
                 }
@@ -62,16 +62,43 @@ class LetterGeneratorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
         displayLetterData()
-        setMoreOptionsSpinner()
         setButtonsOnClickListeners()
     }
+
+    private fun setupToolbar() {
+        binding.letterGeneratorToolBar.inflateMenu(R.menu.letter_generator_menu);
+
+        binding.letterGeneratorToolBar.setOnMenuItemClickListener { item -> // Handle item selection
+            when (item?.itemId) {
+
+                R.id.menuActionSettings -> {
+                    navigateToSettingsActivity()
+                    true
+                }
+
+                R.id.menuActionShare -> {
+                    showSharingPopup()
+                    true
+                }
+
+                R.id.menuActionGoToLettersList -> {
+                    onNavigationToLettersListRequsted()
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
 
     //todo: cleanup
     override fun onStart() {
         super.onStart()
         d(TAG, "onStart. ignore first spinner auto click")
-        binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
+//        binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
         spinnerItemSelectionAllowed = false
         //Todo: cleanup, code should depend on local db
         /* if (loveItemsViewModel.loveItemsFromNetwork.isEmpty()) {
@@ -116,10 +143,14 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private val letterListNavigationRequiredClickListener: View.OnClickListener = View.OnClickListener {
+        onNavigationToLettersListRequsted()
+    }
+
+    private fun onNavigationToLettersListRequsted() {
         currentLetter?.let {
             if (it.text.isBlank() && it.isCreatedByUser) {
                 d(TAG, "deleting empty letter from data base if exists")
-                Toast.makeText(requireContext(), getString(R.string.title_item_deleted), LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
                 loveItemsViewModel.deleteLetter(it)
             }
         }
@@ -131,27 +162,21 @@ class LetterGeneratorFragment : Fragment() {
         val sendWhatsapp = WhatsAppSender()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         //Todo: set mobile number to yuval's only under my id (also set my custom letters)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_target_phone_number), BuildConfig.MOBILE_NUMBER)!!.ifBlank {
-            BuildConfig.MOBILE_NUMBER
-        }
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_full_target_phone_number), "") ?: ""
         sendWhatsapp.send(requireContext(), phoneNumber, binding.letterEditText.text.toString())
     }
 
     private fun setButtonsOnClickListeners() {
-        binding.goToLettersListBtn.setOnClickListener(letterListNavigationRequiredClickListener)
         binding.newLetterBtn.setOnClickListener(letterGeneratorListener)
         binding.whatsappShareBtn.setOnClickListener(letterSendListener)
-        binding.letterSpinnerOpenButton.setOnClickListener(openSpinnerClickListener)
     }
 
 
     private val openSpinnerClickListener: View.OnClickListener = View.OnClickListener {
         spinnerItemSelectionAllowed = true //User clicked - allow spinner clicks
-        binding.letterGeneratorMoreOptionsSpinner.performClick()
-        binding.letterGeneratorMoreOptionsSpinner.visibility = View.VISIBLE
     }
 
-    private fun setMoreOptionsSpinner() {
+   /* private fun setMoreOptionsSpinner() {
         d(GENERATOR_SPINNER_TAG, "setMoreOptionsSpinner called")
         val itemsArrayResID = R.array.more_options_array
         if (binding.letterGeneratorMoreOptionsSpinner.adapter == null) {
@@ -172,23 +197,11 @@ class LetterGeneratorFragment : Fragment() {
                     if (spinnerItemSelectionAllowed) {
                         when (parent.getItemAtPosition(pos).toString().toLowerCase(Locale.getDefault())) {
                             items[0] -> {
-                                d(GENERATOR_SPINNER_TAG, "Sharing letter in general sharing options")
-                                spinnerItemSelectionAllowed = false
-                                val sendIntent: Intent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, "Send your letter")
-                                    type = "text/plain"
-                                    binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
-                                }
-                                val shareIntent = Intent.createChooser(sendIntent, null)
-                                startActivity(shareIntent)
+                                showSharingPopup()
                             }
 
                             items[1] -> {
-                                d(GENERATOR_SPINNER_TAG, "Settings clicked")
-                                spinnerItemSelectionAllowed = false
-                                findNavController().navigate(R.id.navigate_to_settings)
-                                binding.letterGeneratorMoreOptionsSpinner.visibility = View.INVISIBLE
+                                navigateToSettingsActivity()
                             }
                         }
                     } else {
@@ -202,6 +215,24 @@ class LetterGeneratorFragment : Fragment() {
                 }
             }
         }
+    }*/
+
+    private fun navigateToSettingsActivity() {
+        d(TAG, "Navigating to settings")
+        spinnerItemSelectionAllowed = false
+        findNavController().navigate(R.id.navigate_to_settings)
+    }
+
+    private fun showSharingPopup() {
+        d(TAG, "Sharing letter in general sharing options")
+        spinnerItemSelectionAllowed = false
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, "Send your letter")
+            type = "text/plain"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
     }
 }
 

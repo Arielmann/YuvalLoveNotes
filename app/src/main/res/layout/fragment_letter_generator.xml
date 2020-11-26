@@ -9,6 +9,28 @@
     android:windowSoftInputMode="stateAlwaysHidden"
     tools:context=".lovelettersgenerator.LetterGeneratorFragment">
 
+    <EditText
+        android:id="@+id/letter_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/transparent"
+        android:gravity="top"
+        android:scrollbars="vertical"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/whatsappShareBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/letterGeneratorAppBar"
+        tools:layout_constraintLeft_creator="1"
+        tools:layout_constraintTop_creator="1" />
+
+<!--
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appTabsCL"
         android:layout_width="match_parent"
@@ -19,7 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!--todo: wrap in constraint layout to improve clickabillity-->
+        &lt;!&ndash;todo: wrap in constraint layout to improve clickabillity&ndash;&gt;
         <ImageButton
             android:id="@+id/goToLettersListBtn"
             android:layout_width="wrap_content"
@@ -32,7 +54,7 @@
             app:layout_constraintLeft_toRightOf="@+id/letterSpinnerOpenButton"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--todo: wrap in constraint layout to improve clickabillity-->
+        &lt;!&ndash;todo: wrap in constraint layout to improve clickabillity&ndash;&gt;
         <ImageButton
             android:id="@+id/letterSpinnerOpenButton"
             android:layout_width="wrap_content"
@@ -44,6 +66,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/letterGeneratorTitleTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:fontFamily="sans-serif-black"
+            android:minHeight="?actionBarSize"
+            android:padding="@dimen/appbar_padding"
+            android:text="@string/title_app_display_name"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/letterGeneratorSpinnerCL"
@@ -66,44 +104,28 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/letterGeneratorTitleTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:fontFamily="sans-serif-black"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/title_app_display_name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+-->
 
-    <EditText
-        android:id="@+id/letter_edit_text"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/letterGeneratorAppBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:scrollbars="vertical"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/transparent"
-        android:textStyle="bold"
-        android:gravity="top"
-        app:layout_constraintBottom_toTopOf="@+id/whatsappShareBtn"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_small_bg"
+        android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appTabsCL"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintTop_creator="1" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/letterGeneratorToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/title_app_display_name"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/newLetterBtn"

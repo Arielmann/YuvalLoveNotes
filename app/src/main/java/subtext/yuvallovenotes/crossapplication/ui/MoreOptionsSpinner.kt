@@ -2,10 +2,9 @@ package subtext.yuvallovenotes.crossapplication.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import android.widget.Spinner
 import androidx.appcompat.widget.AppCompatSpinner
 
-
+//todo: Cleanup
 class MoreOptionsSpinner : AppCompatSpinner {
     constructor(context: Context) : super(context) {}
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

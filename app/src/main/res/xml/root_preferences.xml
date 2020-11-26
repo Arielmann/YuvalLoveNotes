@@ -1,25 +1,27 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<!--    <PreferenceCategory app:title="@string/prefs_main_header">-->
+        <!--    <PreferenceCategory app:title="Settings">-->
 
         <CheckBoxPreference
+            android:defaultValue="false"
             android:inputType="phone"
             android:key="@string/pref_key_show_only_letters_created_by_user"
+            app:allowDividerBelow="true"
             app:title="@string/pref_title_show_only_letters_created_by_user"
-            android:defaultValue="false"
             app:useSimpleSummaryProvider="true" />
 
         <Preference
-            android:inputType="phone"
-            android:key="@string/pref_key_target_phone_number"
-            app:title="@string/pref_title_target_phone_number"
-            app:dialogTitle="@string/pref_title_target_phone_number"
             android:defaultValue=" "
+            android:inputType="phone"
+            android:key="@string/pref_key_full_target_phone_number"
             android:selectAllOnFocus="true"
             android:singleLine="true"
+            app:dialogTitle="@string/pref_title_target_phone_number"
+            app:summary="Your chosen one's number here"
+            app:title="@string/pref_title_target_phone_number"
             app:useSimpleSummaryProvider="true" />
 
-<!--    </PreferenceCategory>-->
+        <!--    </PreferenceCategory>-->
 
 </PreferenceScreen>

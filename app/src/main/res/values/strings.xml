@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">YuvalLoveNotes</string>
     <!--todo: use hebrew language for hebrew speakers-->
-<!--    <string name="title_app_display_name">מכתבים ליובל</string>
+    <!--    <string name="title_app_display_name">מכתבים ליובל</string>
     <string name="title_activity_love_writing_tabs">מכתבים ליובל</string>
     <string name="tab_title_love_generator_frag">מכתב חדש</string>
     <string name="tab_title_love_writer_frag">משפט חדש</string>
@@ -20,10 +20,11 @@
     <string name="pref_key_lover_name">pref_key_lover_name</string>
     <string name="pref_key_show_only_letters_created_by_user">pref_key_show_only_letters_created_by_user</string>
     <string name="pref_title_show_only_letters_created_by_user">Show only letter created by you</string>
-    <string name="pref_key_target_phone_number">pref_key_target_phone_number</string>
-    <string name="pref_key_target_region_number">pref_key_target_region_number</string>
-    <string name="pref_title_target_phone_number">Phone number for sending messages</string>
-    <string name="pref_title_target_phone_number_dialog">Number</string>
+    <string name="pref_key_full_target_phone_number">pref_key_full_target_phone_number</string>
+    <string name="pref_key_local_phone_number">pref_key_local_phone_number</string>
+    <string name="pref_key_phone_region_number">pref_key_target_region_number</string>
+    <string name="pref_title_target_phone_number">Phone number</string>
+    <string name="pref_dialog_title_target_phone_number">Phone Number</string>
 
     <!--Titles for user-->
     <string name="title_app_display_name">Love Letter</string>
@@ -31,9 +32,11 @@
     <string name="title_what_is_your_name">Your first name</string>
     <string name="title_what_is_your_lover_name">Your chosen one\'s first name</string>
     <string name="title_what_is_your_lovers_phone_number">Phone number of your chosen one</string>
-    <string name="title_empty_item_deleted">Empty letter deleted</string>
-    <string name="title_item_deleted">Letter deleted</string>
+    <string name="title_empty_letter_deleted">Empty letter deleted</string>
+    <string name="title_letter_deleted">Letter deleted</string>
     <string name="title_undo">Undo</string>
+    <string name="title_share">Share</string>
+    <string name="title_cancel">Cancel</string>
 
     <!--Errors-->
     <string name="error_no_user_name_inserted">Please insert your first name</string>
@@ -62,17 +65,21 @@
     <string name="title_welcome">Love Letter</string>
 
     <string name="default_country_code">IL</string>
-    <string name="title_share">Share</string> <!--Israel-->
+    <string name="title_ok">OK</string> <!--Israel-->
 
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="messages_header">Messages</string>
+
+    <!-- Preference Titles -->
+    <string name="sync_header">Sync</string>
+    <string name="signature_title">Your signature</string>
+
+    <!-- Messages Preferences -->
+    <string name="reply_title">Default reply action</string>
+    <string name="menu_item_name_letters_list">Letters List</string>
     <string-array name="more_options_array">
         <item>Share</item>
         <item>Settings</item>
-    </string-array>
-
-    <string-array name="empty_spinner_array">
-        <item></item>
-        <item></item>
-        <item></item>
     </string-array>
 
 </resources>

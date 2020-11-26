@@ -39,8 +39,8 @@
         tools:layout="@layout/fragment_enter_lover_name">
 
         <action
-            android:id="@+id/navigate_to_lover_number"
-            app:destination="@id/enterLoverNumberFragment"
+            android:id="@+id/navigate_to_lover_phone_number"
+            app:destination="@id/enterLoverPhoneNumberFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_out_right"
@@ -49,15 +49,15 @@
     </fragment>
 
     <fragment
-        android:id="@+id/enterLoverNumberFragment"
-        android:name="subtext.yuvallovenotes.login.EnterLoverNumberFragment"
+        android:id="@+id/enterLoverPhoneNumberFragment"
+        android:name="subtext.yuvallovenotes.login.EnterLoverPhoneNumberFragment"
         android:label="fragment_letter_generator"
-        tools:layout="@layout/fragment_enter_lover_number">
+        tools:layout="@layout/fragment_enter_lover_phone_number">
 
         <action
             android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
-            app:popUpTo="@id/enterLoverNumberFragment"
+            app:popUpTo="@id/enterLoverPhoneNumberFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
@@ -83,7 +83,7 @@
 
         <action
             android:id="@+id/navigate_to_settings"
-            app:destination="@id/settingsFragment"
+            app:destination="@id/settingsActivity"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/slide_in_right"
@@ -114,20 +114,10 @@
 
     </fragment>
 
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="subtext.yuvallovenotes.settings.SettingsFragment"
-        tools:layout="@layout/fragment_settings">
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="subtext.yuvallovenotes.settings.SettingsActivity">
+    </activity>
 
-        <action
-            android:id="@+id/navigate_to_letter_generator"
-            app:destination="@id/letterGeneratorFragment"
-            app:popUpTo="@id/letterGeneratorFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/fade_out" />
-    </fragment>
 
 </navigation>

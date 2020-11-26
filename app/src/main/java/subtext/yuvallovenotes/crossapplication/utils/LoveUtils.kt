@@ -2,6 +2,7 @@ package subtext.yuvallovenotes.crossapplication.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -9,11 +10,14 @@ import android.telephony.TelephonyManager
 import android.util.Log.w
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import androidx.preference.PreferenceManager
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.login.LocaleToCountryCode
+import java.lang.NumberFormatException
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 
@@ -61,23 +65,29 @@ object LoveUtils {
         }
 
         return try {
-            val locale = LocaleToCountryCode.findLocaleByCode(countryCode.replace("+", "").toInt())?.name
-                    ?: getDeviceCountryCode(YuvalLoveNotesApp.context)
+            val locale = LocaleToCountryCode.findLocaleByCode(countryCode.replace("+", "").toInt())?.name ?: getDeviceLocale(YuvalLoveNotesApp.context)
             val phoneNumber = PhoneNumberUtil.getInstance().parseAndKeepRawInput(number, locale)
-            PhoneNumberUtil.getInstance().isValidNumber(phoneNumber)
+             PhoneNumberUtil.getInstance().isValidNumber(phoneNumber)
         } catch (e: NumberParseException) {
+            e.printStackTrace()
+            false
+        } catch (e: NumberFormatException){
             e.printStackTrace()
             false
         }
     }
 
-    internal fun getCountryCode(): Int {
-        val localeString = getDeviceCountryCode(YuvalLoveNotesApp.context)
-        val internationalDialPrefix = PhoneNumberUtil.getInstance().getCountryCodeForRegion(localeString)
-        return internationalDialPrefix
+    /**
+     * Returns the international prefix required to dial this number from around the world, without the '+' char.
+     * Example: for a device with us locale, the result will be '+1'
+     */
+    internal fun getDeviceDefaultCountryCode(): String {
+        val localeString = getDeviceLocale(YuvalLoveNotesApp.context)
+        val countyCode = PhoneNumberUtil.getInstance().getCountryCodeForRegion(localeString)
+        return "+$countyCode"
     }
 
-    private fun getDeviceCountryCode(context: Context): String? {
+    private fun getDeviceLocale(context: Context): String? {
         var countryCode: String?
 
         // Try to get country code from TelephonyManager service
@@ -145,6 +155,17 @@ object LoveUtils {
         } catch (ignored: NullPointerException) {
         }
         return null
+    }
+
+    /**
+     * Returns the full international number the user would like to send letters to
+     */
+    fun getTargetInternationalPhoneNumber(): String {
+        val appContext = YuvalLoveNotesApp.context
+        val prefs = PreferenceManager.getDefaultSharedPreferences(appContext)
+        val regionNumber: String = prefs.getString(appContext.getString(R.string.pref_key_phone_region_number), "")!!
+        val localNumber: String = prefs.getString(appContext.getString(R.string.pref_key_local_phone_number), "")!!
+        return regionNumber + localNumber
     }
 
 }

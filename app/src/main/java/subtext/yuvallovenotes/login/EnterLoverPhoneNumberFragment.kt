@@ -11,21 +11,20 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
-import subtext.yuvallovenotes.databinding.FragmentEnterLoverNumberBinding
-import java.lang.NumberFormatException
+import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
 
 
-class EnterLoverNumberFragment : Fragment() {
+class EnterLoverPhoneNumberFragment : Fragment() {
 
     companion object {
-        private val TAG: String = EnterLoverNumberFragment::class.simpleName!!
+        private val TAG: String = EnterLoverPhoneNumberFragment::class.simpleName!!
     }
 
-    lateinit var binding: FragmentEnterLoverNumberBinding
+    lateinit var binding: FragmentEnterLoverPhoneNumberBinding
     lateinit var sharedPrefs: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = FragmentEnterLoverNumberBinding.inflate(inflater, container, false)
+        binding = FragmentEnterLoverPhoneNumberBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -33,13 +32,13 @@ class EnterLoverNumberFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         setOnDoneButtonClickListener()
-        setPhoneNumberEditText()
-        binding.loversPhoneNumberInputEditText.requestFocus()
+        setPhoneRegionNumberEditText()
+        binding.loversLocalPhoneNumberInputEditText.requestFocus()
         setBackButtonClickListener()
     }
 
-    private fun setPhoneNumberEditText() {
-        val regionNumber = sharedPrefs.getString(resources.getString(R.string.pref_key_target_region_number).takeUnless { it.isBlank() }, "+" + LoveUtils.getCountryCode().toString())
+    private fun setPhoneRegionNumberEditText() {
+        val regionNumber = sharedPrefs.getString(resources.getString(R.string.pref_key_phone_region_number).takeUnless { it.isBlank() }, LoveUtils.getDeviceDefaultCountryCode())
         binding.loversPhoneNumberRegionInputEditText.setText(regionNumber)
     }
 
@@ -52,11 +51,12 @@ class EnterLoverNumberFragment : Fragment() {
     private fun setOnDoneButtonClickListener() {
         binding.loverNumberDoneBtn.setOnClickListener {
 
-            val countryCode = binding.loversPhoneNumberRegionInputEditText.text.toString()
-            val localNumber = binding.loversPhoneNumberInputEditText.text.toString()
-            if (LoveUtils.isPhoneNumberValid(countryCode, localNumber)) {
-                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_region_number), countryCode).apply()
-                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_target_phone_number), countryCode.plus(localNumber)).apply()
+            val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
+            val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
+            if (LoveUtils.isPhoneNumberValid(regionNumber, localNumber)) {
+                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_phone_region_number), regionNumber).apply()
+                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_local_phone_number), localNumber).apply()
+                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_full_target_phone_number), regionNumber.plus(localNumber)).apply()
                 findNavController().popBackStack(R.id.enterUserNameFragment, false)
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
             } else {

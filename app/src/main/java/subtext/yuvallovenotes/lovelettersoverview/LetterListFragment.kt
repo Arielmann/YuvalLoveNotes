@@ -83,7 +83,7 @@ class LetterListFragment : Fragment() {
                 val item = lettersListAdapter.currentList[position]
                 item.isDisabled = true
                 loveItemsViewModel.updateLetter(item)
-                val snackBar = Snackbar.make(binding.letterListCL, R.string.title_item_deleted, Snackbar.LENGTH_LONG)
+                val snackBar = Snackbar.make(binding.letterListCL, R.string.title_letter_deleted, Snackbar.LENGTH_LONG)
                 snackBar.setAction(R.string.title_undo) {
                     item.isDisabled = false
                     loveItemsViewModel.updateLetter(item)
