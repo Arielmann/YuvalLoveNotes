@@ -48,7 +48,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             var opener = LoveOpener()
             var closure = LoveClosure()
 
-            opener = DefaultLoveDataSet.openers.randomOrNull() ?: opener
+            opener = ArielDefaultLoveDataSet.openers.randomOrNull() ?: opener
             text = text.plus(opener.text + "\n\n")
 
             /*    val allPhrasesShuffled = DefaultLoveDataSet.phrases.shuffled()
@@ -59,7 +59,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
             text = text.plus(lovePhrase.text + "\n\n")
 
-            closure = DefaultLoveDataSet.closures.randomOrNull() ?: closure
+            closure = ArielDefaultLoveDataSet.closures.randomOrNull() ?: closure
             text = text.plus(closure.text + "\n\n")
 
             val id = opener.id.plus(lovePhrase.id).plus(closure.id)
@@ -71,7 +71,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         fun populateLettersList(db: LoveLocalDatabase) {
             for (i in 0..10) {
                 GlobalScope.launch(Dispatchers.IO) {
-                    DefaultLoveDataSet.phrases.forEach {
+                    ArielDefaultLoveDataSet.phrases.forEach {
                         db.loveDao().insertLoveLetter(generateRandomLetter(it))
                     }
                 }

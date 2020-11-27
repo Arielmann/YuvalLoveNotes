@@ -30,88 +30,10 @@
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintTop_creator="1" />
 
-<!--
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/appTabsCL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/header_small_bg"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        &lt;!&ndash;todo: wrap in constraint layout to improve clickabillity&ndash;&gt;
-        <ImageButton
-            android:id="@+id/goToLettersListBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="@null"
-            android:contentDescription="@string/content_desc_create_letter"
-            android:src="@drawable/ic_list_white_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/letterSpinnerOpenButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        &lt;!&ndash;todo: wrap in constraint layout to improve clickabillity&ndash;&gt;
-        <ImageButton
-            android:id="@+id/letterSpinnerOpenButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:background="@null"
-            android:contentDescription="@string/content_desc_more_options"
-            android:src="@drawable/ic_more_vertical_white_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/letterGeneratorTitleTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="8dp"
-            android:fontFamily="sans-serif-black"
-            android:minHeight="?actionBarSize"
-            android:padding="@dimen/appbar_padding"
-            android:text="@string/title_app_display_name"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/letterGeneratorSpinnerCL"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/letterSpinnerOpenButton"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/letterGeneratorTitleTV"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <subtext.yuvallovenotes.crossapplication.ui.MoreOptionsSpinner
-                android:id="@+id/letterGeneratorMoreOptionsSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:popupTheme="@android:style/ThemeOverlay.Material"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
--->
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/letterGeneratorAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/header_small_bg"
         android:theme="@style/AppTheme.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -121,8 +43,8 @@
             android:id="@+id/letterGeneratorToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="@drawable/header_small_bg"
             app:title="@string/title_app_display_name"
-            android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
