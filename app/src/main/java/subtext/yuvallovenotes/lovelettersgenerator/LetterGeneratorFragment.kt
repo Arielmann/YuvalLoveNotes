@@ -1,5 +1,7 @@
 package subtext.yuvallovenotes.lovelettersgenerator
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
@@ -20,6 +22,7 @@ import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
+import weborb.util.ThreadContext
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -32,7 +35,7 @@ class LetterGeneratorFragment : Fragment() {
     private lateinit var binding: FragmentLetterGeneratorBinding
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
-    private val onLetterTextChanged: TextWatcher? = object : TextWatcher {
+    private val onLetterTextChanged: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun onTextChanged(newText: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -77,6 +80,11 @@ class LetterGeneratorFragment : Fragment() {
                     true
                 }
 
+                R.id.menuActionDelete -> {
+                    showReallyDeleteDialog()
+                    true
+                }
+
                 R.id.menuActionGoToLettersList -> {
                     onNavigationToLettersListRequested()
                     true
@@ -86,7 +94,6 @@ class LetterGeneratorFragment : Fragment() {
             }
         }
     }
-
 
     //todo: cleanup
     override fun onStart() {
@@ -143,6 +150,32 @@ class LetterGeneratorFragment : Fragment() {
         findNavController().navigate(R.id.navigate_to_letter_list)
     }
 
+    private fun showReallyDeleteDialog() {
+        val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
+            when (which) {
+                DialogInterface.BUTTON_POSITIVE -> {
+                    currentLetter?.let {
+                        d(TAG, "deleting letter")
+                        Toast.makeText(requireContext(), getString(R.string.title_letter_deleted), LENGTH_LONG).show()
+                        loveItemsViewModel.deleteLetter(it)
+                        letterGeneratorListener.onClick(view)
+                    }
+                }
+
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    dialog.dismiss()
+                    d(TAG, "forfeited letter deletion request")
+                }
+            }
+        }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
+        builder.setTitle(getString(R.string.title_are_you_sure))
+                .setMessage(getString(R.string.title_letter_will_be_deleted_forever))
+                .setPositiveButton(getString(R.string.title_ok), dialogClickListener)
+                .setNegativeButton(getString(R.string.title_cancel), dialogClickListener).show()
+    }
+
     private val letterSendListener: View.OnClickListener = View.OnClickListener {
         d(TAG, "Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
@@ -156,7 +189,6 @@ class LetterGeneratorFragment : Fragment() {
         binding.newLetterBtn.setOnClickListener(letterGeneratorListener)
         binding.whatsappShareBtn.setOnClickListener(letterSendListener)
     }
-
 
     private fun showSharingPopup() {
         d(TAG, "Sharing letter in general sharing options")

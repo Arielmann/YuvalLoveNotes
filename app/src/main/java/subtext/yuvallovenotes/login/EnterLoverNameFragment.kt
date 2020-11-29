@@ -10,9 +10,14 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNameBinding
 
 class EnterLoverNameFragment : Fragment() {
+
+    companion object {
+        private val TAG = EnterLoverNameFragment::class.simpleName
+    }
 
     lateinit var binding : FragmentEnterLoverNameBinding
     lateinit var sharedPrefs : SharedPreferences
@@ -26,19 +31,13 @@ class EnterLoverNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         setOnDoneButtonClickListener()
-        setBackButtonClickListener()
+        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverNameToolBar)
         setupLoverNameEditText()
-    }
-
-    private fun setBackButtonClickListener() {
-        binding.enterLoverNameImageContainerCL.setOnClickListener {
-            findNavController().popBackStack()
-        }
     }
 
     private fun setOnDoneButtonClickListener() {
         binding.loverNameDoneBtn.setOnClickListener {
-            if (!binding.loverNameInputEditText.text.isBlank()) {
+            if (binding.loverNameInputEditText.text.isNotBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_name), binding.loverNameInputEditText.text.toString()).apply()
                 findNavController().navigate(EnterLoverNameFragmentDirections.navigateToLoverPhoneNumber())
             } else {

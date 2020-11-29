@@ -88,7 +88,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 //                    db.loveDao().deleteAllLoveOpeners()
 //                    db.loveDao().deleteAllLovePhrases()
 //                    db.loveDao().deleteAllLoveClosures()
-                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.key_was_database_populated_first_time)
+                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_was_database_populated_first_time)
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, true)) { //Only populate once, after app is installed
 //                        db.loveDao().insertAllLoveOpeners(DefaultLoveDataSet.openers)

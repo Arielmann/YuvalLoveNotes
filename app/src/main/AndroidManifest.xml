@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
 
     <application
         android:name=".YuvalLoveNotesApp"
@@ -14,7 +15,7 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/label_activity_settings" />
 
         <activity
             android:name=".MainActivity"

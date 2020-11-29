@@ -2,18 +2,20 @@ package subtext.yuvallovenotes.crossapplication.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.util.Log
 import android.util.Log.w
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
+import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
-import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.login.LocaleToCountryCode
@@ -65,13 +67,14 @@ object LoveUtils {
         }
 
         return try {
-            val locale = LocaleToCountryCode.findLocaleByCode(countryCode.replace("+", "").toInt())?.name ?: getDeviceLocale(YuvalLoveNotesApp.context)
+            val locale = LocaleToCountryCode.findLocaleByCode(countryCode.replace("+", "").toInt())?.name
+                    ?: getDeviceLocale(YuvalLoveNotesApp.context)
             val phoneNumber = PhoneNumberUtil.getInstance().parseAndKeepRawInput(number, locale)
-             PhoneNumberUtil.getInstance().isValidNumber(phoneNumber)
+            PhoneNumberUtil.getInstance().isValidNumber(phoneNumber)
         } catch (e: NumberParseException) {
             e.printStackTrace()
             false
-        } catch (e: NumberFormatException){
+        } catch (e: NumberFormatException) {
             e.printStackTrace()
             false
         }
@@ -166,6 +169,14 @@ object LoveUtils {
         val regionNumber: String = prefs.getString(appContext.getString(R.string.pref_key_phone_region_number), "")!!
         val localNumber: String = prefs.getString(appContext.getString(R.string.pref_key_local_phone_number), "")!!
         return regionNumber + localNumber
+    }
+
+    fun setupFragmentDefaultToolbar(parentFragment: Fragment, enterLoverNameToolBar: Toolbar) {
+        enterLoverNameToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
+        enterLoverNameToolBar.setNavigationOnClickListener {
+            Log.d(TAG, "Navigating to previous screen")
+            parentFragment.findNavController().popBackStack()
+        }
     }
 
 }

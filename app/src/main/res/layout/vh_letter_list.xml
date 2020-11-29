@@ -6,11 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clipToPadding="false"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     card:cardCornerRadius="8dp"
     card:cardElevation="4dp"
     card:cardPreventCornerOverlap="false"
-    card:cardUseCompatPadding="true"
-    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+    card:cardUseCompatPadding="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/letterListViewHolderCL"
@@ -20,21 +20,33 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        android:gravity="start|center_vertical"
         card:layout_constraintEnd_toEndOf="parent"
         card:layout_constraintStart_toStartOf="parent"
         card:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/letterListViewHolderIconIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            card:layout_constraintEnd_toEndOf="parent"
+            card:layout_constraintTop_toTopOf="@+id/letterListViewHolderTextTV" />
 
         <TextView
             android:id="@+id/letterListViewHolderTextTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:maxHeight="150dp"
-            android:text="My Letter"
+            android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
-            card:layout_constraintLeft_toLeftOf="parent"
+            card:layout_constraintEnd_toStartOf="@+id/letterListViewHolderIconIV"
+            card:layout_constraintStart_toStartOf="parent"
             card:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText,RtlHardcoded" />
+            tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

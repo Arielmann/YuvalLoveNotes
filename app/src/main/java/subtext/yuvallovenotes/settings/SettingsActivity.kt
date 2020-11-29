@@ -4,29 +4,47 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import kotlinx.android.synthetic.main.dialog_settings_target_phone_number.view.*
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
+import subtext.yuvallovenotes.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
 
+    private lateinit var binding : ActivitySettingsBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_activity)
         setTheme(R.style.BlankScreen)
+        binding = ActivitySettingsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.settings, SettingsFragment())
+                    .replace(R.id.settingsContainer, SettingsFragment())
                     .commit()
         }
+
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+        binding.settingsToolBar.setNavigationOnClickListener { backBtn ->
+            finish() //Todo: look for a way to implement navigation?
+        }
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
