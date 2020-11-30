@@ -3,6 +3,7 @@ package subtext.yuvallovenotes.lovelettersgenerator
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextWatcher
 import android.util.Log.d
@@ -21,8 +22,9 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
+import subtext.yuvallovenotes.login.EnterUserNameFragmentDirections
+import subtext.yuvallovenotes.sendlettersreminder.LoveLetterAlarm
 import subtext.yuvallovenotes.whatsapp.WhatsAppSender
-import weborb.util.ThreadContext
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -33,6 +35,7 @@ class LetterGeneratorFragment : Fragment() {
 
     private var currentLetter: LoveLetter? = null
     private lateinit var binding: FragmentLetterGeneratorBinding
+    private lateinit var sharedPrefs: SharedPreferences
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
@@ -51,6 +54,14 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        if(!sharedPrefs.getBoolean(getString(R.string.pref_key_is_login_process_completed), false)){
+            findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
         return binding.root
@@ -61,6 +72,7 @@ class LetterGeneratorFragment : Fragment() {
         setupToolbar()
         displayLetterData()
         setButtonsOnClickListeners()
+        LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
     }
 
     private fun setupToolbar() {

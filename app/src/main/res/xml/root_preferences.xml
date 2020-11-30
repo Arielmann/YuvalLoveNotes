@@ -1,3 +1,4 @@
+<!--todo: add icon for each setting-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 

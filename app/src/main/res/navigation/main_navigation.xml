@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/letterListFragment"> <!--todo: starts in enter user name fragment-->
+    app:startDestination="@id/letterGeneratorFragment"> <!--todo: starts in enter user name fragment-->
 
     <fragment
         android:id="@+id/enterUserNameFragment"
@@ -14,20 +14,20 @@
         <action
             android:id="@+id/navigate_to_lover_name"
             app:destination="@id/enterLoverNameFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_in_left" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
         <action
             android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
             app:popUpTo="@id/enterUserNameFragment"
             app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_in_left" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
     </fragment>
 
@@ -40,10 +40,10 @@
         <action
             android:id="@+id/navigate_to_lover_phone_number"
             app:destination="@id/enterLoverPhoneNumberFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_in_left" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
     </fragment>
 
@@ -58,10 +58,10 @@
             app:destination="@id/letterGeneratorFragment"
             app:popUpTo="@id/enterLoverPhoneNumberFragment"
             app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_out_right"
-            app:popExitAnim="@anim/slide_in_left" />
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
 
     </fragment>
 
@@ -75,17 +75,26 @@
             android:id="@+id/navigate_to_letter_list"
             app:destination="@id/letterListFragment"
             app:popUpTo="@id/letterListFragment"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+        <action
+            android:id="@+id/navigate_to_enter_user_name"
+            app:destination="@id/enterUserNameFragment"
+            app:popUpTo="@id/enterUserNameFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
         <action
             android:id="@+id/navigate_to_settings"
             app:destination="@id/settingsActivity"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
 
@@ -106,9 +115,9 @@
             app:destination="@id/letterGeneratorFragment"
             app:popUpTo="@id/letterGeneratorFragment"
             app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_right"
+            app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
     </fragment>

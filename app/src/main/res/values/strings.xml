@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">YuvalLoveNotes</string>
+    <string name="app_name">Love Letter</string>
     <!--todo: use hebrew language for hebrew speakers-->
     <!--    <string name="title_app_display_name">מכתבים ליובל</string>
     <string name="title_activity_love_writing_tabs">מכתבים ליובל</string>
@@ -48,6 +48,12 @@
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="title_letter_will_be_deleted_forever">The letter will be deleted forever</string>
 
+    <!--Notification titles-->
+    <string name="notification_title_send_letter_reminder">A love reminder 💌</string>
+    <string name="notification_message_send_letter_reminder">Time to remind your chosen one of your appreciation</string>
+
+
+
     <!--Errors-->
     <string name="error_no_user_name_inserted">Please insert your first name</string>
     <string name="error_no_lover_name_inserted">Please insert chosen one\'s first name</string>
@@ -69,5 +75,11 @@
     <string name="default_country_code">IL</string> <!--Israel-->
     <string name="label_activity_settings">SettingsActivity</string>
     <string name="hyphen">-</string>
+
+    <!--broadcast receiver actions-->
+    <string name="action_send_letter_reminder">SEND.LETTER.REMINDER</string>
+    <string name="pref_key_trigger_time_send_letter_reminder">pref_key_send_letter_reminder</string>
+    <string name="pref_key_is_feature_active_send_letter_reminder">pref_key_send_letter_reminder_feature_active</string>
+    <string name="pref_key_is_login_process_completed">pref_key_is_login_process_completed</string>
 
 </resources>

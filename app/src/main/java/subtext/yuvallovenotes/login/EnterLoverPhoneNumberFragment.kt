@@ -89,9 +89,10 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
             val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
             if (LoveUtils.isPhoneNumberValid(regionNumber, localNumber)) {
-                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_phone_region_number), regionNumber).apply()
-                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_local_phone_number), localNumber).apply()
-                sharedPrefs.edit().putString(resources.getString(R.string.pref_key_full_target_phone_number), regionNumber.plus(localNumber)).apply()
+                sharedPrefs.edit().putString(getString(R.string.pref_key_phone_region_number), regionNumber).apply()
+                sharedPrefs.edit().putString(getString(R.string.pref_key_local_phone_number), localNumber).apply()
+                sharedPrefs.edit().putString(getString(R.string.pref_key_full_target_phone_number), regionNumber.plus(localNumber)).apply()
+                sharedPrefs.edit().putBoolean(getString(R.string.pref_key_is_login_process_completed), true).apply()
                 findNavController().popBackStack(R.id.enterUserNameFragment, false)
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
             } else {

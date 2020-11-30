@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
+import subtext.yuvallovenotes.lovelettersgenerator.LetterGeneratorFragmentDirections
 
 class EnterUserNameFragment : Fragment() {
 
@@ -18,20 +19,20 @@ class EnterUserNameFragment : Fragment() {
     lateinit var sharedPrefs : SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         binding = FragmentEnterUserNameBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         setupUserNameEditText()
         setOnDoneButtonClickListener()
     }
 
     private fun setOnDoneButtonClickListener() {
         binding.loverNameDoneBtn.setOnClickListener {
-            if (!binding.userNameInputEditText.text.isBlank()) {
+            if (binding.userNameInputEditText.text.isNotBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_user_name), binding.userNameInputEditText.text.toString()).apply()
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToLoverName())
             } else {

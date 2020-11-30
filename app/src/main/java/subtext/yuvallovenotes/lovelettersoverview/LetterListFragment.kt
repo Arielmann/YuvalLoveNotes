@@ -49,7 +49,7 @@ class LetterListFragment : Fragment() {
     private fun observeDataUpdates() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
             // Update the cached copy of the letters in the adapter.
-            letters?.let { letters ->
+            letters?.let {
                 Log.d(TAG, "Updating letters list UI. letters: {$letters}")
                 lettersListAdapter.submitList(letters.filter{ !it.isDisabled }.sortedBy { !it.isCreatedByUser })
             }
@@ -78,20 +78,6 @@ class LetterListFragment : Fragment() {
             adapter = lettersListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-   /*     ItemTouchHelper(LetterListSwipeCallback(requireContext(), object : OnItemSwipe {
-            override fun onSwiped(position: Int) {
-                val item = lettersListAdapter.currentList[position]
-                item.isDisabled = true
-                loveItemsViewModel.updateLetter(item)
-                val snackBar = Snackbar.make(binding.letterListCL, R.string.title_letter_deleted, Snackbar.LENGTH_LONG)
-                snackBar.setAction(R.string.title_undo) {
-                    item.isDisabled = false
-                    loveItemsViewModel.updateLetter(item)
-                }
-                snackBar.show()
-            }
-        })).attachToRecyclerView(binding.lettersRV)*/
     }
 
 }

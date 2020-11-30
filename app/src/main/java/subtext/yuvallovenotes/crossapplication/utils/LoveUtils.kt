@@ -160,17 +160,6 @@ object LoveUtils {
         return null
     }
 
-    /**
-     * Returns the full international number the user would like to send letters to
-     */
-    fun getTargetInternationalPhoneNumber(): String {
-        val appContext = YuvalLoveNotesApp.context
-        val prefs = PreferenceManager.getDefaultSharedPreferences(appContext)
-        val regionNumber: String = prefs.getString(appContext.getString(R.string.pref_key_phone_region_number), "")!!
-        val localNumber: String = prefs.getString(appContext.getString(R.string.pref_key_local_phone_number), "")!!
-        return regionNumber + localNumber
-    }
-
     fun setupFragmentDefaultToolbar(parentFragment: Fragment, enterLoverNameToolBar: Toolbar) {
         enterLoverNameToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
         enterLoverNameToolBar.setNavigationOnClickListener {
