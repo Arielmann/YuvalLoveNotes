@@ -7,10 +7,10 @@ import android.util.Log.d
 import subtext.yuvallovenotes.sendlettersreminder.LoveLetterAlarm
 import java.util.*
 
-class AwarenessBootReceiver : BroadcastReceiver() {
+class LoveLetterBootReceiver : BroadcastReceiver() {
 
     companion object {
-        private val TAG = AwarenessBootReceiver::class.simpleName!!
+        private val TAG = LoveLetterBootReceiver::class.simpleName!!
     }
 
     override fun onReceive(context: Context, intent: Intent) {

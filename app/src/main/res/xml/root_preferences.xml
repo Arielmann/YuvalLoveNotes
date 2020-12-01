@@ -10,6 +10,7 @@
             android:key="@string/pref_key_show_only_letters_created_by_user"
             app:allowDividerBelow="true"
             app:title="@string/pref_title_show_only_letters_created_by_user"
+            android:icon="@drawable/ic_baseline_person_black_24"
             app:useSimpleSummaryProvider="true" />
 
         <Preference
@@ -21,6 +22,7 @@
             app:dialogTitle="@string/pref_title_target_phone_number"
             app:summary="Your chosen one's number here"
             app:title="@string/pref_title_target_phone_number"
+            android:icon="@drawable/ic_baseline_phone_black_24"
             app:useSimpleSummaryProvider="true" />
 
         <!--    </PreferenceCategory>-->

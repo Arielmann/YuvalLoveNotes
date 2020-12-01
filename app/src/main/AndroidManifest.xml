@@ -31,7 +31,7 @@
 
         <receiver android:name=".sendlettersreminder.broadcastreceivers.LoveLettersAlarmReceiver" />
 
-        <receiver android:name=".sendlettersreminder.broadcastreceivers.AwarenessBootReceiver">
+        <receiver android:name=".sendlettersreminder.broadcastreceivers.LoveLetterBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />

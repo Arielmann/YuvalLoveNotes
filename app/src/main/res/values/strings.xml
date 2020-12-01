@@ -26,6 +26,9 @@
     <string name="pref_title_target_phone_number">Phone number</string>
     <string name="pref_dialog_title_target_phone_number">Phone Number</string>
     <string name="pref_key_was_database_populated_first_time">key_was_database_populated_first_time</string>
+    <string name="pref_key_trigger_time_send_letter_reminder">pref_key_send_letter_reminder</string>
+    <string name="pref_key_is_feature_active_send_letter_reminder">pref_key_send_letter_reminder_feature_active</string>
+    <string name="pref_key_is_login_process_completed">pref_key_is_login_process_completed</string>
 
     <!--data transmission keys-->
     <string name="letter_id">letter_id</string>
@@ -75,11 +78,6 @@
     <string name="default_country_code">IL</string> <!--Israel-->
     <string name="label_activity_settings">SettingsActivity</string>
     <string name="hyphen">-</string>
-
-    <!--broadcast receiver actions-->
-    <string name="action_send_letter_reminder">SEND.LETTER.REMINDER</string>
-    <string name="pref_key_trigger_time_send_letter_reminder">pref_key_send_letter_reminder</string>
-    <string name="pref_key_is_feature_active_send_letter_reminder">pref_key_send_letter_reminder_feature_active</string>
-    <string name="pref_key_is_login_process_completed">pref_key_is_login_process_completed</string>
+    <string name="hint_your_words_here">Your words here</string>
 
 </resources>

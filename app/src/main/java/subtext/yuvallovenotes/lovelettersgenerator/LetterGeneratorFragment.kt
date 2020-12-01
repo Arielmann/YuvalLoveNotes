@@ -46,7 +46,7 @@ class LetterGeneratorFragment : Fragment() {
         override fun afterTextChanged(newText: android.text.Editable?) {
             this@LetterGeneratorFragment.currentLetter?.let {
                 it.text = newText.toString()
-                if (!newText.toString().isBlank()) {
+                if (newText.toString().isNotBlank()) {
                     loveItemsViewModel.updateLetter(it)
                     d(TAG, "updating love letter")
                 }
@@ -57,7 +57,7 @@ class LetterGeneratorFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        if(!sharedPrefs.getBoolean(getString(R.string.pref_key_is_login_process_completed), false)){
+        if (!sharedPrefs.getBoolean(getString(R.string.pref_key_is_login_process_completed), false)) {
             findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
         }
     }
@@ -146,8 +146,9 @@ class LetterGeneratorFragment : Fragment() {
 
     private val letterGeneratorListener: View.OnClickListener = View.OnClickListener {
         //Todo: cleanup
+        this.currentLetter = loveItemsViewModel.randomLetter()
         binding.letterEditText.removeTextChangedListener(onLetterTextChanged)
-        binding.letterEditText.setText(loveItemsViewModel.randomLetter()?.text)
+        binding.letterEditText.setText(currentLetter?.text)
         binding.letterEditText.addTextChangedListener(onLetterTextChanged)
     }
 
@@ -193,7 +194,8 @@ class LetterGeneratorFragment : Fragment() {
         val sendWhatsapp = WhatsAppSender()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         //Todo: set mobile number to yuval's only under my id (also set my custom letters)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_full_target_phone_number), "") ?: ""
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_full_target_phone_number), "")
+                ?: ""
         sendWhatsapp.send(requireContext(), phoneNumber, binding.letterEditText.text.toString())
     }
 
@@ -206,7 +208,9 @@ class LetterGeneratorFragment : Fragment() {
         d(TAG, "Sharing letter in general sharing options")
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-            putExtra(Intent.EXTRA_TEXT, "Send your letter")
+            currentLetter?.let {
+                putExtra(Intent.EXTRA_TEXT, it.text)
+            }
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(sendIntent, null)

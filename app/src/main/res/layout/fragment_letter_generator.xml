@@ -21,6 +21,8 @@
         android:gravity="top"
         android:scrollbars="vertical"
         android:textColor="@color/white"
+        android:hint="@string/hint_your_words_here"
+        android:textColorHint="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/whatsappShareBtn"
         app:layout_constraintEnd_toEndOf="parent"

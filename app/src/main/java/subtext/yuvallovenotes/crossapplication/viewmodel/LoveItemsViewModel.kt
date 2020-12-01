@@ -131,13 +131,18 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    fun randomLetter(): LoveLetter? {
+    fun randomLetter(): LoveLetter {
         val optionalLetters = loveLetters.value
         val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)
         var result = optionalLetters?.randomOrNull()
         if (showOnlyLettersCreatedByUser) {
-            result = optionalLetters?.filter { it.isCreatedByUser }?.randomOrNull()
+            result = optionalLetters?.filter { !it.isDisabled && it.isCreatedByUser }?.randomOrNull()
         }
+
+        if(result == null){
+            result = LoveLetter()
+        }
+
         return result
     }
 }

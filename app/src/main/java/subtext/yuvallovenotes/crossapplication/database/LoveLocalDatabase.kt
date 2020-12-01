@@ -69,11 +69,9 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         }
 
         fun populateLettersList(db: LoveLocalDatabase) {
-            for (i in 0..10) {
-                GlobalScope.launch(Dispatchers.IO) {
-                    ArielDefaultLoveDataSet.phrases.forEach {
-                        db.loveDao().insertLoveLetter(generateRandomLetter(it))
-                    }
+            GlobalScope.launch(Dispatchers.IO) {
+                ArielDefaultLoveDataSet.phrases.forEach {
+                    db.loveDao().insertLoveLetter(generateRandomLetter(it))
                 }
             }
         }

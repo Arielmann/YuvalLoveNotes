@@ -22,7 +22,13 @@ enum class LoveLetterAlarm(private val isActiveKey: String, protected val trigge
     SEND_LETTER_REMINDER(YuvalLoveNotesApp.context.getString(R.string.pref_key_is_feature_active_send_letter_reminder),
             YuvalLoveNotesApp.context.getString(R.string.pref_key_trigger_time_send_letter_reminder), 1020) {
         override fun getDefaultActivationCalendar(): Calendar {
-            return defaultTriggerTime(YuvalLoveNotesApp.context.resources)
+
+            val defaultCal = defaultTriggerTime(YuvalLoveNotesApp.context.resources)
+            if (defaultCal.timeInMillis < System.currentTimeMillis()) {
+                defaultCal.add(Calendar.DAY_OF_YEAR, 7)
+                d(TAG, "in $name, the requested alarm trigger time is earlier than current time. Setting it for the same hour a week forward")
+            }
+            return defaultCal
 //            return dummyCalendar(YuvalLoveNotesApp.context.resources)
         }
     };
@@ -32,17 +38,24 @@ enum class LoveLetterAlarm(private val isActiveKey: String, protected val trigge
 
         /**
          * Returns the default trigger time for all alarms
+         * The default trigger time may change according to device locale
          */
         private fun defaultTriggerTime(res: Resources): Calendar {
             val calendar = Calendar.getInstance()
             val hourOfDay = res.getInteger(R.integer.default_alarm_clock_hour_of_day)
             val minute = res.getInteger(R.integer.default_alarm_clock_minute)
+            var dayOfWeek = Calendar.FRIDAY
+
+            val localeString = Locale.getDefault().toString()
+            if (localeString == "iw_IL") { //Set alarm day for thursday in Israel
+                dayOfWeek = Calendar.THURSDAY
+            }
+
             calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
             calendar.set(Calendar.MINUTE, minute)
-            calendar.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY)
+            calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek)
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
-            calendar.add(Calendar.DAY_OF_YEAR, 7) //set it to one week from now
             return calendar
         }
 
