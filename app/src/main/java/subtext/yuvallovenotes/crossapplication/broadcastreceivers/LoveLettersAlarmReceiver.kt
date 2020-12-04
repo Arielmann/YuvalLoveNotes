@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.sendlettersreminder.broadcastreceivers
+package subtext.yuvallovenotes.crossapplication.broadcastreceivers
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -14,7 +14,7 @@ import androidx.core.app.NotificationCompat
 import androidx.navigation.NavDeepLinkBuilder
 import subtext.yuvallovenotes.MainActivity
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.sendlettersreminder.LoveLetterAlarm
+import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 
 
 class LoveLettersAlarmReceiver : BroadcastReceiver() {

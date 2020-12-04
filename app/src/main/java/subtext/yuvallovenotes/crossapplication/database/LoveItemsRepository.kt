@@ -15,8 +15,8 @@ class LoveItemsRepository {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
 
-    suspend fun insertAllLoveLetters(items: List<LoveLetter>) {
-        loveDao.insertAllLoveLetters(items)
+    suspend fun insertAllLoveLetters(letters: List<LoveLetter>) {
+        loveDao.insertAllLoveLetters(letters)
     }
 
     fun getAllLocalDBLoveLetters(): LiveData<MutableList<LoveLetter>> {
@@ -31,8 +31,12 @@ class LoveItemsRepository {
         return loveDao.getLoveLetterByTextSync(text)
     }
 
-    suspend fun insertLoveLetter(item: LoveLetter) {
-        loveDao.insertLoveLetter(item)
+    suspend fun insertLoveLetter(letter: LoveLetter) {
+        loveDao.insertLoveLetter(letter)
+    }
+
+    fun insertLoveLetterSync(letter: LoveLetter) {
+        loveDao.insertLoveLetterSync(letter)
     }
 
     suspend fun updateLoveLetter(currentLetter: LoveLetter) {
@@ -41,6 +45,10 @@ class LoveItemsRepository {
 
     suspend fun deleteLetter(letter: LoveLetter) {
         loveDao.deleteLoveLetter(letter.id)
+    }
+
+    fun deleteLetterSync(letter: LoveLetter) {
+        loveDao.deleteLoveLetterSync(letter.id)
     }
 
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {

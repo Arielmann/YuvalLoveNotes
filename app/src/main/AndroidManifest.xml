@@ -16,12 +16,14 @@
 
         <activity
             android:name=".settings.SettingsActivity"
-            android:label="@string/label_activity_settings" />
+            android:label="@string/label_activity_settings"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".MainActivity"
             android:label="@string/title_app_display_name"
-            android:theme="@style/SplashScreen">
+            android:theme="@style/SplashScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,9 +31,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".sendlettersreminder.broadcastreceivers.LoveLettersAlarmReceiver" />
+        <receiver android:name="subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLettersAlarmReceiver" />
 
-        <receiver android:name=".sendlettersreminder.broadcastreceivers.LoveLetterBootReceiver">
+        <receiver android:name="subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLetterBootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />

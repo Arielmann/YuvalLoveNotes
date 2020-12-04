@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.sendlettersreminder
+package subtext.yuvallovenotes.crossapplication.alarms
 
 import java.util.*
 

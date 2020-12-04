@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.sendlettersreminder
+package subtext.yuvallovenotes.crossapplication.alarms
 
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -10,7 +10,7 @@ import android.util.Log.d
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.sendlettersreminder.broadcastreceivers.LoveLettersAlarmReceiver
+import subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLettersAlarmReceiver
 import java.util.*
 
 /**

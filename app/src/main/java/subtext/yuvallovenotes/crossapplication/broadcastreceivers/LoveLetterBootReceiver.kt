@@ -1,10 +1,10 @@
-package subtext.yuvallovenotes.sendlettersreminder.broadcastreceivers
+package subtext.yuvallovenotes.crossapplication.broadcastreceivers
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log.d
-import subtext.yuvallovenotes.sendlettersreminder.LoveLetterAlarm
+import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 import java.util.*
 
 class LoveLetterBootReceiver : BroadcastReceiver() {

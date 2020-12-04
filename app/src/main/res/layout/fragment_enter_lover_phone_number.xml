@@ -42,15 +42,15 @@
 
     <EditText
         android:id="@+id/loversPhoneNumberRegionInputEditText"
-        android:layout_width="100dp"
+        android:layout_width="85dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="@color/white"
         android:gravity="left"
         android:importantForAutofill="no"
         android:inputType="phone"
         android:textColor="@color/white"
-        android:backgroundTint="@color/white"
         android:textSize="@dimen/size_input_text_enter_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

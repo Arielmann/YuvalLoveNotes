@@ -40,6 +40,7 @@
     <string name="title_what_is_your_name">Your first name</string>
     <string name="title_what_is_your_lover_name">Your chosen one\'s first name</string>
     <string name="title_what_is_your_lovers_phone_number">Phone number of your chosen one</string>
+    <string name="title_letter_list_is_empty">No letters to display</string>
     <string name="title_empty_letter_deleted">Empty letter deleted</string>
     <string name="title_letter_deleted">Letter deleted</string>
     <string name="title_undo">Undo</string>
@@ -60,7 +61,8 @@
     <!--Errors-->
     <string name="error_no_user_name_inserted">Please insert your first name</string>
     <string name="error_no_lover_name_inserted">Please insert chosen one\'s first name</string>
-    <string name="error_invalid_lover_number_inserted">Please insert a valid phone number</string>
+    <string name="error_invalid_lover_number_inserted">Please insert a valid international phone number</string>
+    <string name="error_parsing_contact_number">There was an error while choosing from contacts, please try again</string>
 
     <!--Content Descriptions-->
     <string name="content_desc_new_letter">New Letter</string>

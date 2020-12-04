@@ -4,23 +4,23 @@ import android.app.AlertDialog
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.navigation.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
+import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.android.synthetic.main.dialog_settings_target_phone_number.view.*
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
+import subtext.yuvallovenotes.crossapplication.utils.getDeviceDefaultCountryCode
+import subtext.yuvallovenotes.crossapplication.utils.isPhoneNumberValid
 import subtext.yuvallovenotes.databinding.ActivitySettingsBinding
 
 class SettingsActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivitySettingsBinding
+    private lateinit var binding: ActivitySettingsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,7 @@ class SettingsActivity : AppCompatActivity() {
                     .commit()
         }
 
+        val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         setupToolbar()
     }
 
@@ -48,6 +49,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -56,12 +58,11 @@ class SettingsActivity : AppCompatActivity() {
 
                 //Show dialog
                 pref.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                    val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
                     val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_settings_target_phone_number, null)
                     val mBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
                     val mAlertDialog = mBuilder.create()
                     mAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                    val currentRegionNumber = sharedPrefs.getString(getString(R.string.pref_key_phone_region_number), LoveUtils.getDeviceDefaultCountryCode())
+                    val currentRegionNumber = sharedPrefs.getString(getString(R.string.pref_key_phone_region_number), PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode())
                     mDialogView.enterPhoneRegionDialogInputEditText.setText(currentRegionNumber)
                     val currentLocalPhoneNumber = sharedPrefs.getString(getString(R.string.pref_key_local_phone_number), "")
                     mDialogView.enterPhoneDialogLocalNumberInputEditText.setText(currentLocalPhoneNumber)
@@ -71,7 +72,7 @@ class SettingsActivity : AppCompatActivity() {
                     mDialogView.dialogConfirmBtn.setOnClickListener {
                         val newRegionNumber = mDialogView.enterPhoneRegionDialogInputEditText.text.toString()
                         val newLocalPhoneNumber = mDialogView.enterPhoneDialogLocalNumberInputEditText.text.toString()
-                        if (LoveUtils.isPhoneNumberValid(newRegionNumber, newLocalPhoneNumber)) {
+                        if (PhoneNumberUtil.getInstance().isPhoneNumberValid(newRegionNumber, newLocalPhoneNumber)) {
                             mAlertDialog.dismiss()
                             val newFullNumber = newRegionNumber.plus(newLocalPhoneNumber)
                             sharedPrefs.edit().putString(resources.getString(R.string.pref_key_phone_region_number), newRegionNumber).apply()

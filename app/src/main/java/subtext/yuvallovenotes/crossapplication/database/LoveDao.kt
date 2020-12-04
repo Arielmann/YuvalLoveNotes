@@ -28,6 +28,9 @@ interface LoveDao {
     suspend fun insertLoveLetter(letter: LoveLetter)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertLoveLetterSync(letter: LoveLetter)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllLoveLetters(letters: List<LoveLetter?>?)
 
     @Update
@@ -41,6 +44,9 @@ interface LoveDao {
 
     @Query("DELETE FROM love_letter_table WHERE id=:id")
     suspend fun deleteLoveLetter(id: String)
+
+    @Query("DELETE FROM love_letter_table WHERE id=:id")
+    fun deleteLoveLetterSync(id: String)
 
 
   //Love Opener
