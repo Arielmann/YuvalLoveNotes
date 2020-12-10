@@ -5,18 +5,14 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import org.koin.android.ext.android.get
-import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
-import subtext.yuvallovenotes.databinding.FragmentLetterListBinding
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
+import subtext.yuvallovenotes.databinding.FragmentLetterListBinding
 
 
 class LetterListFragment : Fragment() {

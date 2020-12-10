@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.backendless
+package subtext.yuvallovenotes.crossapplication.network
 
 import android.content.Context
 import android.widget.Toast
@@ -27,6 +27,20 @@ class LoveNetworkCalls(val context: Context?) {
     }
 
     private val contextWeakReference: WeakReference<Context?> = WeakReference(context)
+
+    fun registerDeviceToBackendlessMessaging(){
+        val channels: MutableList<String> = ArrayList()
+        channels.add("default")
+        Backendless.Messaging.registerDevice("default", object : AsyncCallback<Void>{
+            override fun handleResponse(response: Void?) {
+                Toast.makeText( context, "Device registered!", LENGTH_LONG).show();
+            }
+
+            override fun handleFault(fault: BackendlessFault?) {
+                Toast.makeText( context, "Error registering " + fault?.message, LENGTH_LONG).show();
+            }
+        })
+    }
 
     private fun findLoveOpenerTableObjectCount(): Int {
         return Backendless.Data.of(LoveOpener::class.java).objectCount

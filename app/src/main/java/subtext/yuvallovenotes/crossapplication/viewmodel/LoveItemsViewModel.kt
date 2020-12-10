@@ -1,10 +1,7 @@
 package subtext.yuvallovenotes.crossapplication.viewmodel
 
-import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
@@ -15,7 +12,7 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import kotlinx.coroutines.*
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.crossapplication.backendless.LoveNetworkCalls
+import subtext.yuvallovenotes.crossapplication.network.LoveNetworkCalls
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
 import java.lang.ref.WeakReference

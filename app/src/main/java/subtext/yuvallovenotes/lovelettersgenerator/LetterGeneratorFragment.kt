@@ -23,7 +23,7 @@ import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
-import subtext.yuvallovenotes.whatsapp.WhatsAppSender
+import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
 
 
 class LetterGeneratorFragment : Fragment() {

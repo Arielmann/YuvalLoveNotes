@@ -51,9 +51,9 @@ enum class LoveLetterAlarm(private val isActiveKey: String, protected val trigge
                 dayOfWeek = Calendar.THURSDAY
             }
 
-            calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
-            calendar.set(Calendar.MINUTE, minute)
-            calendar.set(Calendar.DAY_OF_WEEK, dayOfWeek)
+            calendar.set(Calendar.HOUR_OF_DAY, 12)
+            calendar.set(Calendar.MINUTE, 22)
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
             calendar.set(Calendar.SECOND, 0)
             calendar.set(Calendar.MILLISECOND, 0)
             return calendar

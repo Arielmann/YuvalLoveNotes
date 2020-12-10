@@ -56,8 +56,6 @@
     <string name="notification_title_send_letter_reminder">A love reminder 💌</string>
     <string name="notification_message_send_letter_reminder">Time to remind your chosen one of your appreciation</string>
 
-
-
     <!--Errors-->
     <string name="error_no_user_name_inserted">Please insert your first name</string>
     <string name="error_no_lover_name_inserted">Please insert chosen one\'s first name</string>

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.whatsapp
+package subtext.yuvallovenotes.lovelettersgenerator.whatsappsender
 
 import android.content.Context
 import android.content.Intent
