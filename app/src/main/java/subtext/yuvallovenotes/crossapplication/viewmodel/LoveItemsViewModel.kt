@@ -11,6 +11,8 @@ import androidx.preference.PreferenceManager
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import kotlinx.coroutines.*
+import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.network.LoveNetworkCalls
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
@@ -26,7 +28,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
     private val weakContext: WeakReference<Context> = WeakReference(context)
-    private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
 
     //todo: cleanup
     val loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)

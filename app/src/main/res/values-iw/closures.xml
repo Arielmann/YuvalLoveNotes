@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="closure_user_name_fallback">אני</string>
+    <string name="closure_me">אני</string>
+</resources>

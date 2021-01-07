@@ -1,13 +1,25 @@
 package subtext.yuvallovenotes.crossapplication.database
 
+import android.content.SharedPreferences
+import org.koin.java.KoinJavaComponent.get
+import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 object DefaultLoveDataSet {
 
+    private val shardPrefs = get(SharedPreferences::class.java)
+    private val userName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), "Me")
+    private val loverName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_name), "מתוקה שלי")
+
     val openers = mutableListOf(
-            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "שושולולו שלי :)"),
+            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "יפה שלי"),
+            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "נסיכה שלי"),
+            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "מאמי"),
+            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "מאמוש"),
+            LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "קושקושית שלי"),
             LoveOpener("4F8FD4A0-A8B3-44EE-AA76-DE23555CA748", "למקור היופי שלי \uD83C\uDF3A"),
     )
     val phrases = mutableListOf(
@@ -19,6 +31,7 @@ object DefaultLoveDataSet {
     )
     val closures = mutableListOf(
             LoveClosure("4B9BEB6B-5E16-46EF-BBF1-14ACBC9AC0A9", "הלב שלי שלך\u2066❤️\u2069"),
-            LoveClosure("5EA7E6BE-5235-4FFA-B31F-1E3F58BF38F3", "החתול שלך"),
+            LoveClosure("5EA7E6BE-5235-4FFA-B31F-1E3F58BF38F3", "אני"),
     )
+
 }

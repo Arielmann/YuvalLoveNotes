@@ -119,6 +119,7 @@ internal object ArielDefaultLoveDataSet {
             LoveClosure("5EA7E6BE-5235-4FFA-B31F-1E3F58BF38F3", "החתול שלך"),
             LoveClosure("DD5CE74F-71DF-4656-9304-76AF5A390F73", "אני ❤️"),
             LoveClosure("EB74FB15-DA4F-4E10-8EA3-338126B88E17", "אני אוהב אותך מתוקה שלי"),
+            LoveClosure("AR74FB24-AS4F-4G10-8EA3-562789B88E53", "הגמל שלך"),
             LoveClosure("EEC2799D-5988-4E73-914E-DA59C1AB2469", "אני מודה לך."),
             LoveClosure("5E47D20D-7882-443F-9817-6748E42CD563", "מודה על מה שיש בינינו"),
             LoveClosure("8AA0D780-6582-42D9-8ED1-17423EE25959", "תודה על מי שאת."),

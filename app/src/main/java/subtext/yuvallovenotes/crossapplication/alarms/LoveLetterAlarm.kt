@@ -4,10 +4,13 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log.d
 import androidx.preference.PreferenceManager
+import org.koin.java.KoinJavaComponent
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLettersAlarmReceiver
@@ -75,7 +78,7 @@ enum class LoveLetterAlarm(private val isActiveKey: String, protected val trigge
 
     }
 
-    private val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)
+    private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
 
     /**
      * true if the alarm is currently active. Default value is true

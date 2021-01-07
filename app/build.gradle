@@ -136,7 +136,8 @@ dependencies {
     //Phone number utils
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.0'
 
-    //AdMob
+    //Ads
+    implementation 'com.startapp:inapp-sdk:4.6.3'
 //    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
 

@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Love Letter</string>
+
+    <!-- Messages Preferences -->
+    <string name="pref_title_show_only_letters_created_by_user">בחר רק מכתבים שנכתבו בידיך</string>
+    <string name="pref_title_target_phone_number">מספר טלפון של בן/בת הזוג</string>
+    <string name="pref_dialog_title_target_phone_number">טלפון</string>
+
+    <!--Regular titles for user-->
+    <string name="title_app_display_name">מכתבים</string>
+    <string name="title_settings">הגדרות</string>
+    <string name="title_letters_list">מכתבים</string>
+    <string name="title_what_is_your_name">שם פרטי</string>
+    <string name="title_what_is_your_lover_name">שם פרטי של בן/בת הזוג</string>
+    <string name="title_what_is_your_lovers_phone_number">טלפון של בן/בת הזוג</string>
+    <string name="title_letter_list_is_empty">אין מכתבים להצגה</string>
+    <string name="title_empty_letter_deleted">מכתב ריק נמחק</string>
+    <string name="title_letter_deleted">המכתב נמחק</string>
+    <string name="title_undo">בטל</string>
+    <string name="title_share">שתף</string>
+    <string name="title_delete">מחק</string>
+    <string name="title_ok">אוקיי</string>
+    <string name="title_cancel">בטל</string>
+    <string name="title_choose_from_contacts">בחר מאנשי הקשר שלי</string>
+    <string name="title_are_you_sure">בטוח?</string>
+    <string name="title_letter_will_be_deleted_forever">המכתב יימחק לנצח</string>
+    <string name="hint_your_words_here">מילותייך ייכתבו כאן</string>
+
+    <!--Notification titles-->
+    <string name="notification_title_send_letter_reminder">תזכורת לאהבה 💌</string>
+    <string name="notification_message_send_letter_reminder">הגיע הזמן להזכיר לבן/בת הזוג איך אתה מרגיש כלפיהם</string>
+
+    <!--Errors-->
+    <string name="error_no_user_name_inserted">הכנס שם פרטי</string>
+    <string name="error_no_lover_name_inserted">הכנס את השם של בן/בת הזוג</string>
+    <string name="error_invalid_lover_number_inserted">הכנס בבקשה מספר טלפון תקין</string>
+    <string name="error_parsing_contact_number">אירעה שגיאה בעת בחירה באיש קשר. אנא נסה שנית</string>
+    <string name="error_no_external_app_found_for_sharing_content">לא ניתן למצוא אפליקציה שיכולה לשתף את המכתב</string>
+
+</resources>

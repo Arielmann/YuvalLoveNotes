@@ -18,7 +18,7 @@ class EnterUserNameFragment : Fragment() {
     lateinit var binding : FragmentEnterUserNameBinding
     lateinit var sharedPrefs : SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         binding = FragmentEnterUserNameBinding.inflate(inflater, container, false)
         return binding.root

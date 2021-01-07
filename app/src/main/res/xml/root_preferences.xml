@@ -20,7 +20,6 @@
             android:selectAllOnFocus="true"
             android:singleLine="true"
             app:dialogTitle="@string/pref_title_target_phone_number"
-            app:summary="Your chosen one's number here"
             app:title="@string/pref_title_target_phone_number"
             android:icon="@drawable/ic_baseline_phone_black_24"
             app:useSimpleSummaryProvider="true" />

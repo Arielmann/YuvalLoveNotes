@@ -1,25 +1,18 @@
 package subtext.yuvallovenotes.crossapplication.utils
 
 import android.annotation.SuppressLint
-import android.content.ContentResolver
 import android.content.Context
-import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.provider.ContactsContract
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.util.Log.w
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.i18n.phonenumbers.NumberParseException
-import com.google.i18n.phonenumbers.PhoneNumberUtil
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.YuvalLoveNotesApp
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 
@@ -130,9 +123,9 @@ object LoveUtils {
         return null
     }
 
-    fun setupFragmentDefaultToolbar(parentFragment: Fragment, enterLoverNameToolBar: Toolbar) {
-        enterLoverNameToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
-        enterLoverNameToolBar.setNavigationOnClickListener {
+    fun setupFragmentDefaultToolbar(parentFragment: Fragment, toolbar: Toolbar) {
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24);
+        toolbar.setNavigationOnClickListener {
             Log.d(TAG, "Navigating to previous screen")
             parentFragment.findNavController().popBackStack()
         }

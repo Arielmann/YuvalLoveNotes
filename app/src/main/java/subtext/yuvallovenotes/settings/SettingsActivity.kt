@@ -13,6 +13,7 @@ import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.android.synthetic.main.dialog_settings_target_phone_number.view.*
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.getDeviceDefaultCountryCode
 import subtext.yuvallovenotes.crossapplication.utils.isPhoneNumberValid
@@ -35,21 +36,25 @@ class SettingsActivity : AppCompatActivity() {
                     .commit()
         }
 
-        val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         setupToolbar()
     }
 
     private fun setupToolbar() {
+        val isRightToLeft: Boolean = resources.getBoolean(R.bool.is_right_to_left)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+        if(isRightToLeft){
+            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+        }else {
+            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+        }
         binding.settingsToolBar.setNavigationOnClickListener { backBtn ->
             finish() //Todo: look for a way to implement navigation?
         }
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
-        private val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 

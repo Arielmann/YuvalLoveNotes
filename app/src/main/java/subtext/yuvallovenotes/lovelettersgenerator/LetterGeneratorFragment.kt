@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +17,19 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
+import com.startapp.sdk.ads.nativead.NativeAdPreferences
+import com.startapp.sdk.ads.nativead.StartAppNativeAd
+import com.startapp.sdk.adsbase.Ad
+import com.startapp.sdk.adsbase.SDKAdPreferences
+import com.startapp.sdk.adsbase.adlisteners.AdEventListener
 import org.koin.android.ext.android.get
+import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
-import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
 
 
@@ -67,8 +74,10 @@ class LetterGeneratorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
+//        loadNativeAd()
         observeLettersListChanges()
         displayLetterData()
+        binding.letterEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
         LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
     }
@@ -82,7 +91,7 @@ class LetterGeneratorFragment : Fragment() {
     private fun setupToolbar() {
         binding.letterGeneratorToolBar.inflateMenu(R.menu.letter_generator_menu)
 
-        binding.letterGeneratorToolBar.setOnMenuItemClickListener { item -> // Handle item selection
+        binding.letterGeneratorToolBar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
 
                 R.id.menuActionSettings -> {
@@ -120,7 +129,6 @@ class LetterGeneratorFragment : Fragment() {
                         createRandomLettersData()
                         this.currentLetter = letter
                         binding.letterEditText.setText(letter.text)
-                        binding.letterEditText.addTextChangedListener(onLetterTextChanged)
                     } ?: createRandomLettersData {
                         d(TAG, "No specific letter, generate random one and set its text")
                         this.currentLetter = loveItemsViewModel.randomLetter()
@@ -129,7 +137,6 @@ class LetterGeneratorFragment : Fragment() {
                         }
                         d(TAG, "generated letter text: ${currentLetter?.text}")
                         binding.letterEditText.setText(this.currentLetter?.text)
-                        binding.letterEditText.addTextChangedListener(onLetterTextChanged)
                     }
                 })
     }
@@ -170,8 +177,8 @@ class LetterGeneratorFragment : Fragment() {
                         d(TAG, "deleting letter")
                         Toast.makeText(requireContext(), getString(R.string.title_letter_deleted), LENGTH_LONG).show()
                         loveItemsViewModel.deleteLetterSync(it)
-                            d(TAG, "deleting finished")
-                            letterGeneratorListener.onClick(view)
+                        d(TAG, "deleting finished")
+                        letterGeneratorListener.onClick(view)
                     }
                 }
 
@@ -214,6 +221,13 @@ class LetterGeneratorFragment : Fragment() {
             type = "text/plain"
         }
         val shareIntent = Intent.createChooser(sendIntent, null)
+
+        if (shareIntent.resolveActivity(requireActivity().packageManager) != null) {
+            startActivity(shareIntent);
+        } else {
+            Toast.makeText(requireContext(), getString(R.string.error_no_external_app_found_for_sharing_content), LENGTH_LONG).show()
+        }
+
         startActivity(shareIntent)
     }
 
@@ -221,5 +235,30 @@ class LetterGeneratorFragment : Fragment() {
         super.onStop()
         loveItemsViewModel.deleteLetterIfEmpty(currentLetter)
     }
+
+/*    private fun loadNativeAd() {
+        val nativeAd = StartAppNativeAd(requireContext())
+        nativeAd.loadAd(NativeAdPreferences()
+                .setAdsNumber(1)
+                .setAutoBitmapDownload(true)
+                .setAge(35)
+                .setGender(SDKAdPreferences.Gender.MALE) as NativeAdPreferences?
+                , object : AdEventListener {
+            override fun onReceiveAd(ad: Ad) {
+                val nativeAdDetails = nativeAd.nativeAds.first()
+                binding.nativeAdIcon.setImageBitmap(nativeAdDetails.imageBitmap)
+                binding.nativeAdTitle.text = nativeAdDetails.title
+                binding.nativeAdDescription.text = nativeAdDetails.description
+                binding.nativeAdbutton.text = if (nativeAdDetails.isApp) "Install" else "Open"
+                nativeAdDetails.registerViewForInteraction(binding.nativeAdbutton)
+            }
+
+            override fun onFailedToReceiveAd(ad: Ad) {
+                if (BuildConfig.DEBUG) {
+                    Log.v(TAG, "onFailedToReceiveAd: " + ad.errorMessage)
+                }
+            }
+        })
+    }*/
 }
 

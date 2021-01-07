@@ -9,6 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
@@ -80,7 +81,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             super.onOpen(database)
             INSTANCE?.let { db ->
 
-                val sharedPrefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(YuvalLoveNotesApp.context)
+                val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
                 GlobalScope.launch(Dispatchers.IO) {
 //                    db.loveDao().deleteAllLoveLetters()
 //                    db.loveDao().deleteAllLoveOpeners()

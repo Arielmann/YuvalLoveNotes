@@ -21,7 +21,6 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.*
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
-import org.koin.android.ext.android.get
 
 
 class EnterLoverPhoneNumberFragment : Fragment() {
@@ -32,10 +31,10 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         const val READ_CONTACTS_PERMISSION_REQUEST_CODE = 2099
     }
 
-    lateinit var binding: FragmentEnterLoverPhoneNumberBinding
-    lateinit var sharedPrefs: SharedPreferences
+    private lateinit var binding: FragmentEnterLoverPhoneNumberBinding
+    private lateinit var sharedPrefs: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEnterLoverPhoneNumberBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -52,9 +51,9 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
     private fun setPickNumberFromUserContactsFeature() {
 
-        binding.chooseFromContactsBtn.setOnClickListener {
+        binding.loversChooseFromContactsBtn.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_CONTACTS), READ_CONTACTS_PERMISSION_REQUEST_CODE);
+                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_CONTACTS), READ_CONTACTS_PERMISSION_REQUEST_CODE)
                 return@setOnClickListener
             }
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
