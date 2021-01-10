@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="closure_user_name_fallback">Me</string>
-    <string name="closure_me">Me</string>
-    <string name="closure_your_man">Your man</string>
-    <string name="closure_love_you">Love you❤</string>
-    <string name="closure_waiting_for_you">Waiting for you</string>
-    <string name="closure_love_and_appreciate">Love and appreciate❤</string>
-    <string name="closure_big_love">Big love❤</string>
-    <string name="closure_cherish_what_we_have">Love you and cherish what we have</string>
-    <string name="closure_with_love_me">With love❤,\n Me</string>
-    <string name="closure_your_always_me">Always❤,\n Me</string>
-    <string name="closure_your_always_forever">Yours forever❤,\n Me</string>
-    <string name="closure_my_heart_is_yours">My heart is yours ❤</string>
-    <string name="closure_you_are_always_with_me">You are always with me</string>
-    <string name="closure_i_will_be_always_be_waiting_for_you">I will always be waiting for you</string>
-    <string name="closure_you_complete_me">You complete me</string>
-    <string name="closure_yours_truly">Yours truly</string>
+
+    <string-array name="closures">
+
+    <item name="closure_me">Me</item>
+    <item name="closure_your_man">Your man</item>
+    <item name="closure_love_you">Love you ❤</item>
+    <item name="closure_waiting_for_you">Waiting for you</item>
+    <item name="closure_love_and_appreciate">Love and appreciate 💜</item>
+    <item name="closure_big_love">Big love ❤</item>
+    <item name="closure_with_love_me">With love 💞,\n Me</item>
+    <item name="closure_your_always_me">Always 😘,\n Me</item>
+    <item name="closure_your_always_forever">Yours forever 🌠,\n Me</item>
+    <item name="closure_my_heart_is_yours">My heart is yours 💝</item>
+    <item name="closure_you_are_always_with_me">You are always with me</item>
+    <item name="closure_you_complete_me">You complete me</item>
+    <item name="closure_yours_truly">Yours truly</item>
+    <!-- <item name="closure_i_will_be_always_be_waiting_for_you">I will always be waiting for you</item>-->
+    <!-- <item name="closure_cherish_what_we_have">Love you and cherish what we have</item>-->
+
+    </string-array>
 </resources>

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login
+package subtext.yuvallovenotes.login.ui
 
 import android.Manifest
 import android.app.Activity
@@ -18,9 +18,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.UnVerifiedLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.utils.*
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
+import subtext.yuvallovenotes.login.network.UserRegistrationCallback
+import subtext.yuvallovenotes.login.viewmodel.LoginViewModel
 
 
 class EnterLoverPhoneNumberFragment : Fragment() {
@@ -33,6 +39,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
     private lateinit var binding: FragmentEnterLoverPhoneNumberBinding
     private lateinit var sharedPrefs: SharedPreferences
+    private val loginViewModel = get<LoginViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEnterLoverPhoneNumberBinding.inflate(inflater, container, false)
@@ -43,7 +50,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         setOnDoneButtonClickListener()
-        setPhoneRegionNumberEditText()
+        setPhoneNumberEditTexts()
         setPickNumberFromUserContactsFeature()
         binding.loversLocalPhoneNumberInputEditText.requestFocus()
         LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverPhoneNumberToolBar)
@@ -103,16 +110,44 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         }
     }
 
-    private fun setPhoneRegionNumberEditText() {
-        val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
-        val regionNumber = sharedPrefs.getString(resources.getString(R.string.pref_key_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)
-        binding.loversPhoneNumberRegionInputEditText.setText(regionNumber)
+    private fun setPhoneNumberEditTexts() {
+        loginViewModel.requestUserPhoneNumber { regionNumber, localNumber ->
+            binding.loversPhoneNumberRegionInputEditText.setText(regionNumber)
+            binding.loversLocalPhoneNumberInputEditText.setText(localNumber)
+        }
     }
 
     private fun setOnDoneButtonClickListener() {
+
+        val callback = object : UserRegistrationCallback {
+            override fun onSuccess() {
+                d(TAG, "User registered successfully")
+                findNavController().popBackStack(R.id.enterUserNameFragment, false)
+                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
+            }
+
+            override fun onError(error: String) {
+                binding.enterLoverPhoneNumberProgressBar.hide()
+                binding.root.animate().alpha(1f).setDuration(100).start()
+                Toast.makeText(YuvalLoveNotesApp.context, error, Toast.LENGTH_LONG).show()
+            }
+
+        }
+
         binding.loverNumberDoneBtn.setOnClickListener {
 
+            binding.root.animate().alpha(0.5f).setDuration(200).start()
+            binding.enterLoverPhoneNumberProgressBar.show()
+            val userName = loginViewModel.getUserName()
+            val loverNickName = loginViewModel.getLoverNickName()
             val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
+            val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
+            val phone = LoveLettersUser.Phone(regionNumber, localNumber)
+            val user = UnVerifiedLoveLettersUser(userName, loverNickName, phone)
+            loginViewModel.requestLogin(user, callback)
+
+
+           /* val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
             val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
             if (PhoneNumberUtil.getInstance().isPhoneNumberValid(regionNumber, localNumber)) {
                 sharedPrefs.edit().putString(getString(R.string.pref_key_phone_region_number), regionNumber).apply()
@@ -123,7 +158,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
-            }
+            }*/
         }
     }
 

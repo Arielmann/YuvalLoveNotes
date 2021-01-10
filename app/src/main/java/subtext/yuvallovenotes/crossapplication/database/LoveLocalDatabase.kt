@@ -44,23 +44,19 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
     private class LoveLettersDatabaseCallback() : RoomDatabase.Callback() {
 
+        val loveDataSet = DefaultLoveDataSet
+
         fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
             var text = ""
             var opener = LoveOpener()
             var closure = LoveClosure()
 
-            opener = ArielDefaultLoveDataSet.openers.randomOrNull() ?: opener
+            opener = loveDataSet.openers.randomOrNull() ?: opener
             text = text.plus(opener.text + "\n\n")
-
-            /*    val allPhrasesShuffled = DefaultLoveDataSet.phrases.shuffled()
-                finalPhrasesPoolForSingleLetter = allPhrasesShuffled.subList(0, lovePhrasesAmountInLetter(allPhrases))
-                finalPhrasesPoolForSingleLetter.forEach { phrase ->
-                    text = text.plus(phrase.text + "\n\n")
-                }*/
 
             text = text.plus(lovePhrase.text + "\n\n")
 
-            closure = ArielDefaultLoveDataSet.closures.randomOrNull() ?: closure
+            closure = loveDataSet.closures.randomOrNull() ?: closure
             text = text.plus(closure.text + "\n\n")
 
             val id = opener.id.plus(lovePhrase.id).plus(closure.id)
@@ -71,7 +67,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
         fun populateLettersList(db: LoveLocalDatabase) {
             GlobalScope.launch(Dispatchers.IO) {
-                ArielDefaultLoveDataSet.phrases.forEach {
+                loveDataSet.phrases.forEach {
                     db.loveDao().insertLoveLetter(generateRandomLetter(it))
                 }
             }

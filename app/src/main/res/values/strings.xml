@@ -2,6 +2,7 @@
     <string name="app_name">Love Letter</string>
 
     <!-- Messages Preferences -->
+    <string name="pref_key_device_registered_to_push_notifications" translatable="false">pref_key_device_registered_to_push_notifications</string>
     <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
     <string name="pref_key_lover_name" translatable="false">pref_key_lover_name</string>
     <string name="pref_key_show_only_letters_created_by_user" translatable="false">pref_key_show_only_letters_created_by_user</string>
@@ -20,11 +21,10 @@
     <string name="letter_id" translatable="false">letter_id</string>
 
     <!--Regular titles for user-->
-    <string name="title_app_display_name">Love Letter</string>
     <string name="title_settings">Settings</string>
     <string name="title_letters_list">Letters List</string>
     <string name="title_what_is_your_name">Your first name</string>
-    <string name="title_what_is_your_lover_name">Your chosen one\'s first name</string>
+    <string name="title_what_is_your_lover_name">A cute nickname you use for your chosen one</string>
     <string name="title_what_is_your_lovers_phone_number">Phone number of your chosen one</string>
     <string name="title_letter_list_is_empty">No letters to display</string>
     <string name="title_empty_letter_deleted">Empty letter deleted</string>
@@ -38,6 +38,9 @@
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="title_letter_will_be_deleted_forever">The letter will be deleted forever</string>
     <string name="hint_your_words_here">Your words here</string>
+    <string name="error_msg_whatsapp_not_installed">Whatsapp is not install on your phone. Please install the app and try again</string>
+    <string name="title_next">Next</string>
+    <string name="title_done">Done</string>
 
     <!--Notification titles-->
     <string name="notification_title_send_letter_reminder">A love reminder 💌</string>
@@ -49,6 +52,8 @@
     <string name="error_invalid_lover_number_inserted">Please insert a valid international phone number</string>
     <string name="error_parsing_contact_number">There was an error while choosing from contacts, please try again</string>
     <string name="error_no_external_app_found_for_sharing_content">Could not find any application that is able to share this</string>
+    <string name="error_no_network_connection">Operation failed, Please make sure you have a network connection and try again</string>
+    <string name="error_login_default_network_failure">A problem occurred while registering. Please try again in a minute</string>
 
 
     <!--Content Descriptions-->
@@ -58,15 +63,15 @@
     <string name="content_desc_create_letter" translatable="false">Create letter screen</string>
     <string name="content_desc_all_letters" translatable="false">All letters screen</string>
     <string name="content_desc_back" translatable="false">Back</string>
-    <string name="error_msg_whatsapp_not_installed" translatable="false">Whatsapp is not install on your phone. Please install the app and try again</string>
-    <string name="title_next" translatable="false">Next</string>
-    <string name="title_done" translatable="false">Done</string>
-    <string name="title_welcome" translatable="false">Love Letter</string>
+
 
     <!--Misc-->
     <string name="default_country_code" translatable="false">IL</string> <!--Israel-->
     <string name="label_activity_settings" translatable="false">SettingsActivity</string>
     <string name="hyphen" translatable="false">-</string>
     <string name="id_startapp" translatable="false">200282211</string>
+    <string name="user_name_as_closure_fallback">Me</string>
+    <string name="user_name_fallback">You</string>
+    <string name="lover_name_fallback">My love</string>
 
 </resources>

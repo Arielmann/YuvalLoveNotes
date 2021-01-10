@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="phrases">
+
+    <item name="phrase_1">Just wanted to say thank you for who you are, I\'m grateful for what you bring into my life, I\'m grateful for our relationship and grateful for myself for choosing you</item>
+    <item name="phrase_2">Even if I don\'t tell you this every single day, I want you to know that you are a big, shining light in my life</item>
+    <item name="phrase_3">I\'m happy to have you with me because we have a special bong. I know this because I can feel it. The world is full in opportunities and distractions, and within all this choosing you was one of the good and wisest things I\'ve done</item>
+    <item name="phrase_4">We have been through so many things, joy and difficulties and pleasure and pain. When I look backwards and see how much you\'ve taught me about myself, all I have left is to thank you</item>
+    <item name="phrase_5">When was the last time I told you that you\'re beautiful? Actually it doesn\'t matter, it\'s always a good time to say this again :)</item>
+    <item name="phrase_6">Our love is a beautiful thing, deep and beautiful. It\'s a cosy home to return to after a long day and a source of power to moe on. I want you to always remember that you are the good energy of my life.</item>
+
+    </string-array>
 </resources>

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login
+package subtext.yuvallovenotes.login.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
-import subtext.yuvallovenotes.lovelettersgenerator.LetterGeneratorFragmentDirections
 
 class EnterUserNameFragment : Fragment() {
 

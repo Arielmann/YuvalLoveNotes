@@ -56,7 +56,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@drawable/header_small_bg"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/title_app_display_name" />
+                app:title="@string/app_name" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -90,50 +90,5 @@
             app:useCompatPadding="true" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/nativeAdCL"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_margin="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/nativeAdbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nativeAdDescription" />
-
-        <ImageView
-            android:id="@+id/nativeAdIcon"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/nativeAdDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toEndOf="@+id/nativeAdIcon"
-            app:layout_constraintTop_toBottomOf="@+id/nativeAdTitle" />
-
-        <TextView
-            android:id="@+id/nativeAdTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintStart_toEndOf="@+id/nativeAdIcon"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

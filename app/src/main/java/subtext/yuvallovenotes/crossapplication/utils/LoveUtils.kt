@@ -7,14 +7,15 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
-import android.widget.Toast
-import android.widget.Toast.LENGTH_LONG
+import androidx.annotation.ArrayRes
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
 import java.lang.reflect.InvocationTargetException
 import java.util.*
+
 
 object LoveUtils {
 
@@ -48,7 +49,6 @@ object LoveUtils {
                 return true
             }
         }
-        Toast.makeText(context, "No internet connection", LENGTH_LONG).show()
         return false
     }
 
@@ -129,5 +129,9 @@ object LoveUtils {
             Log.d(TAG, "Navigating to previous screen")
             parentFragment.findNavController().popBackStack()
         }
+    }
+
+    fun getAllItemsFromArrayFile(@ArrayRes resource : Int): MutableList<String> {
+        return YuvalLoveNotesApp.context.resources.getStringArray(resource).toMutableList()
     }
 }

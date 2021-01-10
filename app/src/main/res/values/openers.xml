@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="opener_lover_name_fallback">Sweetie</string>
-    <string name="opener_sweetie">Sweetie</string>
-    <string name="opener_baby">Baby</string>
-    <string name="opener_honey">Honey</string>
-    <string name="opener_to_my_beauty">My beauty</string>
-    <string name="opener_to_my_beauty2">Beautiful girl</string>
-    <string name="opener_babe">Babe</string>
-    <string name="opener_sweetheart">Sweetheart</string>
-    <string name="opener_princess">Princess</string>
-    <string name="opener_darling">Darling</string>
-    <string name="opener_my_dear">My dear</string>
-    <string name="opener_my_love">My love</string>
-    <string name="opener_my_one_and_only">My one and only</string>
-    <string name="opener_love_of_my_life">Love of my life</string>
-    <string name="opener_my_life">My life</string>
-    <string name="opener_to_my_beautiful_woman">To my beautiful woman</string>
-    <string name="opener_my_soul">To my soulmate</string>
-    <string name="opener_sugar">Sugar</string>
-    <string name="opener_angel">Angel</string>
-    <string name="opener_doll">Doll</string>
-    <string name="opener_dream_girl">Dream girl</string>
-    <string name="opener_buttercup" translatable="false">Buttercup</string>
-    <string name="opener_my_beautiful_princess">My beautiful princess</string>
-    <string name="opener_my_kushkushit">Sunshine</string>
-    <string name="opener_to_my_special_one">To my special one</string>
+
+    <string-array name="openers">
+
+    <item name="opener_sweetie">Sweetie</item>
+    <item name="opener_baby">Baby</item>
+    <item name="opener_honey">Honey</item>
+    <item name="opener_to_my_beauty">My beauty</item>
+    <item name="opener_to_my_beauty2">Beautiful girl</item>
+    <item name="opener_babe">Babe</item>
+    <item name="opener_sweetheart">Sweetheart</item>
+    <item name="opener_princess">Princess</item>
+    <item name="opener_darling">Darling</item>
+    <item name="opener_my_dear">My dear</item>
+    <item name="opener_my_love">My love</item>
+    <item name="opener_my_one_and_only">My one and only</item>
+    <item name="opener_love_of_my_life">Love of my life</item>
+    <item name="opener_my_life">My life</item>
+    <item name="opener_to_my_beautiful_woman">To my beautiful woman</item>
+    <item name="opener_my_soul">To my soulmate</item>
+    <item name="opener_sugar">Sugar</item>
+    <item name="opener_angel">Angel</item>
+    <item name="opener_doll">Doll</item>
+    <item name="opener_dream_girl">Dream girl</item>
+    <item name="opener_buttercup" translatable="false">Buttercup</item>
+    <item name="opener_my_beautiful_princess">My beautiful princess</item>
+    <item name="opener_my_kushkushit">Sunshine</item>
+    <item name="opener_to_my_special_one">To my special one</item>
+
+    </string-array>
 </resources>

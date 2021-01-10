@@ -14,6 +14,7 @@ import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.network.LoveNetworkCalls
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
@@ -152,5 +153,10 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
         Log.d(TAG, "love letters list size: " + loveLetters.value?.size)
         return isDeleted
+    }
+
+    fun isLoginProcessCompleted(): Boolean {
+        val sharedPrefs = get(SharedPreferences::class.java)
+        return sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_is_login_process_completed), false)
     }
 }

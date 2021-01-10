@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Love Letter</string>
+    <string name="app_name">מכתבים</string>
 
     <!-- Messages Preferences -->
     <string name="pref_title_show_only_letters_created_by_user">בחר רק מכתבים שנכתבו בידיך</string>
@@ -7,11 +7,10 @@
     <string name="pref_dialog_title_target_phone_number">טלפון</string>
 
     <!--Regular titles for user-->
-    <string name="title_app_display_name">מכתבים</string>
     <string name="title_settings">הגדרות</string>
     <string name="title_letters_list">מכתבים</string>
-    <string name="title_what_is_your_name">שם פרטי</string>
-    <string name="title_what_is_your_lover_name">שם פרטי של בן/בת הזוג</string>
+    <string name="title_what_is_your_name">שם פרטי בעברית</string>
+    <string name="title_what_is_your_lover_name">כינוי חיבה של בן/בת הזוג</string>
     <string name="title_what_is_your_lovers_phone_number">טלפון של בן/בת הזוג</string>
     <string name="title_letter_list_is_empty">אין מכתבים להצגה</string>
     <string name="title_empty_letter_deleted">מכתב ריק נמחק</string>
@@ -36,5 +35,15 @@
     <string name="error_invalid_lover_number_inserted">הכנס בבקשה מספר טלפון תקין</string>
     <string name="error_parsing_contact_number">אירעה שגיאה בעת בחירה באיש קשר. אנא נסה שנית</string>
     <string name="error_no_external_app_found_for_sharing_content">לא ניתן למצוא אפליקציה שיכולה לשתף את המכתב</string>
+    <string name="error_no_network_connection">בעיית התחברות. בבקשה וודא שיש לך חיבור לאינטרנט ונסה שוב</string>
+    <string name="error_login_default_network_failure">התרחשה בעיה בעת ניסיון הכניסה לשירות. נסה שוב בעוד דקה</string>
+
+    <!--Misc-->
+    <string name="user_name_as_closure_fallback">אני</string>
+    <string name="lover_name_fallback">אהובתי</string>
+    <string name="user_name_fallback">אתה</string>
+    <string name="error_msg_whatsapp_not_installed">וואטסאפ לא מותקן על המכשיר שלך</string>
+    <string name="title_next">המשך</string>
+    <string name="title_done">תרשום אותי</string>
 
 </resources>

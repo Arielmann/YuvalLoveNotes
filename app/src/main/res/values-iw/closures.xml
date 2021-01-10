@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="closure_user_name_fallback">אני</string>
-    <string name="closure_me">אני</string>
-    <string name="closure_your_man">הגבר שלך</string>
-    <string name="closure_love_you">אוהב אותך❤</string>
-    <string name="closure_waiting_for_you">מחכה לך</string>
-    <string name="closure_love_and_appreciate">אוהב ומעריך❤</string>
-    <string name="closure_big_love">באהבה גדולה❤</string>
-    <string name="closure_cherish_what_we_have">אוהב ומעריך את מה שיש בינינו</string>
-    <string name="closure_with_love_me">באהבה❤,\n אני</string>
-    <string name="closure_your_always_me">תמיד איתך❤,\n אני</string>
-    <string name="closure_your_always_forever">שלך לנצח❤,\n אני</string>
-    <string name="closure_my_heart_is_yours">הלב שלי שלך ❤</string>
-    <string name="closure_you_are_always_with_me">את תמיד איתי</string>
-    <string name="closure_i_will_be_always_be_waiting_for_you">מחכה לך, תמיד</string>
-    <string name="closure_you_complete_me">את משלימה אותי</string>
-    <string name="closure_yours_truly">שלך באמת, אני</string>
+
+    <string-array name="closures">
+
+    <item name="closure_me">אני</item>
+    <item name="closure_your_man">הגבר שלך</item>
+    <item name="closure_love_you">אוהב אותך ❤</item>
+    <item name="closure_waiting_for_you">מחכה לך</item>
+    <item name="closure_love_and_appreciate">אוהב ומעריך 💜</item>
+    <item name="closure_big_love">אהבה גדולה ❤</item>
+    <item name="closure_cherish_what_we_have">אוהב ומעריך את מה שיש בינינו</item>
+    <item name="closure_with_love_me">באהבה 💞\n אני</item>
+    <item name="closure_your_always_me">תמיד איתך 😘\n אני</item>
+    <item name="closure_your_always_forever">שלך לנצח 	🌺\n אני</item>
+    <item name="closure_my_heart_is_yours">הלב שלי שלך 💝</item>
+    <item name="closure_you_are_always_with_me">את תמיד איתי 🌸</item>
+    <item name="closure_i_will_be_always_be_waiting_for_you">מחכה לך, תמיד</item>
+    <item name="closure_you_complete_me">את משלימה אותי</item>
+    <item name="closure_yours_truly">שלך באמת, אני</item>
+
+    </string-array>
 </resources>

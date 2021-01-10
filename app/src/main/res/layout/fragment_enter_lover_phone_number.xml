@@ -4,107 +4,131 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".login.EnterUserNameFragment">
+    tools:context=".login.ui.EnterUserNameFragment">
 
-      <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/enterLoverPhoneNumberAppBar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/enterLoverPhoneNumberMainCL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/enterLoverPhoneNumberToolBar"
+        <Button
+            android:id="@+id/loversChooseFromContactsBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="@string/title_choose_from_contacts"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/enterLoverPhoneNumberAppBar"
+            app:layout_constraintTop_toBottomOf="@+id/loversLocalPhoneNumberInputEditText" />
+
+        <Button
+            android:id="@+id/loverNumberDoneBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:text="@string/title_done"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/loversPhoneNumberRegionInputEditText"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            android:gravity="left"
+            android:importantForAutofill="no"
+            android:inputType="phone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_input_text_enter_details"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
+
+        <EditText
+            android:id="@+id/loversLocalPhoneNumberInputEditText"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:backgroundTint="@color/white"
+            android:gravity="left"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_input_text_enter_details"
+            app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberRegionInputEditText"
+            app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
+            tools:ignore="RtlHardcoded,TextFields" />
+
+        <TextView
+            android:id="@+id/hyphenTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hyphen"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@+id/loversLocalPhoneNumberInputEditText"
+            app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
+            app:layout_constraintRight_toLeftOf="@+id/loversLocalPhoneNumberInputEditText"
+            app:layout_constraintTop_toTopOf="@+id/loversLocalPhoneNumberInputEditText" />
+
+        <TextView
+            android:id="@+id/enterLoverNumberTitleTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/title_what_is_your_lovers_phone_number"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_instructor_text_enter_details"
+            app:layout_constraintBottom_toTopOf="@+id/loversLocalPhoneNumberInputEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/enterLoverPhoneNumberAppBar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/header_small_bg"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </com.google.android.material.appbar.AppBarLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/enterLoverPhoneNumberToolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/header_small_bg"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-    <TextView
-        android:id="@+id/enterLoverNumberTitleTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:gravity="center"
-        android:text="@string/title_what_is_your_lovers_phone_number"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_instructor_text_enter_details"
-        app:layout_constraintBottom_toTopOf="@+id/loversLocalPhoneNumberInputEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <EditText
-        android:id="@+id/loversPhoneNumberRegionInputEditText"
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/enterLoverPhoneNumberProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="85dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
-        android:gravity="left"
-        android:importantForAutofill="no"
-        android:inputType="phone"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_input_text_enter_details"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="RtlHardcoded" />
-
-    <TextView
-        android:id="@+id/hyphenTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hyphen"
-        android:textSize="22sp"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/loversLocalPhoneNumberInputEditText"
-        app:layout_constraintRight_toLeftOf="@+id/loversLocalPhoneNumberInputEditText"
-        app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
-        app:layout_constraintTop_toTopOf="@+id/loversLocalPhoneNumberInputEditText" />
-
-    <EditText
-        android:id="@+id/loversLocalPhoneNumberInputEditText"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:importantForAutofill="no"
-        android:gravity="left"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:inputType="number"
-        android:textColor="@color/white"
-        android:backgroundTint="@color/white"
-        android:textSize="@dimen/size_input_text_enter_details"
-        app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberRegionInputEditText"
-        app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
-        tools:ignore="RtlHardcoded,TextFields" />
-
-    <Button
-        android:id="@+id/loversChooseFromContactsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/title_choose_from_contacts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/enterLoverPhoneNumberAppBar"
-        app:layout_constraintTop_toBottomOf="@+id/loversLocalPhoneNumberInputEditText" />
-
-    <Button
-        android:id="@+id/loverNumberDoneBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/title_done"
+        android:layout_height="85dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

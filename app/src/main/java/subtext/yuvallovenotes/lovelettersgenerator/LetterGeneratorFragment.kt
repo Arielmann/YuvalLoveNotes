@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -17,13 +16,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
-import com.startapp.sdk.ads.nativead.NativeAdPreferences
-import com.startapp.sdk.ads.nativead.StartAppNativeAd
-import com.startapp.sdk.adsbase.Ad
-import com.startapp.sdk.adsbase.SDKAdPreferences
-import com.startapp.sdk.adsbase.adlisteners.AdEventListener
 import org.koin.android.ext.android.get
-import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
@@ -41,7 +34,7 @@ class LetterGeneratorFragment : Fragment() {
 
     private var currentLetter: LoveLetter? = null
     private lateinit var binding: FragmentLetterGeneratorBinding
-    private lateinit var sharedPrefs: SharedPreferences
+//    private lateinit var sharedPrefs: SharedPreferences
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
@@ -60,8 +53,7 @@ class LetterGeneratorFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        if (!sharedPrefs.getBoolean(getString(R.string.pref_key_is_login_process_completed), false)) {
+        if(loveItemsViewModel.isLoginProcessCompleted()){ //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
         }
     }
@@ -235,30 +227,5 @@ class LetterGeneratorFragment : Fragment() {
         super.onStop()
         loveItemsViewModel.deleteLetterIfEmpty(currentLetter)
     }
-
-/*    private fun loadNativeAd() {
-        val nativeAd = StartAppNativeAd(requireContext())
-        nativeAd.loadAd(NativeAdPreferences()
-                .setAdsNumber(1)
-                .setAutoBitmapDownload(true)
-                .setAge(35)
-                .setGender(SDKAdPreferences.Gender.MALE) as NativeAdPreferences?
-                , object : AdEventListener {
-            override fun onReceiveAd(ad: Ad) {
-                val nativeAdDetails = nativeAd.nativeAds.first()
-                binding.nativeAdIcon.setImageBitmap(nativeAdDetails.imageBitmap)
-                binding.nativeAdTitle.text = nativeAdDetails.title
-                binding.nativeAdDescription.text = nativeAdDetails.description
-                binding.nativeAdbutton.text = if (nativeAdDetails.isApp) "Install" else "Open"
-                nativeAdDetails.registerViewForInteraction(binding.nativeAdbutton)
-            }
-
-            override fun onFailedToReceiveAd(ad: Ad) {
-                if (BuildConfig.DEBUG) {
-                    Log.v(TAG, "onFailedToReceiveAd: " + ad.errorMessage)
-                }
-            }
-        })
-    }*/
 }
 

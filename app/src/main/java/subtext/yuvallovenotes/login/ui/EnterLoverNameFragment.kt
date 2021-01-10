@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login
+package subtext.yuvallovenotes.login.ui
 
 import android.content.SharedPreferences
 import android.os.Bundle
