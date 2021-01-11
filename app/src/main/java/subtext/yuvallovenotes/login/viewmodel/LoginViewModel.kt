@@ -50,9 +50,9 @@ class LoginViewModel : ViewModel() {
     private fun userInputValidation(user: LoveLettersUser, callback: UserRegistrationCallback): Boolean {
         d(TAG, "Validating user input")
         var isValid = false
-        if (allRelevantFieldsHaveText(user, callback)) {
+        if (allFieldsHaveText(user, callback)) {
             d(TAG, "Fields are not blank")
-            if (isPhoneNumberValid(user.phone, callback)) {
+            if (isPhoneNumberValid(user.loverPhone, callback)) {
                 isValid = true
             }
         }
@@ -72,7 +72,7 @@ class LoginViewModel : ViewModel() {
          * Starts the registration/login process
          */
         fun execute() {
-            prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_is_login_process_completed), false).apply()
+            prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_registered_in_server), false).apply()
             loginRepository.registerUser(user, registerUserCallback)
             val pushNotificationChannels = listOf("default", user.userName)
             loginRepository.registerToPushNotificationsService(pushNotificationChannels, registerNotificationsCallback)
@@ -84,10 +84,10 @@ class LoginViewModel : ViewModel() {
                 d(TAG, "User registration successful")
                 val context = YuvalLoveNotesApp.context
                 saveDataToPrefs(response)
-                val isDeviceRegisteredToNotifications = prefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
-                if (isDeviceRegisteredToNotifications) {
+                prefs.edit().putBoolean(context.getString(R.string.pref_key_user_registered_in_server), true).apply()
+                val isDeviceRegistered = prefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
+                if (isDeviceRegistered) {
                     d(TAG, "User registration callback: Successful user and device registration on server")
-                    prefs.edit().putBoolean(context.getString(R.string.pref_key_is_login_process_completed), true).apply()
                     callback.onSuccess()
                 } else {
                     d(TAG, "User registration callback: Waiting for device registration to notifications")
@@ -105,11 +105,10 @@ class LoginViewModel : ViewModel() {
             override fun onSuccess(response: DeviceRegistrationResult) {
                 d(TAG, "Device registered to notifications")
                 val context = YuvalLoveNotesApp.context
-                prefs.edit().putBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false).apply()
-                val userName = prefs.getString(context.getString(R.string.pref_key_user_name), "")
-                if (!userName.isNullOrBlank()) {
+                prefs.edit().putBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), true).apply()
+                val isUserRegistered = prefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
+                if (isUserRegistered) {
                     d(TAG, "Notifications registration callback: Successful device and user registration on server")
-                    prefs.edit().putBoolean(context.getString(R.string.pref_key_is_login_process_completed), true).apply()
                     callback.onSuccess()
                 } else {
                     d(TAG, "Notifications registration callback: Waiting for user registration")
@@ -133,10 +132,10 @@ class LoginViewModel : ViewModel() {
         return false
     }
 
-    private fun allRelevantFieldsHaveText(user: LoveLettersUser, callback: UserRegistrationCallback): Boolean {
+    private fun allFieldsHaveText(user: LoveLettersUser, callback: UserRegistrationCallback): Boolean {
         val context = YuvalLoveNotesApp.context
 
-        if (user.phone.isBlank()) {
+        if (user.loverPhone.isBlank()) {
             callback.onError(context.getString(R.string.error_invalid_lover_number_inserted))
             return false
         }
@@ -155,8 +154,8 @@ class LoginViewModel : ViewModel() {
     fun requestUserPhoneNumber(onCompletion: (regionNumber: String, localNumber: String) -> Unit) {
         val context = YuvalLoveNotesApp.context
         val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
-        val region = prefs.getString(context.getString(R.string.pref_key_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
-        val local = prefs.getString(context.getString(R.string.pref_key_local_phone_number), "")!!
+        val region = prefs.getString(context.getString(R.string.pref_key_lover_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
+        val local = prefs.getString(context.getString(R.string.pref_key_lover_local_phone_number), "")!!
         onCompletion.invoke(region, local)
     }
 
@@ -165,9 +164,9 @@ class LoginViewModel : ViewModel() {
         d(TAG, "Saving data to shared preferences")
         val context = YuvalLoveNotesApp.context
         prefs.edit {
-            putString(context.getString(R.string.pref_key_phone_region_number), user.phone.regionNumber)
-            putString(context.getString(R.string.pref_key_local_phone_number), user.phone.localNumber)
-            putString(context.getString(R.string.pref_key_full_target_phone_number), user.phone.fullNumber)
+            putString(context.getString(R.string.pref_key_lover_phone_region_number), user.loverPhone.regionNumber)
+            putString(context.getString(R.string.pref_key_lover_local_phone_number), user.loverPhone.localNumber)
+            putString(context.getString(R.string.pref_key_lover_full_target_phone_number), user.loverPhone.fullNumber)
         }
     }
 

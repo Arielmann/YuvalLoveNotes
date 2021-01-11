@@ -3,10 +3,10 @@ package subtext.yuvallovenotes.lovelettersgenerator
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextWatcher
 import android.util.Log.d
+import android.util.Log.w
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +24,7 @@ import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
+import java.lang.IllegalArgumentException
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -34,7 +35,8 @@ class LetterGeneratorFragment : Fragment() {
 
     private var currentLetter: LoveLetter? = null
     private lateinit var binding: FragmentLetterGeneratorBinding
-//    private lateinit var sharedPrefs: SharedPreferences
+
+    //    private lateinit var sharedPrefs: SharedPreferences
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
@@ -53,8 +55,13 @@ class LetterGeneratorFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(loveItemsViewModel.isLoginProcessCompleted()){ //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
-            findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
+        if (loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
+            try {
+                findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
+            } catch (e: IllegalArgumentException) {
+                w(TAG, "Unnecessary attempt to navigate to first login screen")
+                e.printStackTrace()
+            }
         }
     }
 
@@ -193,7 +200,7 @@ class LetterGeneratorFragment : Fragment() {
         val sendWhatsapp = WhatsAppSender()
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         //Todo: set mobile number to yuval's only under my id (also set my custom letters)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_full_target_phone_number), "")
+        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_lover_full_target_phone_number), "")
                 ?: ""
         sendWhatsapp.send(requireContext(), phoneNumber, binding.letterEditText.text.toString())
     }

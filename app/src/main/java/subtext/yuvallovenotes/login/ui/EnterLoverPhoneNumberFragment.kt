@@ -127,17 +127,17 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             }
 
             override fun onError(error: String) {
-                binding.enterLoverPhoneNumberProgressBar.hide()
+                binding.loverPhoneNumberProgressBar.hide()
                 binding.root.animate().alpha(1f).setDuration(100).start()
                 Toast.makeText(YuvalLoveNotesApp.context, error, Toast.LENGTH_LONG).show()
             }
 
         }
 
-        binding.loverNumberDoneBtn.setOnClickListener {
+        binding.loverPhoneNumberDoneBtn.setOnClickListener {
 
             binding.root.animate().alpha(0.5f).setDuration(200).start()
-            binding.enterLoverPhoneNumberProgressBar.show()
+            binding.loverPhoneNumberProgressBar.show()
             val userName = loginViewModel.getUserName()
             val loverNickName = loginViewModel.getLoverNickName()
             val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
@@ -146,19 +146,6 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             val user = UnVerifiedLoveLettersUser(userName, loverNickName, phone)
             loginViewModel.requestLogin(user, callback)
 
-
-           /* val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
-            val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
-            if (PhoneNumberUtil.getInstance().isPhoneNumberValid(regionNumber, localNumber)) {
-                sharedPrefs.edit().putString(getString(R.string.pref_key_phone_region_number), regionNumber).apply()
-                sharedPrefs.edit().putString(getString(R.string.pref_key_local_phone_number), localNumber).apply()
-                sharedPrefs.edit().putString(getString(R.string.pref_key_full_target_phone_number), regionNumber.plus(localNumber)).apply()
-                sharedPrefs.edit().putBoolean(getString(R.string.pref_key_is_login_process_completed), true).apply()
-                findNavController().popBackStack(R.id.enterUserNameFragment, false)
-                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
-            } else {
-                Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
-            }*/
         }
     }
 

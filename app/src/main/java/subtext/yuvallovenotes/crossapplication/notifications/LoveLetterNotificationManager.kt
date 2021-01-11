@@ -61,6 +61,6 @@ object LoveLetterNotificationManager {
     fun isShowNotificationAllowed() : Boolean{
         val context = YuvalLoveNotesApp.context
         val sharedPref: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
-        return sharedPref.getBoolean(context.getString(R.string.pref_key_is_login_process_completed), false)
+        return sharedPref.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
     }
 }

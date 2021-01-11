@@ -31,12 +31,12 @@ class EnterLoverNameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         setOnDoneButtonClickListener()
-        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverNameToolBar)
+        LoveUtils.setupFragmentDefaultToolbar(this, binding.loverNameToolBar)
         setupLoverNameEditText()
     }
 
     private fun setOnDoneButtonClickListener() {
-        binding.loverNameDoneBtn.setOnClickListener {
+        binding.loverNameContinueBtn.setOnClickListener {
             if (binding.loverNameInputEditText.text.isNotBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_name), binding.loverNameInputEditText.text.toString()).apply()
                 findNavController().navigate(EnterLoverNameFragmentDirections.navigateToLoverPhoneNumber())

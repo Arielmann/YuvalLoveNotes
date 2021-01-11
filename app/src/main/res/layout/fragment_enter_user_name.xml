@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,59 +7,94 @@
     android:layout_height="match_parent"
     tools:context=".login.ui.EnterUserNameFragment">
 
-    <TextView
-        android:id="@+id/enterUserNameWelcomeTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:textSize="40sp"
-        android:text="@string/app_name"
+    <ImageView
+        android:id="@+id/upperImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/love_letter_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/enterUserNameTitleTV"
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upperImageView" />
+
+    <TextView
+        android:id="@+id/userNameAppDescriptionTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="@string/app_description"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+    <TextView
+        android:id="@+id/enterUserNameTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center"
         android:text="@string/title_what_is_your_name"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/userNameInputEditText"
+        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameAppDescriptionTV" />
 
     <EditText
         android:id="@+id/userNameInputEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:textSize="@dimen/size_input_text_enter_details"
-        android:gravity="center"
-        android:textColor="@color/white"
         android:backgroundTint="@color/white"
+        android:gravity="center"
         android:inputType="text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_input_text_enter_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterUserNameTV" />
+
+    <Button
+        android:id="@+id/userNameContinueBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/shadowed_cornered_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:textAllCaps="false"
+        android:fontFamily="sans-serif"
+        android:text="@string/title_next"
+        android:textColor="@color/white"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameInputEditText" />
 
-    <Button
-        android:id="@+id/loverNameDoneBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/title_next"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

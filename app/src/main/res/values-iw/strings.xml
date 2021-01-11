@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">מכתבים</string>
+    <string name="app_description">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג, גם אם אתה לא שייקספיר</string>
+    <string name="description_app_create_or_choose_letters">צור מכתבים שיגרמו למאמי שלך לחייך, או בחר מתוך האוסף הנהדר שלנו.</string>
+    <string name="description_you_get_reminders">פעם בשבוע נזכיר לך לשלוח מכתב ולחזק את הקשר שלכם.</string>
 
     <!-- Messages Preferences -->
     <string name="pref_title_show_only_letters_created_by_user">בחר רק מכתבים שנכתבו בידיך</string>
@@ -20,10 +23,14 @@
     <string name="title_delete">מחק</string>
     <string name="title_ok">אוקיי</string>
     <string name="title_cancel">בטל</string>
-    <string name="title_choose_from_contacts">בחר מאנשי הקשר שלי</string>
+    <string name="title_choose_from_contacts">בחר מאנשי הקשר</string>
     <string name="title_are_you_sure">בטוח?</string>
     <string name="title_letter_will_be_deleted_forever">המכתב יימחק לנצח</string>
     <string name="hint_your_words_here">מילותייך ייכתבו כאן</string>
+    <string name="title_next">המשך</string>
+    <string name="title_done">סיום</string>
+    <string name="title_write">כתוב</string>
+    <string name="title_remember">לא לשכוח לעולם</string>
 
     <!--Notification titles-->
     <string name="notification_title_send_letter_reminder">תזכורת לאהבה 💌</string>
@@ -43,7 +50,5 @@
     <string name="lover_name_fallback">אהובתי</string>
     <string name="user_name_fallback">אתה</string>
     <string name="error_msg_whatsapp_not_installed">וואטסאפ לא מותקן על המכשיר שלך</string>
-    <string name="title_next">המשך</string>
-    <string name="title_done">תרשום אותי</string>
 
 </resources>

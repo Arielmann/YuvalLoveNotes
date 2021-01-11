@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.android.synthetic.main.dialog_settings_target_phone_number.view.*
 import org.koin.java.KoinJavaComponent.get
@@ -58,7 +57,7 @@ class SettingsActivity : AppCompatActivity() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
-            val phoneNumberPref: Preference? = findPreference(getString(R.string.pref_key_full_target_phone_number))
+            val phoneNumberPref: Preference? = findPreference(getString(R.string.pref_key_lover_full_target_phone_number))
             phoneNumberPref?.let { pref ->
 
                 //Show dialog
@@ -67,9 +66,9 @@ class SettingsActivity : AppCompatActivity() {
                     val mBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
                     val mAlertDialog = mBuilder.create()
                     mAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                    val currentRegionNumber = sharedPrefs.getString(getString(R.string.pref_key_phone_region_number), PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode())
+                    val currentRegionNumber = sharedPrefs.getString(getString(R.string.pref_key_lover_phone_region_number), PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode())
                     mDialogView.enterPhoneRegionDialogInputEditText.setText(currentRegionNumber)
-                    val currentLocalPhoneNumber = sharedPrefs.getString(getString(R.string.pref_key_local_phone_number), "")
+                    val currentLocalPhoneNumber = sharedPrefs.getString(getString(R.string.pref_key_lover_local_phone_number), "")
                     mDialogView.enterPhoneDialogLocalNumberInputEditText.setText(currentLocalPhoneNumber)
                     mAlertDialog.show()
 
@@ -80,9 +79,9 @@ class SettingsActivity : AppCompatActivity() {
                         if (PhoneNumberUtil.getInstance().isPhoneNumberValid(newRegionNumber, newLocalPhoneNumber)) {
                             mAlertDialog.dismiss()
                             val newFullNumber = newRegionNumber.plus(newLocalPhoneNumber)
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_phone_region_number), newRegionNumber).apply()
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_local_phone_number), newLocalPhoneNumber).apply()
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_full_target_phone_number), newFullNumber).apply()
+                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_phone_region_number), newRegionNumber).apply()
+                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_local_phone_number), newLocalPhoneNumber).apply()
+                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_full_target_phone_number), newFullNumber).apply()
                         } else {
                             Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
                         }

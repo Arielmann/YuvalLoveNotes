@@ -157,6 +157,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     fun isLoginProcessCompleted(): Boolean {
         val sharedPrefs = get(SharedPreferences::class.java)
-        return sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_is_login_process_completed), false)
+        val context = YuvalLoveNotesApp.context
+        return sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false) && sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
     }
 }

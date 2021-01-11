@@ -16,7 +16,7 @@
         <Preference
             android:defaultValue=" "
             android:inputType="phone"
-            android:key="@string/pref_key_full_target_phone_number"
+            android:key="@string/pref_key_lover_full_target_phone_number"
             android:selectAllOnFocus="true"
             android:singleLine="true"
             app:dialogTitle="@string/pref_title_target_phone_number"

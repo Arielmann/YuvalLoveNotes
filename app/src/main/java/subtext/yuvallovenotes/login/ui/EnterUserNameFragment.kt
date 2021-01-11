@@ -30,7 +30,7 @@ class EnterUserNameFragment : Fragment() {
     }
 
     private fun setOnDoneButtonClickListener() {
-        binding.loverNameDoneBtn.setOnClickListener {
+        binding.userNameContinueBtn.setOnClickListener {
             if (binding.userNameInputEditText.text.isNotBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_user_name), binding.userNameInputEditText.text.toString()).apply()
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToLoverName())

@@ -9,4 +9,6 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="tabs_bg">#253A4B</color>
     <color name="colorDanger">#e57373</color>
+    <color name="orangePink">#f38873</color>
+    <color name="grayFade">#70A9A9A9</color>
 </resources>
