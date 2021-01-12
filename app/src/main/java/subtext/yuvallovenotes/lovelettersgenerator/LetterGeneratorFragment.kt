@@ -48,16 +48,21 @@ class LetterGeneratorFragment : Fragment() {
             this@LetterGeneratorFragment.currentLetter?.let {
                 it.text = newText.toString()
                 loveItemsViewModel.updateLetter(it)
-                d(TAG, "updating love letter ${it.id}")
-            } ?: d(TAG, "no current letter to update")
+                d(TAG, "Updating love letter ${it.id}")
+            } ?: d(TAG, "No current letter to update")
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
+        checkIfRegistrationNeeded()
+        return binding.root
+    }
+
+    private fun checkIfRegistrationNeeded() {
         if (loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
-                findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
+                findNavController().navigate(LetterGeneratorFragmentDirections.navigateToOnboarding())
             } catch (e: IllegalArgumentException) {
                 w(TAG, "Unnecessary attempt to navigate to first login screen")
                 e.printStackTrace()
@@ -65,17 +70,12 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
 //        loadNativeAd()
         observeLettersListChanges()
-        displayLetterData()
+        displayLetterDataForFirstTime()
         binding.letterEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
         LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
@@ -119,7 +119,7 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    private fun displayLetterData() {
+    private fun displayLetterDataForFirstTime() {
         val args: LetterGeneratorFragmentArgs by navArgs()
         loveItemsViewModel.getLetterById(args.StringLetterId) //Checking if specific letter should be displayed
                 .observeOnce(viewLifecycleOwner, { letter ->
@@ -149,9 +149,18 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private val letterGeneratorListener: View.OnClickListener = View.OnClickListener {
+        displayNewLetter()
+    }
+
+    private fun displayNewLetter() {
         //Todo: cleanup
         loveItemsViewModel.deleteLetterIfEmpty(currentLetter)
-        this.currentLetter = loveItemsViewModel.randomLetter()
+        val newLetter = loveItemsViewModel.randomLetter()
+        if(currentLetter!!.text == newLetter.text && loveItemsViewModel.loveLetters.value?.size!! > 1){
+            displayNewLetter()
+            return
+        }
+        this.currentLetter = newLetter
         if (currentLetter!!.text.isEmpty()) {
             Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
         }
@@ -176,7 +185,7 @@ class LetterGeneratorFragment : Fragment() {
                         d(TAG, "deleting letter")
                         Toast.makeText(requireContext(), getString(R.string.title_letter_deleted), LENGTH_LONG).show()
                         loveItemsViewModel.deleteLetterSync(it)
-                        d(TAG, "deleting finished")
+                        d(TAG, "deleting completed")
                         letterGeneratorListener.onClick(view)
                     }
                 }

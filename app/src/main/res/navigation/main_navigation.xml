@@ -48,6 +48,24 @@
     </fragment>
 
     <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="subtext.yuvallovenotes.login.ui.OnboardingDemoSupportFragment"
+        android:label="onboarding_Fragment"
+        tools:layout="@layout/fragment_onboarding">
+
+        <action
+            android:id="@+id/navigate_to_enter_user_details"
+            app:destination="@id/enterUserNameFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+
+    <fragment
         android:id="@+id/enterLoverPhoneNumberFragment"
         android:name="subtext.yuvallovenotes.login.ui.EnterLoverPhoneNumberFragment"
         android:label="fragment_letter_generator"
@@ -83,11 +101,24 @@
         <action
             android:id="@+id/navigate_to_enter_user_name"
             app:destination="@id/enterUserNameFragment"
-            app:popUpTo="@id/enterUserNameFragment"
+            app:popUpTo="@id/letterGeneratorFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
+
+        <action
+            android:id="@+id/navigate_to_onboarding"
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/letterGeneratorFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+
 
         <action
             android:id="@+id/navigate_to_settings"

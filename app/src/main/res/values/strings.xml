@@ -81,5 +81,7 @@
     <string name="user_name_as_closure_fallback">Me</string>
     <string name="user_name_fallback">You</string>
     <string name="lover_name_fallback">My love</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

@@ -1,0 +1,74 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="onboarding_page_titles">
+        <item>מכתבים</item>
+        <item>כתוב</item>
+        <item>לזכור תמיד</item>
+    </string-array>
+
+    <string-array name="onboarding_page_descriptions">
+        <item name="app_description">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג, גם אם אתה לא שייקספיר.</item>
+        <item name="description_app_create_or_choose_letters">צור מכתבים שיגרמו למאמי שלך לחייך, או בחר מתוך האוסף הנהדר שלנו.</item>
+        <item name="description_you_get_reminders">פעם בשבוע נזכיר לך לשלוח מכתב ולחזק את הקשר שלכם.</item>
+    </string-array>
+
+    <string-array name="openers">
+
+        <item name="opener_sweetie">מתוקה שלי</item>
+        <item name="opener_baby">בייבי</item>
+        <item name="opener_honey">מאמי</item>
+        <item name="opener_to_my_beauty">יפה שלי</item>
+        <item name="opener_to_my_beauty2">יפתי</item>
+        <item name="opener_babe">מותק</item>
+        <item name="opener_sweetheart">בובונת</item>
+        <item name="opener_princess">נסיכה שלי</item>
+        <item name="opener_darling">יקירתי</item>
+        <item name="opener_my_dear">אהובה שלי</item>
+        <item name="opener_my_love">אהובתי</item>
+        <item name="opener_my_one_and_only">לאחת והיחידה</item>
+        <item name="opener_love_of_my_life">אהבת חיי</item>
+        <item name="opener_to_my_beautiful_woman">לאישה היפה שלי</item>
+        <item name="opener_my_life">">חיים שלי</item>
+        <item name="opener_my_soul">נשמה שלי</item>
+        <item name="opener_sugar">סוכרייה שלי</item>
+        <item name="opener_angel">מלאכית קטנה שלי</item>
+        <item name="opener_doll">בובי שלי</item>
+        <item name="opener_dream_girl">לנסיכת החלומות</item>
+        <item name="opener_my_beautiful_princess">לנסיכה היפה שלי</item>
+        <item name="opener_my_kushkushit">קושקושית שלי</item>
+        <item name="opener_to_my_special_one">לבחורה הכי מיוחדת</item>
+
+    </string-array>
+
+    <string-array name="phrases">
+
+        <item name="phrase_1">רציתי רק לומר לך תודה על מי שאת. אני מברך על הקשר שלנו, מברך אותך על מה שאת מביאה לתוכו ואותי על שבחרתי בך.</item>
+        <item name="phrase_2">גם אם אני לא אומר לך את זה בכל יום, תדעי שאת אור גדול בחיים שלי.</item>
+        <item name="phrase_3">אני שמח שבחרתי בך כי יש לנו חיבור מיוחד, אני יודע את זה כי אני מרגיש את זה. העולם מלא בהזדמנויות ובהסחות דעת, ובתוך כל זה להיות איתך אחד הדברים הטובים והנבונים שעשיתי.</item>
+        <item name="phrase_4">עברנו המון יחד, שמחה וקושי ותענוג וכאב. כשאני מביט אחורה ורואה כמה לימדת אותי על עצמי, כל מה שיש לי זה לומר לך תודה.</item>
+        <item name="phrase_5">מתי בפעם האחרונה אמרתי לך שאת יפה? האמת שלא משנה מתי, זה תמיד זמן טוב להגיד לך פעם נוספת :)</item>
+        <item name="phrase_6">האהבה שלנו היא דבר יפה, עמוק ויפה. היא בית חם לשוב אליו בסופו של יום ארוך ומקור של כוח להתקדם קדימה. אני רוצה שתזכרי תמיד שאת האנרגיה הטובה של חיי.</item>
+
+    </string-array>
+
+    <string-array name="closures">
+
+        <item name="closure_me">אני</item>
+        <item name="closure_your_man">הגבר שלך</item>
+        <item name="closure_love_you">אוהב אותך ❤</item>
+        <item name="closure_waiting_for_you">מחכה לך</item>
+        <item name="closure_love_and_appreciate">אוהב ומעריך 💜</item>
+        <item name="closure_big_love">אהבה גדולה ❤</item>
+        <item name="closure_cherish_what_we_have">אוהב ומעריך את מה שיש בינינו</item>
+        <item name="closure_with_love_me">באהבה 💞\n אני</item>
+        <item name="closure_your_always_me">תמיד איתך 😘\n אני</item>
+        <item name="closure_your_always_forever">שלך לנצח 	🌺\n אני</item>
+        <item name="closure_my_heart_is_yours">הלב שלי שלך 💝</item>
+        <item name="closure_you_are_always_with_me">את תמיד איתי 🌸</item>
+        <item name="closure_i_will_be_always_be_waiting_for_you">מחכה לך, תמיד</item>
+        <item name="closure_you_complete_me">את משלימה אותי</item>
+        <item name="closure_yours_truly">שלך באמת, אני</item>
+
+    </string-array>
+
+</resources>

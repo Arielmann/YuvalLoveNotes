@@ -111,9 +111,6 @@ dependencies {
     // Material design
     implementation "com.google.android.material:material:1.2.1"
 
-    //ViewPager2
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
-
     //Koin
     def koin_version = '2.2.0'
     implementation "org.koin:koin-androidx-scope:$koin_version"
@@ -135,6 +132,21 @@ dependencies {
 
     //Phone number utils
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.0'
+
+    dependencies {
+        def leanback_version = "1.0.0"
+
+        implementation "androidx.leanback:leanback:$leanback_version"
+
+        // leanback-preference is an add-on that provides a settings UI for TV apps.
+        implementation "androidx.leanback:leanback-preference:$leanback_version"
+
+        // leanback-paging is an add-on that simplifies adding paging support to a RecyclerView Adapter.
+        implementation "androidx.leanback:leanback-paging:1.1.0-alpha06"
+
+        // leanback-tab is an add-on that provides customized TabLayout to be used as the top navigation bar.
+        implementation "androidx.leanback:leanback-tab:1.1.0-beta01"
+    }
 
 
 }

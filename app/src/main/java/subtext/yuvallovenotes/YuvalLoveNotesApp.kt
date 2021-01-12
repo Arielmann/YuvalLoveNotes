@@ -2,6 +2,7 @@ package subtext.yuvallovenotes
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import subtext.yuvallovenotes.crossapplication.service_locator.repositoryModule
 import subtext.yuvallovenotes.crossapplication.service_locator.viewModelModule
 import com.backendless.Backendless
@@ -23,7 +24,7 @@ class YuvalLoveNotesApp : Application() {
         super.onCreate()
         context = applicationContext
         setupKoin()
-        LoveLocalDatabase.getDatabase() //Setting up for the first time
+//        LoveLocalDatabase.getDatabase() //Setting up for the first time
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
     }
 
