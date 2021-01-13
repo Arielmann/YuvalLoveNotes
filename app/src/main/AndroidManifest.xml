@@ -2,14 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="subtext.yuvallovenotes">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
 
         android:name=".YuvalLoveNotesApp"
-        android:supportsRtl="true"
         android:allowBackup="true"
         android:icon="@mipmap/lovers_logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/lovers_logo_round"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
         <activity
@@ -30,12 +35,8 @@
         </activity>
 
         <meta-data
-            android:name="com.startapp.sdk.APPLICATION_ID"
-            android:value="@string/id_startapp" />
-
-        <meta-data
-            android:name="com.startapp.sdk.RETURN_ADS_ENABLED"
-            android:value="false" />
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/app_ads_test_id" />
 
         <receiver android:name="subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLettersAlarmReceiver" />
 
@@ -57,11 +58,5 @@
         </service>
 
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

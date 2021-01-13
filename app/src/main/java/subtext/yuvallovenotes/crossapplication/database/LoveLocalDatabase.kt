@@ -1,7 +1,12 @@
 package subtext.yuvallovenotes.crossapplication.database
 
+import android.annotation.SuppressLint
+import android.content.Context.TELEPHONY_SERVICE
 import android.content.SharedPreferences
+import android.provider.Settings
+import android.telephony.TelephonyManager
 import android.util.Log.d
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -11,6 +16,9 @@ import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.database.initialdataset.ArielDefaultLoveDataSetInitial
+import subtext.yuvallovenotes.crossapplication.database.initialdataset.DefaultLoveDataSet
+import subtext.yuvallovenotes.crossapplication.database.initialdataset.InitialLettersDataSet
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
@@ -26,7 +34,17 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         // Singleton prevents multiple instances of database opening at the
         // same time.
         private val TAG: String = LoveLocalDatabase::class.java.simpleName
-        private val loveDataSet = DefaultLoveDataSet
+        private val loveDataSet = inferDataSet()
+
+        @SuppressLint("HardwareIds")
+        private fun inferDataSet(): InitialLettersDataSet {
+            val id = Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID);
+            if(id == "baaa54ce980799f36") {
+            //Todo: cleanup
+                return ArielDefaultLoveDataSetInitial
+            }
+            return DefaultLoveDataSet
+        }
 
 
         @Volatile
@@ -82,12 +100,12 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             var opener = LoveOpener()
             var closure = LoveClosure()
 
-            opener = loveDataSet.openers.randomOrNull() ?: opener
+            opener = loveDataSet.getOpeners().randomOrNull() ?: opener
             text = text.plus(opener.text + "\n\n")
 
             text = text.plus(lovePhrase.text + "\n\n")
 
-            closure = loveDataSet.closures.randomOrNull() ?: closure
+            closure = loveDataSet.getClosures().randomOrNull() ?: closure
             text = text.plus(closure.text + "\n\n")
 
             val id = opener.id.plus(lovePhrase.id).plus(closure.id)
@@ -98,7 +116,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
         private fun populateLettersList(db: LoveLocalDatabase) {
             GlobalScope.launch(Dispatchers.IO) {
-                loveDataSet.phrases.forEach {
+                loveDataSet.getPhrases().forEach {
                     db.loveDao().insertLoveLetter(generateRandomLetter(it))
                 }
             }

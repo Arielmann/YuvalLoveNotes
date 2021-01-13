@@ -5,8 +5,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
-import android.util.Log.d
-import android.util.Log.w
+import android.util.Log.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.preference.PreferenceManager
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.LoadAdError
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
@@ -24,7 +26,6 @@ import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
-import java.lang.IllegalArgumentException
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -37,6 +38,7 @@ class LetterGeneratorFragment : Fragment() {
     private lateinit var binding: FragmentLetterGeneratorBinding
 
     //    private lateinit var sharedPrefs: SharedPreferences
+    private var interstitialAd: InterstitialAd? = null
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
@@ -60,7 +62,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun checkIfRegistrationNeeded() {
-        if (loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
+        if (!loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
                 findNavController().navigate(LetterGeneratorFragmentDirections.navigateToOnboarding())
             } catch (e: IllegalArgumentException) {
@@ -73,12 +75,19 @@ class LetterGeneratorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
-//        loadNativeAd()
         observeLettersListChanges()
         displayLetterDataForFirstTime()
         binding.letterEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
         LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
+        loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
+            this.interstitialAd = ad
+        }
+    }
+
+    private fun setButtonsOnClickListeners() {
+        binding.newLetterBtn.setOnClickListener(letterGeneratorListener)
+        binding.whatsappShareBtn.setOnClickListener(whatsappSendListener)
     }
 
     private fun observeLettersListChanges() {
@@ -100,7 +109,11 @@ class LetterGeneratorFragment : Fragment() {
                 }
 
                 R.id.menuActionShare -> {
-                    showSharingPopup()
+                        showSharePopup()
+                    /*showAd {
+                        loveItemsViewModel.loadNewAd()
+                        showSharePopup()
+                    }*/
                     true
                 }
 
@@ -156,7 +169,7 @@ class LetterGeneratorFragment : Fragment() {
         //Todo: cleanup
         loveItemsViewModel.deleteLetterIfEmpty(currentLetter)
         val newLetter = loveItemsViewModel.randomLetter()
-        if(currentLetter!!.text == newLetter.text && loveItemsViewModel.loveLetters.value?.size!! > 1){
+        if (currentLetter!!.text == newLetter.text && loveItemsViewModel.loveLetters.value?.size!! > 1) {
             displayNewLetter()
             return
         }
@@ -204,39 +217,45 @@ class LetterGeneratorFragment : Fragment() {
                 .setNegativeButton(getString(R.string.title_cancel), dialogClickListener).show()
     }
 
-    private val letterSendListener: View.OnClickListener = View.OnClickListener {
-        d(TAG, "Opening Whatsapp")
-        val sendWhatsapp = WhatsAppSender()
-        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        //Todo: set mobile number to yuval's only under my id (also set my custom letters)
-        val phoneNumber: String = prefs.getString(getString(R.string.pref_key_lover_full_target_phone_number), "")
-                ?: ""
-        sendWhatsapp.send(requireContext(), phoneNumber, binding.letterEditText.text.toString())
-    }
+    private fun showAd(onCompletion: () -> Unit) {
 
-    private fun setButtonsOnClickListeners() {
-        binding.newLetterBtn.setOnClickListener(letterGeneratorListener)
-        binding.whatsappShareBtn.setOnClickListener(letterSendListener)
-    }
+        val adListener = object : AdListener() {
 
-    private fun showSharingPopup() {
-        d(TAG, "Sharing letter in general sharing options")
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-            currentLetter?.let {
-                putExtra(Intent.EXTRA_TEXT, it.text)
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                onCompletion.invoke()
             }
-            type = "text/plain"
-        }
-        val shareIntent = Intent.createChooser(sendIntent, null)
 
+            override fun onAdClosed() {
+                onCompletion.invoke()
+            }
+        }
+
+        interstitialAd?.let {
+            it.adListener = adListener
+            it.show()
+        } ?: onCompletion.invoke()
+    }
+
+
+    private val whatsappSendListener: View.OnClickListener = View.OnClickListener {
+        showAd {
+            loveItemsViewModel.openWhatsapp(requireContext(), binding.letterEditText.text.toString())
+            loveItemsViewModel.loadNewAd()
+        }
+    }
+
+    private fun showSharePopup() {
+        d(TAG, "Sharing letter in general sharing options")
+//        val shareIntent = Intent.createChooser(sendIntent, null)
+        val shareIntent = loveItemsViewModel.generateShareIntent(currentLetter)
         if (shareIntent.resolveActivity(requireActivity().packageManager) != null) {
-            startActivity(shareIntent);
+            showAd {
+                startActivity(shareIntent)
+                loveItemsViewModel.loadNewAd()
+            }
         } else {
             Toast.makeText(requireContext(), getString(R.string.error_no_external_app_found_for_sharing_content), LENGTH_LONG).show()
         }
-
-        startActivity(shareIntent)
     }
 
     override fun onStop() {

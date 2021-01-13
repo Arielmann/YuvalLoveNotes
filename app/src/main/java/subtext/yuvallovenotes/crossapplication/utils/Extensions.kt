@@ -35,7 +35,7 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
  * Example: for a device with us locale, the result will be '+1'
  */
 fun PhoneNumberUtil.getDeviceDefaultCountryCode(): String {
-    val localeString = LoveUtils.getDeviceLocale(YuvalLoveNotesApp.context)
+    val localeString = LoveUtils.getDeviceLocale()
     val countyCode = PhoneNumberUtil.getInstance().getCountryCodeForRegion(localeString)
     return "+$countyCode"
 }

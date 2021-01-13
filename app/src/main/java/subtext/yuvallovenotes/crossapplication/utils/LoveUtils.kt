@@ -53,7 +53,8 @@ object LoveUtils {
     }
 
 
-    fun getDeviceLocale(context: Context): String {
+    fun getDeviceLocale(): String {
+        val context = YuvalLoveNotesApp.context
         var countryCode: String?
 
         // Try to get country code from TelephonyManager service

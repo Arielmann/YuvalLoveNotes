@@ -22,7 +22,6 @@ import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnVerifiedLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.utils.*
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
 import subtext.yuvallovenotes.login.network.UserRegistrationCallback
@@ -52,8 +51,8 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         setOnDoneButtonClickListener()
         setPhoneNumberEditTexts()
         setPickNumberFromUserContactsFeature()
-        binding.loversLocalPhoneNumberInputEditText.requestFocus()
         LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverPhoneNumberToolBar)
+        binding.loversLocalPhoneNumberInputEditText.requestFocus()
     }
 
     private fun setPickNumberFromUserContactsFeature() {
@@ -122,8 +121,8 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         val callback = object : UserRegistrationCallback {
             override fun onSuccess() {
                 d(TAG, "User registered successfully")
-                findNavController().popBackStack(R.id.enterUserNameFragment, false)
-                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
+                findNavController().popBackStack(R.id.enterUserDetailsFragment, false)
+                findNavController().navigate(EnterUserDetailsFragmentDirections.navigateToLetterGenerator())
             }
 
             override fun onError(error: String) {
@@ -138,12 +137,11 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
             binding.root.animate().alpha(0.5f).setDuration(200).start()
             binding.loverPhoneNumberProgressBar.show()
-            val userName = loginViewModel.getUserName()
-            val loverNickName = loginViewModel.getLoverNickName()
-            val regionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
-            val localNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
-            val phone = LoveLettersUser.Phone(regionNumber, localNumber)
-            val user = UnVerifiedLoveLettersUser(userName, loverNickName, phone)
+            val loverRegionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
+            val loverLocalNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
+            val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
+            val user = loginViewModel.getUserFromSharedPrefsData()
+            user.loverPhone = loverPhone
             loginViewModel.requestLogin(user, callback)
 
         }

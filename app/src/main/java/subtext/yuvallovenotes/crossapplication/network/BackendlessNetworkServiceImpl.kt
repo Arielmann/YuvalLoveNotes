@@ -9,7 +9,7 @@ import com.backendless.push.DeviceRegistrationResult
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnVerifiedLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
 
 
 object BackendlessNetworkServiceImpl : LoveLettersNetworkService {
@@ -21,7 +21,7 @@ object BackendlessNetworkServiceImpl : LoveLettersNetworkService {
      * @param user The user to be registered
      * @param callback A callback to for notify the caller about the operation status
      */
-    override fun registerUser(user: UnVerifiedLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
+    override fun registerUser(user: UnRegisteredLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
 
         Backendless.UserService.register(user.toBackendlessUser(), object : AsyncCallback<BackendlessUser> {
             override fun handleResponse(response: BackendlessUser?) {
@@ -67,8 +67,8 @@ object BackendlessNetworkServiceImpl : LoveLettersNetworkService {
 
             override fun handleFault(fault: BackendlessFault) {
                 e(TAG, "Error while registering device to push notifications service: $fault")
-                val networkError = YuvalLoveNotesApp.context.getString(R.string.error_login_default_network_failure)
-                callback?.onFailure(networkError)
+              //  val networkError = YuvalLoveNotesApp.context.getString(R.string.error_login_default_network_failure)
+              //  callback?.onFailure(networkError)
             }
         })
     }

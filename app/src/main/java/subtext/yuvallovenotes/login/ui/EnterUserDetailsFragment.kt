@@ -10,21 +10,22 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
+import subtext.yuvallovenotes.databinding.FragmentEnterUserDetailsBinding
 
-class EnterUserNameFragment : Fragment() {
+class EnterUserDetailsFragment : Fragment() {
 
-    lateinit var binding : FragmentEnterUserNameBinding
+    lateinit var binding : FragmentEnterUserDetailsBinding
     lateinit var sharedPrefs : SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
-        binding = FragmentEnterUserNameBinding.inflate(inflater, container, false)
+        binding = FragmentEnterUserDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.userNameInputEditText.requestFocus()
         setupUserNameEditText()
         setOnDoneButtonClickListener()
     }
@@ -33,7 +34,7 @@ class EnterUserNameFragment : Fragment() {
         binding.userNameContinueBtn.setOnClickListener {
             if (binding.userNameInputEditText.text.isNotBlank()) {
                 sharedPrefs.edit().putString(resources.getString(R.string.pref_key_user_name), binding.userNameInputEditText.text.toString()).apply()
-                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLoverName())
+                findNavController().navigate(EnterUserDetailsFragmentDirections.navigateToLoverName())
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_no_user_name_inserted), Toast.LENGTH_LONG).show()
             }

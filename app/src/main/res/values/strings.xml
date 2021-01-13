@@ -10,9 +10,12 @@
     <string name="pref_key_device_registered_to_push_notifications" translatable="false">pref_key_device_registered_to_push_notifications</string>
     <string name="pref_key_user_registered_in_server" translatable="false">pref_key_user_registered_in_server</string>
     <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
-    <string name="pref_key_lover_name" translatable="false">pref_key_lover_name</string>
+    <string name="pref_key_lover_nickname" translatable="false">pref_key_lover_nickname</string>
     <string name="pref_key_show_only_letters_created_by_user" translatable="false">pref_key_show_only_letters_created_by_user</string>
     <string name="pref_title_show_only_letters_created_by_user">Choose only letters created by you</string>
+    <string name="pref_key_user_full_target_phone_number" translatable="false">pref_key_user_full_target_phone_number</string>
+    <string name="pref_key_user_local_phone_number" translatable="false">pref_key_user_local_phone_number</string>
+    <string name="pref_key_user_phone_region_number" translatable="false">pref_key_user_phone_region_number</string>
     <string name="pref_key_lover_full_target_phone_number" translatable="false">pref_key_lover_full_target_phone_number</string>
     <string name="pref_key_lover_local_phone_number" translatable="false">pref_key_lover_local_phone_number</string>
     <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>
@@ -72,16 +75,18 @@
     <string name="content_desc_back" translatable="false">Back</string>
     <string name="content_desc_app_name" translatable="false">Love Notes</string>
 
+    <!--Ads-->
+    <string name="app_ads_id" translatable="false">ca-app-pub-9760042484356207~5572026732</string>
+    <string name="app_ads_test_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="interstitial_ads_test_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="device_test_ads_id" translatable="false">"3B037641D94AB165A5765E19F00076B5"</string>
 
     <!--Misc-->
     <string name="default_country_code" translatable="false">IL</string> <!--Israel-->
     <string name="label_activity_settings" translatable="false">SettingsActivity</string>
     <string name="hyphen" translatable="false">-</string>
-    <string name="id_startapp" translatable="false">200282211</string>
     <string name="user_name_as_closure_fallback">Me</string>
     <string name="user_name_fallback">You</string>
     <string name="lover_name_fallback">My love</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

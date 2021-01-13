@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.ui.EnterUserDetailsFragment">
+
+
+    <ImageView
+        android:id="@+id/upperImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/love_letter_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loverNameAppBar" />
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/loverNameAppBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/loverNameToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@null"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/titleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_write"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upperImageView" />
+
+
+    <TextView
+        android:id="@+id/enterLoverNameTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/title_what_is_your_lover_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+
+
+    <EditText
+        android:id="@+id/loverNameInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/white"
+        android:gravity="center"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_input_text_enter_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterLoverNameTV" />
+
+    <TextView
+        android:id="@+id/enterLoverNumberTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        android:text="@string/title_what_is_your_lovers_phone_number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loverNameInputEditText" />
+
+    <Button
+        android:id="@+id/loversChooseFromContactsBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/shadowed_cornered_background"
+        android:fontFamily="sans-serif"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/title_choose_from_contacts"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/loverPhoneNumberDoneBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/loverPhoneNumberDoneBtn"
+        app:layout_constraintTop_toBottomOf="@+id/loversLocalPhoneNumberInputEditText" />
+
+    <Button
+        android:id="@+id/loverPhoneNumberDoneBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/shadowed_cornered_background"
+        android:fontFamily="sans-serif"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/title_done"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loversChooseFromContactsBtn" />
+
+    <EditText
+        android:id="@+id/loversLocalPhoneNumberInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:backgroundTint="@color/white"
+        android:gravity="left"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_input_text_enter_details"
+        app:layout_constraintBottom_toBottomOf="@+id/loversPhoneNumberRegionInputEditText"
+        app:layout_constraintLeft_toRightOf="@+id/loversPhoneNumberRegionInputEditText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
+        tools:ignore="RtlHardcoded,TextFields" />
+
+    <EditText
+        android:id="@+id/loversPhoneNumberRegionInputEditText"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:backgroundTint="@color/white"
+        android:gravity="left"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_input_text_enter_details"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterLoverNumberTV"
+        tools:ignore="RtlHardcoded" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/loverPhoneNumberProgressBar"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorDanger"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--<Button
+        android:id="@+id/loverNameContinueBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/title_next"
+        android:background="@drawable/shadowed_cornered_background"
+        android:foreground="?attr/selectableItemBackground"
+        android:fontFamily="sans-serif"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

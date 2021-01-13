@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.database
+package subtext.yuvallovenotes.crossapplication.database.initialdataset
 
 import android.content.SharedPreferences
 import org.koin.java.KoinJavaComponent.get
@@ -10,15 +10,15 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import java.util.*
 
-object DefaultLoveDataSet {
+object DefaultLoveDataSet : InitialLettersDataSet{
 
     private val shardPrefs = get(SharedPreferences::class.java)
     private val userName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), YuvalLoveNotesApp.context.getString(R.string.user_name_as_closure_fallback))
-    private val loverName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_name), YuvalLoveNotesApp.context.getString(R.string.lover_name_fallback))
+    private val loverName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_name_fallback))
 
-    val openers = generateOpenersList()
-    val phrases = generatePhrasesList()
-    val closures = generateClosuresList()
+   private val openers = generateOpenersList()
+   private val phrases = generatePhrasesList()
+   private val closures = generateClosuresList()
 
     private fun generateOpenersList(): MutableList<LoveOpener> {
         val result = mutableListOf<LoveOpener>()
@@ -47,6 +47,18 @@ object DefaultLoveDataSet {
             result.add(LoveClosure(UUID.randomUUID().toString(), text))
         }
         return result
+    }
+
+    override fun getOpeners(): MutableList<LoveOpener> {
+        return openers
+    }
+
+    override fun getPhrases(): MutableList<LovePhrase> {
+        return phrases
+    }
+
+    override fun getClosures(): MutableList<LoveClosure> {
+        return closures
     }
 
 }

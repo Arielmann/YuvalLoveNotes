@@ -10,12 +10,12 @@ open class LoveLettersUser() {
         private val TAG: String = LoveLettersUser::class.simpleName!!
     }
 
-    constructor(name: String, loverNickname: String, email: String = "", phone: Phone) : this() {
+    constructor(name: String, loverNickname: String, userPhone: Phone, loverPhone: Phone) : this() {
         this.userName = name
         this.loverNickName = loverNickname
         this.randomIdentifier = UUID.randomUUID().toString()
-        this.email = email
-        this.loverPhone = phone
+        this.loverPhone = loverPhone
+        this.userPhone = userPhone
     }
 
     /**
@@ -24,10 +24,9 @@ open class LoveLettersUser() {
     constructor(response: BackendlessUser) : this() {
         this.userName = response.properties[PropertyKey.USER_NAME.tablePropertyKey] as String
         this.loverNickName = response.properties[PropertyKey.LOVER_NICK_NAME.tablePropertyKey] as String
-        this.email = response.properties[PropertyKey.EMAIL.tablePropertyKey] as String
         this.randomIdentifier = response.properties[PropertyKey.RANDOM_IDENTIFIER.tablePropertyKey] as String
-        val loverPhoneRegionNumber = response.properties[PropertyKey.PHONE_REGION_NUMBER.tablePropertyKey] as String
-        val loverPhoneLocalNumber = response.properties[PropertyKey.PHONE_LOCAL_NUMBER.tablePropertyKey] as String
+        val loverPhoneRegionNumber = response.properties[PropertyKey.LOVER_PHONE_REGION_NUMBER.tablePropertyKey] as String
+        val loverPhoneLocalNumber = response.properties[PropertyKey.LOVER_PHONE_LOCAL_NUMBER.tablePropertyKey] as String
         this.loverPhone = Phone(loverPhoneRegionNumber, loverPhoneLocalNumber)
     }
 
@@ -56,17 +55,19 @@ open class LoveLettersUser() {
             field = value
         }
 
-    var email: String = DUMMY_EMAIL
+    var loverPhone: Phone = Phone("0", "0")
         set(value) {
-            properties[PropertyKey.EMAIL] = value
+            properties[PropertyKey.LOVER_PHONE_REGION_NUMBER] = value.regionNumber
+            properties[PropertyKey.LOVER_PHONE_LOCAL_NUMBER] = value.localNumber
+            properties[PropertyKey.LOVER_PHONE_FULL_NUMBER] = value.fullNumber
             field = value
         }
 
-    var loverPhone: Phone = Phone("0", "0")
+    var userPhone: Phone = Phone("0", "0")
         set(value) {
-            properties[PropertyKey.PHONE_REGION_NUMBER] = value.regionNumber
-            properties[PropertyKey.PHONE_LOCAL_NUMBER] = value.localNumber
-            properties[PropertyKey.PHONE_FULL_NUMBER] = value.fullNumber
+            properties[PropertyKey.USER_PHONE_REGION_NUMBER] = value.regionNumber
+            properties[PropertyKey.USER_PHONE_LOCAL_NUMBER] = value.localNumber
+            properties[PropertyKey.USER_PHONE_FULL_NUMBER] = value.fullNumber
             field = value
         }
 
@@ -96,11 +97,13 @@ open class LoveLettersUser() {
 
     enum class PropertyKey(val tablePropertyKey: String) {
         USER_NAME("userName"),
-        EMAIL("email"),
+        USER_PHONE_REGION_NUMBER("userPhoneRegionNumber"),
+        USER_PHONE_LOCAL_NUMBER("userPhoneLocalNumber"),
+        USER_PHONE_FULL_NUMBER("userPhoneFullNumber"),
         RANDOM_IDENTIFIER("randomIdentifier"),
         LOVER_NICK_NAME("loverNickname"),
-        PHONE_REGION_NUMBER("loverPhoneRegionNumber"),
-        PHONE_LOCAL_NUMBER("loverPhoneLocalNumber"),
-        PHONE_FULL_NUMBER("loverPhoneFullNumber"),
+        LOVER_PHONE_REGION_NUMBER("loverPhoneRegionNumber"),
+        LOVER_PHONE_LOCAL_NUMBER("loverPhoneLocalNumber"),
+        LOVER_PHONE_FULL_NUMBER("loverPhoneFullNumber"),
     }
 }

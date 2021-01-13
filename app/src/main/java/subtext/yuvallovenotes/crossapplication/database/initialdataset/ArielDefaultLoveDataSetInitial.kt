@@ -1,12 +1,12 @@
-package subtext.yuvallovenotes.crossapplication.database
+package subtext.yuvallovenotes.crossapplication.database.initialdataset
 
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
-internal object ArielDefaultLoveDataSet {
+internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
 
-    val openers = mutableListOf(
+    private val openers = mutableListOf(
             LoveOpener("C48DB3DD-AFA7-4749-9FA9-A5109B98B958", "קסם שלי,"),
             LoveOpener("A86D69A7-D887-407B-A542-85F26591DBC3", "שושולולו שלי :)"),
             LoveOpener("4F8FD4A0-A8B3-44EE-AA76-DE23555CA748", "למקור היופי שלי,\uD83C\uDF3A"),
@@ -51,7 +51,7 @@ internal object ArielDefaultLoveDataSet {
 
 
             )
-    val phrases = mutableListOf(
+    private val phrases = mutableListOf(
             LovePhrase("E76B818C-E822-42B1-BE24-401D22BA9485",
                     "אם פגעתי אני מצטער, הקרבה בינינו מוציאה ממני רבדים שאינם יוצאים בדרך כלל, לאהבה ישנן דרכים משונות להתבטא לפעמים. אם נפגעת, כולי תקווה שתסלחי לי, כי היחסים שלנו ממשיכים קדימה, בסוף אנחנו יחד, אנחנו חוזרים אחד אל השניה וכל הפעמים בהן עשינו זאת בעבר עומדות לצידנו. אני אוהב אותך, אני רוצה לסלוח ולהיות נסלח, אני רוצה ששוב נהיה יחד, מחוברים בלבבות\uD83C\uDF31"),
             LovePhrase("C91387BE-33EF-4923-AA02-4B8FC13C9176", "ליחסים יש את המורכבות שלהם, בייחוד בכל הנוגע לאמירת האמת לבן הזוג. את אומרת לי את האמת, זו היפה וזו הכואבת, וגם כשהיא כואבת, בטווח הארוך היא תהיה בשירות של האהבה. כל עוד הכוונה שלך היא לבנות את שנינו, מילותייך יהיו בשירות האהבה. תמשיכי לומר לי את האמת אהובתי, אל תפחדי, אם אפגע אקום שוב, כמו שקמתי מאז ומתמיד. חוסר המודעות כואב הרבה יותר מאור הפלורסנט של מילים חושפניות, גם אם הן מציפות באותו הרגע. החיים לצידך הם הזדמנות לכוונן ולתאם את עצמי עד שהנוכחות שלי תהיה עוצמתית, גמישה וקשובה לרגע במלואו, לשם כך אני תמיד מחפש את האמת המזדקקת מתוך המפגש ביני ובינך."),
@@ -114,7 +114,7 @@ internal object ArielDefaultLoveDataSet {
             LovePhrase("08F109F5-0843-4191-90FC-653BCB6A98FC", "גם ברגעים הכי קשים שלנו, את תמיד מצאת את דרכך, והיית גם מוכנה להושיט יד ולקבל את היד המושטת שלי, וזה מראה על עוצמת הקשר, זה מחבר בינינו."),
     )
 
-    val closures = mutableListOf(
+    private val closures = mutableListOf(
             LoveClosure("4B9BEB6B-5E16-46EF-BBF1-14ACBC9AC0A9", "הלב שלי שלך\u2066❤️\u2069"),
             LoveClosure("5EA7E6BE-5235-4FFA-B31F-1E3F58BF38F3", "החתול שלך"),
             LoveClosure("DD5CE74F-71DF-4656-9304-76AF5A390F73", "אני ❤️"),
@@ -144,4 +144,16 @@ internal object ArielDefaultLoveDataSet {
             LoveClosure("84F53130-A49D-436B-9FB5-A3908EB9A9F6", "תמיד איתך ותודה על מי שאת."),
             LoveClosure("5AAFB6BD-8DA5-4309-B296-3B15078D6186", "שלך תמיד."),
             LoveClosure("ECDA7590-2F96-4D83-9FCB-242523D193F3", "שלך לנצח."))
+
+    override fun getOpeners(): MutableList<LoveOpener> {
+        return openers
+    }
+
+    override fun getPhrases(): MutableList<LovePhrase> {
+        return phrases
+    }
+
+    override fun getClosures(): MutableList<LoveClosure> {
+        return closures
+    }
 }

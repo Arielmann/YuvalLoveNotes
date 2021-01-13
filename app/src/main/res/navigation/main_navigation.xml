@@ -6,14 +6,14 @@
     app:startDestination="@id/letterGeneratorFragment"> <!--todo: starts in enter user name fragment-->
 
     <fragment
-        android:id="@+id/enterUserNameFragment"
-        android:name="subtext.yuvallovenotes.login.ui.EnterUserNameFragment"
+        android:id="@+id/enterUserDetailsFragment"
+        android:name="subtext.yuvallovenotes.login.ui.EnterUserDetailsFragment"
         android:label="fragment_letter_generator"
-        tools:layout="@layout/fragment_enter_user_name">
+        tools:layout="@layout/fragment_enter_user_details">
 
         <action
             android:id="@+id/navigate_to_lover_name"
-            app:destination="@id/enterLoverNameFragment"
+            app:destination="@id/enterLoveDetailsFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -22,7 +22,7 @@
         <action
             android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
-            app:popUpTo="@id/enterUserNameFragment"
+            app:popUpTo="@id/enterUserDetailsFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
@@ -32,14 +32,24 @@
     </fragment>
 
     <fragment
-        android:id="@+id/enterLoverNameFragment"
-        android:name="subtext.yuvallovenotes.login.ui.EnterLoverNameFragment"
+        android:id="@+id/enterLoveDetailsFragment"
+        android:name="subtext.yuvallovenotes.login.ui.EnterLoverDetailsFragment"
         android:label="fragment_letter_generator"
-        tools:layout="@layout/fragment_enter_lover_name">
+        tools:layout="@layout/fragment_enter_lover_details">
 
-        <action
+   <!--     <action
             android:id="@+id/navigate_to_lover_phone_number"
             app:destination="@id/enterLoverPhoneNumberFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>-->
+
+        <action
+            android:id="@+id/navigate_to_letter_generator"
+            app:destination="@id/letterGeneratorFragment"
+            app:popUpTo="@id/enterLoveDetailsFragment"
+            app:popUpToInclusive="true"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -55,7 +65,7 @@
 
         <action
             android:id="@+id/navigate_to_enter_user_details"
-            app:destination="@id/enterUserNameFragment"
+            app:destination="@id/enterUserDetailsFragment"
             app:popUpTo="@id/onBoardingFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"
@@ -65,7 +75,7 @@
 
     </fragment>
 
-    <fragment
+<!--    <fragment
         android:id="@+id/enterLoverPhoneNumberFragment"
         android:name="subtext.yuvallovenotes.login.ui.EnterLoverPhoneNumberFragment"
         android:label="fragment_letter_generator"
@@ -81,7 +91,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
 
-    </fragment>
+    </fragment>-->
 
     <fragment
         android:id="@+id/letterGeneratorFragment"
@@ -100,7 +110,7 @@
 
         <action
             android:id="@+id/navigate_to_enter_user_name"
-            app:destination="@id/enterUserNameFragment"
+            app:destination="@id/enterUserDetailsFragment"
             app:popUpTo="@id/letterGeneratorFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"

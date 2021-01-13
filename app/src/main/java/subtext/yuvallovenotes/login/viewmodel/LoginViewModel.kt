@@ -11,15 +11,15 @@ import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnVerifiedLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.getDeviceDefaultCountryCode
 import subtext.yuvallovenotes.crossapplication.utils.isPhoneNumberValid
 import subtext.yuvallovenotes.login.network.LoginRepository
 import subtext.yuvallovenotes.login.network.UserRegistrationCallback
 
 class LoginViewModel : ViewModel() {
-
 
     companion object {
         private val TAG = LoginViewModel::class.simpleName
@@ -33,7 +33,7 @@ class LoginViewModel : ViewModel() {
      * @param user An user details object that are not yet verified to be in the data base.
      * @param callback Callback to call when the process succeeds or fails
      */
-    fun requestLogin(user: UnVerifiedLoveLettersUser, callback: UserRegistrationCallback) {
+    fun requestLogin(user: UnRegisteredLoveLettersUser, callback: UserRegistrationCallback) {
 
 //        onSuccess.invoke() - Use when you want to quick-skip login process
         val userNetworkRegistrationRequestExecutor = UserNetworkRegistrationExecutor(user, callback)
@@ -66,7 +66,7 @@ class LoginViewModel : ViewModel() {
      * 1. Register the user
      * 2. Register the device to the push notifications service
      */
-    private inner class UserNetworkRegistrationExecutor(val user: UnVerifiedLoveLettersUser, callback: UserRegistrationCallback) {
+    private inner class UserNetworkRegistrationExecutor(val user: UnRegisteredLoveLettersUser, callback: UserRegistrationCallback) {
 
         /**
          * Starts the registration/login process
@@ -74,7 +74,7 @@ class LoginViewModel : ViewModel() {
         fun execute() {
             prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_registered_in_server), false).apply()
             loginRepository.registerUser(user, registerUserCallback)
-            val pushNotificationChannels = listOf("default", user.userName)
+            val pushNotificationChannels = listOf("default", LoveUtils.getDeviceLocale())
             loginRepository.registerToPushNotificationsService(pushNotificationChannels, registerNotificationsCallback)
         }
 
@@ -83,7 +83,7 @@ class LoginViewModel : ViewModel() {
             override fun onSuccess(response: LoveLettersUser) {
                 d(TAG, "User registration successful")
                 val context = YuvalLoveNotesApp.context
-                saveDataToPrefs(response)
+                saveUserDataToPrefs(response)
                 prefs.edit().putBoolean(context.getString(R.string.pref_key_user_registered_in_server), true).apply()
                 val isDeviceRegistered = prefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
                 if (isDeviceRegistered) {
@@ -135,6 +135,11 @@ class LoginViewModel : ViewModel() {
     private fun allFieldsHaveText(user: LoveLettersUser, callback: UserRegistrationCallback): Boolean {
         val context = YuvalLoveNotesApp.context
 
+        if (user.loverNickName.isBlank()) {
+            callback.onError(context.getString(R.string.error_no_lover_name_inserted))
+            return false
+        }
+
         if (user.loverPhone.isBlank()) {
             callback.onError(context.getString(R.string.error_invalid_lover_number_inserted))
             return false
@@ -148,7 +153,7 @@ class LoginViewModel : ViewModel() {
     }
 
     fun getLoverNickName(): String {
-        return prefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_name), "")!!
+        return prefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), "")!!
     }
 
     fun requestUserPhoneNumber(onCompletion: (regionNumber: String, localNumber: String) -> Unit) {
@@ -160,14 +165,39 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    private fun saveDataToPrefs(user: LoveLettersUser) {
-        d(TAG, "Saving data to shared preferences")
+    private fun saveUserDataToPrefs(user: LoveLettersUser) {
+        d(TAG, "Saving user data to shared prefs: $user") //todo: remove user details logging
         val context = YuvalLoveNotesApp.context
         prefs.edit {
+            putString(context.getString(R.string.pref_key_user_name), user.userName)
+            putString(context.getString(R.string.pref_key_user_phone_region_number), user.userPhone.regionNumber)
+            putString(context.getString(R.string.pref_key_user_local_phone_number), user.userPhone.localNumber)
+            putString(context.getString(R.string.pref_key_user_full_target_phone_number), user.userPhone.fullNumber)
+            putString(context.getString(R.string.pref_key_lover_nickname), user.loverNickName)
             putString(context.getString(R.string.pref_key_lover_phone_region_number), user.loverPhone.regionNumber)
             putString(context.getString(R.string.pref_key_lover_local_phone_number), user.loverPhone.localNumber)
             putString(context.getString(R.string.pref_key_lover_full_target_phone_number), user.loverPhone.fullNumber)
         }
+    }
+
+    @Suppress("UnnecessaryVariable")
+    fun getUserFromSharedPrefsData(): UnRegisteredLoveLettersUser {
+        val context = YuvalLoveNotesApp.context
+
+        val userName = prefs.getString(context.getString(R.string.pref_key_user_name).takeUnless { it.isBlank() }, "")!!
+        val loverNickName = prefs.getString(context.getString(R.string.pref_key_lover_nickname).takeUnless { it.isBlank() }, "")!!
+
+        val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
+        val loverRegionNumber = prefs.getString(context.getString(R.string.pref_key_lover_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
+        val loverLocalNumber = prefs.getString(context.getString(R.string.pref_key_lover_local_phone_number), "")!!
+        val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
+
+        val userRegionNumber = prefs.getString(context.getString(R.string.pref_key_user_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
+        val userLocalNumber = prefs.getString(context.getString(R.string.pref_key_user_local_phone_number), "")!!
+        val userPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
+
+        val result = UnRegisteredLoveLettersUser(userName, loverNickName, userPhone, loverPhone)
+        return result
     }
 
 }

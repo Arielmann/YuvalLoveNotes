@@ -6,7 +6,7 @@ import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnVerifiedLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.BackendlessNetworkServiceImpl
 import subtext.yuvallovenotes.crossapplication.network.LoveLettersNetworkService
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
@@ -30,7 +30,7 @@ class LoginRepository {
         }
     }
 
-    fun registerUser(user: UnVerifiedLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
+    fun registerUser(user: UnRegisteredLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
         startOperationIfNetworkAvailable({awarenessNetworkService.registerUser(user, callback)}, callback)
     }
 
