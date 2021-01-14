@@ -53,7 +53,7 @@ object LoveUtils {
     }
 
 
-    fun getDeviceLocale(): String {
+    fun getDeviceCountryCode(): String {
         val context = YuvalLoveNotesApp.context
         var countryCode: String?
 
@@ -61,7 +61,10 @@ object LoveUtils {
         val tm = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         // Query first getSimCountryIso()
         countryCode = tm.simCountryIso
-        if (countryCode != null && countryCode.length == 2) return countryCode.toUpperCase(Locale.getDefault())
+        if (countryCode != null && countryCode.length == 2) {
+//            Log.d(TAG, "Country code: $countryCode")
+            return countryCode.toUpperCase(Locale.getDefault())
+        }
         countryCode = if (tm.phoneType == TelephonyManager.PHONE_TYPE_CDMA) {
             // Special case for CDMA Devices
             getCDMACountryIso()
@@ -69,7 +72,10 @@ object LoveUtils {
             // For 3G devices (with SIM) query getNetworkCountryIso()
             tm.networkCountryIso
         }
-        if (countryCode != null && countryCode.length == 2) return countryCode.toUpperCase(Locale.getDefault())
+        if (countryCode != null && countryCode.length == 2) {
+//            Log.d(TAG, "Country code: $countryCode")
+            return countryCode.toUpperCase(Locale.getDefault())
+        }
 
         // If network country not available (tablets maybe), get country code from Locale class
         countryCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -77,9 +83,8 @@ object LoveUtils {
         } else {
             context.resources.configuration.locale.country
         }
-        return if (countryCode != null && countryCode.length == 2) countryCode.toUpperCase(Locale.getDefault()) else context.getString(R.string.default_country_code)
-
-        // General fallback to "israel"
+//        Log.d(TAG, "Country code: $countryCode")
+        return if (countryCode != null && countryCode.length == 2) countryCode.toUpperCase(Locale.getDefault()) else context.getString(R.string.default_country_code) // General fallback to "israel"
     }
 
     @SuppressLint("PrivateApi")
@@ -132,7 +137,7 @@ object LoveUtils {
         }
     }
 
-    fun getAllItemsFromArrayFile(@ArrayRes resource : Int): MutableList<String> {
+    fun getAllItemsFromArrayFile(@ArrayRes resource: Int): MutableList<String> {
         return YuvalLoveNotesApp.context.resources.getStringArray(resource).toMutableList()
     }
 }

@@ -3,12 +3,8 @@ package subtext.yuvallovenotes.crossapplication.broadcastreceivers
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.util.Log.d
-import androidx.preference.PreferenceManager
-import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
-import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.notifications.LoveLetterNotificationManager
 
 

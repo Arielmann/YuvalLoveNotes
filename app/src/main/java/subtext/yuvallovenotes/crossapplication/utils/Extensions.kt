@@ -15,7 +15,6 @@ import com.google.i18n.phonenumbers.NumberParseException
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import com.google.i18n.phonenumbers.Phonenumber
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.YuvalLoveNotesApp
 import java.lang.Exception
 
 
@@ -35,7 +34,7 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
  * Example: for a device with us locale, the result will be '+1'
  */
 fun PhoneNumberUtil.getDeviceDefaultCountryCode(): String {
-    val localeString = LoveUtils.getDeviceLocale()
+    val localeString = LoveUtils.getDeviceCountryCode()
     val countyCode = PhoneNumberUtil.getInstance().getCountryCodeForRegion(localeString)
     return "+$countyCode"
 }

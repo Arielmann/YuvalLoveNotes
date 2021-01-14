@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.utils
+package subtext.yuvallovenotes.crossapplication.models
 
 enum class LocaleToCountryCode(val code: Int) {
 

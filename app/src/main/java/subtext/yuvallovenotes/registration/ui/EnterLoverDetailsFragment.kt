@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login.ui
+package subtext.yuvallovenotes.registration.ui
 
 import android.Manifest
 import android.app.Activity
@@ -21,14 +21,13 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.getDeviceDefaultCountryCode
 import subtext.yuvallovenotes.crossapplication.utils.getPhoneNumberFromUserContactChoice
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverDetailsBinding
-import subtext.yuvallovenotes.login.network.UserRegistrationCallback
-import subtext.yuvallovenotes.login.viewmodel.LoginViewModel
+import subtext.yuvallovenotes.registration.network.UserRegistrationCallback
+import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 class EnterLoverDetailsFragment : Fragment() {
 
@@ -38,7 +37,7 @@ class EnterLoverDetailsFragment : Fragment() {
 
     private lateinit var binding : FragmentEnterLoverDetailsBinding
     private lateinit var sharedPrefs : SharedPreferences
-    private val loginViewModel = get<LoginViewModel>()
+    private val registrationViewModel = get<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentEnterLoverDetailsBinding.inflate(inflater, container, false)
@@ -90,10 +89,10 @@ class EnterLoverDetailsFragment : Fragment() {
             val loverRegionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
             val loverLocalNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
             val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
-            val user = loginViewModel.getUserFromSharedPrefsData()
+            val user = registrationViewModel.getUserFromSharedPrefsData()
             user.loverPhone = loverPhone
             user.loverNickName = loverNickName
-            loginViewModel.requestLogin(user, callback)
+            registrationViewModel.requestRegistration(user, callback)
 
         }
     }
@@ -159,7 +158,7 @@ class EnterLoverDetailsFragment : Fragment() {
     }
 
     private fun setPhoneNumberEditTexts() {
-        loginViewModel.requestUserPhoneNumber { regionNumber, localNumber ->
+        registrationViewModel.requestUserPhoneNumber { regionNumber, localNumber ->
             binding.loversPhoneNumberRegionInputEditText.setText(regionNumber)
             binding.loversLocalPhoneNumberInputEditText.setText(localNumber)
         }

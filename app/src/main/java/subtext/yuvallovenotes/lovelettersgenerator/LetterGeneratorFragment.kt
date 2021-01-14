@@ -79,7 +79,7 @@ class LetterGeneratorFragment : Fragment() {
         displayLetterDataForFirstTime()
         binding.letterEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
-        LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
+//        LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
         loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
             this.interstitialAd = ad
         }
@@ -109,11 +109,7 @@ class LetterGeneratorFragment : Fragment() {
                 }
 
                 R.id.menuActionShare -> {
-                        showSharePopup()
-                    /*showAd {
-                        loveItemsViewModel.loadNewAd()
-                        showSharePopup()
-                    }*/
+                    showSharePopup()
                     true
                 }
 

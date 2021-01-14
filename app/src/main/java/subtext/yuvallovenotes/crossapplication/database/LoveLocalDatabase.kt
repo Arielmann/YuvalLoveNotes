@@ -1,12 +1,9 @@
 package subtext.yuvallovenotes.crossapplication.database
 
 import android.annotation.SuppressLint
-import android.content.Context.TELEPHONY_SERVICE
 import android.content.SharedPreferences
 import android.provider.Settings
-import android.telephony.TelephonyManager
 import android.util.Log.d
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -25,7 +22,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 5, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 6, exportSchema = false)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
     abstract fun loveDao(): LoveDao
@@ -38,8 +35,8 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
         @SuppressLint("HardwareIds")
         private fun inferDataSet(): InitialLettersDataSet {
-            val id = Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID);
-            if(id == "baaa54ce980799f36") {
+            val deviceId = Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID);
+            if(deviceId == "baaa54ce980799f36") {
             //Todo: cleanup
                 return ArielDefaultLoveDataSetInitial
             }

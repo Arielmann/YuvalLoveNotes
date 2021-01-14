@@ -7,7 +7,6 @@ import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
-import com.backendless.push.DeviceRegistrationResult
 import subtext.yuvallovenotes.YuvalLoveNotesApp.Companion.APP_TAG
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
@@ -28,22 +27,6 @@ class LoveNetworkCalls(val context: Context?) {
     }
 
     private val contextWeakReference: WeakReference<Context?> = WeakReference(context)
-
-    fun registerDeviceToBackendlessMessaging(){
-        val channels: MutableList<String> = ArrayList()
-        channels.add("default")
-        Backendless.Messaging.registerDevice(channels, object : AsyncCallback<DeviceRegistrationResult>{
-
-            override fun handleResponse(response: DeviceRegistrationResult?) {
-                Toast.makeText( context, "Device registered. Response: $response", LENGTH_LONG).show();
-            }
-
-            override fun handleFault(fault: BackendlessFault?) {
-                Toast.makeText( context, "Error registering " + fault?.message, LENGTH_LONG).show();
-            }
-
-        })
-    }
 
     private fun findLoveOpenerTableObjectCount(): Int {
         return Backendless.Data.of(LoveOpener::class.java).objectCount

@@ -2,7 +2,7 @@ package subtext.yuvallovenotes.crossapplication.logic.adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.DiffUtil
-import subtext.yuvallovenotes.crossapplication.models.IDFetcher
+import subtext.yuvallovenotes.crossapplication.utils.IDFetcher
 
 
 /**

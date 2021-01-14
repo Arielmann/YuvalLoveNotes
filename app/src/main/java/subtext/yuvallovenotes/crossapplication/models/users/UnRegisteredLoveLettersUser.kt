@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.models
+package subtext.yuvallovenotes.crossapplication.models.users
 
 /**
  * Class for defining a user of the Awareness app.

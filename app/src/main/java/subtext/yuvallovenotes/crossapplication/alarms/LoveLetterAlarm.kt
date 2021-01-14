@@ -8,12 +8,11 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log.d
-import androidx.preference.PreferenceManager
-import org.koin.java.KoinJavaComponent
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.broadcastreceivers.LoveLettersAlarmReceiver
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import java.util.*
 
 /**
@@ -49,8 +48,8 @@ enum class LoveLetterAlarm(private val isActiveKey: String, protected val trigge
             val minute = res.getInteger(R.integer.default_alarm_clock_minute)
             var dayOfWeek = Calendar.FRIDAY
 
-            val localeString = Locale.getDefault().toString()
-            if (localeString == "iw_IL") { //Set alarm day for thursday in Israel
+            //Set alarm day for thursday in Israel
+            if (LoveUtils.getDeviceCountryCode() == YuvalLoveNotesApp.context.getString(R.string.default_country_code)) {
                 dayOfWeek = Calendar.THURSDAY
             }
 

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login.ui/* This file is auto-generated from OnboardingDemoFragment.java.  DO NOT MODIFY. */ /*
+package subtext.yuvallovenotes.registration.ui/* This file is auto-generated from OnboardingDemoFragment.java.  DO NOT MODIFY. */ /*
  * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -17,21 +17,16 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.graphics.Color
-import android.media.Image
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.leanback.app.OnboardingSupportFragment
 import androidx.navigation.fragment.findNavController
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
-import subtext.yuvallovenotes.lovelettersgenerator.LetterGeneratorFragmentDirections
 import java.util.*
 
 class OnboardingDemoSupportFragment : OnboardingSupportFragment() {

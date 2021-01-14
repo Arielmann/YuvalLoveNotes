@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.models
+package subtext.yuvallovenotes.crossapplication.models.users
 
 import com.backendless.BackendlessUser
 import java.util.*
@@ -6,7 +6,7 @@ import java.util.*
 open class LoveLettersUser() {
 
     companion object {
-        const val DUMMY_EMAIL: String = "dummy@dummy.com"
+        private const val DUMMY_EMAIL: String = "dummy@dummy.com"
         private val TAG: String = LoveLettersUser::class.simpleName!!
     }
 

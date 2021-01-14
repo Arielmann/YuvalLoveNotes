@@ -1,16 +1,21 @@
 package subtext.yuvallovenotes.crossapplication.database
 
 import androidx.lifecycle.LiveData
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.network.BackendlessNetworkServiceImpl
+import subtext.yuvallovenotes.crossapplication.network.LoveLettersNetworkService
+import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
 class LoveItemsRepository {
 
     private val loveDao: LoveDao = LoveLocalDatabase.getDatabase().loveDao()
+    private val loveLettersNetworkService: LoveLettersNetworkService = get(BackendlessNetworkServiceImpl::class.java)
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
@@ -89,5 +94,9 @@ class LoveItemsRepository {
 
     fun getLovePhraseByIdSync(phrase: LovePhrase): LovePhrase? {
         return loveDao.getLovePhraseByIdSync(phrase.id)
+    }
+
+    fun requestRandomLettersFromServer(callback: NetworkCallback<MutableList<LoveLetter>>) {
+        loveLettersNetworkService.requestRandomLoveLetters(callback)
     }
 }

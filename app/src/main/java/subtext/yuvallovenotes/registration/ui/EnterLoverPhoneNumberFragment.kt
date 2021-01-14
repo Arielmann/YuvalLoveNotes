@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login.ui
+package subtext.yuvallovenotes.registration.ui
 
 import android.Manifest
 import android.app.Activity
@@ -21,11 +21,11 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.utils.*
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
-import subtext.yuvallovenotes.login.network.UserRegistrationCallback
-import subtext.yuvallovenotes.login.viewmodel.LoginViewModel
+import subtext.yuvallovenotes.registration.network.UserRegistrationCallback
+import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 
 class EnterLoverPhoneNumberFragment : Fragment() {
@@ -38,7 +38,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
     private lateinit var binding: FragmentEnterLoverPhoneNumberBinding
     private lateinit var sharedPrefs: SharedPreferences
-    private val loginViewModel = get<LoginViewModel>()
+    private val loginViewModel = get<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEnterLoverPhoneNumberBinding.inflate(inflater, container, false)
@@ -142,7 +142,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
             val user = loginViewModel.getUserFromSharedPrefsData()
             user.loverPhone = loverPhone
-            loginViewModel.requestLogin(user, callback)
+            loginViewModel.requestRegistration(user, callback)
 
         }
     }

@@ -81,6 +81,10 @@
     <string name="interstitial_ads_test_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="device_test_ads_id" translatable="false">"3B037641D94AB165A5765E19F00076B5"</string>
 
+    <!--Backendless tables-->
+    <string name="backendless_table_name_letters_english" translatable="false">LoveLettersEnglish</string>
+    <string name="backendless_table_name_letters_hebrew" translatable="false">LoveLettersHebrew</string>
+
     <!--Misc-->
     <string name="default_country_code" translatable="false">IL</string> <!--Israel-->
     <string name="label_activity_settings" translatable="false">SettingsActivity</string>

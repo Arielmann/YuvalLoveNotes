@@ -1,24 +1,24 @@
-package subtext.yuvallovenotes.login.network
+package subtext.yuvallovenotes.registration.network
 
 import android.util.Log
 import com.backendless.push.DeviceRegistrationResult
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.BackendlessNetworkServiceImpl
-import subtext.yuvallovenotes.crossapplication.network.LoveLettersNetworkService
+import subtext.yuvallovenotes.crossapplication.network.UserRegistrationNetworkService
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 
-class LoginRepository {
+class RegistrationRepository {
 
     companion object {
-        private val TAG: String = LoginRepository::class.simpleName!!
+        private val TAG: String = RegistrationRepository::class.simpleName!!
     }
 
-    private val awarenessNetworkService: LoveLettersNetworkService = get(BackendlessNetworkServiceImpl::class.java)
+    private val awarenessNetworkService: UserRegistrationNetworkService = get(BackendlessNetworkServiceImpl::class.java)
 
     private fun startOperationIfNetworkAvailable(operation: () -> Unit, networkCallback: NetworkCallback<*>?){
         val noNetworkError = YuvalLoveNotesApp.context.getString(R.string.error_no_network_connection)

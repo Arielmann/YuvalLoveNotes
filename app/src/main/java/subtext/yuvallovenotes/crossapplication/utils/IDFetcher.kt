@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.crossapplication.models
+package subtext.yuvallovenotes.crossapplication.utils
 
 /**
  * An interface to determine for each model in the app what its unique ID.

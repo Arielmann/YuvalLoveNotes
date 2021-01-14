@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login.viewmodel
+package subtext.yuvallovenotes.registration.viewmodel
 
 import android.content.SharedPreferences
 import android.util.Log.d
@@ -10,32 +10,33 @@ import com.google.i18n.phonenumbers.PhoneNumberUtil
 import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.models.LoveLettersUser
-import subtext.yuvallovenotes.crossapplication.models.UnRegisteredLoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
+import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
-import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.getDeviceDefaultCountryCode
 import subtext.yuvallovenotes.crossapplication.utils.isPhoneNumberValid
-import subtext.yuvallovenotes.login.network.LoginRepository
-import subtext.yuvallovenotes.login.network.UserRegistrationCallback
+import subtext.yuvallovenotes.registration.network.RegistrationRepository
+import subtext.yuvallovenotes.registration.network.UserRegistrationCallback
+import java.util.*
 
-class LoginViewModel : ViewModel() {
+
+class RegistrationViewModel : ViewModel() {
 
     companion object {
-        private val TAG = LoginViewModel::class.simpleName
+        private val TAG = RegistrationViewModel::class.simpleName
     }
 
-    private val loginRepository: LoginRepository = KoinJavaComponent.get(LoginRepository::class.java)
+    private val repository: RegistrationRepository = KoinJavaComponent.get(RegistrationRepository::class.java)
     private val prefs: SharedPreferences = KoinJavaComponent.get(SharedPreferences::class.java)
 
     /**
-     * Request a login, i.e, if the input data is valid, register or login the user and associate it with the given course name.
+     * Request a registration, i.e, if the input data is valid, register the user.
      * @param user An user details object that are not yet verified to be in the data base.
      * @param callback Callback to call when the process succeeds or fails
      */
-    fun requestLogin(user: UnRegisteredLoveLettersUser, callback: UserRegistrationCallback) {
+    fun requestRegistration(user: UnRegisteredLoveLettersUser, callback: UserRegistrationCallback) {
 
-//        onSuccess.invoke() - Use when you want to quick-skip login process
+//        onSuccess.invoke() - Use when you want to quick-skip registration process
         val userNetworkRegistrationRequestExecutor = UserNetworkRegistrationExecutor(user, callback)
         if (userInputValidation(user, callback)) {
             userNetworkRegistrationRequestExecutor.execute()
@@ -60,22 +61,27 @@ class LoginViewModel : ViewModel() {
     }
 
     /**
-     * Helper class for the user login process.
+     * Helper class for the user registraion process.
      *
-     * The login is made out of two parallel steps.
+     * The registration is made out of two parallel steps.
      * 1. Register the user
      * 2. Register the device to the push notifications service
      */
     private inner class UserNetworkRegistrationExecutor(val user: UnRegisteredLoveLettersUser, callback: UserRegistrationCallback) {
 
         /**
-         * Starts the registration/login process
+         * Starts the registration process
          */
         fun execute() {
             prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_registered_in_server), false).apply()
-            loginRepository.registerUser(user, registerUserCallback)
-            val pushNotificationChannels = listOf("default", LoveUtils.getDeviceLocale())
-            loginRepository.registerToPushNotificationsService(pushNotificationChannels, registerNotificationsCallback)
+            repository.registerUser(user, registerUserCallback)
+            val locale = Locale.getDefault().toString()
+            val pushNotificationChannels = mutableListOf("default", locale)
+            if(locale != YuvalLoveNotesApp.context.getString(R.string.default_country_code)){
+                /*If user is not Israeli, put him in a general english channel for messages*/
+                pushNotificationChannels.add("general_english")
+            }
+            repository.registerToPushNotificationsService(pushNotificationChannels, registerNotificationsCallback)
         }
 
         private val registerUserCallback = object : NetworkCallback<LoveLettersUser> {
@@ -148,14 +154,6 @@ class LoginViewModel : ViewModel() {
         return true
     }
 
-    fun getUserName(): String {
-        return prefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), "")!!
-    }
-
-    fun getLoverNickName(): String {
-        return prefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), "")!!
-    }
-
     fun requestUserPhoneNumber(onCompletion: (regionNumber: String, localNumber: String) -> Unit) {
         val context = YuvalLoveNotesApp.context
         val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
@@ -194,7 +192,7 @@ class LoginViewModel : ViewModel() {
 
         val userRegionNumber = prefs.getString(context.getString(R.string.pref_key_user_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
         val userLocalNumber = prefs.getString(context.getString(R.string.pref_key_user_local_phone_number), "")!!
-        val userPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
+        val userPhone = LoveLettersUser.Phone(userRegionNumber, userLocalNumber)
 
         val result = UnRegisteredLoveLettersUser(userName, loverNickName, userPhone, loverPhone)
         return result

@@ -1,4 +1,4 @@
-package subtext.yuvallovenotes.login.network
+package subtext.yuvallovenotes.registration.network
 
 interface UserRegistrationCallback{
         fun onSuccess()

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/enterUserDetailsFragment"
-        android:name="subtext.yuvallovenotes.login.ui.EnterUserDetailsFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterUserDetailsFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_enter_user_details">
 
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/enterLoveDetailsFragment"
-        android:name="subtext.yuvallovenotes.login.ui.EnterLoverDetailsFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterLoverDetailsFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_enter_lover_details">
 
@@ -59,7 +59,7 @@
 
     <fragment
         android:id="@+id/onBoardingFragment"
-        android:name="subtext.yuvallovenotes.login.ui.OnboardingDemoSupportFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.OnboardingDemoSupportFragment"
         android:label="onboarding_Fragment"
         tools:layout="@layout/fragment_onboarding">
 

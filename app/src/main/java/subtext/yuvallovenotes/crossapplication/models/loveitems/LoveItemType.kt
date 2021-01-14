@@ -1,5 +1,5 @@
 package subtext.yuvallovenotes.crossapplication.models.loveitems
 
 enum class LoveItemType {
-    OPENER, PHRASE, CLOSURE
+    OPENER, PHRASE, CLOSURE, LETTER
 }
