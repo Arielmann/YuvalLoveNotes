@@ -5,5 +5,5 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 
 interface LoveLettersNetworkService {
 
-    fun requestRandomLoveLetters(callback: NetworkCallback<MutableList<LoveLetter>>)
+    fun requestLoveLetters(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>)
 }

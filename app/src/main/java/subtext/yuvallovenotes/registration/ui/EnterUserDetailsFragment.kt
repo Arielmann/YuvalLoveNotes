@@ -9,7 +9,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentEnterUserDetailsBinding
 
 class EnterUserDetailsFragment : Fragment() {

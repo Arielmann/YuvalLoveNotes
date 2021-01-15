@@ -1,7 +1,11 @@
 package subtext.yuvallovenotes.crossapplication.database
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import org.koin.java.KoinJavaComponent.get
+import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.models.localization.Language
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
@@ -9,13 +13,29 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 import subtext.yuvallovenotes.crossapplication.network.BackendlessNetworkServiceImpl
 import subtext.yuvallovenotes.crossapplication.network.LoveLettersNetworkService
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils.isNetworkAvailable
 
 // Declares the DAO as a private property in the constructor. Pass in the DAO
 // instead of the whole database, because you only need access to the DAO
 class LoveItemsRepository {
 
+    companion object {
+        private val TAG: String = LoveItemsRepository::class.simpleName!!
+    }
+
     private val loveDao: LoveDao = LoveLocalDatabase.getDatabase().loveDao()
     private val loveLettersNetworkService: LoveLettersNetworkService = get(BackendlessNetworkServiceImpl::class.java)
+
+    private fun startOperationIfNetworkAvailable(operation: () -> Unit, networkCallback: NetworkCallback<*>?){
+        val context = YuvalLoveNotesApp.context
+        val noNetworkError = context.getString(R.string.error_no_network_connection)
+        if (isNetworkAvailable(context)) {
+            operation.invoke()
+        } else {
+            Log.w(TAG, "No network connection")
+            networkCallback?.onFailure(noNetworkError)
+        }
+    }
 
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
@@ -96,7 +116,7 @@ class LoveItemsRepository {
         return loveDao.getLovePhraseByIdSync(phrase.id)
     }
 
-    fun requestRandomLettersFromServer(callback: NetworkCallback<MutableList<LoveLetter>>) {
-        loveLettersNetworkService.requestRandomLoveLetters(callback)
+    fun requestLoveLettersFromServer(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {
+        startOperationIfNetworkAvailable({loveLettersNetworkService.requestLoveLetters(language, offset, callback)}, callback)
     }
 }

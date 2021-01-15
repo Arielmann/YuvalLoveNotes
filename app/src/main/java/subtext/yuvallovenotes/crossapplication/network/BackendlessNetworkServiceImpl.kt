@@ -1,5 +1,6 @@
 package subtext.yuvallovenotes.crossapplication.network
 
+import android.content.SharedPreferences
 import android.util.Log.*
 import com.backendless.Backendless
 import com.backendless.BackendlessUser
@@ -7,11 +8,11 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
 import com.backendless.push.DeviceRegistrationResult
+import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.localization.Language
-import subtext.yuvallovenotes.crossapplication.models.localization.inferLanguageFromLocale
-import subtext.yuvallovenotes.crossapplication.models.loveitems.*
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLettersUser
 
@@ -20,6 +21,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
 
     private const val DEFAULT_PAGE_SIZE: Int = 100
     private val TAG: String? = BackendlessNetworkServiceImpl::class.simpleName
+    private val prefs: SharedPreferences = get(SharedPreferences::class.java)
 
     /**
      * Register the user to the system. If the user already exists, the process succeeds automatically.
@@ -79,55 +81,44 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
     }
 
     /**
-     * Actual implementation of Backendless data fetching api for getting Love letters
+     * Making a network call for fetching all [LoveLetter] objects found in Backendless server. Results or error
+     * are returned with a designated [NetworkCallback]
+     *
+     * @param language The language of the required letters
+     * @param offset Integer of the first index in the database where the search will begin from
+     * @param callback A callback to be invoked with list of results or an error message
      */
-    private fun fetchRandomLoveLetters(tableObjectCount: Int, language: Language, callback: NetworkCallback<MutableList<LoveLetter>>) {
+    override fun requestLoveLetters(language: Language, offset: Int, callback: NetworkCallback<MutableList<LoveLetter>>) {
         val queryBuilder = DataQueryBuilder.create()
-        queryBuilder.whereClause = "language = ${language.fieldName}"
+        queryBuilder.whereClause = "language = '${language.tableFieldName}'"
         queryBuilder.setPageSize(DEFAULT_PAGE_SIZE)
-        var possibleOffset = 0
-        if (tableObjectCount > 100) {
-            possibleOffset = tableObjectCount - 100
-        }
-        queryBuilder.setOffset((0..possibleOffset).random())
+        queryBuilder.setOffset(offset)
+        d(TAG, "Executing love letters fetch request")
         Backendless.Data.of(LoveLetter::class.java).find(queryBuilder, object : AsyncCallback<MutableList<LoveLetter>> {
 
             override fun handleResponse(response: MutableList<LoveLetter>?) {
-                i(TAG, "Love letters fetched")
-                if (response.isNullOrEmpty()) {
-                    if (language != Language.ENGLISH) {
-                        fetchRandomLoveLetters(tableObjectCount, Language.ENGLISH, callback)
+                d(TAG, "love letters response: $response")
+                if (!response.isNullOrEmpty()) {
+                    i(TAG, "${response.size} Love letters fetched from backendless server")
+                    callback.onSuccess(response)
+                    if (response.size == DEFAULT_PAGE_SIZE) {
+                        //Get next 100 items
+                        requestLoveLetters(language, offset + 100, callback)
+                    } else {
+                        prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
                     }
                 } else {
-                    callback.onSuccess(response)
+                    if (language != Language.ENGLISH) {
+                        requestLoveLetters(Language.ENGLISH, 0, callback)
+                    }
                 }
             }
 
             override fun handleFault(backendlessFault: BackendlessFault) {
-                i(TAG, "Love letters fetch error: ${backendlessFault.message}")
+                e(TAG, "Letters fetch request failure: ${backendlessFault}")
+                callback.onFailure(backendlessFault.toString())
             }
         })
     }
 
-    /**
-     * Returns 100 random letters of a specified language from Backendless database or all letters if there are less than 100.
-     */
-    override fun requestRandomLoveLetters(callback: NetworkCallback<MutableList<LoveLetter>>) {
-        fetchLoveLetterTableObjectCount { count ->
-            fetchRandomLoveLetters(count, inferLanguageFromLocale(), callback)
-        }
-    }
-
-    private fun fetchLoveLetterTableObjectCount(onSuccess: (count: Int) -> Unit) {
-        Backendless.Data.of(LoveLetter::class.java).getObjectCount(object : AsyncCallback<Int> {
-            override fun handleResponse(count: Int) {
-                i(TAG, "total objects in the LoveLetter table - $count")
-                onSuccess.invoke(count)
-            }
-
-            override fun handleFault(backendlessFault: BackendlessFault) {
-                i(TAG, "table object count fetch error: ${backendlessFault.message}")
-            }
-        })
-    }
 }

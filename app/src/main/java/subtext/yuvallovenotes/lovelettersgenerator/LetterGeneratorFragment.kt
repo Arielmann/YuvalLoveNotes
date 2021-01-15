@@ -2,7 +2,6 @@ package subtext.yuvallovenotes.lovelettersgenerator
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextWatcher
 import android.util.Log.*
@@ -14,18 +13,15 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.LoadAdError
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.crossapplication.alarms.LoveLetterAlarm
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
-import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
 
 
 class LetterGeneratorFragment : Fragment() {

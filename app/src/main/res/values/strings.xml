@@ -11,6 +11,7 @@
     <string name="pref_key_user_registered_in_server" translatable="false">pref_key_user_registered_in_server</string>
     <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
     <string name="pref_key_lover_nickname" translatable="false">pref_key_lover_nickname</string>
+    <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>
     <string name="pref_key_show_only_letters_created_by_user" translatable="false">pref_key_show_only_letters_created_by_user</string>
     <string name="pref_title_show_only_letters_created_by_user">Choose only letters created by you</string>
     <string name="pref_key_user_full_target_phone_number" translatable="false">pref_key_user_full_target_phone_number</string>
@@ -18,12 +19,12 @@
     <string name="pref_key_user_phone_region_number" translatable="false">pref_key_user_phone_region_number</string>
     <string name="pref_key_lover_full_target_phone_number" translatable="false">pref_key_lover_full_target_phone_number</string>
     <string name="pref_key_lover_local_phone_number" translatable="false">pref_key_lover_local_phone_number</string>
-    <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>
+    <string name="pref_key_trigger_time_send_letter_reminder" translatable="false">pref_key_trigger_time_send_letter_reminder</string>
+    <string name="pref_key_is_feature_active_send_letter_reminder" translatable="false">pref_key_is_feature_active_send_letter_reminder</string>
     <string name="pref_title_target_phone_number">Phone number</string>
     <string name="pref_dialog_title_target_phone_number">Loved one\'s number</string>
-    <string name="pref_key_was_database_populated_first_time" translatable="false">key_was_database_populated_first_time</string>
-    <string name="pref_key_trigger_time_send_letter_reminder" translatable="false">pref_key_send_letter_reminder</string>
-    <string name="pref_key_is_feature_active_send_letter_reminder" translatable="false">pref_key_send_letter_reminder_feature_active</string>
+    <string name="pref_key_local_letters_database_populated_after_app_installed" translatable="false">pref_key_local_letters_database_populated_after_app_installed</string>
+    <string name="pref_key_server_letters_downloaded_after_app_installed" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
 
     <!--Data transmission keys-->
     <string name="letter_id" translatable="false">letter_id</string>

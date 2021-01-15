@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.preference.PreferenceManager
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.google.android.gms.ads.*
@@ -18,13 +17,12 @@ import com.google.android.gms.ads.formats.NativeAdOptions
 import com.google.android.gms.ads.formats.UnifiedNativeAd
 import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent.get
-import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.network.LoveNetworkCalls
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
+import subtext.yuvallovenotes.crossapplication.models.localization.inferLanguageFromLocale
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
-import subtext.yuvallovenotes.lovelettersgenerator.LetterGeneratorFragment
+import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
 import java.lang.ref.WeakReference
 
@@ -40,12 +38,10 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     private lateinit var interstitialAd: InterstitialAd
 
-    //todo: cleanup
-    val loveNetworkCalls: LoveNetworkCalls = LoveNetworkCalls(context)
-
     internal var loveLetters: LiveData<MutableList<LoveLetter>>
 
     init {
+        d(TAG, "Getting all love letter from local database")
         loveLetters = loveItemsRepository.getAllLocalDBLoveLetters()
     }
 
@@ -69,7 +65,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
 
         override fun handleFault(fault: BackendlessFault?) {
-            Log.d(TAG, "Backendless error: ${fault.toString()}")
             Toast.makeText(weakContext.get(), fault.toString(), Toast.LENGTH_LONG).show()
         }
     }
@@ -89,6 +84,24 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     internal fun insertAllClosures(closures: List<LoveClosure>) {
         viewModelScope.launch(Dispatchers.IO) {
             loveItemsRepository.insertAllLoveClosures(closures)
+        }
+    }
+
+    internal fun requestLoveLettersFromServer() {
+        viewModelScope.launch(Dispatchers.IO) {
+            loveItemsRepository.requestLoveLettersFromServer(inferLanguageFromLocale(), 0, object : NetworkCallback<MutableList<LoveLetter>> {
+                override fun onSuccess(response: MutableList<LoveLetter>) {
+                    viewModelScope.launch(Dispatchers.IO) {
+                        loveItemsRepository.insertAllLoveLetters(response)
+                    }
+                    sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
+                }
+
+                override fun onFailure(message: String) {
+                    e(TAG, "Error while downloading letters from server: $message")
+                }
+
+            })
         }
     }
 
@@ -150,7 +163,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         var isDeleted = false
         letter?.let {
             if (it.text.isBlank()) {
-                Log.d(TAG, "deleting empty letter from data base")
+                d(TAG, "deleting empty letter from data base")
                 runBlocking {
                     val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                         loveItemsRepository.deleteLetterSync(letter)
@@ -160,7 +173,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                 }
             }
         }
-        Log.d(TAG, "love letters list size: " + loveLetters.value?.size)
+        d(TAG, "love letters list size: " + loveLetters.value?.size)
         return isDeleted
     }
 
@@ -170,6 +183,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         return sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false) && sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
     }
 
+    /*Todo: Cleanup*/
     fun generateNativeAd(context: Context, onSuccess: (ad: UnifiedNativeAd) -> Unit) {
         val testAdId = "ca-app-pub-3940256099942544/2247696110"
         val adLoader = AdLoader.Builder(context, testAdId)
@@ -187,13 +201,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                 .build()
 
         adLoader.loadAd(AdRequest.Builder().build())
-    }
-
-
-    private fun loadBannerAd(adView: AdView, adListener: AdListener) {
-        val adRequest: AdRequest = AdRequest.Builder().build()
-        adView.adListener = adListener
-        adView.loadAd(adRequest)
     }
 
     fun loadInterstitialAd(context: Context, onSuccess: (InterstitialAd) -> Unit) {
@@ -223,7 +230,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         loadNewAd()
     }
 
-    fun loadNewAd(){
+    fun loadNewAd() {
         val adRequest = AdRequest.Builder().build()
         interstitialAd.loadAd(adRequest)
     }
@@ -240,9 +247,10 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     fun openWhatsapp(context: Context, text: String) {
-            d(TAG, "Opening Whatsapp")
-            val sendWhatsapp = WhatsAppSender()
-            val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "") ?: ""
-            sendWhatsapp.send(context, phoneNumber, text)
+        d(TAG, "Opening Whatsapp")
+        val sendWhatsapp = WhatsAppSender()
+        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "")
+                ?: ""
+        sendWhatsapp.send(context, phoneNumber, text)
     }
 }

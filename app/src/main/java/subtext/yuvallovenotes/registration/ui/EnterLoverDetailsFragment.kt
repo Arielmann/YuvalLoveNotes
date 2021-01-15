@@ -99,7 +99,7 @@ class EnterLoverDetailsFragment : Fragment() {
 
     private fun setupLoverNameEditText() {
         binding.loverNameInputEditText.requestFocus()
-        val loverName =  sharedPrefs.getString(resources.getString(R.string.pref_key_lover_nickname), "")
+        val loverName = sharedPrefs.getString(resources.getString(R.string.pref_key_lover_nickname), "")
         binding.loverNameInputEditText.setText(loverName)
     }
 

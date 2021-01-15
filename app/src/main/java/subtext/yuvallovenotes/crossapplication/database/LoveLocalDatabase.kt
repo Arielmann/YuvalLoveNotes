@@ -75,18 +75,17 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 //                    db.loveDao().deleteAllLoveOpeners()
 //                    db.loveDao().deleteAllLovePhrases()
 //                    db.loveDao().deleteAllLoveClosures()
-                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_was_database_populated_first_time)
+                    val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_local_letters_database_populated_after_app_installed)
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
 //                        db.loveDao().insertAllLoveOpeners(DefaultLoveDataSet.openers)
 //                        db.loveDao().insertAllLovePhrases(DefaultLoveDataSet.phrases)
 //                        db.loveDao().insertAllLoveClosures(DefaultLoveDataSet.closures)
                         d(TAG, "Populating letters list")
-                        //Todo: mark true only after success
                         populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
                     } else {
-                        d(TAG, "Database population is not required")
+                        d(TAG, "Initial database population is not required")
                     }
                 }
             }

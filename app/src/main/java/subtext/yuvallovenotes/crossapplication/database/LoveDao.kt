@@ -30,7 +30,7 @@ interface LoveDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLoveLetterSync(letter: LoveLetter)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAllLoveLetters(letters: List<LoveLetter?>?)
 
     @Update
