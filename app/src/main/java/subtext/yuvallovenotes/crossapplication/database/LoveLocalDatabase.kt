@@ -36,7 +36,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         @SuppressLint("HardwareIds")
         private fun inferDataSet(): InitialLettersDataSet {
             val deviceId = Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID);
-            if(deviceId == "baaa54ce980799f36") {
+            if(deviceId == "baaa54ce980799f6") {
             //Todo: cleanup
                 return ArielDefaultLoveDataSetInitial
             }
@@ -72,15 +72,9 @@ abstract class LoveLocalDatabase : RoomDatabase() {
                 val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
                 GlobalScope.launch(Dispatchers.IO) {
 //                    db.loveDao().deleteAllLoveLetters()
-//                    db.loveDao().deleteAllLoveOpeners()
-//                    db.loveDao().deleteAllLovePhrases()
-//                    db.loveDao().deleteAllLoveClosures()
                     val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_local_letters_database_populated_after_app_installed)
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
-//                        db.loveDao().insertAllLoveOpeners(DefaultLoveDataSet.openers)
-//                        db.loveDao().insertAllLovePhrases(DefaultLoveDataSet.phrases)
-//                        db.loveDao().insertAllLoveClosures(DefaultLoveDataSet.closures)
                         d(TAG, "Populating letters list")
                         populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
@@ -119,42 +113,4 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         }
     }
 
-/*    private class LoveLettersDatabaseCallback : RoomDatabase.Callback() {
-
-        val loveDataSet = DefaultLoveDataSet
-
-        fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
-            var text = ""
-            var opener = LoveOpener()
-            var closure = LoveClosure()
-
-            opener = loveDataSet.openers.randomOrNull() ?: opener
-            text = text.plus(opener.text + "\n\n")
-
-            text = text.plus(lovePhrase.text + "\n\n")
-
-            closure = loveDataSet.closures.randomOrNull() ?: closure
-            text = text.plus(closure.text + "\n\n")
-
-            val id = opener.id.plus(lovePhrase.id).plus(closure.id)
-
-            val letter = LoveLetter(id, text)
-            return letter
-        }
-
-        fun populateLettersList(db: LoveLocalDatabase) {
-            GlobalScope.launch(Dispatchers.IO) {
-                loveDataSet.phrases.forEach {
-                    d(TAG, "Inserting love letter")
-                    db.loveDao().insertLoveLetter(generateRandomLetter(it))
-                }
-            }
-        }
-
-        override fun onOpen(database: SupportSQLiteDatabase) {
-            d(TAG, "Database onOpen")
-            super.onOpen(database)
-
-        }
-    }*/
 }

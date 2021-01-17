@@ -50,5 +50,6 @@
     <string name="lover_name_fallback">אהובתי</string>
     <string name="user_name_fallback">אתה</string>
     <string name="error_msg_whatsapp_not_installed">וואטסאפ לא מותקן על המכשיר שלך</string>
+    <string name="title_letters_will_be_deleted_forever">המכתבים יימחקו לנצח</string>
 
 </resources>

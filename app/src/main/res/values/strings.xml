@@ -46,6 +46,7 @@
     <string name="title_choose_from_contacts">Choose from contacts</string>
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="title_letter_will_be_deleted_forever">The letter will be deleted forever</string>
+    <string name="title_letters_will_be_deleted_forever">The letters will be deleted forever</string>
     <string name="hint_your_words_here">Your words here</string>
     <string name="error_msg_whatsapp_not_installed">Whatsapp is not install on your phone. Please install the app and try again</string>
     <string name="title_next">Next</string>

@@ -187,17 +187,16 @@ class LetterGeneratorFragment : Fragment() {
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     currentLetter?.let {
-                        d(TAG, "deleting letter")
-                        Toast.makeText(requireContext(), getString(R.string.title_letter_deleted), LENGTH_LONG).show()
-                        loveItemsViewModel.deleteLetterSync(it)
-                        d(TAG, "deleting completed")
+                        d(TAG, "Deleting letter")
+                        loveItemsViewModel.deleteLettersAsync(listOf(it))
+                        d(TAG, "Deleting completed")
                         letterGeneratorListener.onClick(view)
                     }
                 }
 
                 DialogInterface.BUTTON_NEGATIVE -> {
                     dialog.dismiss()
-                    d(TAG, "forfeited letter deletion request")
+                    d(TAG, "Forfeited letter deletion request")
                 }
             }
         }
