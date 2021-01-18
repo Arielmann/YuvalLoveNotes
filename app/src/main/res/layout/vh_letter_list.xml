@@ -25,27 +25,34 @@
         card:layout_constraintStart_toStartOf="parent"
         card:layout_constraintTop_toTopOf="parent">
 
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/letterListSelectionCheckbox"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:gravity="top|center_horizontal"
+            android:button="@drawable/custom_checkbox"
+            card:layout_constraintEnd_toEndOf="parent"
+            card:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/letterListViewHolderIconIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            card:layout_constraintEnd_toEndOf="parent"
-            card:layout_constraintTop_toTopOf="@+id/letterListViewHolderTextTV" />
+            android:layout_marginEnd="16dp"
+            card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"
+            card:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/letterListViewHolderTextTV"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
+            android:layout_height="150dp"
             android:maxHeight="150dp"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
+            card:layout_constraintBottom_toBottomOf="parent"
             card:layout_constraintEnd_toStartOf="@+id/letterListViewHolderIconIV"
             card:layout_constraintStart_toStartOf="parent"
-            card:layout_constraintTop_toTopOf="parent"
+            card:layout_constraintTop_toBottomOf="@+id/letterListSelectionCheckbox"
             tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

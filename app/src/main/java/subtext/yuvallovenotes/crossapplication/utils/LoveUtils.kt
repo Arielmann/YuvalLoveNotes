@@ -130,6 +130,7 @@ object LoveUtils {
     }
 
     fun setupFragmentDefaultToolbar(parentFragment: Fragment, toolbar: Toolbar) {
+        toolbar.menu.clear()
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_24);
         toolbar.setNavigationOnClickListener {
             Log.d(TAG, "Navigating to previous screen")

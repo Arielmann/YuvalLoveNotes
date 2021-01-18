@@ -5,32 +5,26 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.view.ActionMode
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.selection.SelectionPredicates
-import androidx.recyclerview.selection.SelectionTracker
-import androidx.recyclerview.selection.StableIdKeyProvider
-import androidx.recyclerview.selection.StorageStrategy
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterListBinding
 
 
-class LetterListFragment : Fragment() {
+class LetterListFragment : Fragment(), ItemSelectionCallback {
 
     companion object {
         private val TAG = LetterListFragment::class.simpleName!!
     }
 
-    private var selectionActionMode: ActionMode? = null
     private lateinit var binding: FragmentLetterListBinding
     private val loveItemsViewModel: LoveItemsViewModel = get()
     private lateinit var lettersListAdapter: LetterListAdapter
@@ -57,7 +51,7 @@ class LetterListFragment : Fragment() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
             // Update the cached copy of the letters in the adapter.
             letters?.let {
-                Log.d(TAG, "Updating letters list UI. letters: {$letters}")
+//                Log.d(TAG, "Updating letters list UI. letters: {$letters}")
                 lettersListAdapter.submitList(letters.filter { !it.isDisabled }.sortedBy { !it.isCreatedByUser })
             }
         }
@@ -75,80 +69,33 @@ class LetterListFragment : Fragment() {
 
     private fun setupLetterList() {
 
-        lettersListAdapter = LetterListAdapter(requireContext())
-
-
-
-        lettersListAdapter.onItemClickListener = { letter ->
+        val onLetterOpenRequest: (letter: LoveLetter) -> Unit = { letter ->
             val action = LetterListFragmentDirections.navigateToLetterGenerator(letter.id)
             findNavController().navigate(action)
         }
+
+        lettersListAdapter = LetterListAdapter(requireContext(), onLetterOpenRequest, this)
 
         binding.lettersRV.apply {
             lettersListAdapter.setHasStableIds(true)
             binding.lettersRV.adapter = lettersListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
-
-        val lettersSelectionTracker = SelectionTracker.Builder(
-                TAG,
-                binding.lettersRV,
-                StableIdKeyProvider(binding.lettersRV),
-                LetterListAdapter.LetterListAdapterItemDetailsLookup(binding.lettersRV),
-                StorageStrategy.createLongStorage())
-                .withSelectionPredicate(SelectionPredicates.createSelectAnything()).build()
-
-        lettersListAdapter.lettersSelectionTracker = lettersSelectionTracker
-        setLettersSelectionObservers()
     }
 
-    private fun setLettersSelectionObservers() {
-        lettersListAdapter.setSelectionsObserver()
-        lettersListAdapter.lettersSelectionTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-            override fun onSelectionChanged() {
-                super.onSelectionChanged()
-                if (lettersListAdapter.lettersSelectionTracker.hasSelection() && selectionActionMode == null) {
-                    selectionActionMode = (requireActivity() as AppCompatActivity?)!!.startSupportActionMode(selectionActionModeCallback)
-                } else if (!lettersListAdapter.lettersSelectionTracker.hasSelection() && selectionActionMode != null) {
-                    selectionActionMode!!.finish()
-                }
+
+    val selectedLettersMenuClickListener: Toolbar.OnMenuItemClickListener = Toolbar.OnMenuItemClickListener { item ->
+        when (item?.itemId) {
+            R.id.menuActionChooseAllLetters -> {
+                lettersListAdapter.selectAllLetters()
+                true
             }
 
-
-        })
-    }
-
-    private var selectionActionModeCallback: ActionMode.Callback = object : ActionMode.Callback {
-
-        override fun onCreateActionMode(mode: ActionMode, menu: Menu?): Boolean {
-            mode.menuInflater.inflate(R.menu.letter_list_menu, menu)
-            return true
-        }
-
-        override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-            return false
-        }
-
-        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
-            return when (item.itemId) {
-
-                R.id.menuActionChooseAllLetters -> {
-                    lettersListAdapter.chooseAllLetters()
-                    Toast.makeText(requireContext(), "Option 1 selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                R.id.menuActionDelete -> {
-                    Toast.makeText(requireContext(), "Option 2 selected", Toast.LENGTH_SHORT).show()
-                    showReallyDeleteDialog(lettersListAdapter.selectedLetters, mode)
-                    true
-                }
-                else -> false
+            R.id.menuActionDelete -> {
+                showReallyDeleteDialog(lettersListAdapter.selectedLetters)
+                true
             }
-        }
-
-        override fun onDestroyActionMode(mode: ActionMode?) {
-            selectionActionMode = null
+            else -> false
         }
     }
 
@@ -157,8 +104,10 @@ class LetterListFragment : Fragment() {
      */
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (selectionActionMode != null) {
-                selectionActionMode!!.finish()
+            if (lettersListAdapter.selectedLetters.isNotEmpty()) {
+                Log.d(TAG, "Exiting selection mode")
+                lettersListAdapter.clearSelectionMode()
+                LoveUtils.setupFragmentDefaultToolbar(this@LetterListFragment, binding.letterListToolBar)
                 return
             } else {
                 findNavController().popBackStack()
@@ -166,16 +115,17 @@ class LetterListFragment : Fragment() {
         }
     }
 
-    private fun showReallyDeleteDialog(mode1: MutableMap<Long, LoveLetter>, mode: ActionMode) {
+    private fun showReallyDeleteDialog(letters: MutableList<LoveLetter>) {
         val dialogClickListener = DialogInterface.OnClickListener { dialog, which ->
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
-                    currentLetter?.let {
-                        Log.d(TAG, "Deleting letter")
-                        loveItemsViewModel.deleteLettersAsync(it)
-                        Log.d(TAG, "Deleting completed")
-                        mode.finish()
-                    }
+                    Log.d(TAG, "Deleting letter")
+                    loveItemsViewModel.deleteLettersSync(letters.toList())
+                    Log.d(TAG, "Exiting selection mode")
+                    lettersListAdapter.clearSelectionMode()
+                    setupLetterList()
+                    Log.d(TAG, "Deleting completed")
+                    LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
                 }
 
                 DialogInterface.BUTTON_NEGATIVE -> {
@@ -185,11 +135,32 @@ class LetterListFragment : Fragment() {
             }
         }
 
+        var msg = getString(R.string.title_letter_will_be_deleted_forever)
+        if (letters.size > 1) {
+            msg = getString(R.string.title_letters_will_be_deleted_forever)
+        }
+
         val builder: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         builder.setTitle(getString(R.string.title_are_you_sure))
-                .setMessage(getString(R.string.title_letter_will_be_deleted_forever))
+                .setMessage(msg)
                 .setPositiveButton(getString(R.string.title_ok), dialogClickListener)
                 .setNegativeButton(getString(R.string.title_cancel), dialogClickListener).show()
+    }
+
+    override fun onItemSelected() {
+        if (lettersListAdapter.selectedLetters.size == 1) {
+            Log.d(TAG, "Entering selection mode")
+            binding.letterListToolBar.inflateMenu(R.menu.letter_list_item_selected_menu)
+            binding.letterListToolBar.setOnMenuItemClickListener(selectedLettersMenuClickListener)
+        }
+    }
+
+    override fun onItemRemoved() {
+        if (lettersListAdapter.selectedLetters.isEmpty()) {
+            Log.d(TAG, "Exiting selection mode")
+            lettersListAdapter.clearSelectionMode()
+            LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
+        }
     }
 
 }

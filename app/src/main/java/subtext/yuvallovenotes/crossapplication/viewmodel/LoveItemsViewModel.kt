@@ -121,7 +121,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    internal fun deleteLettersAsync(letters: List<LoveLetter>) {
+    internal fun deleteLettersSync(letters: List<LoveLetter>) {
         runBlocking {
             val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                 letters.forEach { letter ->

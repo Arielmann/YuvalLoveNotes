@@ -3,95 +3,105 @@ package subtext.yuvallovenotes.lovelettersoverview
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.recyclerview.selection.ItemDetailsLookup
-import androidx.recyclerview.selection.SelectionTracker
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.logic.adapter.DefaultDiffUtilCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.databinding.VhLetterListBinding
 import java.lang.ref.WeakReference
-import android.util.Log
+import java.util.*
+import kotlin.collections.HashSet
 
 /**
  * Adapter for managing the display of the [LoveLetter] list created by the user
  */
-class LetterListAdapter(context: Context) : ListAdapter<LoveLetter, LetterListAdapter.LetterListViewHolder>(DefaultDiffUtilCallback<LoveLetter>()) {
+class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: LoveLetter) -> Unit, val lettersSelectionListener: ItemSelectionCallback) : ListAdapter<LoveLetter, LetterListAdapter.LetterListViewHolder>(DefaultDiffUtilCallback<LoveLetter>()) {
 
     companion object {
         val TAG: String = LetterListAdapter::class.simpleName!!
     }
 
-    var selectedLetters: MutableMap<Long, LoveLetter> = mutableMapOf()
-    lateinit var lettersSelectionTracker: SelectionTracker<Long>
+    private val mBoundViewHolders: MutableSet<RecyclerView.ViewHolder> = HashSet()
+    private var selectableItemsColor: Int = Color.WHITE
+    var isSelectionModeActive: Boolean = false
+    var selectedLetters: MutableList<LoveLetter> = mutableListOf()
     private var isRightToLeft: Boolean = context.resources.getBoolean(R.bool.is_right_to_left)
     private val weakContext: WeakReference<Context> = WeakReference(context)
-    lateinit var onItemClickListener: (letter: LoveLetter) -> Unit
-
-    fun setSelectionsObserver() {
-        lettersSelectionTracker.addObserver(object : SelectionTracker.SelectionObserver<Long>() {
-
-            override fun onItemStateChanged(key: Long, selected: Boolean) {
-                super.onItemStateChanged(key, selected)
-
-                if (selected) {
-                    Log.d(TAG, "Item $key is selected")
-                    selectedLetters[key] = currentList[lettersSelectionTracker.selection.last().toInt()]
-                } else {
-                    selectedLetters.remove(key)
-                    Log.d(TAG, "Item $key is deselected")
-                }
-            }
-        })
-
-    }
 
     inner class LetterListViewHolder(private val binding: VhLetterListBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        private lateinit var currentLetter: LoveLetter
+        init {
+            itemView.setOnLongClickListener(View.OnLongClickListener {
+                if (!isSelectionModeActive) {
+                    val selectedPosition = bindingAdapterPosition
+                    val selectedLetter = currentList[selectedPosition]
+                    isSelectionModeActive = true
+                    selectedLetters.add(selectedLetter)
+                    lettersSelectionListener.onItemSelected()
+                    binding.root.setBackgroundColor(Color.RED)
+                    return@OnLongClickListener true
+                }
+                false
+            })
 
-        fun bind(letter: LoveLetter, isSelected: Boolean) {
-            this.currentLetter = letter
+            itemView.setOnClickListener {
+                val selectedPosition = bindingAdapterPosition
+                val selectedLetter = currentList[selectedPosition]
 
-            if (isSelected) {
-                binding.root.setBackgroundColor(Color.RED)
-            } else {
-                binding.root.setBackgroundColor(Color.WHITE)
+                //Capture Clicks in Selection Mode
+                if (isSelectionModeActive) {
+                    if (selectedLetters.contains(selectedLetter)) {
+                        selectedLetters.remove(selectedLetter)
+                        lettersSelectionListener.onItemRemoved()
+                        binding.root.setBackgroundColor(Color.WHITE)
+                    } else {
+                        selectedLetters.add(selectedLetter)
+                        lettersSelectionListener.onItemSelected()
+                        binding.root.setBackgroundColor(Color.RED)
+                    }
+                }else{
+                    onLetterOpenRequest.invoke(selectedLetter)
+                }
+            }
+        }
+
+
+        fun bind(letter: LoveLetter) {
+            if (isSelectionModeActive) {
+                if (selectedLetters.contains(letter)) {
+                    binding.root.setBackgroundColor(Color.RED)
+                } else {
+                    binding.root.setBackgroundColor(Color.WHITE)
+                }
             }
 
-            binding.letterListViewHolderTextTV.text = currentLetter.text
-            if (currentLetter.isCreatedByUser) {
-
-                if (isRightToLeft) {
-                    setViewHolderLayoutRightToLeft()
-                }
+            binding.letterListViewHolderTextTV.text = letter.text
+            if (isRightToLeft) {
+                setViewHolderLayoutRightToLeft()
+            }
+            if (letter.isCreatedByUser) {
                 binding.letterListViewHolderIconIV.setImageResource(R.drawable.ic_baseline_person_black_24)
             } else {
                 binding.letterListViewHolderIconIV.setImageDrawable(null)
-//                setViewHolderLayoutRightToLeft()
-//                binding.letterListViewHolderIconIV.setImageResource(R.drawable.ic_baseline_person_black_24)
             }
-            binding.root.setOnClickListener { onItemClickListener.invoke(currentLetter) }
         }
 
         private fun setViewHolderLayoutRightToLeft() {
             val constraintSet = ConstraintSet()
             constraintSet.clone(binding.letterListViewHolderCL)
             constraintSet.clear(R.id.letterListViewHolderIconIV, ConstraintSet.END)
-            constraintSet.connect(R.id.letterListViewHolderIconIV, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 8)
+            constraintSet.clear(R.id.letterListSelectionCheckbox, ConstraintSet.END)
+            constraintSet.connect(R.id.letterListViewHolderIconIV, ConstraintSet.START, R.id.letterListSelectionCheckbox, ConstraintSet.END, 16)
+            constraintSet.connect(R.id.letterListSelectionCheckbox, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 8)
             constraintSet.clear(R.id.letterListViewHolderTextTV, ConstraintSet.START)
             constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 24)
-            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.START, R.id.letterListViewHolderIconIV, ConstraintSet.END, 24)
+            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.START, R.id.letterListSelectionCheckbox, ConstraintSet.END, 24)
             constraintSet.applyTo(binding.letterListViewHolderCL)
-        }
-
-        fun getItemDetails(): ItemDetailsLookup.ItemDetails<Long> = object : ItemDetailsLookup.ItemDetails<Long>() {
-            override fun getPosition(): Int = bindingAdapterPosition
-            override fun getSelectionKey(): Long = itemId
         }
 
     }
@@ -102,28 +112,30 @@ class LetterListAdapter(context: Context) : ListAdapter<LoveLetter, LetterListAd
     }
 
     override fun onBindViewHolder(holder: LetterListViewHolder, position: Int) {
-        holder.bind(getItem(position), lettersSelectionTracker.isSelected(position.toLong()))
+        mBoundViewHolders.add(holder)
+        holder.bind(getItem(position))
+    }
+
+    override fun onViewRecycled(holder: LetterListViewHolder) {
+        mBoundViewHolders.remove(holder)
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    fun chooseAllLetters() {
-        currentList.forEachIndexed { index, _ ->
-            lettersSelectionTracker.select(index.toLong())
+    fun selectAllLetters() {
+        selectedLetters.addAll(currentList)
+        for (holder in mBoundViewHolders) {
+            holder.itemView.setBackgroundColor(Color.RED)
         }
     }
 
-    class LetterListAdapterItemDetailsLookup(private val recyclerView: RecyclerView) : ItemDetailsLookup<Long>() {
-
-        override fun getItemDetails(event: MotionEvent): ItemDetails<Long>? {
-            val view = recyclerView.findChildViewUnder(event.x, event.y)
-            if (view != null) {
-                return (recyclerView.getChildViewHolder(view) as LetterListViewHolder).getItemDetails()
-            }
-            return null
+    fun clearSelectionMode() {
+        isSelectionModeActive = false
+        selectedLetters.clear()
+        for (holder in mBoundViewHolders) {
+            holder.itemView.setBackgroundColor(Color.WHITE)
         }
     }
-
 }
 
 

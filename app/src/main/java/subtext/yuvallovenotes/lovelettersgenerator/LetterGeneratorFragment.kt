@@ -188,7 +188,7 @@ class LetterGeneratorFragment : Fragment() {
                 DialogInterface.BUTTON_POSITIVE -> {
                     currentLetter?.let {
                         d(TAG, "Deleting letter")
-                        loveItemsViewModel.deleteLettersAsync(listOf(it))
+                        loveItemsViewModel.deleteLettersSync(listOf(it))
                         d(TAG, "Deleting completed")
                         letterGeneratorListener.onClick(view)
                     }
