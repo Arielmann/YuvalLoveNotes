@@ -1,13 +1,15 @@
 package subtext.yuvallovenotes.lovelettersoverview
 
 import android.content.Context
-import android.graphics.Color
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.vh_letter_list.view.*
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.logic.adapter.DefaultDiffUtilCallback
@@ -23,27 +25,30 @@ import kotlin.collections.HashSet
 class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: LoveLetter) -> Unit, val lettersSelectionListener: ItemSelectionCallback) : ListAdapter<LoveLetter, LetterListAdapter.LetterListViewHolder>(DefaultDiffUtilCallback<LoveLetter>()) {
 
     companion object {
-        val TAG: String = LetterListAdapter::class.simpleName!!
+        private val TAG: String = LetterListAdapter::class.simpleName!!
+        private const val CHECKBOX_FADE_DURATION = 300L
     }
 
-    private val mBoundViewHolders: MutableSet<RecyclerView.ViewHolder> = HashSet()
-    private var selectableItemsColor: Int = Color.WHITE
+    private val boundViewHolders: MutableSet<LetterListViewHolder> = HashSet()
     var isSelectionModeActive: Boolean = false
-    var selectedLetters: MutableList<LoveLetter> = mutableListOf()
+    var selectedLetters: MutableSet<LoveLetter> = mutableSetOf()
     private var isRightToLeft: Boolean = context.resources.getBoolean(R.bool.is_right_to_left)
     private val weakContext: WeakReference<Context> = WeakReference(context)
 
-    inner class LetterListViewHolder(private val binding: VhLetterListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class LetterListViewHolder(val binding: VhLetterListBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
             itemView.setOnLongClickListener(View.OnLongClickListener {
                 if (!isSelectionModeActive) {
                     val selectedPosition = bindingAdapterPosition
                     val selectedLetter = currentList[selectedPosition]
-                    isSelectionModeActive = true
                     selectedLetters.add(selectedLetter)
                     lettersSelectionListener.onItemSelected()
-                    binding.root.setBackgroundColor(Color.RED)
+                    binding.letterListSelectionCheckbox.isChecked = true
+                    boundViewHolders.forEach { holder ->
+                        holder.binding.letterListSelectionCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
+                    }
+                    isSelectionModeActive = true
                     return@OnLongClickListener true
                 }
                 false
@@ -55,29 +60,43 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
 
                 //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
-                    if (selectedLetters.contains(selectedLetter)) {
-                        selectedLetters.remove(selectedLetter)
-                        lettersSelectionListener.onItemRemoved()
-                        binding.root.setBackgroundColor(Color.WHITE)
-                    } else {
-                        selectedLetters.add(selectedLetter)
-                        lettersSelectionListener.onItemSelected()
-                        binding.root.setBackgroundColor(Color.RED)
-                    }
-                }else{
+                    onLetterSelectionOperationRequestedByUser(selectedLetter)
+                } else {
                     onLetterOpenRequest.invoke(selectedLetter)
                 }
+            }
+
+
+            itemView.letterListSelectionCheckbox.setOnClickListener() { view ->
+                //Capture Clicks in Selection Mode
+                if (isSelectionModeActive) {
+                    val selectedPosition = bindingAdapterPosition
+                    val selectedLetter = currentList[selectedPosition]
+                    onLetterSelectionOperationRequestedByUser(selectedLetter)
+                }
+            }
+        }
+
+        /**
+         * Called when user would like to add or remove a letter from the selected letters list
+         */
+        private fun onLetterSelectionOperationRequestedByUser(selectedLetter: LoveLetter) {
+            if (selectedLetters.contains(selectedLetter)) {
+                lettersSelectionListener.itemWillBeRemoved()
+                selectedLetters.remove(selectedLetter)
+                binding.letterListSelectionCheckbox.isChecked = false
+            } else {
+                selectedLetters.add(selectedLetter)
+                lettersSelectionListener.onItemSelected()
+                binding.letterListSelectionCheckbox.isChecked = true
             }
         }
 
 
         fun bind(letter: LoveLetter) {
             if (isSelectionModeActive) {
-                if (selectedLetters.contains(letter)) {
-                    binding.root.setBackgroundColor(Color.RED)
-                } else {
-                    binding.root.setBackgroundColor(Color.WHITE)
-                }
+                binding.letterListSelectionCheckbox.alpha = 1f
+                binding.letterListSelectionCheckbox.isChecked = selectedLetters.contains(letter)
             }
 
             binding.letterListViewHolderTextTV.text = letter.text
@@ -85,22 +104,22 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                 setViewHolderLayoutRightToLeft()
             }
             if (letter.isCreatedByUser) {
-                binding.letterListViewHolderIconIV.setImageResource(R.drawable.ic_baseline_person_black_24)
+                binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.ic_baseline_person_black_24)
             } else {
-                binding.letterListViewHolderIconIV.setImageDrawable(null)
+                binding.letterListViewHolderWrittenByUserIconIV.setImageDrawable(null)
             }
         }
 
         private fun setViewHolderLayoutRightToLeft() {
             val constraintSet = ConstraintSet()
             constraintSet.clone(binding.letterListViewHolderCL)
-            constraintSet.clear(R.id.letterListViewHolderIconIV, ConstraintSet.END)
-            constraintSet.clear(R.id.letterListSelectionCheckbox, ConstraintSet.END)
-            constraintSet.connect(R.id.letterListViewHolderIconIV, ConstraintSet.START, R.id.letterListSelectionCheckbox, ConstraintSet.END, 16)
-            constraintSet.connect(R.id.letterListSelectionCheckbox, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 8)
+            constraintSet.clear(R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.START)
+            constraintSet.clear(R.id.letterListSelectionCheckbox, ConstraintSet.START)
+            constraintSet.connect(R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 16)
+            constraintSet.connect(R.id.letterListSelectionCheckbox, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 8)
             constraintSet.clear(R.id.letterListViewHolderTextTV, ConstraintSet.START)
-            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 24)
-            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.START, R.id.letterListSelectionCheckbox, ConstraintSet.END, 24)
+            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.END, R.id.letterListSelectionCheckbox, ConstraintSet.START, 24)
+            constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.START, R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.END, 24)
             constraintSet.applyTo(binding.letterListViewHolderCL)
         }
 
@@ -112,29 +131,43 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
     }
 
     override fun onBindViewHolder(holder: LetterListViewHolder, position: Int) {
-        mBoundViewHolders.add(holder)
+        boundViewHolders.add(holder)
         holder.bind(getItem(position))
     }
 
     override fun onViewRecycled(holder: LetterListViewHolder) {
-        mBoundViewHolders.remove(holder)
+        boundViewHolders.remove(holder)
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
 
     fun selectAllLetters() {
         selectedLetters.addAll(currentList)
-        for (holder in mBoundViewHolders) {
-            holder.itemView.setBackgroundColor(Color.RED)
+        for (holder in boundViewHolders) {
+            holder.binding.letterListSelectionCheckbox.isChecked = true
         }
     }
 
-    fun clearSelectionMode() {
+    fun deselectAllLetters() {
+        d(TAG, "Deselecting all letters")
+        selectedLetters.clear()
+        for (holder in boundViewHolders) {
+            holder.binding.letterListSelectionCheckbox.isChecked = false
+        }
+    }
+
+    fun exitSelectionMode() {
+        d(TAG, "Exiting selection mode")
         isSelectionModeActive = false
         selectedLetters.clear()
-        for (holder in mBoundViewHolders) {
-            holder.itemView.setBackgroundColor(Color.WHITE)
+        boundViewHolders.forEach { holder ->
+            holder.binding.letterListSelectionCheckbox.animate().alpha(0f).setDuration(CHECKBOX_FADE_DURATION).start()
+            holder.binding.letterListSelectionCheckbox.isChecked = false
         }
+    }
+
+    fun areAllItemsSelected(): Boolean {
+        return currentList.size == selectedLetters.size
     }
 }
 

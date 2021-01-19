@@ -14,7 +14,7 @@ open class LoveItem(@PrimaryKey var id: String = UUID.randomUUID().toString(),
                     @ColumnInfo(name = "text") var text: String = "",
                     @ColumnInfo(name = "language") var language: String = inferLanguageFromLocale().tableFieldName,
                     @ColumnInfo(name = "isCreatedByUser") var isCreatedByUser: Boolean = false,
-                    @ColumnInfo(name = "isDisabled") var isDisabled: Boolean = false) : IDFetcher {
+                    @ColumnInfo(name = "isArchived") var isArchived: Boolean = false) : IDFetcher {
 
     override fun toString(): String {
         return "$text\n\n"

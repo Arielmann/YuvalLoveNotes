@@ -22,7 +22,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 6, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 7, exportSchema = false)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
     abstract fun loveDao(): LoveDao
@@ -74,7 +74,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 //                    db.loveDao().deleteAllLoveLetters()
                     val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_local_letters_database_populated_after_app_installed)
                     //Todo: set to be correct condition
-                    if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
+                    if (sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
                         d(TAG, "Populating letters list")
                         populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()

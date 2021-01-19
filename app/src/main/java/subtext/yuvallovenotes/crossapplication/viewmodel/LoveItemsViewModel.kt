@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.recyclerview.selection.SelectionTracker
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.google.android.gms.ads.*
@@ -111,13 +110,26 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     internal fun insertLetter(letter: LoveLetter) {
         viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.insertLoveLetter(letter)
+            loveItemsRepository.insertLetter(letter)
         }
     }
 
     internal fun updateLetter(currentLetter: LoveLetter) {
         viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.updateLoveLetter(currentLetter)
+            loveItemsRepository.updateLetter(currentLetter)
+        }
+    }
+
+    internal fun updateLettersArchiveStatusSync(letters: List<LoveLetter>, isArchive: Boolean) {
+        runBlocking {
+            val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
+                letters.forEach { letter ->
+                    letter.isArchived = isArchive
+                    loveItemsRepository.updateLetterArchiveStatusSync(letter)
+                }
+                return@async
+            }
+            waitForDeletion.await()
         }
     }
 
@@ -134,11 +146,11 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
         internal fun randomLetter(): LoveLetter {
-            val optionalLetters = loveLetters.value
+            val optionalLetters = loveLetters.value?.filter{!it.isArchived}
             val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)
             var result = optionalLetters?.randomOrNull()
             if (showOnlyLettersCreatedByUser) {
-                val lettersCreatedByUser = optionalLetters?.filter { !it.isDisabled && it.isCreatedByUser }
+                val lettersCreatedByUser = optionalLetters?.filter { !it.isArchived && it.isCreatedByUser }
                 result = lettersCreatedByUser?.randomOrNull()
             }
 
@@ -148,7 +160,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
                 runBlocking {
                     val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
-                        loveItemsRepository.insertLoveLetterSync(result)
+                        loveItemsRepository.insertLetterSync(result)
                     }
                     waitForDeletion.await()
                 }
@@ -157,7 +169,11 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
             return result
         }
 
-        /**
+    fun getUnarchivedLetters(): List<LoveLetter>? {
+        return loveLetters.value?.filter{!it.isArchived}
+    }
+
+    /**
          * Deleting a letter if its empty.
          * Returns true if letter was deleted
          */

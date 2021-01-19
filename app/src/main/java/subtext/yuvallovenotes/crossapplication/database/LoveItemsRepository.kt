@@ -56,16 +56,20 @@ class LoveItemsRepository {
         return loveDao.getLoveLetterByTextSync(text)
     }
 
-    suspend fun insertLoveLetter(letter: LoveLetter) {
+    suspend fun insertLetter(letter: LoveLetter) {
         loveDao.insertLoveLetter(letter)
     }
 
-    fun insertLoveLetterSync(letter: LoveLetter) {
+    fun insertLetterSync(letter: LoveLetter) {
         loveDao.insertLoveLetterSync(letter)
     }
 
-    suspend fun updateLoveLetter(currentLetter: LoveLetter) {
+    suspend fun updateLetter(currentLetter: LoveLetter) {
         loveDao.updateLoveLetter(currentLetter)
+    }
+
+    fun updateLetterArchiveStatusSync(letter: LoveLetter) {
+        loveDao.updateLetterArchiveStatusSync(letter.id, letter.isArchived)
     }
 
     suspend fun deleteLetter(letter: LoveLetter) {

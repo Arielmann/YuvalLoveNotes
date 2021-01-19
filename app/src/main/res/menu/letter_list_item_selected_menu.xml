@@ -22,7 +22,7 @@
     <item
         android:id="@+id/menuActionChooseAllLetters"
         android:title="@string/title_letters_list"
-        android:icon="@drawable/ic_baseline_done_all_24"
+        android:icon="@drawable/ic_baseline_select_all_24"
         app:showAsAction="ifRoom" />
 
     <item

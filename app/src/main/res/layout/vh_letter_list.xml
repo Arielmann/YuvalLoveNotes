@@ -29,30 +29,35 @@
             android:id="@+id/letterListSelectionCheckbox"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:gravity="top|center_horizontal"
+            android:alpha="0"
             android:button="@drawable/custom_checkbox"
+            android:gravity="top|center_horizontal"
             card:layout_constraintEnd_toEndOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/letterListViewHolderIconIV"
+            android:id="@+id/letterListViewHolderWrittenByUserIconIV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"
+            android:src="@drawable/ic_baseline_person_black_24"
+            card:layout_constraintStart_toStartOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/letterListViewHolderTextTV"
             android:layout_width="0dp"
             android:layout_height="150dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:maxHeight="150dp"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
             card:layout_constraintBottom_toBottomOf="parent"
-            card:layout_constraintEnd_toStartOf="@+id/letterListViewHolderIconIV"
-            card:layout_constraintStart_toStartOf="parent"
-            card:layout_constraintTop_toBottomOf="@+id/letterListSelectionCheckbox"
+            card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"
+            card:layout_constraintHorizontal_bias="1.0"
+            card:layout_constraintStart_toEndOf="@+id/letterListViewHolderWrittenByUserIconIV"
+            card:layout_constraintTop_toTopOf="parent"
+            card:layout_constraintVertical_bias="0.0"
             tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

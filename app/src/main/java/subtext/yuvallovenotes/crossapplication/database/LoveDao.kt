@@ -48,6 +48,9 @@ interface LoveDao {
     @Query("DELETE FROM love_letter_table WHERE id=:id")
     fun deleteLoveLetterSync(id: String)
 
+    @Query("UPDATE love_letter_table SET isArchived= :isArchive WHERE id= :id")
+    fun updateLetterArchiveStatusSync(id: String, isArchive: Boolean)
+
 
   //Love Opener
 

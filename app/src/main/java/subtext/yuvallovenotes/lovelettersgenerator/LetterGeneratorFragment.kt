@@ -130,7 +130,6 @@ class LetterGeneratorFragment : Fragment() {
                 .observeOnce(viewLifecycleOwner, { letter ->
                     letter?.let {
                         d(TAG, "found letter by id: $args.StringLetterId")
-                        createRandomLettersData()
                         this.currentLetter = letter
                         binding.letterEditText.setText(letter.text)
                     } ?: createRandomLettersData {
@@ -188,7 +187,8 @@ class LetterGeneratorFragment : Fragment() {
                 DialogInterface.BUTTON_POSITIVE -> {
                     currentLetter?.let {
                         d(TAG, "Deleting letter")
-                        loveItemsViewModel.deleteLettersSync(listOf(it))
+                        loveItemsViewModel.updateLettersArchiveStatusSync(listOf(it), true)
+//                        loveItemsViewModel.deleteLettersSync(listOf(it))
                         d(TAG, "Deleting completed")
                         letterGeneratorListener.onClick(view)
                     }

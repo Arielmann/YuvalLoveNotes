@@ -11,4 +11,6 @@
     <color name="colorDanger">#e57373</color>
     <color name="orangePink">#f38873</color>
     <color name="grayFade">#70A9A9A9</color>
+    <color name="checkboxSelectionColor">#FFA374</color>
+    <color name="allItemsSelectedColor">#FFFB00</color>
 </resources>
