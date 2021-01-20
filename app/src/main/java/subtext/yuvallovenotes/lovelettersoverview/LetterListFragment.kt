@@ -126,8 +126,8 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     d(TAG, "Deleting letters")
-                    loveItemsViewModel.updateLettersArchiveStatusSync(letters.toList(), true)
-//                    loveItemsViewModel.deleteLettersSync(letters.toList())
+//                    loveItemsViewModel.updateLettersArchiveStatusSync(letters.toList(), true)
+                    loveItemsViewModel.deleteLettersSync(letters.toList())
                     d(TAG, "Deleting completed")
                     lettersListAdapter.exitSelectionMode()
                     LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)

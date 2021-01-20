@@ -32,6 +32,7 @@
             android:scrollbars="vertical"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:fontFamily="@font/letters_general_font"
             app:layout_constraintBottom_toTopOf="@+id/whatsappShareBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

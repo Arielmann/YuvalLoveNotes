@@ -35,9 +35,9 @@ class OnboardingDemoSupportFragment : OnboardingSupportFragment() {
         private val TAG = OnboardingDemoSupportFragment::class.java.simpleName
         private const val ANIMATION_DURATION: Long = 500
         private val CONTENT_IMAGES = intArrayOf(
-                R.drawable.new_letter_icon,
-                R.drawable.love_letter_image,
-                R.drawable.lovers_logo
+                R.drawable.letter_orange,
+                R.drawable.write_image,
+                R.drawable.remeber_image
         )
     }
 
@@ -65,11 +65,6 @@ class OnboardingDemoSupportFragment : OnboardingSupportFragment() {
 
     override fun onProvideTheme(): Int {
         return R.style.Theme_AppCompat_Leanback_Onboarding
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        logoResourceId = R.drawable.splash_screen
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onCreateBackgroundView(layoutInflater: LayoutInflater, viewGroup: ViewGroup): View {
