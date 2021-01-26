@@ -27,7 +27,7 @@
     <string name="pref_key_server_letters_downloaded_after_app_installed" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
 
     <!--Data transmission keys-->
-    <string name="letter_id" translatable="false">letter_id</string>
+    <string name="current_letter_id" translatable="false">current_letter_id</string>
 
     <!--Regular titles for user-->
     <string name="title_settings">Settings</string>

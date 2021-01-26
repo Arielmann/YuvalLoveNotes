@@ -4,12 +4,12 @@
     <font
         app:fontStyle="normal"
         app:fontWeight="400"
-        app:font="@font/poppins_regular" />
+        app:font="@font/charm_regular" />
 
     <font
         app:fontStyle="italic"
         app:fontWeight="400"
-        app:font="@font/poppins_regular" />
+        app:font="@font/charm_regular" />
 
 
 </font-family>

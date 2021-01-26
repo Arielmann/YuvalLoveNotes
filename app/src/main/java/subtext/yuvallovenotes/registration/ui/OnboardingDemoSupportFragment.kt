@@ -35,9 +35,9 @@ class OnboardingDemoSupportFragment : OnboardingSupportFragment() {
         private val TAG = OnboardingDemoSupportFragment::class.java.simpleName
         private const val ANIMATION_DURATION: Long = 500
         private val CONTENT_IMAGES = intArrayOf(
-                R.drawable.letter_orange,
-                R.drawable.write_image,
-                R.drawable.remeber_image
+                R.drawable.onboarding_image_1,
+                R.drawable.onboarding_image_2,
+                R.drawable.onboarding_image_3
         )
     }
 
@@ -46,8 +46,6 @@ class OnboardingDemoSupportFragment : OnboardingSupportFragment() {
     private var descriptions: MutableList<String> = LoveUtils.getAllItemsFromArrayFile(R.array.onboarding_page_descriptions)
     private lateinit var mBackgroundView: View
     private lateinit var mContentView: ImageView
-    private val mImage1: ImageView? = null
-    private val mImage2: ImageView? = null
     private var mContentAnimator: Animator? = null
 
 

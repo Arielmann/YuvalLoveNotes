@@ -3,6 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="mainBackground">#222436</color>
     <color name="medium_purple">#9370DB</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
@@ -10,6 +11,7 @@
     <color name="tabs_bg">#253A4B</color>
     <color name="colorDanger">#e57373</color>
     <color name="orangePink">#f38873</color>
+    <color name="strongOrange">#FD823A</color>
     <color name="grayFade">#70A9A9A9</color>
     <color name="checkboxSelectionColor">#FFA374</color>
     <color name="allItemsSelectedColor">#FFFB00</color>

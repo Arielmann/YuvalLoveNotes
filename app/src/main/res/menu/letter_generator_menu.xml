@@ -19,11 +19,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.droidcafeinput.MainActivity">
 
+<!--
     <item
         android:id="@+id/menuActionGoToLettersList"
         android:title="@string/title_letters_list"
         android:icon="@drawable/ic_list_white_24"
         app:showAsAction="ifRoom" />
+-->
 
     <item
         android:id="@+id/menuActionDelete"

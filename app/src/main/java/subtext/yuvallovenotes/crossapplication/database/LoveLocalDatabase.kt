@@ -1,8 +1,6 @@
 package subtext.yuvallovenotes.crossapplication.database
 
-import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import android.provider.Settings
 import android.util.Log.d
 import androidx.room.Database
 import androidx.room.Room
@@ -11,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.get
+import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.database.initialdataset.ArielDefaultLoveDataSetInitial
@@ -20,6 +19,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 
 
 @Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 7, exportSchema = false)
@@ -33,10 +33,9 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         private val TAG: String = LoveLocalDatabase::class.java.simpleName
         private val loveDataSet = inferDataSet()
 
-        @SuppressLint("HardwareIds")
         private fun inferDataSet(): InitialLettersDataSet {
-            val deviceId = Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID);
-            if(deviceId == "baaa54ce980799f6") {
+            val deviceId = LoveUtils.getDeviceId()
+            if(deviceId == BuildConfig.ARIEL_DEVICE_ID) {
             //Todo: cleanup
                 return ArielDefaultLoveDataSetInitial
             }

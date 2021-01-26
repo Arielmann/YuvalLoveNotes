@@ -46,19 +46,21 @@
         <TextView
             android:id="@+id/letterListViewHolderTextTV"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:maxHeight="150dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="middle"
+            android:maxLines="7"
+            android:fontFamily="@font/letters_general_font"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
-            android:fontFamily="@font/letters_general_font"
+            android:textSize="@dimen/letters_text_size"
+            android:textStyle="bold"
             card:layout_constraintBottom_toBottomOf="parent"
             card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"
-            card:layout_constraintHorizontal_bias="1.0"
             card:layout_constraintStart_toEndOf="@+id/letterListViewHolderWrittenByUserIconIV"
             card:layout_constraintTop_toTopOf="parent"
-            card:layout_constraintVertical_bias="0.0"
             tools:ignore="HardcodedText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

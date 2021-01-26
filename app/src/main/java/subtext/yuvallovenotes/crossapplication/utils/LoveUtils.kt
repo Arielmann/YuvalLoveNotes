@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.annotation.ArrayRes
@@ -140,5 +141,10 @@ object LoveUtils {
 
     fun getAllItemsFromArrayFile(@ArrayRes resource: Int): MutableList<String> {
         return YuvalLoveNotesApp.context.resources.getStringArray(resource).toMutableList()
+    }
+
+    @SuppressLint("HardwareIds")
+    fun getDeviceId(): String {
+        return Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID).toString()
     }
 }

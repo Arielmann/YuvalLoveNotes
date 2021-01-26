@@ -3,6 +3,7 @@ package subtext.yuvallovenotes.lovelettersoverview
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
@@ -28,6 +30,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         private const val SELECT_ALL_LETTERS_MENU_ITEM_POSITION: Int = 0
     }
 
+    private var currentLetterId: String = ""
     private lateinit var binding: FragmentLetterListBinding
     private val loveItemsViewModel: LoveItemsViewModel = get()
     private lateinit var lettersListAdapter: LetterListAdapter
@@ -43,7 +46,39 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         setupLetterList()
         setOnClickListeners()
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
-        LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
+        obtainCurrentLetterId()
+        setupFragmentLettersListToolbar()
+    }
+
+    private fun obtainCurrentLetterId() {
+        val args: LetterListFragmentArgs by navArgs()
+        currentLetterId = args.StringCurrentLetterId
+    }
+
+    /**
+     * Setting up the onBackPressed functionality for this fragment
+     */
+    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (lettersListAdapter.selectedLetters.isNotEmpty()) {
+                exitSelectionMode()
+            } else {
+                val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
+                findNavController().navigate(action)
+//                findNavController().popBackStack()
+            }
+        }
+    }
+
+
+    private fun setupFragmentLettersListToolbar() {
+        binding.letterListToolBar.menu.clear()
+        binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
+        binding.letterListToolBar.setNavigationOnClickListener {
+            Log.d(TAG, "Navigating to previous screen")
+            val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
+            findNavController().navigate(action)
+        }
     }
 
     private fun setupViewModel() {
@@ -105,19 +140,6 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
                 true
             }
             else -> false
-        }
-    }
-
-    /**
-     * Setting up the onBackPressed functionality for this fragment
-     */
-    private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (lettersListAdapter.selectedLetters.isNotEmpty()) {
-                exitSelectionMode()
-            } else {
-                findNavController().popBackStack()
-            }
         }
     }
 

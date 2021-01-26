@@ -140,7 +140,7 @@
 
 
         <argument
-            android:name="@string/letter_id"
+            android:name="@string/current_letter_id"
             android:defaultValue=""
             app:argType="string" />
 
@@ -160,6 +160,11 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
+        <argument
+            android:name="@string/current_letter_id"
+            android:defaultValue=""
+            app:argType="string" />
 
     </fragment>
 

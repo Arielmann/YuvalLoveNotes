@@ -12,28 +12,41 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/loveGeneratorMainCL"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/love_generator_bg"
+        android:layout_height="match_parent"
+        android:background="@color/mainBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/letterBackgroundDecorationsIv"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:alpha="0.2"
+            android:src="@drawable/letters_generator_background_decorations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/letterGeneratorAppBar"
+            app:layout_constraintBottom_toBottomOf="@+id/lettersGeneratorEditText"
+            tools:ignore="ContentDescription" />
+
         <EditText
-            android:id="@+id/letter_edit_text"
-            android:layout_width="match_parent"
+            android:id="@+id/lettersGeneratorEditText"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
             android:backgroundTint="@color/transparent"
+            android:fontFamily="@font/letters_general_font"
             android:gravity="top"
             android:scrollbars="vertical"
             android:textColor="@color/white"
+            android:textSize="@dimen/letters_text_size"
             android:textStyle="bold"
-            android:fontFamily="@font/letters_general_font"
-            app:layout_constraintBottom_toTopOf="@+id/whatsappShareBtn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,46 +75,73 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/newLetterBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|start"
-            android:layout_margin="@dimen/fab_margin"
-            android:backgroundTint="@color/medium_purple"
-            android:contentDescription="@string/content_desc_new_letter"
-            android:foregroundGravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:srcCompat="@drawable/ic_refresh_white_24"
-            app:useCompatPadding="true" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/whatsappShareBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="@dimen/fab_margin"
             android:adjustViewBounds="false"
-            android:backgroundTint="@color/medium_purple"
+            android:backgroundTint="@color/strongOrange"
+            app:fabCustomSize="60dp"
             android:contentDescription="@string/content_desc_share_with_whatsapp"
             android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/newLetterBtn"
-            app:srcCompat="@drawable/whatsapp_transparent"
+            app:layout_constraintEnd_toEndOf="@+id/letterBackgroundDecorationsIv"
+            app:layout_constraintStart_toStartOf="parent"
+            app:maxImageSize="30dp"
+            app:srcCompat="@drawable/icon_whatsapp"
             app:useCompatPadding="true" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/newLettersBtnFL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/whatsappShareBtn">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        app:adSize="BANNER"
-        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        app:layout_constraintBottom_toBottomOf="@+id/loveGeneratorMainCL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/newLetterBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="@dimen/fab_margin"
+                android:backgroundTint="@color/black"
+                app:borderWidth="0dp"
+                android:contentDescription="@string/content_desc_new_letter"
+                android:foregroundGravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:srcCompat="@drawable/refresh_icon_orange"
+                app:fabSize="mini"
+                app:useCompatPadding="true" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/lettersListBtnFL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/whatsappShareBtn">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/navigateToLettersListBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_margin="@dimen/fab_margin"
+                android:backgroundTint="@color/black"
+                android:contentDescription="@string/content_desc_all_letters"
+                android:foregroundGravity="center"
+                app:fabSize="mini"
+                app:borderWidth="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="parent"
+                app:srcCompat="@drawable/letters_list_icon_orange"
+                app:useCompatPadding="true" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
