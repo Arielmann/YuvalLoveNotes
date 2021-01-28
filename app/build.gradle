@@ -137,7 +137,7 @@ dependencies {
     //Phone number utils
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.8.0'
 
-    //Leanback
+/*    //Leanback
     def leanback_version = "1.0.0"
     implementation "androidx.leanback:leanback:$leanback_version"
     // leanback-preference is an add-on that provides a settings UI for TV apps.
@@ -145,7 +145,7 @@ dependencies {
     // leanback-paging is an add-on that simplifies adding paging support to a RecyclerView Adapter.
     implementation "androidx.leanback:leanback-paging:1.1.0-alpha06"
     // leanback-tab is an add-on that provides customized TabLayout to be used as the top navigation bar.
-    implementation "androidx.leanback:leanback-tab:1.1.0-beta01"
+    implementation "androidx.leanback:leanback-tab:1.1.0-beta01"*/
 
     //Ads
     implementation 'com.google.android.gms:play-services-ads:19.6.0'

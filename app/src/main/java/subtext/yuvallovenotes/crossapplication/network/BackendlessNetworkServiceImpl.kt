@@ -26,7 +26,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
     /**
      * Register the user to the system. If the user already exists, the process succeeds automatically.
      * @param user The user to be registered
-     * @param callback A callback to for notify the caller about the operation status
+     * @param callback A callback for notify the caller about the operation status
      */
     override fun registerUser(user: UnRegisteredLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
 
