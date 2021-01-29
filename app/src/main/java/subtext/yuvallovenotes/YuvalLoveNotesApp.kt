@@ -34,7 +34,6 @@ class YuvalLoveNotesApp : Application() {
         setupAds()
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
         requestLoveLettersFromServer()
-//        Sentry.init()
     }
 
     private fun requestLoveLettersFromServer() {
@@ -45,7 +44,7 @@ class YuvalLoveNotesApp : Application() {
             Log.d(APP_TAG, "Requesting initial database download")
             val loveItemsViewModel = get(LoveItemsViewModel::class.java)
             loveItemsViewModel.requestLoveLettersFromServer()
-        }else{
+        } else {
             Log.d(APP_TAG, "Initial database download is not required")
         }
 

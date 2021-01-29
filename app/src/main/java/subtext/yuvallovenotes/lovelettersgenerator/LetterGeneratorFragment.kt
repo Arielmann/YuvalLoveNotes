@@ -2,7 +2,6 @@ package subtext.yuvallovenotes.lovelettersgenerator
 
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.text.TextWatcher
 import android.util.Log.*
@@ -14,9 +13,6 @@ import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.InterstitialAd
-import com.google.android.gms.ads.LoadAdError
 import io.sentry.Sentry
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.BuildConfig
@@ -26,7 +22,7 @@ import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
-import subtext.yuvallovenotes.lovelettersoverview.LetterListFragmentDirections
+import com.google.android.gms.ads.interstitial.InterstitialAd
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -83,7 +79,6 @@ class LetterGeneratorFragment : Fragment() {
         displayLetterDataForFirstTime()
         binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
-//        LoveLetterAlarm.SEND_LETTER_REMINDER.setAlarmAndCancelAllPreviousWithSameData(requireContext(), LoveLetterAlarm.SEND_LETTER_REMINDER.getDefaultActivationCalendar())
     }
 
     private fun setButtonsOnClickListeners() {
@@ -94,7 +89,7 @@ class LetterGeneratorFragment : Fragment() {
 
     private fun observeLettersListChanges() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner, {
-            d(TAG, "Love letters size: " + loveItemsViewModel.loveLetters.value?.size)
+            d(TAG, "Love letters size: " + loveItemsViewModel.getFilteredLetters().size)
         })
     }
 
@@ -151,7 +146,6 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun createRandomLettersData(onCompletion: () -> Unit = {}) {
-
         loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, { letters ->
             d(TAG, "Love items size: ${letters?.size}")
             onCompletion.invoke()
@@ -166,7 +160,7 @@ class LetterGeneratorFragment : Fragment() {
         //Todo: cleanup
         loveItemsViewModel.deleteLetterIfEmpty(currentLetter)
         val newLetter = loveItemsViewModel.randomLetter()
-        if (currentLetter!!.text == newLetter.text && loveItemsViewModel.loveLetters.value?.size!! > 1) {
+        if (currentLetter!!.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size!! > 1) {
             displayNewLetter()
             return
         }
@@ -216,37 +210,10 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun showAd(onCompletion: () -> Unit) {
-
-        val adListener = object : AdListener() {
-
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                onCompletion.invoke()
-            }
-
-            override fun onAdClosed() {
-                onCompletion.invoke()
-                d(TAG, "onAdClosed")
-            }
-
-            override fun onAdOpened() {
-                d(TAG, "onAdOpened")
-                super.onAdOpened()
-            }
-
-            override fun onAdClicked() {
-                d(TAG, "onAdClicked")
-                super.onAdClicked()
-            }
-
-            override fun onAdImpression() {
-                d(TAG, "onAdImpression")
-                super.onAdImpression()
-            }
-        }
-
+        val fullScreenContentCallback = loveItemsViewModel.newFullScreenContentCallback(onCompletion)
         interstitialAd?.let {
-            it.adListener = adListener
-            it.show()
+            it.fullScreenContentCallback = fullScreenContentCallback
+            it.show(requireActivity())
         } ?: onCompletion.invoke()
     }
 
@@ -256,7 +223,9 @@ class LetterGeneratorFragment : Fragment() {
             if( LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID){} //TODO: use this if statement
             Sentry.captureMessage("User sent message with whatsapp")
             loveItemsViewModel.openWhatsapp(requireContext(), binding.lettersGeneratorEditText.text.toString())
-            loveItemsViewModel.loadNewAd()
+            loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
+                this.interstitialAd = ad
+            }
         }
     }
 
@@ -273,7 +242,9 @@ class LetterGeneratorFragment : Fragment() {
                 if( LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID){} //TODO: use this if statement
                 Sentry.captureMessage("User is sharing letter in general sharing options")
                 startActivity(shareIntent)
-                loveItemsViewModel.loadNewAd()
+                loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
+                    this.interstitialAd = ad
+                }
             }
         } else {
             Toast.makeText(requireContext(), getString(R.string.error_no_external_app_found_for_sharing_content), LENGTH_LONG).show()

@@ -6,9 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:windowSoftInputMode="stateAlwaysHidden"
+    style="@style/AppTheme.NoActionBar.SettingActivity"
     android:background="@color/white"
     tools:context=".lovelettersgenerator.LetterGeneratorFragment">
-
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/settingsAppBar"

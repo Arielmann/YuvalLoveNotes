@@ -2,28 +2,29 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <!--    <PreferenceCategory app:title="Settings">-->
+    <!--    <PreferenceCategory app:title="Settings">-->
 
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:inputType="phone"
-            android:key="@string/pref_key_show_only_letters_created_by_user"
-            app:allowDividerBelow="true"
-            app:title="@string/pref_title_show_only_letters_created_by_user"
-            android:icon="@drawable/ic_baseline_person_black_24"
-            app:useSimpleSummaryProvider="true" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:icon="@drawable/letters_written_by_user_icon_black"
+        android:inputType="phone"
+        android:key="@string/pref_key_show_only_letters_created_by_user"
+        app:allowDividerBelow="true"
+        android:widgetLayout="@layout/preference_custom_checkbox"
+        app:title="@string/pref_title_show_only_letters_created_by_user"
+        app:useSimpleSummaryProvider="true" />
 
-        <Preference
-            android:defaultValue=" "
-            android:inputType="phone"
-            android:key="@string/pref_key_lover_full_target_phone_number"
-            android:selectAllOnFocus="true"
-            android:singleLine="true"
-            app:dialogTitle="@string/pref_title_target_phone_number"
-            app:title="@string/pref_title_target_phone_number"
-            android:icon="@drawable/ic_baseline_phone_black_24"
-            app:useSimpleSummaryProvider="true" />
+    <Preference
+        android:defaultValue=" "
+        android:icon="@drawable/ic_baseline_phone_black_24"
+        android:inputType="phone"
+        android:key="@string/pref_key_lover_full_target_phone_number"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:dialogTitle="@string/pref_title_target_phone_number"
+        app:title="@string/pref_title_target_phone_number"
+        app:useSimpleSummaryProvider="true" />
 
-        <!--    </PreferenceCategory>-->
+    <!--    </PreferenceCategory>-->
 
 </PreferenceScreen>

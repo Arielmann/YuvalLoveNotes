@@ -37,9 +37,9 @@
 
         <ImageView
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_person_black_24"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/letters_written_by_user_icon_orange"
             card:layout_constraintStart_toStartOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
 
@@ -47,12 +47,12 @@
             android:id="@+id/letterListViewHolderTextTV"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:ellipsize="middle"
-            android:maxLines="7"
             android:fontFamily="@font/letters_general_font"
+            android:maxLines="7"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
             android:textSize="@dimen/letters_text_size"

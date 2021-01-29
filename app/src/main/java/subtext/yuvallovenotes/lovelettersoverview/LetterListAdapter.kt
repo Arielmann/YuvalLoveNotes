@@ -104,7 +104,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                 setViewHolderLayoutRightToLeft()
             }
             if (letter.isCreatedByUser) {
-                binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.ic_baseline_person_black_24)
+                binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.letters_written_by_user_icon_orange)
             } else {
                 binding.letterListViewHolderWrittenByUserIconIV.setImageDrawable(null)
             }

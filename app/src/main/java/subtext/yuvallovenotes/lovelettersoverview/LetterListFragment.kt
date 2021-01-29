@@ -3,7 +3,6 @@ package subtext.yuvallovenotes.lovelettersoverview
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
-import android.util.Log
 import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
@@ -75,7 +74,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         binding.letterListToolBar.menu.clear()
         binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
         binding.letterListToolBar.setNavigationOnClickListener {
-            Log.d(TAG, "Navigating to previous screen")
+            d(TAG, "Navigating to previous screen")
             val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
             findNavController().navigate(action)
         }
@@ -90,7 +89,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             // Update the cached copy of the letters in the adapter.
             letters?.let {
 //                Log.d(TAG, "Updating letters list UI. letters: {$letters}")
-                lettersListAdapter.submitList(letters.filter { !it.isArchived }.sortedBy { !it.isCreatedByUser })
+                lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
             }
         }
     }

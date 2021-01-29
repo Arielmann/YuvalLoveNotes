@@ -7,13 +7,14 @@ import android.util.Log.d
 import android.util.Log.e
 import android.widget.Toast
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.google.android.gms.ads.*
-import com.google.android.gms.ads.formats.NativeAdOptions
-import com.google.android.gms.ads.formats.UnifiedNativeAd
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import kotlinx.coroutines.*
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.BuildConfig
@@ -36,14 +37,20 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
     private val weakContext: WeakReference<Context> = WeakReference(context)
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
-    private lateinit var interstitialAd: InterstitialAd
-    internal var loveLetters: LiveData<MutableList<LoveLetter>>
+    internal var loveLetters: LiveData<MutableList<LoveLetter>> = MutableLiveData()
 
     init {
-        d(TAG, "Getting all love letter from local database")
         loveLetters = loveItemsRepository.getAllLocalDBLoveLetters()
     }
 
+    fun getFilteredLetters(): List<LoveLetter> {
+        var optionalLetters = loveLetters.value?.filter { !it.isArchived && it.text.isNotBlank() }
+        val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)
+        if (showOnlyLettersCreatedByUser) {
+            optionalLetters = optionalLetters?.filter { it.isCreatedByUser }
+        }
+        return optionalLetters ?: mutableListOf()
+    }
 
     //todo: cleanup
     val findAllLoveDataBackendlessListener = object : AsyncCallback<List<LoveItem>> {
@@ -146,14 +153,8 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     internal fun randomLetter(): LoveLetter {
-        val optionalLetters = loveLetters.value?.filter { !it.isArchived }
-        val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)
-        var result = optionalLetters?.randomOrNull()
-        if (showOnlyLettersCreatedByUser) {
-            val lettersCreatedByUser = optionalLetters?.filter { !it.isArchived && it.isCreatedByUser }
-            result = lettersCreatedByUser?.randomOrNull()
-        }
-
+        val optionalLetters = getFilteredLetters()
+        var result = optionalLetters.randomOrNull()
         if (result == null) {
             result = LoveLetter()
             result.isCreatedByUser = true
@@ -167,10 +168,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
 
         return result
-    }
-
-    fun getUnarchivedLetters(): List<LoveLetter>? {
-        return loveLetters.value?.filter { !it.isArchived }
     }
 
     /**
@@ -191,7 +188,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                 }
             }
         }
-        d(TAG, "love letters list size: " + loveLetters.value?.size)
+//        d(TAG, "love letters list size: " + getFilteredLetters().size)
         return isDeleted
     }
 
@@ -201,52 +198,25 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         return sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false) && sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
     }
 
-    /*Todo: Cleanup*/
-    fun generateNativeAd(context: Context, onSuccess: (ad: UnifiedNativeAd) -> Unit) {
-        val testAdId = "ca-app-pub-3940256099942544/2247696110"
-        val adLoader = AdLoader.Builder(context, testAdId)
-                .forUnifiedNativeAd { ad: UnifiedNativeAd ->
-                    e(TAG, "Ad loaded: $ad")
-                    onSuccess.invoke(ad)
-                }.withAdListener(object : AdListener() {
-                    override fun onAdFailedToLoad(adError: LoadAdError) {
-                        e(TAG, "Ad loading failure: $adError")
-                    }
-                }).withNativeAdOptions(NativeAdOptions.Builder()
-                        // Methods in the NativeAdOptions.Builder class can be
-                        // used here to specify individual options settings.
-                        .build())
-                .build()
-
-        adLoader.loadAd(AdRequest.Builder().build())
-    }
-
     fun loadInterstitialAd(context: Context, onSuccess: (InterstitialAd) -> Unit) {
         // Create the InterstitialAd and set it up.
         val unitId = BuildConfig.INTERSTITIAL_ADS_ID
-//      val unitId = context.getString(R.string.interstitial_ads_test_id)
-        interstitialAd = InterstitialAd(context).apply {
-            adUnitId = unitId
-            adListener = (object : AdListener() {
-                override fun onAdLoaded() {
-                    d(TAG, "onAdLoaded")
-                    onSuccess.invoke(interstitialAd)
-                }
-
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    val error = "domain: ${loadAdError.domain}, code: ${loadAdError.code}, " + "message: ${loadAdError.message}"
-                    e(TAG, "onAdFailedToLoad() with error $error")
-                }
-
-            })
-        }
-        d(TAG, "Loading interstitial ad")
-        loadNewAd()
-    }
-
-    fun loadNewAd() {
         val adRequest = AdRequest.Builder().build()
-        interstitialAd.loadAd(adRequest)
+        InterstitialAd.load(context, unitId, adRequest, object : InterstitialAdLoadCallback() {
+
+            override fun onAdLoaded(loadedAd: InterstitialAd) {
+                super.onAdLoaded(loadedAd)
+                onSuccess.invoke(loadedAd)
+                d(TAG, "onAdLoaded")
+            }
+
+            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                val error = "domain: ${loadAdError.domain}, code: ${loadAdError.code}, " + "message: ${loadAdError.message}"
+                e(TAG, "onAdFailedToLoad() with error $error")
+            }
+
+        })
+        d(TAG, "Loading interstitial ad")
     }
 
     fun generateShareIntent(currentLetter: LoveLetter?): Intent {
@@ -263,7 +233,30 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     fun openWhatsapp(context: Context, text: String) {
         d(TAG, "Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
-        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "") ?: ""
+        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "")
+                ?: ""
         sendWhatsapp.send(context, phoneNumber, text)
+    }
+
+    fun newFullScreenContentCallback(onCompletion: () -> Unit): FullScreenContentCallback? {
+        return object : FullScreenContentCallback() {
+
+            override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                super.onAdFailedToShowFullScreenContent(adError)
+                onCompletion.invoke()
+                d(TAG, "onAdFailedToShowFullScreenContent")
+            }
+
+            override fun onAdShowedFullScreenContent() {
+                super.onAdShowedFullScreenContent()
+                d(TAG, "onAdOpened")
+            }
+
+            override fun onAdDismissedFullScreenContent() {
+                super.onAdDismissedFullScreenContent()
+                onCompletion.invoke()
+                d(TAG, "onAdDismissedFullScreenContent")
+            }
+        }
     }
 }

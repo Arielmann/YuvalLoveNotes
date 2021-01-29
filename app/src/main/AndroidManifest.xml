@@ -30,6 +30,8 @@
             </intent-filter>
         </activity>
 
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
+
         <meta-data
             android:name="io.sentry.dsn"
             android:value="https://d60af4f9eeea486a9dbed3438a4e03b2@o510022.ingest.sentry.io/5605166" />

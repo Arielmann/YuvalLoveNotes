@@ -48,6 +48,10 @@ class LoveItemsRepository {
         return loveDao.getAllLoveLetters()
     }
 
+    fun getAllLocalDBLettersWrittenByUser(): LiveData<MutableList<LoveLetter>> {
+        return loveDao.getAllLoveLettersWrittenByUser()
+    }
+
     fun getLoveLetterById(id: String): LiveData<LoveLetter> {
         return loveDao.getLoveLetterById(id)
     }

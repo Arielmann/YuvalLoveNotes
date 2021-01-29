@@ -24,6 +24,9 @@ interface LoveDao {
     @Query("SELECT * from love_letter_table")
     fun getAllLoveLetters(): LiveData<MutableList<LoveLetter>>
 
+    @Query("SELECT * from love_letter_table WHERE isCreatedByUser = 1")
+    fun getAllLoveLettersWrittenByUser(): LiveData<MutableList<LoveLetter>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLoveLetter(letter: LoveLetter)
 
