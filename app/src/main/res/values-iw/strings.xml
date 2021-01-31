@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">מכתבים</string>
-    <string name="app_description">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג, גם אם אתה לא שייקספיר.</string>
+    <string name="description_main">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג, גם אם אתה לא שייקספיר.</string>
     <string name="description_app_create_or_choose_letters">צור מכתבים שיגרמו למאמי שלך לחייך, או בחר מתוך האוסף הנהדר שלנו.</string>
     <string name="description_you_get_reminders">פעם בשבוע נזכיר לך לשלוח מכתב ולחזק את הקשר שלכם.</string>
 
@@ -12,8 +12,8 @@
     <!--Regular titles for user-->
     <string name="title_settings">הגדרות</string>
     <string name="title_letters_list">מכתבים</string>
-    <string name="title_what_is_your_name">שם פרטי בעברית</string>
-    <string name="title_what_is_your_lover_name">כינוי חיבה של בן/בת הזוג</string>
+    <string name="title_what_is_your_name">שם פרטי</string>
+    <string name="title_what_is_your_lover_nickname">כינוי חיבה של בן/בת הזוג</string>
     <string name="title_what_is_your_lovers_phone_number">טלפון של בן/בת הזוג</string>
     <string name="title_letter_list_is_empty">אין מכתבים ברשימה</string>
     <string name="title_empty_letter_deleted">מכתב ריק נמחק</string>
@@ -38,7 +38,7 @@
 
     <!--Errors-->
     <string name="error_no_user_name_inserted">הכנס שם פרטי</string>
-    <string name="error_no_lover_name_inserted">הכנס את הכינוי של בן/בת הזוג</string>
+    <string name="error_no_lover_nickname_inserted">הכנס את הכינוי של בן/בת הזוג</string>
     <string name="error_invalid_lover_number_inserted">הכנס בבקשה מספר טלפון תקין</string>
     <string name="error_parsing_contact_number">אירעה שגיאה בעת בחירה באיש קשר. אנא נסה שנית</string>
     <string name="error_no_external_app_found_for_sharing_content">לא ניתן למצוא אפליקציה שיכולה לשתף את המכתב</string>
@@ -47,7 +47,7 @@
 
     <!--Misc-->
     <string name="user_name_as_closure_fallback">אני</string>
-    <string name="lover_name_fallback">אהובתי</string>
+    <string name="lover_nickname_fallback">אהובתי</string>
     <string name="user_name_fallback">אתה</string>
     <string name="error_msg_whatsapp_not_installed">וואטסאפ לא מותקן על המכשיר שלך</string>
     <string name="title_letters_will_be_deleted_forever">המכתבים יימחקו לנצח</string>

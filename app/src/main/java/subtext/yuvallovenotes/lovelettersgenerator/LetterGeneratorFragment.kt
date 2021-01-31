@@ -64,7 +64,7 @@ class LetterGeneratorFragment : Fragment() {
     private fun checkIfRegistrationNeeded() {
         if (!loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
-                findNavController().navigate(LetterGeneratorFragmentDirections.navigateToOnboarding())
+                findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
             } catch (e: IllegalArgumentException) {
                 w(TAG, "Unnecessary attempt to navigate to first login screen")
                 e.printStackTrace()
@@ -114,11 +114,6 @@ class LetterGeneratorFragment : Fragment() {
                     showReallyDeleteDialog()
                     true
                 }
-
-                /*      R.id.menuActionGoToLettersList -> {
-                          onNavigationToLettersListRequested()
-                          true
-                      }*/
 
                 else -> false
             }

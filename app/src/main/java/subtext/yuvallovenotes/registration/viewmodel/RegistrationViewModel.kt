@@ -1,8 +1,7 @@
 package subtext.yuvallovenotes.registration.viewmodel
 
 import android.content.SharedPreferences
-import android.util.Log.d
-import android.util.Log.e
+import android.util.Log.*
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import com.backendless.push.DeviceRegistrationResult
@@ -142,7 +141,7 @@ class RegistrationViewModel : ViewModel() {
         val context = YuvalLoveNotesApp.context
 
         if (user.loverNickName.isBlank()) {
-            callback.onError(context.getString(R.string.error_no_lover_name_inserted))
+            callback.onError(context.getString(R.string.error_no_lover_nickname_inserted))
             return false
         }
 
@@ -196,6 +195,16 @@ class RegistrationViewModel : ViewModel() {
 
         val result = UnRegisteredLoveLettersUser(userName, loverNickName, userPhone, loverPhone)
         return result
+    }
+
+    fun saveLoverNickname(loverNickName: String): Boolean {
+        return if (loverNickName.isNotBlank()) {
+            prefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), loverNickName).apply()
+            true
+        } else {
+            w(TAG, "Empty lover nickname inserted")
+            false
+        }
     }
 
 }

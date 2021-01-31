@@ -13,12 +13,16 @@
     <dimen name="love_writer_tab_edit_text_margin_top">35dp</dimen>
     <dimen name="love_writer_short_edit_text_max_height">75dp</dimen>
     <dimen name="letters_recycler_view_padding">16dp</dimen>
-    <dimen name="size_input_text_enter_details">30sp</dimen>
+    <dimen name="size_input_text_enter_details">22sp</dimen>
     <dimen name="size_input_text_enter_details_small">20sp</dimen>
+    <dimen name="app_description_text_size">22sp</dimen>
     <dimen name="nav_back_btn_width">25dp</dimen>
     <dimen name="nav_back_btn_height">25dp</dimen>
     <dimen name="more_options_dialog_buttons_padding">4dp</dimen>
-    <dimen name="size_instructor_text_enter_details">30sp</dimen>
+    <dimen name="size_instructor_text_enter_details">20sp</dimen>
     <dimen name="default_slightly_rounded_view_radius">5dp</dimen>
     <dimen name="letters_text_size">20sp</dimen>
+    <dimen name="default_rounded_view_radius">15dp</dimen>
+    <dimen name="registration_button_text_size">24sp</dimen>
+    <dimen name="edit_text_default_padding">8dp</dimen>
 </resources>

@@ -7,9 +7,9 @@
 
         android:name=".YuvalLoveNotesApp"
         android:allowBackup="true"
-        android:icon="@mipmap/lovers_logo"
+        android:icon="@drawable/new_letter_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/lovers_logo_round"
+        android:roundIcon="@drawable/new_letter_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 

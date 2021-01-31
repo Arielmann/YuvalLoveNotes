@@ -10,7 +10,8 @@
     <dimen name="nav_back_btn_width">25dp</dimen>
     <dimen name="nav_back_btn_height">25dp</dimen>
     <dimen name="default_slightly_rounded_view_radius">5dp</dimen>
-    <dimen name="size_input_text_enter_details">30sp</dimen>
+    <dimen name="size_input_text_enter_details">23sp</dimen>
     <dimen name="letters_text_size">24sp</dimen>
-\
+    <dimen name="registration_button_text_size">24sp</dimen>
+
 </resources>

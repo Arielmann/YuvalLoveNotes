@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_registration">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/enterLoverNicknameNumberAppBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/enterLoverNickNicknameNumberToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@null"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/loverNicknameBackgroundDecorations"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.15"
+        android:src="@drawable/registration_background_decorations"
+        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loverNicknameUpperImageView" />
+
+    <ImageView
+        android:id="@+id/loverNicknameBackgroundDecorationsDotsAndStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/registration_background_decorating_dots_and_stars"
+        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/loverNicknameUpperImageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="111dp"
+        android:src="@drawable/registration_man_writing_letter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/loverDetailsTitleIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_write"
+        android:textColor="@color/white"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameUpperImageView" />
+
+    <TextView
+        android:id="@+id/loverNicknameAppDescriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/letters_font_medium"
+        android:gravity="center"
+        android:text="@string/description_app_create_or_choose_letters"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_description_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loverDetailsTitleIv" />
+
+    <TextView
+        android:id="@+id/enterLoverNicknameTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/letters_font_regular"
+        android:gravity="start"
+        android:text="@string/title_what_is_your_lover_nickname"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/loverNicknameInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameAppDescriptionTV" />
+
+
+    <EditText
+        android:id="@+id/loverNicknameInputEditText"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="22dp"
+        android:background="@drawable/background_white_shadowed_slightly_rounded"
+        android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/edit_text_default_padding"
+        android:paddingEnd="@dimen/edit_text_default_padding"
+        android:fontFamily="@font/letters_font_medium"
+        android:inputType="text"
+        android:textSize="@dimen/size_input_text_enter_details"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterLoverNicknameTV" />
+
+    <Button
+        android:id="@+id/loverNicknameContinueBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        android:fontFamily="@font/letters_font_medium"
+        android:foreground="?attr/selectableItemBackground"
+        android:text="@string/title_next"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/registration_button_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

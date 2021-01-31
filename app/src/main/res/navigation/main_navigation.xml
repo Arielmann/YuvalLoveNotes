@@ -35,17 +35,17 @@
         android:id="@+id/enterLoveDetailsFragment"
         android:name="subtext.yuvallovenotes.registration.ui.EnterLoverDetailsFragment"
         android:label="fragment_letter_generator"
-        tools:layout="@layout/fragment_enter_lover_details">
+        tools:layout="@layout/fragment_enter_lover_nickname">
 
-   <!--     <action
+        <action
             android:id="@+id/navigate_to_lover_phone_number"
             app:destination="@id/enterLoverPhoneNumberFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>-->
+            app:popExitAnim="@anim/slide_out_right"/>
 
-        <action
+   <!--     <action
             android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
             app:popUpTo="@id/enterLoveDetailsFragment"
@@ -53,11 +53,11 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
+            app:popExitAnim="@anim/slide_out_right"/>-->
 
     </fragment>
 
-    <fragment
+ <!--   <fragment
         android:id="@+id/onBoardingFragment"
         android:name="subtext.yuvallovenotes.registration.ui.OnboardingDemoSupportFragment"
         android:label="onboarding_Fragment"
@@ -73,11 +73,11 @@
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
 
-    </fragment>
+    </fragment>-->
 
-<!--    <fragment
+    <fragment
         android:id="@+id/enterLoverPhoneNumberFragment"
-        android:name="subtext.yuvallovenotes.login.ui.EnterLoverPhoneNumberFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterLoverPhoneNumberFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_enter_lover_phone_number">
 
@@ -91,7 +91,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
 
-    </fragment>-->
+    </fragment>
 
     <fragment
         android:id="@+id/letterGeneratorFragment"
@@ -119,7 +119,7 @@
             app:popExitAnim="@anim/fade_out" />
 
 
-        <action
+<!--        <action
             android:id="@+id/navigate_to_onboarding"
             app:destination="@id/onBoardingFragment"
             app:popUpTo="@id/letterGeneratorFragment"
@@ -127,7 +127,7 @@
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
+            app:popExitAnim="@anim/fade_out" />-->
 
 
         <action

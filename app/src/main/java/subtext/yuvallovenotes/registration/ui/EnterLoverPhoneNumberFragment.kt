@@ -51,7 +51,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         setOnDoneButtonClickListener()
         setPhoneNumberEditTexts()
         setPickNumberFromUserContactsFeature()
-        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverPhoneNumberToolBar)
+        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverPhoneNumberToolbar)
         binding.loversLocalPhoneNumberInputEditText.requestFocus()
     }
 
@@ -74,7 +74,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             PICK_CONTACT -> {
 
                 if (data == null) {
-                    e(TAG, "no data found")
+                    e(TAG, "No data found")
                     return
                 }
 

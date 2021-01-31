@@ -13,24 +13,11 @@
         android:id="@+id/loveGeneratorMainCL"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/mainBackground"
+        android:background="@drawable/background_letters_generator"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/letterBackgroundDecorationsIv"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:alpha="0.2"
-            android:src="@drawable/letters_generator_background_decorations"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/letterGeneratorAppBar"
-            app:layout_constraintBottom_toBottomOf="@+id/lettersGeneratorEditText"
-            tools:ignore="ContentDescription" />
 
         <EditText
             android:id="@+id/lettersGeneratorEditText"
@@ -40,7 +27,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="@color/transparent"
-            android:fontFamily="@font/letters_general_font"
+            android:fontFamily="@font/letters_font_medium"
             android:gravity="top"
             android:scrollbars="vertical"
             android:textColor="@color/white"
@@ -48,12 +35,13 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/letterGeneratorAppBar"
+            app:layout_constraintVertical_bias="0.0"
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintTop_creator="1" />
-
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/letterGeneratorAppBar"
@@ -68,7 +56,7 @@
                 android:id="@+id/letterGeneratorToolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/header_small_bg"
+                android:background="@drawable/background_small"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
 
@@ -86,7 +74,7 @@
             android:contentDescription="@string/content_desc_share_with_whatsapp"
             android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/letterBackgroundDecorationsIv"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:maxImageSize="30dp"
             app:srcCompat="@drawable/icon_whatsapp"

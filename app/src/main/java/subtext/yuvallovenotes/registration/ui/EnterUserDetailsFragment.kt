@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
+import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.databinding.FragmentEnterUserDetailsBinding
 
 class EnterUserDetailsFragment : Fragment() {
@@ -28,8 +29,15 @@ class EnterUserDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.userNameInputEditText.requestFocus()
+        setupTitleImage()
         setupUserNameEditText()
         setOnDoneButtonClickListener()
+    }
+
+    private fun setupTitleImage() {
+        if(LoveUtils.getDeviceCountryCode() == YuvalLoveNotesApp.context.getString(R.string.israel_country_code)){
+            binding.userDetailsTitleIv.setImageResource(R.drawable.letters_title_hebrew)
+        }
     }
 
     private fun setOnDoneButtonClickListener() {

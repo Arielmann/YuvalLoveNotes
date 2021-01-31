@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_registration"
     tools:context=".registration.ui.EnterUserDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +17,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/loverNameBackgroundDecorations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.15"
+            android:src="@drawable/registration_background_decorations"
+            app:layout_constraintBottom_toBottomOf="@+id/loverNameUpperImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/loverNameUpperImageView" />
 
         <ImageView
-            android:id="@+id/upperImageView"
+            android:id="@+id/loverNameBackgroundDecorationsDotsAndStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/registration_background_decorating_dots_and_stars"
+            app:layout_constraintBottom_toBottomOf="@+id/loverNameUpperImageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/userNameUpperImageView"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/love_letter_image"
+            android:layout_marginTop="111dp"
+            android:src="@drawable/registration_lovers_on_letter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +57,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/enterLoverPhoneNumberToolBar"
+                android:id="@+id/enterLoverPhoneNumberToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@null"
@@ -46,7 +67,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <TextView
-            android:id="@+id/titleTV"
+            android:id="@+id/userDetailsTitleIv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -56,7 +77,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upperImageView" />
+            app:layout_constraintTop_toBottomOf="@+id/userNameUpperImageView" />
 
         <TextView
             android:id="@+id/lovePhoneNumberAppDescriptionTV"
@@ -72,7 +93,7 @@
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTV" />
+            app:layout_constraintTop_toBottomOf="@+id/userDetailsTitleIv" />
 
         <TextView
             android:id="@+id/enterLoverNumberTV"
@@ -95,7 +116,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:background="@drawable/shadowed_cornered_background"
             android:fontFamily="sans-serif"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/title_choose_from_contacts"
@@ -115,7 +135,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/shadowed_cornered_background"
+            android:background="@drawable/background_shadowed_cornered"
             android:fontFamily="sans-serif"
             android:foreground="?attr/selectableItemBackground"
             android:text="@string/title_done"

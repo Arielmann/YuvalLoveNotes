@@ -30,7 +30,7 @@
             android:id="@+id/letterListToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/header_small_bg"
+            android:background="@drawable/background_small"
             app:title="@string/title_letters_list"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
             app:popupTheme="@style/AppTheme.PopupOverlay" />

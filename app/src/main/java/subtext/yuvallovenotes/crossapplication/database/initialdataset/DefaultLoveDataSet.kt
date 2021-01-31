@@ -14,7 +14,7 @@ object DefaultLoveDataSet : InitialLettersDataSet{
 
     private val shardPrefs = get(SharedPreferences::class.java)
     private val userName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), YuvalLoveNotesApp.context.getString(R.string.user_name_as_closure_fallback))
-    private val loverName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_name_fallback))
+    private val loverName = shardPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_nickname_fallback))
 
    private val openers = generateOpenersList()
    private val phrases = generatePhrasesList()
