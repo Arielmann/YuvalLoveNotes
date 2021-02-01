@@ -9,7 +9,7 @@
         android:id="@+id/enterUserDetailsFragment"
         android:name="subtext.yuvallovenotes.registration.ui.EnterUserDetailsFragment"
         android:label="fragment_letter_generator"
-        tools:layout="@layout/fragment_enter_user_details">
+        tools:layout="@layout/fragment_enter_user_name">
 
         <action
             android:id="@+id/navigate_to_lover_name"
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/enterLoveDetailsFragment"
-        android:name="subtext.yuvallovenotes.registration.ui.EnterLoverDetailsFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterLoverNicknameFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_enter_lover_nickname">
 

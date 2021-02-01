@@ -15,10 +15,10 @@ import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
-class EnterLoverDetailsFragment : Fragment() {
+class EnterLoverNicknameFragment : Fragment() {
 
     companion object {
-        private val TAG = EnterLoverDetailsFragment::class.simpleName
+        private val TAG = EnterLoverNicknameFragment::class.simpleName
     }
 
     private lateinit var binding: FragmentEnterLoverNicknameBinding
@@ -35,8 +35,9 @@ class EnterLoverDetailsFragment : Fragment() {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         binding.loverNicknameInputEditText.requestFocus()
         setOnDoneButtonClickListener()
-        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverNickNicknameNumberToolbar)
         setupLoverNameEditText()
+        binding.loverNicknameBackBtn.setOnClickListener { findNavController().popBackStack() }
+        binding.loverNicknameBackButtonContainingCL.setOnClickListener { findNavController().popBackStack() }
 //        setPhoneNumberEditTexts()
 //        setPickNumberFromUserContactsFeature()
     }
@@ -47,7 +48,7 @@ class EnterLoverDetailsFragment : Fragment() {
             val loverNickName = binding.loverNicknameInputEditText.text.toString()
             val user = registrationViewModel.getUserFromSharedPrefsData()
             if (registrationViewModel.saveLoverNickname(loverNickName)) {
-                findNavController().navigate(EnterLoverDetailsFragmentDirections.navigateToLoverPhoneNumber())
+                findNavController().navigate(EnterLoverNicknameFragmentDirections.navigateToLoverPhoneNumber())
                 user.loverNickName = loverNickName
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_no_user_name_inserted), Toast.LENGTH_LONG).show()

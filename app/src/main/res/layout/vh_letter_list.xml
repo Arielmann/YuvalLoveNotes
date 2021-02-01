@@ -55,7 +55,7 @@
             android:maxLines="7"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
-            android:textSize="@dimen/letters_text_size"
+            android:textSize="@dimen/size_letters_text"
             android:textStyle="bold"
             card:layout_constraintBottom_toBottomOf="parent"
             card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"

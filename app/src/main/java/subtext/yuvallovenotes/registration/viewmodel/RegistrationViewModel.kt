@@ -140,6 +140,11 @@ class RegistrationViewModel : ViewModel() {
     private fun allFieldsHaveText(user: LoveLettersUser, callback: UserRegistrationCallback): Boolean {
         val context = YuvalLoveNotesApp.context
 
+        if (user.userName.isBlank()) {
+            callback.onError(context.getString(R.string.error_no_user_name_inserted))
+            return false
+        }
+
         if (user.loverNickName.isBlank()) {
             callback.onError(context.getString(R.string.error_no_lover_nickname_inserted))
             return false
@@ -199,7 +204,7 @@ class RegistrationViewModel : ViewModel() {
 
     fun saveLoverNickname(loverNickName: String): Boolean {
         return if (loverNickName.isNotBlank()) {
-            prefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), loverNickName).apply()
+            prefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), loverNickName).apply()
             true
         } else {
             w(TAG, "Empty lover nickname inserted")

@@ -29,8 +29,8 @@
     <string name="hint_your_words_here">מילותייך ייכתבו כאן</string>
     <string name="title_next">המשך</string>
     <string name="title_done">סיום</string>
-    <string name="title_write">כתוב</string>
-    <string name="title_remember">לא לשכוח</string>
+    <string name="title_write">לכתוב</string>
+    <string name="title_remember">לזכור תמיד</string>
 
     <!--Notification titles-->
     <string name="notification_title_send_letter_reminder">תזכורת לאהבה 💌</string>

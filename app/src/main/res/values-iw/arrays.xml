@@ -2,7 +2,7 @@
     <!-- Reply Preference -->
     <string-array name="onboarding_page_titles">
         <item>מכתבים</item>
-        <item>כתוב</item>
+        <item>לכתוב</item>
         <item>לזכור תמיד</item>
     </string-array>
 

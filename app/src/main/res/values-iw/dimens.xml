@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="appbar_padding">16dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="appbar_padding_top">8dp</dimen>
-    <dimen name="main_tabs_empty_btn_text_padding">16dp</dimen>
-    <dimen name="nav_back_btn_width">25dp</dimen>
-    <dimen name="nav_back_btn_height">25dp</dimen>
-    <dimen name="default_slightly_rounded_view_radius">5dp</dimen>
+    <dimen name="margin_activity_horizontal">16dp</dimen>
+    <dimen name="margin_activity_vertical">16dp</dimen>
+    <dimen name="padding_appbar">16dp</dimen>
+    <dimen name="margin_fab">16dp</dimen>
+    <dimen name="padding_top_appbar">8dp</dimen>
+    <dimen name="padding_main_tabs_empty_btn_text">16dp</dimen>
+    <dimen name="width_nav_back_btn">25dp</dimen>
+    <dimen name="height_nav_back_btn">25dp</dimen>
+    <dimen name="radius_slightly_rounded_view">5dp</dimen>
     <dimen name="size_input_text_enter_details">23sp</dimen>
-    <dimen name="letters_text_size">24sp</dimen>
-    <dimen name="registration_button_text_size">24sp</dimen>
+    <dimen name="size_letters_text">20sp</dimen>
+    <dimen name="size_registration_button_text">24sp</dimen>
 
 </resources>

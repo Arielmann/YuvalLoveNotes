@@ -43,9 +43,9 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         if(isRightToLeft){
-            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24);
         }else {
-            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_24);
+            binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24);
         }
         binding.settingsToolBar.setNavigationOnClickListener { backBtn ->
             finish() //Todo: look for a way to implement navigation?

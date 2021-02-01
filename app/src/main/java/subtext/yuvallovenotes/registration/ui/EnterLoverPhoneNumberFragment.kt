@@ -51,13 +51,13 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         setOnDoneButtonClickListener()
         setPhoneNumberEditTexts()
         setPickNumberFromUserContactsFeature()
-        LoveUtils.setupFragmentDefaultToolbar(this, binding.enterLoverPhoneNumberToolbar)
+        binding.loverNumberBackBtn.setOnClickListener { findNavController().popBackStack() }
+        binding.loverNumberBackButtonContainingCL.setOnClickListener { findNavController().popBackStack() }
         binding.loversLocalPhoneNumberInputEditText.requestFocus()
     }
 
     private fun setPickNumberFromUserContactsFeature() {
-
-        binding.loversChooseFromContactsBtn.setOnClickListener {
+        binding.loverNumberChooseFromContactsBtn.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_CONTACTS), READ_CONTACTS_PERMISSION_REQUEST_CODE)
                 return@setOnClickListener
@@ -126,7 +126,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             }
 
             override fun onError(error: String) {
-                binding.loverPhoneNumberProgressBar.hide()
+                binding.loverNumberProgressBar.hide()
                 binding.root.animate().alpha(1f).setDuration(100).start()
                 Toast.makeText(YuvalLoveNotesApp.context, error, Toast.LENGTH_LONG).show()
             }
@@ -136,7 +136,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         binding.loverPhoneNumberDoneBtn.setOnClickListener {
 
             binding.root.animate().alpha(0.5f).setDuration(200).start()
-            binding.loverPhoneNumberProgressBar.show()
+            binding.loverNumberProgressBar.show()
             val loverRegionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
             val loverLocalNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
             val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)

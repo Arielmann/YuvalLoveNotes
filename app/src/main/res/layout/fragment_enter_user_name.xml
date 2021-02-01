@@ -5,75 +5,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_registration">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/loverNicknameBackButtonContainingCL"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/loverNicknameBackBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/ic_arrow_back_white_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="RtlHardcoded" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@drawable/background_registration"
+    tools:context=".registration.ui.EnterUserDetailsFragment">
 
     <ImageView
-        android:id="@+id/loverNicknameBackgroundDecorations"
+        android:id="@+id/userNameBackgroundDecorations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.15"
         android:src="@drawable/registration_background_decorations"
-        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/loverNumberUpperIV"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/loverNicknameUpperImageView" />
+        app:layout_constraintTop_toTopOf="@+id/loverNumberUpperIV"
+        tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/loverNicknameBackgroundDecorationsDotsAndStars"
-        android:layout_width="363dp"
-        android:layout_height="277dp"
+        android:id="@+id/userNameBackgroundDecorationsDotsAndStars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/registration_background_decorating_dots_and_stars"
-        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
+        app:layout_constraintBottom_toBottomOf="@+id/loverNumberUpperIV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/loverNicknameUpperImageView"
+        android:id="@+id/loverNumberUpperIV"
         android:layout_width="@dimen/width_registration_upper_image"
         android:layout_height="@dimen/height_registration_upper_image"
         android:layout_marginTop="@dimen/margin_top_registration_upper_image"
-        android:src="@drawable/registration_man_writing_letter"
+        android:src="@drawable/registration_lovers_and_letter_in_envelope"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
-    <TextView
-        android:id="@+id/loverDetailsTitleIv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/userNameTitleTV"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:text="@string/title_write"
-        android:textColor="@color/white"
-        android:textSize="60sp"
-        android:textStyle="bold"
+        android:src="@drawable/lover_letter_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameUpperImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/loverNumberUpperIV"
+        android:contentDescription="@string/app_name" />
 
     <TextView
-        android:id="@+id/loverNicknameAppDescriptionTV"
+        android:id="@+id/userNameAppDescriptionTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -81,32 +61,33 @@
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/letters_font_medium"
         android:gravity="center"
-        android:text="@string/description_app_create_or_choose_letters"
+        android:text="@string/description_main"
         android:textColor="@color/white"
         android:textSize="@dimen/size_app_description_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverDetailsTitleIv" />
+        app:layout_constraintTop_toBottomOf="@+id/userNameTitleTV" />
 
     <TextView
-        android:id="@+id/enterLoverNicknameTV"
+        android:id="@+id/enterUserNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_start_instructor_text_enter_details"
         android:layout_marginTop="@dimen/margin_top_instructor_text_enter_details"
         android:fontFamily="@font/letters_font_regular"
         android:gravity="start"
-        android:text="@string/title_what_is_your_lover_nickname"
+        android:text="@string/title_what_is_your_name"
         android:textColor="@color/white"
         android:textSize="@dimen/size_instructor_text_enter_details"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/loverNicknameInputEditText"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameAppDescriptionTV" />
+        app:layout_constraintStart_toStartOf="@+id/userNameInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/userNameAppDescriptionTV" />
+
 
     <EditText
-        android:id="@+id/loverNicknameInputEditText"
+        android:id="@+id/userNameInputEditText"
         android:layout_width="0dp"
         android:layout_height="@dimen/height_registration_edit_text"
         android:layout_marginStart="22dp"
@@ -121,10 +102,12 @@
         android:textSize="@dimen/size_input_text_enter_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterLoverNicknameTV" />
+        app:layout_constraintTop_toBottomOf="@+id/enterUserNameTV"
+        android:importantForAutofill="no"
+        tools:ignore="LabelFor" />
 
     <Button
-        android:id="@+id/loverNicknameContinueBtn"
+        android:id="@+id/userNameContinueBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -142,7 +125,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameInputEditText" />
-
+        app:layout_constraintTop_toBottomOf="@+id/userNameInputEditText"
+        tools:ignore="UnusedAttribute" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

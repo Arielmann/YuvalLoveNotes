@@ -72,7 +72,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
 
     private fun setupFragmentLettersListToolbar() {
         binding.letterListToolBar.menu.clear()
-        binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_24);
+        binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24);
         binding.letterListToolBar.setNavigationOnClickListener {
             d(TAG, "Navigating to previous screen")
             val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
