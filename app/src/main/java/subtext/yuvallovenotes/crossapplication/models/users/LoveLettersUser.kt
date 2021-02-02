@@ -6,7 +6,6 @@ import java.util.*
 open class LoveLettersUser() {
 
     companion object {
-        private const val DUMMY_EMAIL: String = "dummy@dummy.com"
         private val TAG: String = LoveLettersUser::class.simpleName!!
     }
 
@@ -30,7 +29,7 @@ open class LoveLettersUser() {
         this.loverPhone = Phone(loverPhoneRegionNumber, loverPhoneLocalNumber)
     }
 
-    private var randomIdentifier: String? = null
+    var randomIdentifier: String? = null
         set(value) {
             if(value != null) {
                 properties[PropertyKey.RANDOM_IDENTIFIER] = value

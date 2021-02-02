@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Letters</string>
+    <string name="app_name_toolbar" translatable="false">Letters</string>
 
     <!--Login-->
     <string name="description_main">The easiest way to send letters to your loved one, even if your\'e not Shakespeare</string>
@@ -9,6 +10,7 @@
     <!-- Messages Preferences -->
     <string name="pref_key_device_registered_to_push_notifications" translatable="false">pref_key_device_registered_to_push_notifications</string>
     <string name="pref_key_user_registered_in_server" translatable="false">pref_key_user_registered_in_server</string>
+    <string name="pref_key_random_identifier" translatable="false">pref_key_random_identifier</string>
     <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
     <string name="pref_key_lover_nickname" translatable="false">pref_key_lover_nickname</string>
     <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>

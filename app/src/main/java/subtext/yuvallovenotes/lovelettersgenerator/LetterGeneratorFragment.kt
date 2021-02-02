@@ -21,8 +21,8 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
-import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 
 
 class LetterGeneratorFragment : Fragment() {
@@ -34,7 +34,6 @@ class LetterGeneratorFragment : Fragment() {
     private var currentLetter: LoveLetter? = null
     private lateinit var binding: FragmentLetterGeneratorBinding
 
-    //    private lateinit var sharedPrefs: SharedPreferences
     private var interstitialAd: InterstitialAd? = null
     private var loveItemsViewModel: LoveItemsViewModel = get()
 
@@ -62,7 +61,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun checkIfRegistrationNeeded() {
-        if (loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
+        if (!loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
                 findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
             } catch (e: IllegalArgumentException) {

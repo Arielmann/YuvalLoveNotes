@@ -72,7 +72,7 @@ fun PhoneNumberUtil.isPhoneNumberValid(number: String): Boolean {
 
 fun PhoneNumberUtil.isPhoneNumberValid(countryCode: String, number: String): Boolean {
     if (!countryCode.contains("+")) {
-        Log.w(TAG, "county code does not contain + character and therefore is invalid")
+        Log.w(TAG, "County code does not contain + character and therefore is invalid")
         return false
     }
 

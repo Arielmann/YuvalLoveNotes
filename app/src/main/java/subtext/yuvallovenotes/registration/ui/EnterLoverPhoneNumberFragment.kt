@@ -59,7 +59,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
     private fun setPickNumberFromUserContactsFeature() {
         binding.loverNumberChooseFromContactsBtn.setOnClickListener {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_CONTACTS), READ_CONTACTS_PERMISSION_REQUEST_CODE)
+                requestPermissions(arrayOf(Manifest.permission.READ_CONTACTS), READ_CONTACTS_PERMISSION_REQUEST_CODE)
                 return@setOnClickListener
             }
             val intent = Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI)
@@ -95,6 +95,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
     /*todo: 1. not being called from activity.
             2. handle never ask again chosen by user*/
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        d(TAG, "$TAG onRequestPermissionsResult")
         when (requestCode) {
             READ_CONTACTS_PERMISSION_REQUEST_CODE -> {
                 if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {

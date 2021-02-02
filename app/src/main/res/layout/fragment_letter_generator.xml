@@ -41,7 +41,10 @@
             app:layout_constraintTop_toBottomOf="@+id/letterGeneratorAppBar"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_constraintLeft_creator="1"
-            tools:layout_constraintTop_creator="1" />
+            tools:layout_constraintTop_creator="1"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            tools:ignore="LabelFor" />
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/letterGeneratorAppBar"
@@ -56,9 +59,9 @@
                 android:id="@+id/letterGeneratorToolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/background_small"
+                android:background="@color/pinkStrong"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="@string/app_name" />
+                app:title="@string/app_name_toolbar" />
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -68,16 +71,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start"
             android:layout_margin="@dimen/margin_fab"
-            android:adjustViewBounds="false"
-            android:backgroundTint="@color/strongOrange"
+            android:backgroundTint="@color/transparent"
             app:fabCustomSize="60dp"
             android:contentDescription="@string/content_desc_share_with_whatsapp"
             android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:maxImageSize="30dp"
-            app:srcCompat="@drawable/icon_whatsapp"
+            app:maxImageSize="60dp"
+            app:srcCompat="@drawable/icon_with_background_whatsapp"
             app:useCompatPadding="true" />
 
         <FrameLayout
@@ -93,14 +95,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
                 android:layout_margin="@dimen/margin_fab"
-                android:backgroundTint="@color/black"
                 app:borderWidth="0dp"
                 android:contentDescription="@string/content_desc_new_letter"
                 android:foregroundGravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toLeftOf="parent"
-                app:srcCompat="@drawable/refresh_icon_orange"
-                app:fabSize="mini"
+                app:srcCompat="@drawable/icon_white_background_refresh"
+                app:fabCustomSize="45dp"
+                app:maxImageSize="45dp"
                 app:useCompatPadding="true" />
 
         </FrameLayout>
@@ -118,14 +120,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|start"
                 android:layout_margin="@dimen/margin_fab"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/transparent"
                 android:contentDescription="@string/content_desc_all_letters"
                 android:foregroundGravity="center"
-                app:fabSize="mini"
                 app:borderWidth="0dp"
+                app:fabCustomSize="45dp"
+                app:maxImageSize="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toRightOf="parent"
-                app:srcCompat="@drawable/letters_list_icon_orange"
+                app:srcCompat="@drawable/icon_white_background_letters_list"
                 app:useCompatPadding="true" />
 
         </FrameLayout>

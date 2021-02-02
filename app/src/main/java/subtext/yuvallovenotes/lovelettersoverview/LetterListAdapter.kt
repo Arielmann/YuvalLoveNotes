@@ -5,7 +5,6 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -104,7 +103,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                 setViewHolderLayoutRightToLeft()
             }
             if (letter.isCreatedByUser) {
-                binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.letters_written_by_user_icon_orange)
+                binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.icon_letters_written_by_user_orange)
             } else {
                 binding.letterListViewHolderWrittenByUserIconIV.setImageDrawable(null)
             }

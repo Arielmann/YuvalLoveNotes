@@ -39,7 +39,7 @@
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/letters_written_by_user_icon_orange"
+            android:src="@drawable/icon_letters_written_by_user_orange"
             card:layout_constraintStart_toStartOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
 

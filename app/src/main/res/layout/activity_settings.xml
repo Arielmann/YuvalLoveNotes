@@ -23,7 +23,7 @@
             android:id="@+id/settingsToolBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@drawable/background_small"
+            android:background="@color/pinkStrong"
             app:title="@string/title_settings"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </com.google.android.material.appbar.AppBarLayout>

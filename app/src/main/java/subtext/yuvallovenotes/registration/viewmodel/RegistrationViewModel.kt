@@ -171,6 +171,7 @@ class RegistrationViewModel : ViewModel() {
         d(TAG, "Saving user data to shared prefs: $user") //todo: remove user details logging
         val context = YuvalLoveNotesApp.context
         prefs.edit {
+            putString(context.getString(R.string.pref_key_user_name), user.randomIdentifier)
             putString(context.getString(R.string.pref_key_user_name), user.userName)
             putString(context.getString(R.string.pref_key_user_phone_region_number), user.userPhone.regionNumber)
             putString(context.getString(R.string.pref_key_user_local_phone_number), user.userPhone.localNumber)

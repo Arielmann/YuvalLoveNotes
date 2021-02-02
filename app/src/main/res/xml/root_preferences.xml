@@ -6,7 +6,7 @@
 
     <CheckBoxPreference
         android:defaultValue="false"
-        android:icon="@drawable/letters_written_by_user_icon_black"
+        android:icon="@drawable/icon_letters_written_by_user_black"
         android:inputType="phone"
         android:key="@string/pref_key_show_only_letters_created_by_user"
         app:allowDividerBelow="true"
