@@ -31,9 +31,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/pinkStrong"
-            app:title="@string/title_letters_list"
+            android:textAlignment="viewStart"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/title_letters_list" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -43,12 +44,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/margin_fab"
-        android:backgroundTint="@color/medium_purple"
-        android:contentDescription="@string/content_desc_new_letter"
+        android:backgroundTint="@color/transparent"
+        android:contentDescription="@string/content_desc_share_with_whatsapp"
         android:foregroundGravity="center"
+        app:fabCustomSize="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/ic_add_item_white_24dp"
+        app:maxImageSize="60dp"
+        app:srcCompat="@drawable/icon_write_new_letter"
         app:useCompatPadding="true" />
 
 

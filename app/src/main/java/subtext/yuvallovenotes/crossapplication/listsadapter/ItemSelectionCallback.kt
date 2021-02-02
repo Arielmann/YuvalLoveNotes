@@ -13,5 +13,5 @@ interface ItemSelectionCallback {
     /**
      * Called before an item will be removed from the selected items list
      * */
-    fun itemWillBeRemoved()
+    fun itemWillBeRemovedFromSelectionList()
 }

@@ -14,6 +14,6 @@
     <color name="pinkStrong">#F5267D</color>
     <color name="strongOrange">#FD823A</color>
     <color name="grayFade">#70A9A9A9</color>
-    <color name="checkboxSelectionColor">#FFA374</color>
+    <color name="checkboxSelectionColor">#fa6153</color>
     <color name="allItemsSelectedColor">#FFFB00</color>
 </resources>

@@ -27,6 +27,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     companion object {
         private val TAG = LetterListFragment::class.simpleName!!
         private const val SELECT_ALL_LETTERS_MENU_ITEM_POSITION: Int = 0
+        private const val DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION: Int = 1
     }
 
     private var currentLetterId: String = ""
@@ -59,12 +60,11 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
      */
     private val onBackPressedCallback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
-            if (lettersListAdapter.selectedLetters.isNotEmpty()) {
+            if (lettersListAdapter.isSelectionModeActive) {
                 exitSelectionMode()
             } else {
                 val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
                 findNavController().navigate(action)
-//                findNavController().popBackStack()
             }
         }
     }
@@ -122,20 +122,25 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
 
 
     private val selectedLettersMenuClickListener: Toolbar.OnMenuItemClickListener = Toolbar.OnMenuItemClickListener { item ->
+
         when (item?.itemId) {
             R.id.menuActionChooseAllLetters -> {
                 if (lettersListAdapter.areAllItemsSelected()) {
                     lettersListAdapter.deselectAllLetters()
                     binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_select_all_24)
+                    binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_delete_faded_white_24dp)
                 } else {
                     binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_unselect_all_24)
                     lettersListAdapter.selectAllLetters()
+                    binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_delete_white_24dp)
                 }
                 true
             }
 
             R.id.menuActionDelete -> {
-                showReallyDeleteDialog(lettersListAdapter.selectedLetters)
+                if (lettersListAdapter.selectedLetters.size > 0) {
+                    showReallyDeleteDialog(lettersListAdapter.selectedLetters)
+                }
                 true
             }
             else -> false
@@ -174,6 +179,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     }
 
     override fun onItemSelected() {
+        d(TAG, "onItemSelected")
         if (lettersListAdapter.selectedLetters.size == 1 && !lettersListAdapter.isSelectionModeActive) {
             d(TAG, "Entering selection mode")
             binding.letterListToolBar.inflateMenu(R.menu.letter_list_item_selected_menu)
@@ -182,16 +188,26 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             binding.letterListToolBar.setOnMenuItemClickListener(selectedLettersMenuClickListener)
         }
 
+        if (binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) { //If menu is inflated
+            binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_delete_white_24dp)
+        }
+
         if (lettersListAdapter.areAllItemsSelected()) {
             binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_unselect_all_24)
         }
 
+
     }
 
-    override fun itemWillBeRemoved() {
-        d(TAG, "Love letter will be removed")
+    override fun itemWillBeRemovedFromSelectionList() {
+        d(TAG, "Love letter will be removed from selection list")
         if (lettersListAdapter.areAllItemsSelected()) {
             binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_select_all_24)
+        }
+
+        if (lettersListAdapter.selectedLetters.size == 1) {
+            d(TAG, "Removing the last letter from the selection list and exiting selection mode")
+            exitSelectionMode()
         }
     }
 

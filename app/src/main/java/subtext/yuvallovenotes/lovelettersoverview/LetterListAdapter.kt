@@ -66,7 +66,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
             }
 
 
-            itemView.letterListSelectionCheckbox.setOnClickListener() { view ->
+            itemView.letterListSelectionCheckbox.setOnClickListener { view ->
                 //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
                     val selectedPosition = bindingAdapterPosition
@@ -81,7 +81,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
          */
         private fun onLetterSelectionOperationRequestedByUser(selectedLetter: LoveLetter) {
             if (selectedLetters.contains(selectedLetter)) {
-                lettersSelectionListener.itemWillBeRemoved()
+                lettersSelectionListener.itemWillBeRemovedFromSelectionList()
                 selectedLetters.remove(selectedLetter)
                 binding.letterListSelectionCheckbox.isChecked = false
             } else {

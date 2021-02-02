@@ -233,7 +233,7 @@ class LetterGeneratorFragment : Fragment() {
         val shareIntent = loveItemsViewModel.generateShareIntent(currentLetter)
         if (shareIntent.resolveActivity(requireActivity().packageManager) != null) {
             showAd {
-                if( LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID){} //TODO: use this if statement
+                if(LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID){} //TODO: use this if statement
                 Sentry.captureMessage("User is sharing letter in general sharing options")
                 startActivity(shareIntent)
                 loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
