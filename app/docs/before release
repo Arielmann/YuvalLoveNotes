@@ -6,4 +6,6 @@ logo
 letter icon on notification
 written only by user bug
 use ARIEL_DEVICE_ID to block my own events
+delete unused gradle libraries
 clean app
+disable rotations

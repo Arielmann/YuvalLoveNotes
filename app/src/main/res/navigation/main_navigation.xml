@@ -45,35 +45,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
 
-   <!--     <action
-            android:id="@+id/navigate_to_letter_generator"
-            app:destination="@id/letterGeneratorFragment"
-            app:popUpTo="@id/enterLoveDetailsFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>-->
-
     </fragment>
-
- <!--   <fragment
-        android:id="@+id/onBoardingFragment"
-        android:name="subtext.yuvallovenotes.registration.ui.OnboardingDemoSupportFragment"
-        android:label="onboarding_Fragment"
-        tools:layout="@layout/fragment_onboarding">
-
-        <action
-            android:id="@+id/navigate_to_enter_user_details"
-            app:destination="@id/enterUserDetailsFragment"
-            app:popUpTo="@id/onBoardingFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />
-
-    </fragment>-->
 
     <fragment
         android:id="@+id/enterLoverPhoneNumberFragment"
@@ -117,18 +89,6 @@
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
-
-
-<!--        <action
-            android:id="@+id/navigate_to_onboarding"
-            app:destination="@id/onBoardingFragment"
-            app:popUpTo="@id/letterGeneratorFragment"
-            app:popUpToInclusive="true"
-            app:enterAnim="@anim/fade_in"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/fade_out" />-->
-
 
         <action
             android:id="@+id/navigate_to_settings"

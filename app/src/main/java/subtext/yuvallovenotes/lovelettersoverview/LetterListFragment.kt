@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,8 +52,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     }
 
     private fun obtainCurrentLetterId() {
-        val args: LetterListFragmentArgs by navArgs()
-        currentLetterId = args.StringCurrentLetterId
+        currentLetterId = loveItemsViewModel.getCurrentLetterId()
     }
 
     /**
@@ -63,8 +63,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             if (lettersListAdapter.isSelectionModeActive) {
                 exitSelectionMode()
             } else {
-                val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
-                findNavController().navigate(action)
+                findNavController().popBackStack()
             }
         }
     }
@@ -75,8 +74,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24);
         binding.letterListToolBar.setNavigationOnClickListener {
             d(TAG, "Navigating to previous screen")
-            val action = LetterListFragmentDirections.navigateToLetterGenerator(currentLetterId)
-            findNavController().navigate(action)
+            findNavController().popBackStack()
         }
     }
 
@@ -87,7 +85,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     private fun observeDataUpdates() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
             // Update the cached copy of the letters in the adapter.
-            letters?.let {
+            letters.let {
 //                Log.d(TAG, "Updating letters list UI. letters: {$letters}")
                 lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
             }
@@ -99,16 +97,17 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             val newLetter = LoveLetter()
             newLetter.isCreatedByUser = true
             loveItemsViewModel.insertLetter(newLetter)
-            val action = LetterListFragmentDirections.navigateToLetterGenerator(newLetter.id)
-            findNavController().navigate(action)
+            loveItemsViewModel.currentLetter = newLetter
+            findNavController().popBackStack()
         }
     }
 
     private fun setupLetterList() {
 
         val onLetterOpenRequest: (letter: LoveLetter) -> Unit = { letter ->
-            val action = LetterListFragmentDirections.navigateToLetterGenerator(letter.id)
-            findNavController().navigate(action)
+            loveItemsViewModel.currentLetter = letter
+            LetterListFragmentDirections.navigateToLetterGenerator(letter.id)
+            findNavController().popBackStack()
         }
 
         lettersListAdapter = LetterListAdapter(requireContext(), onLetterOpenRequest, this)
@@ -152,7 +151,6 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             when (which) {
                 DialogInterface.BUTTON_POSITIVE -> {
                     d(TAG, "Deleting letters")
-//                    loveItemsViewModel.updateLettersArchiveStatusSync(letters.toList(), true)
                     loveItemsViewModel.deleteLettersSync(letters.toList())
                     d(TAG, "Deleting completed")
                     lettersListAdapter.exitSelectionMode()
@@ -214,6 +212,12 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     private fun exitSelectionMode() {
         lettersListAdapter.exitSelectionMode()
         LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        onBackPressedCallback.isEnabled = false
+        onBackPressedCallback.remove()
     }
 
 }

@@ -38,6 +38,13 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     private val weakContext: WeakReference<Context> = WeakReference(context)
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     internal var loveLetters: LiveData<MutableList<LoveLetter>> = MutableLiveData()
+    var currentLetter: LoveLetter? = null
+        set(value) {
+            if (!value?.id.isNullOrBlank()) {
+                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
+            }
+            field = value
+        }
 
     init {
         loveLetters = loveItemsRepository.getAllLocalDBLoveLetters()
@@ -94,24 +101,22 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     internal fun requestLoveLettersFromServer() {
-        viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.requestLoveLettersFromServer(inferLanguageFromLocale(), 0, object : NetworkCallback<MutableList<LoveLetter>> {
-                override fun onSuccess(response: MutableList<LoveLetter>) {
-                    viewModelScope.launch(Dispatchers.IO) {
-                        loveItemsRepository.insertAllLoveLetters(response)
-                    }
-                    sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
+        loveItemsRepository.requestLoveLettersFromServer(inferLanguageFromLocale(), 0, object : NetworkCallback<MutableList<LoveLetter>> {
+            override fun onSuccess(response: MutableList<LoveLetter>) {
+                viewModelScope.launch(Dispatchers.IO) {
+                    loveItemsRepository.insertAllLoveLetters(response)
                 }
+                sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
+            }
 
-                override fun onFailure(message: String) {
-                    e(TAG, "Error while downloading letters from server: $message")
-                }
+            override fun onFailure(message: String) {
+                e(TAG, "Error while downloading letters from server: $message")
+            }
 
-            })
-        }
+        })
     }
 
-    internal fun getLetterById(id: String): LiveData<LoveLetter> {
+    internal fun getLetterById(id: String): LiveData<LoveLetter?> {
         return loveItemsRepository.getLoveLetterById(id)
     }
 
@@ -168,6 +173,10 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
 
         return result
+    }
+
+    fun getCurrentLetterId(): String {
+        return sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), "")!!
     }
 
     /**

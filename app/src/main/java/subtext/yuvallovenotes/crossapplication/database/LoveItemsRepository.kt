@@ -52,7 +52,7 @@ class LoveItemsRepository {
         return loveDao.getAllLoveLettersWrittenByUser()
     }
 
-    fun getLoveLetterById(id: String): LiveData<LoveLetter> {
+    fun getLoveLetterById(id: String): LiveData<LoveLetter?> {
         return loveDao.getLoveLetterById(id)
     }
 

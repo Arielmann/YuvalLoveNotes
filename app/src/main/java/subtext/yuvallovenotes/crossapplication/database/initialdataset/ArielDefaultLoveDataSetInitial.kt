@@ -141,10 +141,12 @@ internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
             LoveClosure("420A8365-4523-49B0-BCE8-DA17196C753C", "אוהב ומחכה לך, הגבר שלך."),
             LoveClosure("84F53130-A49D-436B-9FB5-A3908EB9A9F6", "תמיד איתך ותודה על מי שאת."),
             LoveClosure("5AAFB6BD-8DA5-4309-B296-3B15078D6186", "שלך תמיד."),
-            LoveClosure("ECDA7590-2F96-4D83-9FCB-242523D193F3", "שלך לנצח."))
+            LoveClosure("ECDA7590-2F96-4D83-9FCB-242523D193F3", "שלך לנצח."),
+            LoveClosure("MORE6330-5L96-1D23-6GDB-489590B565F4", "התנור שלך ;-)"))
 
     init {
         openers.addAll(DefaultLoveDataSet.getOpeners())
+        phrases.addAll(DefaultLoveDataSet.getPhrases())
         phrases.addAll(DefaultLoveDataSet.getPhrases())
         closures.addAll(DefaultLoveDataSet.getClosures())
     }

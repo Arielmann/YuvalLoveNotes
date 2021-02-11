@@ -41,7 +41,7 @@
 
     </string-array>
 
-    <string-array name="phrases">
+    <string-array name="letters">
 
         <item name="phrase_1">Just wanted to say thank you for who you are, I\'m grateful for what you bring into my life, I\'m grateful for our relationship, and grateful for myself for choosing you.</item>
         <item name="phrase_2">Even if I don\'t tell you this every single day, I want you to know that you are a big, shining light in my life.</item>
@@ -82,6 +82,7 @@
         <item name="emotional_7">עברנו המון יחד, שמחה וקושי ותענוג וכאב. כשאני מביט אחורה ורואה כמה לימדת אותי על עצמי, כל מה שיש לי זה לומר לך תודה.</item>
         <item name="emotional_8">אני שמח שבחרתי בך כי יש לנו חיבור מיוחד, אני יודע את זה כי אני מרגיש את זה. העולם מלא בהזדמנויות ובהסחות דעת, ובתוך כל זה להיות איתך אחד הדברים הטובים והנבונים שעשיתי.</item>
         <item name="emotional_9">האהבה שלנו היא דבר יפה, עמוק ויפה. היא בית חם לשוב אליו בסופו של יום ארוך ומקור של כוח להתקדם קדימה. אני רוצה שתזכרי תמיד שאת האנרגיה הטובה של חיי.</item>
+
     </string-array>
 
     <string-array name="closures">

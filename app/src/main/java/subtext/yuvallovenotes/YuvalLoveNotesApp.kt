@@ -40,7 +40,7 @@ class YuvalLoveNotesApp : Application() {
         val prefs: SharedPreferences = get(SharedPreferences::class.java)
         val isFetchingCompletedBefore = prefs.getBoolean(getString(R.string.pref_key_server_letters_downloaded_after_app_installed), false)
 
-        if (!isFetchingCompletedBefore) {
+        if (isFetchingCompletedBefore) {
             Log.d(APP_TAG, "Requesting initial database download")
             val loveItemsViewModel = get(LoveItemsViewModel::class.java)
             loveItemsViewModel.requestLoveLettersFromServer()

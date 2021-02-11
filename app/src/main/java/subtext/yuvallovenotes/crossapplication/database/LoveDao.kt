@@ -13,7 +13,7 @@ interface LoveDao {
 
     //Love Letter
     @Query("SELECT * FROM love_letter_table WHERE id=:id ")
-    fun getLoveLetterById(id: String): LiveData<LoveLetter>
+    fun getLoveLetterById(id: String): LiveData<LoveLetter?>
 
     @Query("SELECT * FROM love_letter_table WHERE id=:id ")
     fun getLoveLetterByIdSync(id: String): LoveLetter?

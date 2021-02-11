@@ -32,7 +32,7 @@ object DefaultLoveDataSet : InitialLettersDataSet{
 
     private fun generatePhrasesList(): MutableList<LovePhrase> {
         val result = mutableListOf<LovePhrase>()
-        val phrasesTexts = LoveUtils.getAllItemsFromArrayFile(R.array.phrases)
+        val phrasesTexts = LoveUtils.getAllItemsFromArrayFile(R.array.letters)
         phrasesTexts.forEach { text ->
             result.add(LovePhrase(UUID.randomUUID().toString(), text))
         }
