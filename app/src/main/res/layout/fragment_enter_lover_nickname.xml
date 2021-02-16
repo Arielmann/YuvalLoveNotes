@@ -114,6 +114,7 @@
         android:layout_marginEnd="22dp"
         android:background="@drawable/background_white_shadowed_slightly_rounded"
         android:gravity="start|center_vertical"
+        android:textColor="@color/detailsInputColor"
         android:paddingStart="@dimen/padding_edit_text_default"
         android:paddingEnd="@dimen/padding_edit_text_default"
         android:fontFamily="@font/letters_font_medium"

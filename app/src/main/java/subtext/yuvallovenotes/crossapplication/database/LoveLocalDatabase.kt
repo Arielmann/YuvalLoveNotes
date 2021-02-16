@@ -76,7 +76,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
                         d(TAG, "Populating letters list")
-//                        populateLettersList(database)
+                        populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
                     } else {
                         d(TAG, "Initial database population is not required")

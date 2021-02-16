@@ -15,7 +15,7 @@
     <string name="pref_key_lover_nickname" translatable="false">pref_key_lover_nickname</string>
     <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>
     <string name="pref_key_show_only_letters_created_by_user" translatable="false">pref_key_show_only_letters_created_by_user</string>
-    <string name="pref_title_show_only_letters_created_by_user">Choose only letters created by you</string>
+    <string name="pref_title_show_only_letters_created_by_user">Display only letters created by you</string>
     <string name="pref_key_user_full_target_phone_number" translatable="false">pref_key_user_full_target_phone_number</string>
     <string name="pref_key_user_local_phone_number" translatable="false">pref_key_user_local_phone_number</string>
     <string name="pref_key_user_phone_region_number" translatable="false">pref_key_user_phone_region_number</string>

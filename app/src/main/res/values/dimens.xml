@@ -14,7 +14,7 @@
     <dimen name="height_love_writer_short_edit_text_max">75dp</dimen>
     <dimen name="padding_letters_recycler_view">16dp</dimen>
     <dimen name="size_input_text_enter_details">22sp</dimen>
-    <dimen name="size_input_text_enter_details_small">20sp</dimen>
+    <dimen name="size_input_text_enter_phone_number">18sp</dimen>
     <dimen name="size_app_description_text">22sp</dimen>
     <dimen name="width_nav_back_btn">25dp</dimen>
     <dimen name="height_nav_back_btn">25dp</dimen>

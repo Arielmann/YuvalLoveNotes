@@ -101,6 +101,7 @@
         android:gravity="start|center_vertical"
         android:paddingStart="@dimen/padding_edit_text_default"
         android:paddingEnd="@dimen/padding_edit_text_default"
+        android:textColor="@color/detailsInputColor"
         android:fontFamily="@font/letters_font_medium"
         android:inputType="text"
         android:textSize="@dimen/size_input_text_enter_details"

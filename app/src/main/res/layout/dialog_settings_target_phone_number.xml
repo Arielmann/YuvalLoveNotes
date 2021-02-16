@@ -3,38 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/whiteGray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-<!--    <TextView
-        android:id="@+id/enterPhoneDialogTitleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/letters_general_font"
-        android:text="@string/pref_dialog_title_target_phone_number"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
 
     <EditText
         android:id="@+id/enterPhoneRegionDialogInputEditText"
         android:layout_width="75dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:gravity="left"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:background="@drawable/background_white_weak_shadow_slightly_rounded"
+        android:fontFamily="@font/letters_font_medium"
+        android:gravity="left|center_vertical"
         android:importantForAutofill="no"
         android:inputType="phone"
-        android:textSize="@dimen/size_input_text_enter_details_small"
-        android:fontFamily="@font/letters_font_medium"
+        android:textColor="@color/detailsInputColor"
+        android:textSize="@dimen/size_input_text_enter_phone_number"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="RtlHardcoded" />
 
     <TextView
@@ -43,9 +35,9 @@
         android:layout_height="wrap_content"
         android:text="-"
         android:layout_marginLeft="8dp"
-        android:textColor="@color/black"
+        android:textColor="@color/detailsInputColor"
         android:fontFamily="@font/letters_font_medium"
-        android:textSize="@dimen/size_input_text_enter_details_small"
+        android:textSize="@dimen/size_input_text_enter_phone_number"
         app:layout_constraintBottom_toBottomOf="@+id/enterPhoneRegionDialogInputEditText"
         app:layout_constraintLeft_toRightOf="@+id/enterPhoneRegionDialogInputEditText"
         app:layout_constraintTop_toTopOf="@+id/enterPhoneRegionDialogInputEditText" />
@@ -53,20 +45,25 @@
     <EditText
         android:id="@+id/enterPhoneDialogLocalNumberInputEditText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="50dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="24dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:background="@drawable/background_white_weak_shadow_slightly_rounded"
         android:fontFamily="@font/letters_font_medium"
-        android:gravity="left"
+        android:gravity="left|center_vertical"
         android:importantForAutofill="no"
         android:inputType="number"
         android:textAlignment="gravity"
-        android:textSize="@dimen/size_input_text_enter_details_small"
+        android:textColor="@color/detailsInputColor"
+        android:textSize="@dimen/size_input_text_enter_phone_number"
         android:textStyle="bold"
-        android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/enterPhoneRegionDialogInputEditText"
         app:layout_constraintLeft_toRightOf="@+id/hyphenTV"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/enterPhoneRegionDialogInputEditText"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:ignore="RtlHardcoded,TextFields" />
 
     <Button
@@ -94,5 +91,15 @@
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPhoneDialogLocalNumberInputEditText" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="125dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dialog_image_phone_change" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

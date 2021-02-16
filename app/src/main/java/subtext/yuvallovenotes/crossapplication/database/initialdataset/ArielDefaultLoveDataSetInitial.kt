@@ -47,7 +47,8 @@ internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
             LoveOpener("ED238A8C-CCCB-4D38-AD89-9483D0B55CF3", " אישה יקרה שלי,"),
             LoveOpener("5F1ED6F3-A7EB-45B8-A261-03D13B14AD84", "יובל המקסימה,"),
             LoveOpener("9C8C1B65-4AD6-42B6-99B8-FA7F4A8C8D84", "יפה שלי,"),
-            LoveOpener("C7B75367-3FF2-49F3-A4F5-C71AB5F2D97C", "יפתי"))
+            LoveOpener("C7B75367-3FF2-49F3-A4F5-C71AB5F2D97C", "יפתי"),
+            LoveOpener("A4B23797-2CA1-12F3-B1B5-D31AB5F2D97C", "חסחוס שלי"))
 
     private val phrases = mutableListOf(
             LovePhrase("E76B818C-E822-42B1-BE24-401D22BA9485",

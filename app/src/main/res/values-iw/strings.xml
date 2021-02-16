@@ -5,7 +5,7 @@
     <string name="description_you_get_reminders">פעם בשבוע נזכיר לך לשלוח מכתב ולחזק את הקשר שלכם.</string>
 
     <!-- Messages Preferences -->
-    <string name="pref_title_show_only_letters_created_by_user">בחר רק מכתבים שנכתבו בידיך</string>
+    <string name="pref_title_show_only_letters_created_by_user">הצג רק מכתבים שנכתבו בידיך</string>
     <string name="pref_title_target_phone_number">מספר טלפון של בן/בת הזוג</string>
     <string name="pref_dialog_title_target_phone_number">טלפון</string>
 

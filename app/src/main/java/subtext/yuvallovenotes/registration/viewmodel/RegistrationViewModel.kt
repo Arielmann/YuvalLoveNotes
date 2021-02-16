@@ -75,7 +75,7 @@ class RegistrationViewModel : ViewModel() {
             prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_registered_in_server), false).apply()
             repository.registerUser(user, registerUserCallback)
             val locale = Locale.getDefault().toString()
-            val pushNotificationChannels = mutableListOf("default", locale)
+            val pushNotificationChannels = mutableListOf(locale)
             if(locale != YuvalLoveNotesApp.context.getString(R.string.default_country_code)){
                 /*If user is not Israeli, put him in a general english channel for messages*/
                 pushNotificationChannels.add("general_english")
