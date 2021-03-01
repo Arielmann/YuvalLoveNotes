@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -24,7 +23,7 @@ import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.utils.*
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverPhoneNumberBinding
-import subtext.yuvallovenotes.registration.network.UserRegistrationCallback
+import subtext.yuvallovenotes.registration.network.AppRegistrationCallback
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 
@@ -38,7 +37,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
     private lateinit var binding: FragmentEnterLoverPhoneNumberBinding
     private lateinit var sharedPrefs: SharedPreferences
-    private val loginViewModel = get<RegistrationViewModel>()
+    private val registrationViewModel = get<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEnterLoverPhoneNumberBinding.inflate(inflater, container, false)
@@ -54,6 +53,8 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         binding.loverNumberBackBtn.setOnClickListener { findNavController().popBackStack() }
         binding.loverNumberBackButtonContainingCL.setOnClickListener { findNavController().popBackStack() }
         binding.loversLocalPhoneNumberInputEditText.requestFocus()
+        registrationViewModel.requestLoveLettersFromServer()
+        registrationViewModel.requestDeviceRegistration(requireContext())
     }
 
     private fun setPickNumberFromUserContactsFeature() {
@@ -111,7 +112,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
     }
 
     private fun setPhoneNumberEditTexts() {
-        loginViewModel.requestUserPhoneNumber { regionNumber, localNumber ->
+        registrationViewModel.requestUserPhoneNumber { regionNumber, localNumber ->
             binding.loversPhoneNumberRegionInputEditText.setText(regionNumber)
             binding.loversLocalPhoneNumberInputEditText.setText(localNumber)
         }
@@ -119,7 +120,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
 
     private fun setOnDoneButtonClickListener() {
 
-        val callback = object : UserRegistrationCallback {
+        val callback = object : AppRegistrationCallback {
             override fun onSuccess() {
                 d(TAG, "User registered successfully")
                 findNavController().popBackStack(R.id.enterUserDetailsFragment, false)
@@ -141,9 +142,9 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             val loverRegionNumber = binding.loversPhoneNumberRegionInputEditText.text.toString()
             val loverLocalNumber = binding.loversLocalPhoneNumberInputEditText.text.toString()
             val loverPhone = LoveLettersUser.Phone(loverRegionNumber, loverLocalNumber)
-            val user = loginViewModel.getUserFromSharedPrefsData()
+            val user = registrationViewModel.getUserFromSharedPrefsData()
             user.loverPhone = loverPhone
-            loginViewModel.requestRegistration(user, callback)
+            registrationViewModel.requestRegistration(user, callback)
 
         }
     }

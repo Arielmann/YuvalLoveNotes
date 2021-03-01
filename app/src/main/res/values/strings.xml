@@ -26,7 +26,7 @@
     <string name="pref_title_target_phone_number">Phone number</string>
     <string name="pref_dialog_title_target_phone_number">Lover\'s number</string>
     <string name="pref_key_local_letters_database_populated_after_app_installed" translatable="false">pref_key_local_letters_database_populated_after_app_installed</string>
-    <string name="pref_key_server_letters_downloaded_after_app_installed" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
+    <string name="pref_key_default_letters_downloaded" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
     <string name="pref_key_current_letter_id" translatable="false">pref_key_current_letter_id</string>
 
     <!--Data transmission keys-->

@@ -105,7 +105,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
                         //Get next 100 items
                         requestLoveLetters(language, offset + 100, callback)
                     } else {
-                        prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
+                        prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), true).apply()
                     }
                 } else {
                     if (language != Language.ENGLISH) {

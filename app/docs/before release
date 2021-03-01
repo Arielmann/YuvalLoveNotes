@@ -9,3 +9,4 @@ use ARIEL_DEVICE_ID to block my own events
 delete unused gradle libraries
 clean app
 disable rotations
+remove deprecated classes

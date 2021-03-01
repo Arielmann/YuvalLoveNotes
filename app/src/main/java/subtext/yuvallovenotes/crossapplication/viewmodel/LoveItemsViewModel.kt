@@ -3,6 +3,7 @@ package subtext.yuvallovenotes.crossapplication.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.util.Log
 import android.util.Log.d
 import android.util.Log.e
 import android.widget.Toast
@@ -35,7 +36,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
-    private val weakContext: WeakReference<Context> = WeakReference(context)
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     internal var loveLetters: LiveData<MutableList<LoveLetter>> = MutableLiveData()
     var currentLetter: LoveLetter? = null
@@ -52,7 +52,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     fun getFilteredLetters(): List<LoveLetter> {
         var optionalLetters = loveLetters.value?.filter { !it.isArchived && it.text.isNotBlank() }
-        val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(weakContext.get()!!.getString(R.string.pref_key_show_only_letters_created_by_user), false)
+        val showOnlyLettersCreatedByUser = sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_show_only_letters_created_by_user), false)
         if (showOnlyLettersCreatedByUser) {
             optionalLetters = optionalLetters?.filter { it.isCreatedByUser }
         }
@@ -78,7 +78,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
 
         override fun handleFault(fault: BackendlessFault?) {
-            Toast.makeText(weakContext.get(), fault.toString(), Toast.LENGTH_LONG).show()
+            Toast.makeText(YuvalLoveNotesApp.context, fault.toString(), Toast.LENGTH_LONG).show()
         }
     }
 
@@ -98,22 +98,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             loveItemsRepository.insertAllLoveClosures(closures)
         }
-    }
-
-    internal fun requestLoveLettersFromServer() {
-        loveItemsRepository.requestLoveLettersFromServer(inferLanguageFromLocale(), 0, object : NetworkCallback<MutableList<LoveLetter>> {
-            override fun onSuccess(response: MutableList<LoveLetter>) {
-                viewModelScope.launch(Dispatchers.IO) {
-                    loveItemsRepository.insertAllLoveLetters(response)
-                }
-                sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_server_letters_downloaded_after_app_installed), true).apply()
-            }
-
-            override fun onFailure(message: String) {
-                e(TAG, "Error while downloading letters from server: $message")
-            }
-
-        })
     }
 
     internal fun getLetterById(id: String): LiveData<LoveLetter?> {

@@ -43,13 +43,250 @@
 
     <string-array name="letters">
 
-        <item name="phrase_1">Just wanted to say thank you for who you are, I\'m grateful for what you bring into my life, I\'m grateful for our relationship, and grateful for myself for choosing you.</item>
-        <item name="phrase_2">Even if I don\'t tell you this every single day, I want you to know that you are a big, shining light in my life.</item>
-        <item name="phrase_3">I\'m happy to have you with me because we have a special bond. I know this because I can feel it. The world is full in opportunities and distractions, and within all this choosing you was one of the wisest things I\'ve done.</item>
-        <item name="phrase_4">We have been through so many things, joy and difficulties and pleasure and pain. When I look backward and see how much you\'ve taught me about myself, all I have left is to thank you.</item>
-        <item name="phrase_5">When was the last time I told you that you\'re beautiful? Actually, it doesn\'t matter, it\'s always a good time to tell you this again :)</item>
-        <item name="phrase_6">Our love is a beautiful thing, deep and beautiful. It\'s a cozy home to return to after a long day and a source of power to move on. I want you to always remember that you are the good energy of my life.</item>
+           <item name="letter_1">
+            Baby,
+            \n\n
+            Just wanted to say thank you for who you are, I\'m grateful for what you bring into my life, I\'m grateful for our relationship, and grateful for myself for choosing you.
+            \n\n
+            Your man
+        </item>
 
+        <item name="letter_2">
+            Sweetie,
+            \n\n
+            Even if I don\'t tell you this every single day, I want you to know that you are a big, shining light in my life.
+            \n\n
+            Me
+        </item>
+
+        <item name="letter_3">
+            Honey,
+            \n\n
+            I\'m happy to have you with me because we have a special bond. I know this because I can feel it. The world is full in opportunities and distractions, and within all this choosing you was one of the wisest things I\'ve done.
+            \n\n
+            BIG LOVE 💜
+        </item>
+
+        <item name="letter_4">
+            Princess,
+            \n\n
+            We have been through so many things, joy and difficulties and pleasure and pain. When I look backward and see how much you\'ve taught me about myself, all I have left is to thank you.
+            \n\n
+            Waiting for you
+        </item>
+
+        <item name="letter_5">
+            Sugar,
+            \n\n
+            When was the last time I told you that you\'re beautiful? Actually, it doesn\'t matter, it\'s always a good time to tell you this again :)
+            \n\n
+            Your man
+        </item>
+
+        <item name="letter_6">
+            Baby,
+            \n\n
+            Our love is a beautiful thing, deep and beautiful. It\'s a cozy home to return to after a long day and a source of power to move on. I want you to always remember that you are the good energy of my life.
+            \n\n
+            Love you 💜
+        </item>
+
+        <item name="letter_7">
+            Sunshine,
+            \n\n
+            I want you to remember that there is always something beautiful in your smile and that this beauty radiates on your whole environment. When you read this
+            sentence and smile to yourself, know that another little light is entering this world.
+            \n\n
+            Waiting for you, always 🌸
+       <!--     תזכרי תמיד שיש משהו מהמם בחיוך שלך, הוא מקרין עליי ועל כל הסביבה. ברגע שאת קוראת את המשפט הזה ומחייכת לעצמך, תדעי שעוד קצת אור נכנס לעולם.-->
+        </item>
+
+        <item name="letter_8">
+            Doll,
+            \n\n
+            You bring happiness into my life and also stability and a sense of home, a warm place to return to. And it's good, it's just good to know that you're by my side.
+            \n\n
+            Love and appreciate ❤
+            <!--את מביאה שמחה לתוך החיים שלי וגם יציבות ותחושה של בית ומקום חם לחזור אליו. זה כיף, פשוט כיף לדעת שאת איתי.-->
+        </item>
+
+        <item name="letter_9">
+            Darlin',
+            \n\n
+            Regardless of how many times I told you I love you, it's always a good time to say it again :)
+            \n\n
+            Your man
+            <!--מבלי קשר לכמות הפעמים שאמרתי לך שאני אוהב אותך, זה תמיד זמן טוב להגיד לך פעם נוספת :)-->
+        </item>
+
+        <item name="letter_10">
+            Gorgeous,
+            \n\n
+            After all, it's very simple, I chose you because I feel good with you. You're a source of inspiration and power in my life and I simply love it when we are together.
+            \n\n
+            With love ❤
+         <!--   בסוף זה נורא פשוט, אני איתך כי טוב לי איתך, כי את מקור של השראה וכוח בחיים שלי, וכי אני פשוט אוהב שאנחנו יחד.-->
+        </item>
+
+        <item name="letter_11">
+            My soulmate,
+            \n\n
+            Every relationship has its complexity, its challenges, and its beauty, I want you to know that I'm with you in this completely. I chose you to walk a long road, and I know that in the end we'll both be better people simply by walking it together.
+            \n\n
+            Happy that we chose each other
+            <!--לכל מערכת היחסים יש את המורכבות שלה, האתגרים שלה והיופי שלה. אני איתך גם בזה וגם בזה. בחרתי בך כי טוב לי איתך, ומעבר לכך, כי את הופכת אותי לאדם טוב הרבה יותר.-->
+        </item>
+
+        <item name="letter_12">
+            Baby,
+            \n\n
+            I was very happy to wake up in the morning with you and I can't wait to snuggle with you again tonight.
+            \n\n
+            Waiting for you...
+        </item>
+
+        <item name="letter_13">
+            Angel,
+            \n\n
+            I love your perfume, your hair, the food you make, your smile.. you're a gift I got right into my life and that's where I would like you to stay.
+            \n\n
+            Served with a big smile 🙂
+            <!--אני אוהב את הבושם שלך, את השיער שלך, את האוכל שאת מכינה, את החיוך שלך, את מתנה שקיבלתי ישר אל תוך החיים שלי.-->
+        </item>
+
+        <item name="letter_14">
+            To the pretty woman who walk down my street,
+            \n\n
+            You're a source of goodness and pleasure in my life and I've learned from you a lot. Even if sometimes my presence is weaker, remember that our relationship
+            is a blessing to both of us.
+            \n\n
+            You man
+            <!--את מקור של טוב ושל עונג בחיים שלי ואני לומד ממך המון. גם אם לפעמים הנוכחות שלי חלשה יותר, תזכרי שהקשר שלנו הוא ברכה, בשבילי ובשבילך.-->
+        </item>
+
+        <item name="letter_15"> All the single gentlemen.. n\
+                                All the single gentlemen.. n\
+                                All the single gentlemen.. n\
+                                Now put your hands up.. n\
+                                \n\n
+
+                               That's Beyoncé's new hit baby, I can't take part in it because
+                               we have a good relationship and when it's good
+                               you don't have to jump around \n \n
+
+                               Maybe we should go on a date and see her concert? later on we
+                               can get to a store and get you some shoes you wanted for a long time, or
+                               some other little gift.. doesn't matter, as long as we hang out together.
+                               \n\n
+                               Always with you ❤
+
+       <!--     n\ ..מי שלא קופץ רווק
+                                מי שלא קופץ רווק..
+                                \n\n
+זה השיר החדש מאמי, לא אני כתבתי
+                                 אותו ואני גם לא משתתף בו - כי לנו יש זוגיות
+                                 טובה, וכשטוב לא צריכים לקפוץ..\n \n
+
+                                 אולי נעשה דייט ונלך למשחק כדורגל? אני מבטיח
+                                 שאחר כך נלך לחנות ונקנה לך את הבגד ההוא
+                                 שרצית המון זמן.. או מתנה קטנה אחרת, העיקר
+                                 שנבלה קצת יחד 😘
+                                \n\n
+        תמיד איתך ❤                       -->
+            </item>
+
+        <item name="letter_16">
+                  To be inside you is a moment of exaltation, as the world becomes transparent and there's only us, connected in the union of hearts. I will always cherish these
+                      moments when you remind me without words the thing that I desire the most,
+                      more than any goal I set, big or small. I will always want to come back to you at the end of the day and
+                      this is what this effort is all about. \n\n
+                      \n\n
+                      For many more years of passion ❤
+                      <!--         להיות בתוכך זה רגע של התעלות, כשהעולם נעלם באור שקוף ונשארים רק שנינו, מחוברים באיחוד של לבבות. תמיד אנצור לך את הרגעים האלו, כשאת מזכירה לי ללא מילים את הדבר שאני כל כך חושק בו, מעבר לכל מטרה קטנה וגדולה שאציב לעצמי. בסופו של כל יום אני רוצה לחזור אלייך וזו גם הסיבה לכל המאמץ שאני משקיע שם בחוץ, כדי שיהיה מקום לשוב אליו ולהיות איתך.-->
+        </item>
+
+        <item name="letter_17">
+
+            Commitment.\n \n
+
+            Commitment is the frame for our relationship, its source of stability and anchor for the
+            passion and intimacy we've built. I'm committed to you out of choice, and know that it is
+            one of th greatest gists we hand to one another. I want you to remember that your'e a source of
+            confidence in my life, a physical and emotional home to return to.
+            \n \n
+            For many more years of commitment,
+            Your prince
+
+<!--               מחויבות. זוהי המסגרת של הקשר שלנו, מה שנותן יציבות
+            ועוגן לתשוקה ולאינטימיות שבנינו. אני מחויב לך מתוך בחירה,
+            ומתוך ההבנה שזו אחת המתנות הגדולות ביותר שאנו מעניקים זה לזו.
+            אני רוצה שתזכרי שאת מקור הביטחון והיציבות שלי ובית פיזי ורגשי חם לשוב אליו.-->
+        </item>
+
+        <item name="letter_18">
+            Intimacy.
+            /n/n
+            Intimacy is the ability to honestly share my inner world and listen fully to what you share yourself.\n
+            Intimacy is a major piece of what we've built, it's an emotional commitment. \n
+            When we dwell in it I accept you the way you are, and you do the same for me. And when our emotional
+            needs get fulfilled our love strengthens.
+             /n/n
+             For many more years of intimacy,
+            Your man
+<!--           אינטימיות. אינטימיות היא היכולת לשתף את הקישקעס שלי בכנות ולהקשיב באופן מלא לשיתופים שלך.
+            האינטימיות היא חלק מרכזי בקשר שלנו, המחוביות הרגשית הזו. בתוך האינטימיות אני מקבל אותך
+            כמו שאת, ואת מקבלת אותי, וכשהצרכים הרגשיים שלנו מתמלאים גם האהבה שלנו מתחזקת.-->
+        </item>
+
+
+
+    </string-array>
+
+
+    <string-array name="closures">
+
+        <item name="closure_me">Me</item>
+        <item name="closure_your_man">Your man</item>
+        <item name="closure_waiting_for_you">Waiting for you</item>
+        <item name="closure_love_and_appreciate">Love and appreciate 💜</item>
+        <item name="closure_big_love">Big love ❤</item>
+        <item name="closure_with_love_me">With love 💞,\n Me</item>
+        <item name="closure_your_always_me">Always 😘,\n Me</item>
+        <item name="closure_your_always_forever">Yours forever 🌠,\n Me</item>
+        <item name="closure_my_heart_is_yours">My heart is yours 💝</item>
+        <item name="closure_you_are_always_with_me">You are always with me</item>
+        <item name="closure_you_complete_me">You complete me</item>
+        <item name="closure_yours_truly">Yours truly</item>
+        <!-- <item name="closure_i_will_be_always_be_waiting_for_you">I will always be waiting for you</item>-->
+        <!-- <item name="closure_cherish_what_we_have">Love you and cherish what we have</item>-->
+
+    </string-array>
+
+
+    <string-array name="funny">
+        <item name="funny_1">הקשר שלנו הוא האירוע הכי שווה בעיר, הכי חם ועם הכי הרבה אטרקציות, נקודה. ושלא יעבדו עליך!</item>
+        <item name="funny_2">לפני זמן קצר התקשר רה"מ ואמר שהוא מזמין אותנו לישיבת הממשלה להציג את הקשר שלנו כמדגם מייצג של אנשים טובים שכיף להם יחד. טוב אולי זה רק בראש שלי, אבל זה שכיף לנו יחד אי אפשר לקחת מאיתנו 😘</item>
+        <item name="funny_3">אני אוהב כשאת מחייכת אליי, זה מחזיר לי את הצבע לפנים, ואני לא צריך יותר מזה.</item>
+        <item name="funny_4">כתבתי לך שיר על דף נייר והוא במגירה ואיבדתי את המפתח. אבל לא נורא, עד שאמצא אותו, גם באפליקציה הזו אני יכול לומר לך כמה את נהדרת.</item>
+        <item name="funny_5">לפי האגדה, אלאדין הזמין את יסמין לדייט על שטיח מעופף. במקרה שלנו את השטיח בעיקר צריך לנקות מאבק, אבל הקסם לעולם, לעולם לא ייעלם 😍</item>
+        <item name="funny_6">אם לא היה אוטו הייתי אוסף אותך בכרכרה, ואם לא כרכרה אז שק קמח על הכתפיים. ואם כבר אהיה זקן מידי גם בשביל זה, תמיד נוכל ללכת יד ביד לאורך השביל מחוץ לבית 😊</item>
+        <item name="funny_7">לפי המסורת היהודית, 40 יום בטרם לידתו של אדם יוצאת בת קול ומכריזה על הזיווג שלו בחיים האלו. אז אולי לא שמעתי את בת הקול, הייתי עסוק בדברים אחרים, אבל אני ממש מבסוט ממה שהיא אמרה באותו היום :)</item>
+        <item name="funny_8">כמו שאומרים בג\'\יבריש: גכעלחי ךףחדלגכ ילחךגכע ךףלגדכ יחלכג. את תמיד איתי בפנים ולעולם לא תעזבי.</item>
+        <item name="funny_9">בסוף הדרך, כשנהיה זקנים, נשב יחד אל שולחן פלסטיק עגול ונשתה מיץ פטל סחוט של ויטמינציק\'\. אולי גם נשחק ברדיג\'\, מי יודע? העיקר שנעשה את זה יחד :)</item>
+        <item name="funny_10">אייל גולן אמר פעם שלהיות איתך זה כמו לעשות תואר ראשון באהבה. טוב הוא לא אמר את זה, זה פשוט היה מביך מידי אז הייתי חייב להפיל את זה על מישהו. אבל הכוונה אמיתית, אני באמת אוהב אותך, עם או בלי משפטי מחץ.</item>
+        <item name="funny_11">אני אוהב אותך כמו שגנן אוהב את הפרח שלו, כמו שצורף אוהב את התכשיט שלו, כמו שמשורר אוהב את הפואמה שלו, כמו שרו"ח אוהב את הדוח"ות שלו, כמו שצבעי אוהב את המברשת שלו, כמו שילד אוהב את הפלאפון שלו… טוב את מבינה את הנקודה, וגם היא אוהבת את המשפט שהיא כתובה בו. כך או כך, את מאוד חשובה לי והקשר שלנו כאן כדי להישאר, כמו פסל יפה (שהפסל מאוד אוהב 😉)</item>
+        <item name="funny_12">האהבה שלנו היא כמו הים, מלאה בכל טוב. יש בה גלים וקצף ואדמה ומדוזות ומוכר של ארטיקים שהולך על החול ומודיע על כך לכולם. הקשר שלנו משמעותי, עמוק ומגוון, ואני שמח שאנחנו חולקים אותו יחד.</item>
+        <item name="funny_13">בוב הבנאי - אדריכל בחסד. סמי הכבאי - מציל חיים. דר דוור - מחלק דואר. ובקשר שלנו גם אני כמוהם. לפעמים בונה, לפעמים מכבה שרפות, ולפעמים שולח לך מכתבים, אבל הכל הכל עושה מתוך מחויבות ואהבה גדולה</item>
+        <item name="funny_14">אם התות היה צומח על שיח ליד הבית שלנו, הייתי מכין לך יופי של סלט פירות לעת קיץ. אבל התות צומח על עצים, אז במקום זאת אני הולך לסופר. ושמה יש המון תותים, וגם משמשים וחסה ובמבה, ומכל זה אפשר להכין סלט ממש טעים. מה הפואנטה של כל זה את שואלת? אני בסה"כ מנסה לכתוב לך שחשבתי עלייך ומחפש את המילים איך לומר לך את זה.</item>
+        <item name="funny_15">הדלת הייתה נעולה בכישוף מיוחד ולנסיכה לא הייתה ברירה אלא לשלשל את שערותיה היפות, החזקות מבעד לחלון וכל הדרך מטה. ואז, בהבזק של חוכמה שהגיעה כמו מתוך חלום עמוק, אמר לה הנסיך: "עזבי אותך מאמי סתם סיבוך", הוציא מהאוטו סולם שרכש בטמבוריה ועלה עד אליה. אז אולי אנחנו לא תמיד עושים הכל לפי הספר, אבל אני תמיד תמיד מחפש  ותמיד אמשיך לחפש את הדרך הנכונה להגיע אלייך, נסיכה שלי :)</item>
+        <item name="funny_16">הלכתי למשרד הפנים להוציא תעודה שמראה שאני אוהב את האישה שלי. שאלו אותי שם למה אני אוהב אותך, אמרתי להם שאת נפלאה, הפקיד חייך והנפיק לי את זה במקום :)</item>
+        <item name="funny_17">דמייני את הסיטואציה: שנינו יושבים על ספינה בדרך לאיים הקאריביים, הרוח בשיער, הדגים מקפצים בים סביב, ובקבוק קריסטל בצבע רדיואקטיבי על השולחן… 😅 \n הנקודה היא שיש הרבה יופי ואמת בקשר שלנו וגם אם הוא לא מושלם הוא לא צריך להיות - הוא טוב ויפה כמו שהוא ובגלל זה אני בוחר להישאר איתך בכל יום מחדש</item>
+        <item name="funny_18">שכרתי לנו נגן נבל שיבוא לפרוט לך על נפלאותייך, אבל הסתבר שהוא נבל וניסה לברוח עם הכסף מבלי לפרוט לנו. בסוף היום זה לא משנה לי בכלל, כי עם או בלי מוזיקה תדעי שאני אוהב אותך כמו שאת 💜</item>
+        <item name="funny_19">כל הזכויות על הקשר הזה שמורות לנו ©. אין להעביר, להעתיק, להתערב, לרכל, לריב, לעשות סלפי, להשאיר שערות במקלחת, להביא כלב או לקנות דירה ללא אישור בכתב מהמוציאים לאור 🌞. על אף האמור לעיל - מותר לאהוב ללא הגבלה ולכתוב לבן הזוג כמה  כיף להיות איתו :)</item>
+        <item name="funny_20">כתבנו בכנסת מוסר כי 'חוק יסוד: אהבה' עבר היום בקריאה שנייה ושלישית. בני הזוג בארץ מתבקשים להביע את חיבתם זה כלפי זו או שהקשר שלהם יעבור לועדת אוהבים-חריגים. זה היה האייטם שפתח את המהדורה המרכזית, מזל שאני לא צריך אותו כדי לומר לך שאת המהממת שלי ושתמיד תשארי כזו 💜</item>
+        <item name="funny_21">כשנסעתי בזמן לשנת 3010 אנשים לא היו צריכים לגעת אחד בשני כי הם יכלו להיכנס לקשר דרך Augmented reality ולבחור בדיוק מפחיד את המראה החיצוני ותכונות האופי של בן הזוג הוירטואלי שלהם. ואמרתי לעצמי - איזה מזל שאני פה איתך ואוהב אותך כמו שאת, עם כל מה שיש בפנים 🌸</item>
+        <item name="funny_22">נשמה יפה שלי, שולח לך מלא לבבות של ארטישוק שתדעי כמה אני אוהב אותך. ואם יש איזשהם דברים לך על העצבים 🐢 - פשוט תתני להם חסה, ואל תדאגי מהם יותר מידי כי אני תמיד איתך.</item>
+        <item name="funny_23">יש לי את הבת זוג הכי טובה, הכי טובה ומשובחה, קנו ממנה ילדים, קוקו-אה-אה. לא באמת מאמי, אין מצב שאני מתחלק בך עם אף אחד את המשובחה שלי ושלי בלבד! 🍦</item>
     </string-array>
 
     <string-array name="casual">
@@ -82,25 +319,6 @@
         <item name="emotional_7">עברנו המון יחד, שמחה וקושי ותענוג וכאב. כשאני מביט אחורה ורואה כמה לימדת אותי על עצמי, כל מה שיש לי זה לומר לך תודה.</item>
         <item name="emotional_8">אני שמח שבחרתי בך כי יש לנו חיבור מיוחד, אני יודע את זה כי אני מרגיש את זה. העולם מלא בהזדמנויות ובהסחות דעת, ובתוך כל זה להיות איתך אחד הדברים הטובים והנבונים שעשיתי.</item>
         <item name="emotional_9">האהבה שלנו היא דבר יפה, עמוק ויפה. היא בית חם לשוב אליו בסופו של יום ארוך ומקור של כוח להתקדם קדימה. אני רוצה שתזכרי תמיד שאת האנרגיה הטובה של חיי.</item>
-
-    </string-array>
-
-    <string-array name="closures">
-
-        <item name="closure_me">Me</item>
-        <item name="closure_your_man">Your man</item>
-        <item name="closure_waiting_for_you">Waiting for you</item>
-        <item name="closure_love_and_appreciate">Love and appreciate 💜</item>
-        <item name="closure_big_love">Big love ❤</item>
-        <item name="closure_with_love_me">With love 💞,\n Me</item>
-        <item name="closure_your_always_me">Always 😘,\n Me</item>
-        <item name="closure_your_always_forever">Yours forever 🌠,\n Me</item>
-        <item name="closure_my_heart_is_yours">My heart is yours 💝</item>
-        <item name="closure_you_are_always_with_me">You are always with me</item>
-        <item name="closure_you_complete_me">You complete me</item>
-        <item name="closure_yours_truly">Yours truly</item>
-        <!-- <item name="closure_i_will_be_always_be_waiting_for_you">I will always be waiting for you</item>-->
-        <!-- <item name="closure_cherish_what_we_have">Love you and cherish what we have</item>-->
 
     </string-array>
 

@@ -11,6 +11,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.sentry.Sentry
@@ -86,9 +88,9 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun observeLettersListChanges() {
-        loveItemsViewModel.loveLetters.observe(viewLifecycleOwner, {
+        loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) {
             d(TAG, "Love letters size: " + loveItemsViewModel.getFilteredLetters().size)
-        })
+        }
     }
 
     private fun setupToolbar() {
@@ -121,21 +123,21 @@ class LetterGeneratorFragment : Fragment() {
     private fun displayLetterDataForFirstTime() {
         val letterId = loveItemsViewModel.getCurrentLetterId()
         d(TAG, "letterId: $letterId")
-        loveItemsViewModel.getLetterById(letterId) //Checking if specific letter should be displayed
-                .observeOnce(viewLifecycleOwner, { letter ->
-                    letter?.let {
-                        loveItemsViewModel.currentLetter = letter
-                        binding.lettersGeneratorEditText.setText(letter.text)
-                    } ?: createRandomLettersData {
-                        d(TAG, "No specific letter, generate random one and set its text")
-                        loveItemsViewModel.currentLetter = loveItemsViewModel.randomLetter()
-                        if (loveItemsViewModel.currentLetter!!.text.isEmpty()) {
-                            Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
-                        }
-                        d(TAG, "generated letter text: ${loveItemsViewModel.currentLetter?.text}")
-                        binding.lettersGeneratorEditText.setText(this.loveItemsViewModel.currentLetter?.text)
-                    }
-                })
+        val observer: Observer<LoveLetter> = Observer { letter ->
+            letter?.let {
+                loveItemsViewModel.currentLetter = letter
+                binding.lettersGeneratorEditText.setText(letter.text)
+            } ?: createRandomLettersData {
+                d(TAG, "No specific letter, generate random one and set its text")
+                loveItemsViewModel.currentLetter = loveItemsViewModel.randomLetter()
+                if (loveItemsViewModel.currentLetter!!.text.isEmpty()) {
+                    Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
+                }
+                d(TAG, "generated letter text: ${loveItemsViewModel.currentLetter?.text}")
+                binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+            }
+        }
+        loveItemsViewModel.getLetterById(letterId).observeOnce(viewLifecycleOwner, observer) //Checking if specific letter should be displayed
     }
 
     private fun createRandomLettersData(onCompletion: () -> Unit = {}) {
