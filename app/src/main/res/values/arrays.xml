@@ -564,14 +564,61 @@
         <item name="letter_45">
             My beautiful flower,
             \n\n
-            I send you lots of Artichoke hearts so you know how much I love you. And if there's anything that get on your nerves,
- שולח לך מלא לבבות של ארטישוק שתדעי כמה אני אוהב אותך. ואם יש איזשהם דברים לך על העצבים 🐢 - פשוט תתני להם חסה ואל תדאגי, אני תמיד כאן בשבילך ורוצה שיהיה לנו טוב.
+            I send you lots of Artichoke hearts so you know how much I love you. And if there's anything that pisses you off, just flush out the water and don't worry, I'm always here
+            for you and wishing only good for us both.
             \n\n
-            הגבר שלך
+            Your man
+<!-- שולח לך מלא לבבות של ארטישוק שתדעי כמה אני אוהב אותך. ואם יש איזשהם דברים לך על העצבים 🐢 - פשוט תתני להם חסה ואל תדאגי, אני תמיד כאן בשבילך ורוצה שיהיה לנו טוב.
+            \n\n
+            הגבר שלך-->
+        </item>
+
+        <item name="letter_46">
+            I scream you scream we'll scream for a great relationship 🍦 \n
+            No seriously now, you're my little ice-cream and no way I share you with anybody. You're mine and mine only ;)
+            \n\n
+            Your candy seller
+<!--יש לי את הבת זוג הכי טובה, הכי טובה ומשובחה, קנו ממנה ילדים, קוקו-אה-אה. לא באמת מאמי, אין מצב שאני מתחלק בך עם אף אחד את המשובחה שלי ושלי בלבד! 🍦
+            מוכר הגלידת שלך-->
         </item>
 
 
+        <item name="letter_47">
+            I make a 10% annual return on my relationship!\n
+            That's what I said to our investment Advisor during our meeting. He stared at me with the look of 'Where is the closest mental institution to your residence?' \n
+            I saw the apprehension in his eyes and told him with a smile 'You didn't get me right. Every year I become a 10% better person thanks to my partner.'
+            We didn't come out with a million-dollar investment out of this meeting, but on every occasion such as the one described above (imaginary or not), I get a better sense of how much
+            you mean for me and how much light you bring into my life.
+            \n\n
+            Your investor 📈
 
+<!--אני עושה על הזוגיות שלי 10% תשואה בשנה! כך אמרתי ליועץ ההשקעות שלנו בשיחה אישית. הוא הסתכל עליי במבט של \'\היכן בית החולים הקרוב לביתך?\'\, אבל אני ראיתי את החשש בעיניו,
+          ואמרתי לו \'\לא הבנת. בכל שנה אני נהיה אדם טוב יותר ב10% בזכות בת הזוג שלי\'\ וחייכתי בקלילות.
+          לא יצאה איזו השקעה של מיליונים מאותה פגישה, אבל בכל מאורע כזה, ולא אכפת לי שהוא דמיוני, אני יודע יותר ויותר כמה את משמעותית ומביאה אור לתוך החיים שלי...
+                   \n\n
+            המשקיע שלך 📈-->
+        </item>
+
+        <item name="letter_48">
+            To the most special girl,
+            \n\n
+            It's never too late to appreciate the great woman I have. I got during this life the gift of being with you and our relationship makes me stronger
+            and gives me a warm place to come back to after a long day.\n
+            This isn't a physical place, It's not full of things I bought, and doesn't have a real estate value. Instead, it has one gorgeous woman to give and receive love, and
+            That's what really makes a difference.
+            \n\n
+            Love,\n
+            Me
+
+
+     <!--       לבחורה הכי מיוחדת,
+            \n\n
+          אף פעם לא מאוחר מידי להעריך את האישה הטובה שיש לי. זכיתי בחיים האלו להיות איתך והקשר שלנו מחזק אותי, נותן לי מקום חם לחזור אליו אחרי יום ארוך.
+            זהו איננו מקום פיזי, הוא לא מלא בחפצים ואין לו שווי נדל\"\ני, אך יש בו אישה מהממת אחת כדי לתת ולקבל אהבה, וזה מה ששווה באמת.
+            \n\n
+            אוהב \n
+            אני-->
+        </item>
 
 
     </string-array>
