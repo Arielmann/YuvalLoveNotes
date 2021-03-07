@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Reply Preference -->
     <string-array name="onboarding_page_titles">
         <item>Letters</item>
@@ -46,7 +46,7 @@
            <item name="letter_1">
             Baby,
             \n\n
-            Just wanted to say thank you for who you are, I\'m grateful for what you bring into my life, I\'m grateful for our relationship, and grateful for myself for choosing you.
+            Just wanted to say thank you for who you are. I'm grateful for what you bring into my life, I'm grateful for our relationship, and grateful for myself for choosing you.
             \n\n
             Your man
         </item>
@@ -54,7 +54,7 @@
         <item name="letter_2">
             Sweetie,
             \n\n
-            Even if I don\'t tell you this every single day, I want you to know that you are a big, shining light in my life.
+            Even if I don't tell you this every single day, I want you to know that you are a big, shining light in my life.
             \n\n
             Me
         </item>
@@ -62,7 +62,7 @@
         <item name="letter_3">
             Honey,
             \n\n
-            I\'m happy to have you with me because we have a special bond. I know this because I can feel it. The world is full in opportunities and distractions, and within all this choosing you was one of the wisest things I\'ve done.
+            I'm happy to have you with me because we have a special bond. I know this because I can feel it. The world is full of opportunities and distractions, and within all this choosing you was one of the wisest things I've done.
             \n\n
             BIG LOVE 💜
         </item>
@@ -70,7 +70,7 @@
         <item name="letter_4">
             Princess,
             \n\n
-            We have been through so many things, joy and difficulties and pleasure and pain. When I look backward and see how much you\'ve taught me about myself, all I have left is to thank you.
+            We have been through so many things, joy and difficulties and pleasure and pain. When I look backward and see how much you've taught me about myself, all I have left is to thank you.
             \n\n
             Waiting for you
         </item>
@@ -78,7 +78,7 @@
         <item name="letter_5">
             Sugar,
             \n\n
-            When was the last time I told you that you\'re beautiful? Actually, it doesn\'t matter, it\'s always a good time to tell you this again :)
+            When was the last time I told you that you're beautiful? You know what, it doesn't matter, it's always a good time to tell you this again :)
             \n\n
             Your guy
         </item>
@@ -86,7 +86,7 @@
         <item name="letter_6">
             Baby,
             \n\n
-            Our love is a beautiful thing, deep and beautiful. It\'s a cozy home to return to after a long day and a source of power to move on. I want you to always remember that you are the good energy of my life.
+            Our love is a beautiful thing, deep and beautiful. It's a cozy home to return to after a long day and a source of power to move on. Always remember that you are the good energy of my life.
             \n\n
             Love you 💜
         </item>
@@ -94,7 +94,7 @@
         <item name="letter_7">
             Sunshine,
             \n\n
-            I want you to remember that there is always something beautiful in your smile and that this beauty radiates on your whole environment. When you read this
+            I want you to know that there is always something beautiful in your smile and that this beauty radiates on your whole environment. When you read this
             sentence and smile to yourself, know that another little light is entering this world.
             \n\n
             Waiting for you, always 🌸
@@ -104,7 +104,7 @@
         <item name="letter_8">
             Doll,
             \n\n
-            You bring happiness into my life and also stability and a sense of home, a warm place to return to. And it's good, it's just good to know that you're by my side.
+            You bring happiness into my life and stability and a sense of home, a warm place to return to. And it's just good to know that you're by my side.
             \n\n
             Love and appreciate ❤
             <!--את מביאה שמחה לתוך החיים שלי וגם יציבות ותחושה של בית ומקום חם לחזור אליו. זה כיף, פשוט כיף לדעת שאת איתי.-->
@@ -113,7 +113,7 @@
         <item name="letter_9">
             Darlin',
             \n\n
-            Regardless of how many times I told you I love you, it's always a good time to say it again :)
+            Regardless of how many times I told you I love you, it's always a good time to repeat the message :)
             \n\n
             Your man
             <!--מבלי קשר לכמות הפעמים שאמרתי לך שאני אוהב אותך, זה תמיד זמן טוב להגיד לך פעם נוספת :)-->
@@ -122,7 +122,7 @@
         <item name="letter_10">
             Gorgeous,
             \n\n
-            After all, it's very simple, I chose you because I feel good with you. You're a source of inspiration and power in my life and I simply love it when we are together.
+            After all, it's a simple thing -  I chose you because I feel good with you. You're a source of inspiration and power in my life and I simply love it when we are together.
             \n\n
             With love ❤
          <!--   בסוף זה נורא פשוט, אני איתך כי טוב לי איתך, כי את מקור של השראה וכוח בחיים שלי, וכי אני פשוט אוהב שאנחנו יחד.-->
@@ -131,7 +131,7 @@
         <item name="letter_11">
             My soulmate,
             \n\n
-            Every relationship has its complexity, its challenges, and its beauty, I want you to know that I'm with you in this completely. I chose you to walk a long road, and I know that in the end we'll both be better people simply by walking it together.
+            Every relationship has its complexity, its challenges, and its beauty. I want you to know that I'm with you in this completely. I chose you to walk a long road, and I know that in the end we'll both be better people simply by walking it together.
             \n\n
             Happy that we chose each other
             <!--לכל מערכת היחסים יש את המורכבות שלה, האתגרים שלה והיופי שלה. אני איתך גם בזה וגם בזה. בחרתי בך כי טוב לי איתך, ומעבר לכך, כי את הופכת אותי לאדם טוב הרבה יותר.-->
@@ -142,7 +142,7 @@
             \n\n
             I was very happy to wake up in the morning with you and I can't wait to snuggle with you again tonight.
             \n\n
-            Waiting for you...
+            Waiting for you…
         </item>
 
         <item name="letter_13">
@@ -155,9 +155,9 @@
         </item>
 
         <item name="letter_14">
-            To the pretty woman who walk down my street,
+            To the pretty woman who walks down my street,
             \n\n
-            You're a source of goodness and pleasure in my life and I've learned from you a lot. Even if sometimes my presence is weaker, remember that our relationship
+            You're a source of goodness and pleasure in my life and I've learned a lot from you. Even if sometimes my presence is weaker, remember that our relationship
             is a blessing to both of us.
             \n\n
             You man
@@ -196,10 +196,8 @@
             </item>
 
         <item name="letter_16">
-                  To be inside you is a moment of exaltation, as the world becomes transparent and there's only us, connected in the union of hearts. I will always cherish these
-                      moments when you remind me without words the thing that I desire the most,
-                      more than any goal I set, big or small. I will always want to come back to you at the end of the day and
-                      this is what this effort is all about. \n\n
+                  To be inside you is a moment of exaltation, as the world becomes transparent and there's only us, connected in the union of hearts. I will always cherish these moments when you remind me without words the thing that I desire the most,
+                      more than any goal I set, big or small. I will always want to come back to you at the end of the day and this is what this effort is all about. \n\n
                       \n\n
                       For many more years of passion ❤
                       <!--         להיות בתוכך זה רגע של התעלות, כשהעולם נעלם באור שקוף ונשארים רק שנינו, מחוברים באיחוד של לבבות. תמיד אנצור לך את הרגעים האלו, כשאת מזכירה לי ללא מילים את הדבר שאני כל כך חושק בו, מעבר לכל מטרה קטנה וגדולה שאציב לעצמי. בסופו של כל יום אני רוצה לחזור אלייך וזו גם הסיבה לכל המאמץ שאני משקיע שם בחוץ, כדי שיהיה מקום לשוב אליו ולהיות איתך.-->
@@ -210,11 +208,11 @@
             Commitment.\n \n
 
             Commitment is the frame for our relationship, its source of stability and anchor for the
-            passion and intimacy we've built. I'm committed to you out of choice, and know that it is
-            one of th greatest gists we hand to one another. I want you to remember that your'e a source of
+            passion and intimacy we've built. I'm committed to you out of choice and know that it is
+            one of the greatest gifts we hand to one another. I want you to remember that you're a source of
             confidence in my life, a physical and emotional home to return to.
             \n \n
-            For many more years of commitment,
+            For many more years of commitment,\n
             Your prince
 
 <!--               מחויבות. זוהי המסגרת של הקשר שלנו, מה שנותן יציבות
@@ -228,10 +226,10 @@
             /n/n
             Intimacy is the ability to honestly share my inner world and listen fully to what you share yourself.\n
             Intimacy is a major piece of what we've built, it's an emotional commitment. \n
-            When we dwell in it I accept you the way you are, and you do the same for me. And when our emotional
+            When we dwell in it I accept you the way you are, and you do the same for me. When our emotional
             needs get fulfilled our love strengthens.
              /n/n
-            For many more years of intimacy,
+            For many more years of intimacy,/n
             Your man
 <!--           אינטימיות. אינטימיות היא היכולת לשתף את הקישקעס שלי בכנות ולהקשיב באופן מלא לשיתופים שלך.
             האינטימיות היא חלק מרכזי בקשר שלנו, המחוביות הרגשית הזו. בתוך האינטימיות אני מקבל אותך
@@ -241,20 +239,20 @@
         <item name="letter_19">
             Baby,
             \n\n
-            There are many reasons why I love being with you. For example, when you make food I love feeling throughout the tastes that you care about me and that I'm important for you, and want you
-            to know that you're important to me as well.
+            There are many reasons why I love being with you. For example, when you make food I love feeling throughout the tastes that you care about me and that I'm important for you. I want you
+            to know how much you're important to me as well.
             \n\n
-            Happy that you are with me :)
+            Happy that we are together :)
             <!--כיף לי איתך בגלל כל מיני דברים. למשל כשאת מכינה לי אוכל אני אוהב להרגיש דרך הטעמים שאכפת לך ממני ושאני חשוב לך, ורוצה שתדעי שגם את חשובה לי.-->
         </item>
 
         <item name="letter_20">
             Nugget,
             \n\n
-            It feels good to wake uo with you in the morning. Even when your hair is messy and your voice tone is sleepy, you're always my beauty.
-<!--            כיף לי כשאני מתעורר איתך בבוקר. גם כשהשיער מפוזר והקול ישנוני, את תמיד היפה שלי.-->
+            It feels good to wake up with you in the morning. Even when your hair is messy and your voice tone is sleepy, you're always my beauty.
             \n\n
             Lost of hearts ❤❤
+<!--            כיף לי כשאני מתעורר איתך בבוקר. גם כשהשיער מפוזר והקול ישנוני, את תמיד היפה שלי.-->
         </item>
 
         <item name="letter_21">
@@ -262,7 +260,7 @@
             \n\n
             Just wanted you to know that I'm very thankful for our relationship. You're a special woman with depth and wisdom and it's a great privilege to be with you.
             \n\n
-            Always with you ✨
+            Your man ✨
 <!--            תדעי שאני אומר תודה על הקשר שלנו. את אישה מיוחדת עם עומק וחוכמה וזו זכות גדולה להיות איתך.-->
         </item>
 
@@ -302,7 +300,7 @@
             Babe,
             \n\n
             The president just called and invited us to the next cabinet meeting to present our relationship as a representative sample of good people
-            that love being with each other. I told him we've already scheduled a date but we can make an appointment next week. Nobody will take the fun from us 😘
+            that love being with each other. I told him we've already scheduled a date but can make an appointment next week. Nobody will take the fun from us 😘
             \n\n
             With love,\n
             Your very connected guy ;)
@@ -322,7 +320,7 @@
         <item name="letter_27">
             Miss beauty,
             \n\n
-            I wrote a song for you and put it on the drawer. When I entered the room again it magically disappeared. And then I thought to myself that it's not that bad, because I've got this app to tell you how wonderful you are
+            I wrote a song for you and put it in the drawer. When I entered the room again it magically disappeared. And then I thought to myself that it's not that bad, because I've got this app to tell you how wonderful you are
             \n\n
             Love you,\n
             Me
@@ -342,7 +340,7 @@
         <item name="letter_29">
             My lady,
             \n\n
-            If there were no cars I would have come to pick you up in a carriage.
+            If there were no cars in the world I would have come to pick you up in a carriage.
             And if all carriages were taken I will give you a piggyback.
             And if I'll be too old for this as well, Then we can always walk hand in hand along the road around our neighborhood
             \n\n
@@ -364,17 +362,17 @@
         <item name="letter_31">
             Beautiful,
             \n\n
-            Like they say in Gibberish: kljdsf fdalfkjhaed ldfmgds kljfdgsad mkdfgasdfk adfkja... loosely translated this means that you're always inside me and will never leave.
+            Like they say in Gibberish: kljdsf fdalfkjhaed ldfmgds kljfdgsad mkdfgasdfk adfkja… loosely translated this means that you're always inside me and will never leave.
             \n\n
             Forever yours ;)
-           <!--כמו שאומרים בג\'\יבריש: גכעלחי ךףחדלגכ ילחךגכע ךףלגדכ יחלכג. ובתרגום חופשי: את תמיד איתי בפנים ולעולם לא תעזבי.-->
+            <!--כמו שאומרים בג\'\יבריש: גכעלחי ךףחדלגכ ילחךגכע ךףלגדכ יחלכג. ובתרגום חופשי: את תמיד איתי בפנים ולעולם לא תעזבי.-->
         </item>
 
 
         <item name="letter_32">
             Sweetheart,
             \n\n
-            In the end of the road, when we'll be old, we'll sit together to a round solid wood table and drink raspberry based wine, maybe we'll also play bridge, who knows? The most important thing is that we'll do this together.
+            At the end of the road, when we'll be old, we'll sit together at a round solid wood table and drink raspberry-based wine, maybe we'll also play bridge, who knows? The most important thing is that we'll do this together.
             \n\n
             With love, \n
             Your future old man 🧃
@@ -384,7 +382,7 @@
         <item name="letter_33">
             Sunshine,
             \n\n
-            Justin Bieber wrote in one of his songs, that being with you is like doing an academic degree in Love. Ok, he didn't really write this, but I can imagine him doing so :).
+            Justin Bieber wrote in one of his songs, that being with you is like doing an academic degree in Love. OK he didn't really write this, but I can imagine him doing so :)\n
             That way or another, I feel that life beside you are my big university to the professions of love, and that in the end I won't get a degree, but the smile you have on your face after living a life worth the effort.
             \n\n
              Your educated man 🎓
@@ -396,8 +394,8 @@
         <item name="letter_34">
             To my beautiful woman,
             \n\n
-            I love you like the gardner loves his flower, like the jeweler loves his jewelry, like the poet loves his songs, like accountant loves his yearly reports, like the painter loves his white walls, like a child loves his smartphone..
-            Well you get the point, and it also loves the sentence which is written in. That way or another, you're very important to me and our relationship is here to stay, like a beautiful sculpture that has been with us for many years
+            I love you like the gardener loves his flower, like the jeweler loves his jewelry, like the poet loves his songs, like accountant loves his yearly reports, like the painter loves his brushes, like a child loves his smartphone..
+            Well you get the point, and it also loves the sentence in which it's written. That way or another, you're very important to me and our relationship is here to stay, like a beautiful sculpture that has been with us for many years
             (and the sculptor really loves 😉)
             \n\n
             Yours truly, \n
@@ -408,7 +406,7 @@
         </item>
 
         <item name="letter_35">
-            קושקושית,
+            Lollipop,
             \n\n
             Our love is like the oceans, filled with many great things. It has waves, sometimes calm and other times stormy, and also foam and sand and a popsicles seller walking around making
             children happy, and everything is important and has its place. Our relationship is deep, meaningful, and colorful and I'm happy that we share it together.
@@ -419,25 +417,34 @@
             הקשר שלנו משמעותי, עמוק ומגוון, ואני שמח שאנחנו חולקים אותו יחד.        -->
         </item>
 
-      <!--  <item name="letter_36">
-            בובונת,
+        <item name="letter_36">
+
+            The beaver - builds dams \n
+            The turtle - has an entire house on its back \n
+            The pigeon - sent our mail for thousands of years \n
+            And in this relationship, I sometimes feel what it's like to be them. Sometimes I build, sometimes I take my time, and sometimes I send you letters. That way or another, everything I do within it I try
+            to make with great love and commitment.
+            \n\n
+            You're very important to me and I'm proud of what we've built throughout the time ❤
+
+<!--            בובונת,
             \n\n
        בוב הבנאי - אדריכל בחסד. \n
             סמי הכבאי - מציל חיים. \n
              \n .דר דוור - מחלק דואר
              ובקשר שלנו גם אני כמוהם. לפעמים בונה, לפעמים מכבה שרפות, ולפעמים שולח לך מכתבים, אבל הכל הכל עושה מתוך מחויבות ואהבה גדולה.
             \n\n
-           תמיד איתך ❤
-        </item>-->
+           תמיד איתך ❤-->
+        </item>
 
         <item name="letter_37">
             Buttercup,
             \n\n
-            When you feel beautiful I also become more beautiful, and when you smile I also do. Your light and the motion of your moods radiates on mine, and your emotional
+            When you feel beautiful I also become more beautiful, and when you smile I also do. Your light and the motion of your moods radiates on mine, and my emotional
             world is connected with yours in a way that is saved for lovers. That is why it's so important to me that you'll be happy and fulfilled, because what's yours is mine and vice versa,
             and that's why I'm always here for you.
             \n\n
-           Always with you ❤
+           Me ❤
 
 <!--   כשאת יפה גם אני יפה יותר, וכשאת מחייכת גם אני מחייך. האור ומצב הרוח שלך מקרינים על שלי ועולמי הרגשי קשור אל שלך באופן השמור לאוהבים.
             לכן גם חשוב לי כל כך שתהיי מאושרת ומוגשמת, שהרי מה ששלך שלי ולהיפך, ולכן אני תמיד כאן בשבילך.
@@ -449,9 +456,9 @@
             Darling,
             \n\n
             The door was locked by a mysterious spell and the princess had no choice but to dangle her long, beautiful hair through the window and all the way down. \n
-            And then, in a flash of wisdom coming from a deep dream the prince shouted: "No need to go crazy, I have a better solution". He got out of his car a ladder
-            he bought in the tool shop on climbed all the way to her. So we might not always be doing this by the book, but I'm always and will always keep looking for the
-            right way to get to your, my princess :)
+            And then, in a flash of wisdom that seemed to be rising from a deep dream, the prince shouted: "No need to go crazy, I have a better solution". He got out of his car a ladder
+            he bought in the tool shop on climbed all the way to her. \n So we might not always be doing this by the book, but I'm always and will always keep looking for the
+            right way to get to your heart, my princess :)
             \n
             Your modern knight in shiny armor ⚔️
 
@@ -467,14 +474,15 @@
             Update:
             \n
             I had a few errands in town today and I also went to the municipality to fill a form for getting an
-            "I love my woman diploma". They've asked me why I love her, I told them that she is wonderful and that ever since she came into my life
+            "I love my woman diploma". They've asked me why I love you. I told them that you're wonderful and that ever since you came into my life
             they are soooo much better. The official smiled and issued it on for me on the spot.
             \n\n
-            Its validation is forever :)
+            It's valid forever :)
 
           <!--  עדכון קטן:
             \n\n
-היו לי סידורים בעיר היום והלכתי גם למשרד הפנים, ביקשתי טופס כדי להוציא תעודה שמראה שאני אוהב את האישה שלי. שאלו אותי שם למה אני אוהב אותה, אמרתי להם שהיא נפלאה ושמאז שהיא בחיים שלי הם כל כך הרבה יותר טובים. הפקיד חייך והנפיק לי את זה במקום :)
+היו לי סידורים בעיר היום והלכתי גם למשרד הפנים, ביקשתי טופס כדי להוציא תעודה שמראה שאני אוהב את האישה שלי.
+ שאלו אותי שם למה אני אוהב אותה, אמרתי להם שהיא נפלאה ושמאז שהיא בחיים שלי הם כל כך הרבה יותר טובים. הפקיד חייך והנפיק לי את זה במקום :)
             \n\n
           היא בתוקף לנצח :)-->
         </item>
@@ -483,8 +491,8 @@
             Imagine the following situation baby:
             \n\n
             The two of us are sitting comfortably on the deck of a ship on its way to the Caribbeans. The wind blows our air, fish are jumping all around. A waiter comes to serve some Pin‎a Colada and suddenly he falls
-            on the floor and spills the beverage on our feet. Is it good or bad? well depends on how you look at it :) \n The point is that our relationship has a lot of beauty and power to it, and even if it's not perfect it doesn't have to be, It's
-            good the way it is and that's the way I like it.
+            on the floor and spills the beverage on our feet. Is it good or bad? Depends on how you look at it :) \n The point is that our relationship has a lot of beauty and power to it, and even if it's not perfect it doesn't have to be.
+            It's good the way it is and that's the way I like it.
             \n\n
             Love you ❤
         <!--    דמייני את הסיטואציה מאמי:
@@ -513,10 +521,10 @@
 
         <item name="letter_42">
             All rights over this relationship are reserved to us ©. You may not copy, distribute, intervene, gossip, fight, make a selfie,
-            leave hair in the shower, bring a dog, or buy an apartment without prior written permission of the publishers. Notwithstanding the above,
+            leave hair in the shower, adopt a cat, or buy an apartment without prior written permission of the publishers. Notwithstanding the above,
             you may love without limitation and write your partner how much you love being with her.
             \n\n
-            For further information please leave your details and our representative will contact you shortly ❤
+            For further information, please leave your details and our representative will contact you shortly ❤
 
 
        <!--     כל הזכויות על הקשר הזה שמורות לנו ©. אין להעביר, להעתיק, להתערב, לרכל, לריב, לעשות סלפי,
@@ -528,8 +536,8 @@
 
         <item name="letter_43">
             Sunshine,
-
-            Our political journalist reports that the 28 amendment to the constitution: 'Love'
+            \n\n
+            Our political journalist reports that the new amendment to the constitution: 'Love'
             had become an operative part of the constitution. All couples are required to express their affection
             towards one another or their relationship will be forwarded to the lovers-exceptions committee for a hearing.
             That was the opening headline of all national newspapers, luckily I don't need this to tell you that
@@ -544,12 +552,10 @@
         <item name="letter_44">
             Sweetie,
             \n\n
-            מתוקה שלי,
-
             When I traveled forward in time to the year 3010, people didn't need to touch each other
             because they could enter a relationship through Augmented reality and choose with a frighting amount of accuracy
             the looks and character of their virtual partner. \n
-            And I thought to myself: I'm so lucky to be here with you and love you the way you are, with everything that's inside 🌸
+            And I thought to myself: I'm so lucky to be here with you and love you the way you are, with no need of any virtual reality 🌸
             \n\n
             Yours, today and in 3010
 <!--
@@ -575,7 +581,7 @@
 
         <item name="letter_46">
             I scream you scream we'll scream for a great relationship 🍦 \n
-            No seriously now, you're my little ice-cream and no way I share you with anybody. You're mine and mine only ;)
+            You're my little ice-cream and no way I share you with anybody. You're mine and mine only ;)
             \n\n
             Your candy seller
 <!--יש לי את הבת זוג הכי טובה, הכי טובה ומשובחה, קנו ממנה ילדים, קוקו-אה-אה. לא באמת מאמי, אין מצב שאני מתחלק בך עם אף אחד את המשובחה שלי ושלי בלבד! 🍦
@@ -604,13 +610,11 @@
             \n\n
             It's never too late to appreciate the great woman I have. I got during this life the gift of being with you and our relationship makes me stronger
             and gives me a warm place to come back to after a long day.\n
-            This isn't a physical place, It's not full of things I bought, and doesn't have a real estate value. Instead, it has one gorgeous woman to give and receive love, and
+            This isn't a physical place, it's not full of things I've bought and doesn't have a real estate value. Instead, it has one gorgeous woman to give and receive love, and
             That's what really makes a difference.
             \n\n
             Love,\n
             Me
-
-
      <!--       לבחורה הכי מיוחדת,
             \n\n
           אף פעם לא מאוחר מידי להעריך את האישה הטובה שיש לי. זכיתי בחיים האלו להיות איתך והקשר שלנו מחזק אותי, נותן לי מקום חם לחזור אליו אחרי יום ארוך.
@@ -621,10 +625,65 @@
         </item>
 
 
+        <item name="letter_49">
+            Babe,
+            \n\n
+            Just wanted to say that I had a good time being with you today. I'm happy that it's good for us being together and would like it to continue this way :)
+            \n\n
+            Your man
+      <!--      רק רציתי לומר שהיה לי כיף איתך היום. אני שמח שטוב לנו יחד ורוצה שככה זה יימשך :)
+            \n\n
+            הגבר שלך-->
+        </item>
+
+
+        <item name="letter_50">
+            Beautiful,
+            \n\n
+            Just wanted to say that I loved what you wore today. I love seeing you beautiful and radiating, it's something that I'll never stop admiring.
+            \n\n
+            Me
+            <!--
+            רק רציתי לומר שאהבתי את מה שלבשת היום. כיף לי לראות אותך יפה וקורנת, זה משהו שלעולם אמשיך להתפעל ממנו ☀️
+            אני-->
+        </item>
+
+        <item name="letter_51">
+            Babe,
+            \n\n
+            You're beautiful, I love you, and no other words are needed.
+            \n\n
+            Your guy ⭐
+            <!--
+            אני-->
+        </item>
+
+        <item name="letter_52">
+            Sweetie,
+            \n\n
+            What can I do for you that will make your day better? That will make you happier?
+<!--מה אני יכול לעשות עבורך היום, שיעשה את היום שלך לטוב יותר? או שיעשה אותך שמחה יותר?-->
+        </item>
+
+        <item name="letter_53">
+            Sugar,
+            \n\n
+            If you'd felt how many times you've made me smile you would be so happy.
+            If all the good things we went through together were assembled into one feeling in your heart, you would have felt completely fulfilled, flooded with our love. \n
+            It's a great blessing that we found each other.
+            <!--אם היית יודעת כמה פעמים גרמת לי לחייך היית מתרגשת.
+            אם כל הדברים הטובים שעברנו יחד היו מתקבצים לכדי הרגשה אחת בתוך ליבך, היית מרגישה מלאה לחלוטין, מוצפת באהבה שלנו.
+            זו ברכה גדולה שמצאנו זה את זו.-->
+            \n\n
+            Your man
+        </item>
+
+
+
     </string-array>
 
 
-    <string-array name="closures">
+    <string-array name="closures" tools:ignore="InconsistentArrays">
 
         <item name="closure_me">Me</item>
         <item name="closure_your_man">Your man</item>
@@ -657,9 +716,9 @@
         <item name="funny_10">אייל גולן אמר פעם שלהיות איתך זה כמו לעשות תואר ראשון באהבה. טוב הוא לא אמר את זה, זה פשוט היה מביך מידי אז הייתי חייב להפיל את זה על מישהו. אבל הכוונה אמיתית, אני באמת אוהב אותך, עם או בלי משפטי מחץ.</item>
         <item name="funny_11">אני אוהב אותך כמו שגנן אוהב את הפרח שלו, כמו שצורף אוהב את התכשיט שלו, כמו שמשורר אוהב את הפואמה שלו, כמו שרו"ח אוהב את הדוח"ות שלו, כמו שצבעי אוהב את המברשת שלו, כמו שילד אוהב את הפלאפון שלו… טוב את מבינה את הנקודה, וגם היא אוהבת את המשפט שהיא כתובה בו. כך או כך, את מאוד חשובה לי והקשר שלנו כאן כדי להישאר, כמו פסל יפה (שהפסל מאוד אוהב 😉)</item>
         <item name="funny_12">האהבה שלנו היא כמו הים, מלאה בכל טוב. יש בה גלים וקצף ואדמה ומדוזות ומוכר של ארטיקים שהולך על החול ומודיע על כך לכולם. הקשר שלנו משמעותי, עמוק ומגוון, ואני שמח שאנחנו חולקים אותו יחד.</item>
-        <item name="funny_13">בוב הבנאי - אדריכל בחסד. סמי הכבאי - מציל חיים. דר דוור - מחלק דואר. ובקשר שלנו גם אני כמוהם. לפעמים בונה, לפעמים מכבה שרפות, ולפעמים שולח לך מכתבים, אבל הכל הכל עושה מתוך מחויבות ואהבה גדולה</item>
+        <item name="funny_13" tools:ignore="Typos">בוב הבנאי - אדריכל בחסד. סמי הכבאי - מציל חיים. דר דוור - מחלק דואר. ובקשר שלנו גם אני כמוהם. לפעמים בונה, לפעמים מכבה שרפות, ולפעמים שולח לך מכתבים, אבל הכל הכל עושה מתוך מחויבות ואהבה גדולה</item>
         <item name="funny_14">אם התות היה צומח על שיח ליד הבית שלנו, הייתי מכין לך יופי של סלט פירות לעת קיץ. אבל התות צומח על עצים, אז במקום זאת אני הולך לסופר. ושמה יש המון תותים, וגם משמשים וחסה ובמבה, ומכל זה אפשר להכין סלט ממש טעים. מה הפואנטה של כל זה את שואלת? אני בסה"כ מנסה לכתוב לך שחשבתי עלייך ומחפש את המילים איך לומר לך את זה.</item>
-        <item name="funny_15">הדלת הייתה נעולה בכישוף מיוחד ולנסיכה לא הייתה ברירה אלא לשלשל את שערותיה היפות, החזקות מבעד לחלון וכל הדרך מטה. ואז, בהבזק של חוכמה שהגיעה כמו מתוך חלום עמוק, אמר לה הנסיך: "עזבי אותך מאמי סתם סיבוך", הוציא מהאוטו סולם שרכש בטמבוריה ועלה עד אליה. אז אולי אנחנו לא תמיד עושים הכל לפי הספר, אבל אני תמיד תמיד מחפש  ותמיד אמשיך לחפש את הדרך הנכונה להגיע אלייך, נסיכה שלי :)</item>
+        <item name="funny_15" tools:ignore="Typos">הדלת הייתה נעולה בכישוף מיוחד ולנסיכה לא הייתה ברירה אלא לשלשל את שערותיה היפות, החזקות מבעד לחלון וכל הדרך מטה. ואז, בהבזק של חוכמה שהגיעה כמו מתוך חלום עמוק, אמר לה הנסיך: "עזבי אותך מאמי סתם סיבוך", הוציא מהאוטו סולם שרכש בטמבוריה ועלה עד אליה. אז אולי אנחנו לא תמיד עושים הכל לפי הספר, אבל אני תמיד תמיד מחפש  ותמיד אמשיך לחפש את הדרך הנכונה להגיע אלייך, נסיכה שלי :)</item>
         <item name="funny_16">הלכתי למשרד הפנים להוציא תעודה שמראה שאני אוהב את האישה שלי. שאלו אותי שם למה אני אוהב אותך, אמרתי להם שאת נפלאה, הפקיד חייך והנפיק לי את זה במקום :)</item>
         <item name="funny_17">דמייני את הסיטואציה: שנינו יושבים על ספינה בדרך לאיים הקאריביים, הרוח בשיער, הדגים מקפצים בים סביב, ובקבוק קריסטל בצבע רדיואקטיבי על השולחן… 😅 \n הנקודה היא שיש הרבה יופי ואמת בקשר שלנו וגם אם הוא לא מושלם הוא לא צריך להיות - הוא טוב ויפה כמו שהוא ובגלל זה אני בוחר להישאר איתך בכל יום מחדש</item>
         <item name="funny_18">שכרתי לנו נגן נבל שיבוא לפרוט לך על נפלאותייך, אבל הסתבר שהוא נבל וניסה לברוח עם הכסף מבלי לפרוט לנו. בסוף היום זה לא משנה לי בכלל, כי עם או בלי מוזיקה תדעי שאני אוהב אותך כמו שאת 💜</item>
@@ -691,7 +750,7 @@
 
     <string-array name="emotional">
 
-        <item name="emotional_1">את כמו האוקיינוס ורגשותייך הם כמו הגלים. לפעמים רגועים, לפעמים גועשים, אך תמיד תמיד בתנועה, בעוצמה שאין לפקפק בה. ואני? אני פשוט גאה להיות הספינה ששטה לה על פני המים שלך.</item>
+        <item name="emotional_1" tools:ignore="Typos">את כמו האוקיינוס ורגשותייך הם כמו הגלים. לפעמים רגועים, לפעמים גועשים, אך תמיד תמיד בתנועה, בעוצמה שאין לפקפק בה. ואני? אני פשוט גאה להיות הספינה ששטה לה על פני המים שלך.</item>
         <item name="emotional_2">ליופי שלך יש זוהר מיוחד, חתימה ייחודית משלו. את קורנת מעצם קיומך, גם כשאת שמחה וגם כשאת כועסת, לא ניתן לקחת ממך את היופי הזה כי הוא טבוע בתוך מי שאת.</item>
         <item name="emotional_3">את מקור של טוב ושל עונג בחיים שלי ואני לומד ממך המון. גם אם לפעמים הנוכחות שלי חלשה יותר, תזכרי שהקשר שלנו הוא ברכה, בשבילי ובשבילך.</item>
         <item name="emotional_4">תשוקה. להיות בתוכך זה רגע של התעלות, כשהעולם נעלם באור שקוף ונשארים רק שנינו, מחוברים באיחוד של לבבות. תמיד אנצור לך את הרגעים האלו, כשאת מזכירה לי ללא מילים את הדבר שאני כל כך חושק בו, מעבר לכל מטרה קטנה וגדולה שאציב לעצמי, אני תמיד ארצה בסוף לחזור אל האהבה שמחברת אותנו.</item>
