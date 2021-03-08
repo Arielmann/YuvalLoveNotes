@@ -1,10 +1,13 @@
 package subtext.yuvallovenotes.crossapplication.database.initialdataset
 
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
+import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 
 internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
+
+    private val letters: MutableList<LoveLetter> = mutableListOf()
 
     private val openers: MutableList<LoveOpener> = mutableListOf(
             LoveOpener("C48DB3DD-AFA7-4749-9FA9-A5109B98B958", "קסם שלי,"),
@@ -146,22 +149,33 @@ internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
             LoveClosure("MORE6330-5L96-1D23-6GDB-489590B565F4", "התנור שלך ;-)"))
 
     init {
-        openers.addAll(DefaultLoveDataSet.getOpeners())
-        phrases.addAll(DefaultLoveDataSet.getPhrases())
-        phrases.addAll(DefaultLoveDataSet.getPhrases())
-        closures.addAll(DefaultLoveDataSet.getClosures())
+        letters.addAll(DefaultLoveDataSet.getLetters())
+        phrases.forEach(){
+            letters.add(generateRandomLetter(it))
+        }
+    }
+
+    private fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
+        var text = ""
+        var opener = LoveOpener()
+        var closure = LoveClosure()
+
+        opener = openers.randomOrNull() ?: opener
+        text = text.plus(opener.text + "\n\n")
+
+        text = text.plus(lovePhrase.text + "\n\n")
+
+        closure = closures.randomOrNull() ?: closure
+        text = text.plus(closure.text + "\n\n")
+
+        val id = opener.id.plus(lovePhrase.id).plus(closure.id)
+
+        val letter = LoveLetter(id, text)
+        return letter
     }
 
 
-    override fun getOpeners(): MutableList<LoveOpener> {
-        return openers
-    }
-
-    override fun getPhrases(): MutableList<LovePhrase> {
-        return phrases
-    }
-
-    override fun getClosures(): MutableList<LoveClosure> {
-        return closures
+    override fun getLetters(): MutableList<LoveLetter> {
+        return letters
     }
 }

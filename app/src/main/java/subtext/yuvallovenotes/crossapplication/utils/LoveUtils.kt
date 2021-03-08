@@ -2,13 +2,17 @@ package subtext.yuvallovenotes.crossapplication.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.LocaleList
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
 import androidx.annotation.ArrayRes
+import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -146,5 +150,19 @@ object LoveUtils {
     @SuppressLint("HardwareIds")
     fun getDeviceId(): String {
         return Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID).toString()
+    }
+
+    fun setLocale(language: String, country: String) {
+        val locale = Locale(language, country)
+        // here we update locale for date formatters
+        Locale.setDefault(locale)
+        // here we update locale for app resources
+        val context: Context = YuvalLoveNotesApp.context
+        val res: Resources = context.resources
+        val config: Configuration = res.configuration
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            config.setLocales(LocaleList(locale))
+        }
+        res.updateConfiguration(config, res.displayMetrics)
     }
 }

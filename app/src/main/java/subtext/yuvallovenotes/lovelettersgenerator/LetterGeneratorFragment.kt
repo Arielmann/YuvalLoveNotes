@@ -14,7 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
+import com.google.android.gms.ads.interstitial.InterstitialAd
 import io.sentry.Sentry
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.BuildConfig
@@ -23,7 +23,6 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
-import com.google.android.gms.ads.interstitial.InterstitialAd
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
 
 
@@ -141,7 +140,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun createRandomLettersData(onCompletion: () -> Unit = {}) {
-        loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, { letters ->
+        loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, Observer<MutableList<LoveLetter>> { letters ->
             d(TAG, "Love items size: ${letters?.size}")
             onCompletion.invoke()
         })
@@ -254,4 +253,6 @@ class LetterGeneratorFragment : Fragment() {
         loveItemsViewModel.deleteLetterIfEmpty(loveItemsViewModel.currentLetter)
     }
 }
+
+
 

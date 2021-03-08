@@ -44,7 +44,7 @@ class LoveItemsRepository {
         loveDao.insertAllLoveLetters(letters)
     }
 
-    fun getAllLocalDBLoveLetters(): LiveData<MutableList<LoveLetter>> {
+    fun getAllLocalDBLoveLetters(): LiveData<MutableList<LoveLetter>?> {
         return loveDao.getAllLoveLetters()
     }
 
@@ -122,6 +122,10 @@ class LoveItemsRepository {
 
     fun getLovePhraseByIdSync(phrase: LovePhrase): LovePhrase? {
         return loveDao.getLovePhraseByIdSync(phrase.id)
+    }
+
+    fun uploadLetters(letters: List<LoveLetter>){
+        loveLettersNetworkService.uploadLetters(letters)
     }
 
     fun requestLoveLettersFromServer(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {

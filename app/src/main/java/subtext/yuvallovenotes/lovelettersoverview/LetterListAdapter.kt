@@ -104,8 +104,10 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
             }
             if (letter.isCreatedByUser) {
                 binding.letterListViewHolderWrittenByUserIconIV.setImageResource(R.drawable.icon_letters_written_by_user_orange)
+                binding.letterListViewHolderWrittenByUserIconIV.visibility = View.VISIBLE
             } else {
                 binding.letterListViewHolderWrittenByUserIconIV.setImageDrawable(null)
+                binding.letterListViewHolderWrittenByUserIconIV.visibility = View.GONE
             }
         }
 

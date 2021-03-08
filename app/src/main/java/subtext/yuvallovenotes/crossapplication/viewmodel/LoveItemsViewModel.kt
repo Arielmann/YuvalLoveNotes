@@ -37,7 +37,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
-    internal var loveLetters: LiveData<MutableList<LoveLetter>> = MutableLiveData()
+    internal var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
     var currentLetter: LoveLetter? = null
         set(value) {
             if (!value?.id.isNullOrBlank()) {
@@ -226,8 +226,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     fun openWhatsapp(context: Context, text: String) {
         d(TAG, "Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
-        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "")
-                ?: ""
+        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "") ?: ""
         sendWhatsapp.send(context, phoneNumber, text)
     }
 

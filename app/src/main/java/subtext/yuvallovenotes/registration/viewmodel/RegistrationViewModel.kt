@@ -111,6 +111,7 @@ class RegistrationViewModel : ViewModel() {
             viewModelScope.launch(Dispatchers.IO) {
                 loveItemsRepository.insertAllLoveLetters(response)
             }
+
             sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), true).apply()
 
             if (allRegistrationProcessesFinished()) {

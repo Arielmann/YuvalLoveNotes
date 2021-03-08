@@ -1,6 +1,7 @@
 package subtext.yuvallovenotes.crossapplication.network
 
 import android.content.SharedPreferences
+import android.util.Log
 import android.util.Log.*
 import com.backendless.Backendless
 import com.backendless.BackendlessUser
@@ -8,9 +9,13 @@ import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
 import com.backendless.push.DeviceRegistrationResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.database.initialdataset.DefaultLoveDataSet
 import subtext.yuvallovenotes.crossapplication.models.localization.Language
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
@@ -29,7 +34,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
      * @param callback A callback for notify the caller about the operation status
      */
     override fun registerUser(user: UnRegisteredLoveLettersUser, callback: NetworkCallback<LoveLettersUser>) {
-
+        d(TAG, "Registering user")
         Backendless.UserService.register(user.toBackendlessUser(), object : AsyncCallback<BackendlessUser> {
             override fun handleResponse(response: BackendlessUser?) {
                 if (response != null) {
@@ -51,7 +56,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
     }
 
     override fun registerDeviceToPushNotificationsService(channels: List<String>?, callback: NetworkCallback<DeviceRegistrationResult>?) {
-
+        d(TAG, "Registering device")
         var finalChannels = mutableListOf<String>()
 
         if (channels.isNullOrEmpty()) {
@@ -121,4 +126,19 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
         })
     }
 
+    override fun uploadLetters(letters: List<LoveLetter>) {
+        GlobalScope.launch(Dispatchers.IO) {
+            Backendless.Data.of(LoveLetter::class.java).create(letters, object : AsyncCallback<List<String>?> {
+
+                override fun handleResponse(response: List<String>?) {
+                    i(TAG, "Objects have been saved")
+                }
+
+                override fun handleFault(fault: BackendlessFault) {
+                    i(TAG, "Server reported an error $fault")
+                }
+
+            })
+        }
+    }
 }

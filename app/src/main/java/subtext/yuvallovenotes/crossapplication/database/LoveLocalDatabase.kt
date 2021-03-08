@@ -5,6 +5,7 @@ import android.util.Log.d
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -22,7 +23,8 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 7, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 8, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class LoveLocalDatabase : RoomDatabase() {
 
     abstract fun loveDao(): LoveDao
@@ -36,7 +38,6 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         private fun inferDataSet(): InitialLettersDataSet {
             val deviceId = LoveUtils.getDeviceId()
             if(deviceId == BuildConfig.ARIEL_DEVICE_ID) {
-            //Todo: cleanup
                 return ArielDefaultLoveDataSetInitial
             }
             return DefaultLoveDataSet
@@ -68,7 +69,6 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         private fun onDatabaseCreated() {
             INSTANCE?.let { database ->
                 d(TAG, "Instance created, checking if initial population required")
-
                 val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
                 GlobalScope.launch(Dispatchers.IO) {
 //                    db.loveDao().deleteAllLoveLetters()
@@ -76,7 +76,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
                         d(TAG, "Populating letters list")
-                        populateLettersList(database)
+//                        populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
                     } else {
                         d(TAG, "Initial database population is not required")
@@ -85,7 +85,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             }
         }
 
-        private fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
+/*        private fun generateRandomLetter(lovePhrase: LovePhrase): LoveLetter {
             var text = ""
             var opener = LoveOpener()
             var closure = LoveClosure()
@@ -102,15 +102,15 @@ abstract class LoveLocalDatabase : RoomDatabase() {
 
             val letter = LoveLetter(id, text)
             return letter
-        }
+        }*/
 
-        private fun populateLettersList(db: LoveLocalDatabase) {
+   /*     private fun populateLettersList(db: LoveLocalDatabase) {
             GlobalScope.launch(Dispatchers.IO) {
                 loveDataSet.getPhrases().forEach {
                     db.loveDao().insertLoveLetter(generateRandomLetter(it))
                 }
             }
-        }
+        }*/
     }
 
 }

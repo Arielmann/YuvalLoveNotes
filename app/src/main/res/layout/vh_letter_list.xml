@@ -39,6 +39,7 @@
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"
             android:layout_width="25dp"
             android:layout_height="25dp"
+            android:visibility="gone"
             android:src="@drawable/icon_letters_written_by_user_orange"
             card:layout_constraintStart_toStartOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +56,7 @@
             android:maxLines="7"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
-            android:textSize="@dimen/size_letters_text"
+            android:textSize="18sp"
             android:textStyle="bold"
             card:layout_constraintBottom_toBottomOf="parent"
             card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"

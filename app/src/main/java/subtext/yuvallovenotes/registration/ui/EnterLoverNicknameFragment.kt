@@ -44,14 +44,13 @@ class EnterLoverNicknameFragment : Fragment() {
 
     private fun setOnDoneButtonClickListener() {
         binding.loverNicknameContinueBtn.setOnClickListener {
-            binding.root.animate().alpha(0.5f).setDuration(200).start()
             val loverNickName = binding.loverNicknameInputEditText.text.toString()
             val user = registrationViewModel.getUserFromSharedPrefsData()
             if (registrationViewModel.saveLoverNickname(loverNickName)) {
                 findNavController().navigate(EnterLoverNicknameFragmentDirections.navigateToLoverPhoneNumber())
                 user.loverNickName = loverNickName
             } else {
-                Toast.makeText(requireContext(), resources.getString(R.string.error_no_user_name_inserted), Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), resources.getString(R.string.error_no_lover_nickname_inserted), Toast.LENGTH_LONG).show()
             }
         }
     }

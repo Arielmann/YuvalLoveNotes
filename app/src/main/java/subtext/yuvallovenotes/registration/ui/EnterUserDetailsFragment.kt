@@ -35,7 +35,7 @@ class EnterUserDetailsFragment : Fragment() {
 
     private fun setupTitleImage() {
         if(LoveUtils.getDeviceCountryCode() == YuvalLoveNotesApp.context.getString(R.string.israel_country_code)){
-            binding.userNameTitleTV.setImageResource(R.drawable.letters_title_hebrew)
+            binding.userNameTitleIV.setImageResource(R.drawable.letters_title_hebrew)
         }
     }
 

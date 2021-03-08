@@ -14,35 +14,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/loverNumberChooseFromContactsBtn"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="58dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="19dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
             android:background="@color/mainBackgroundColor"
             android:drawablePadding="16dp"
             android:fontFamily="@font/letters_font_medium"
             android:foreground="?attr/selectableItemBackground"
             android:textAllCaps="false"
             android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/loverPhoneNumberDoneBtn"
             app:layout_constraintEnd_toEndOf="@+id/loversLocalPhoneNumberInputEditText"
             app:layout_constraintStart_toStartOf="@+id/loversPhoneNumberRegionInputEditText"
-            app:layout_constraintTop_toBottomOf="@+id/loversLocalPhoneNumberInputEditText"
             tools:ignore="UnusedAttribute" />
 
         <Button
             android:id="@+id/loverPhoneNumberDoneBtn"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="20dp"
             android:background="@null"
             android:fontFamily="sans-serif"
             android:foreground="?attr/selectableItemBackground"
@@ -53,15 +51,14 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loverNumberChooseFromContactsBtn" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
             android:id="@+id/loversPhoneNumberRegionInputEditText"
             android:layout_width="85dp"
             android:layout_height="@dimen/height_registration_edit_text"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
             android:background="@drawable/background_white_shadowed_slightly_rounded"
             android:fontFamily="@font/letters_font_medium"
             android:gravity="left|center_vertical"
@@ -72,8 +69,8 @@
             android:textColor="@color/detailsInputColor"
             android:textSize="@dimen/size_input_text_enter_details"
             android:textStyle="normal"
+            app:layout_constraintBottom_toTopOf="@+id/loverNumberChooseFromContactsBtn"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/enterLoverNumberTV"
             tools:ignore="RtlHardcoded" />
 
         <EditText
@@ -122,12 +119,11 @@
             android:id="@+id/loverNumberUpperIV"
             android:layout_width="@dimen/width_registration_upper_image"
             android:layout_height="@dimen/height_registration_upper_image"
-            android:layout_marginTop="90dp"
             android:src="@drawable/registration_lovers_on_letter"
+            app:layout_constraintBottom_toTopOf="@+id/loverNumberRememberTitleTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/chooseFromContactsIconIV"
@@ -150,12 +146,12 @@
             android:textColor="@color/white"
             android:textSize="60sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loveNumberAppDescriptionTV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loverNumberUpperIV" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/hyphenTV"
+            android:id="@+id/enterPhoneDialogHyphenTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/letters_font_medium"
@@ -173,32 +169,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="35dp"
             android:fontFamily="@font/letters_font_medium"
             android:gravity="center"
             android:text="@string/description_you_get_reminders"
             android:textColor="@color/white"
             android:textSize="@dimen/size_app_description_text"
+            app:layout_constraintBottom_toTopOf="@+id/enterLoverNumberTV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loverNumberRememberTitleTV" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/enterLoverNumberTV"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/margin_top_instructor_text_enter_details"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
             android:gravity="start"
             android:text="@string/title_what_is_your_lovers_phone_number"
             android:textColor="@color/white"
             android:textSize="@dimen/size_instructor_text_enter_details"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loveNumberAppDescriptionTV" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/loverNumberChooseFromContactsTitleTV"

@@ -2,6 +2,8 @@ package subtext.yuvallovenotes.settings
 
 import android.app.AlertDialog
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Window
@@ -65,6 +67,7 @@ class SettingsActivity : AppCompatActivity() {
                     val mDialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_settings_target_phone_number, null)
                     val mBuilder = AlertDialog.Builder(requireContext()).setView(mDialogView)
                     val mAlertDialog = mBuilder.create()
+                    mAlertDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
                     mAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                     val currentRegionNumber = sharedPrefs.getString(getString(R.string.pref_key_lover_phone_region_number), PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode())
                     mDialogView.enterPhoneRegionDialogInputEditText.setText(currentRegionNumber)
@@ -73,7 +76,7 @@ class SettingsActivity : AppCompatActivity() {
                     mAlertDialog.show()
 
                     //Set click listener to check and save only a valid number
-                    mDialogView.dialogConfirmBtn.setOnClickListener {
+                    mDialogView.enterPhoneDialogConfirmBtn.setOnClickListener {
                         val newRegionNumber = mDialogView.enterPhoneRegionDialogInputEditText.text.toString()
                         val newLocalPhoneNumber = mDialogView.enterPhoneDialogLocalNumberInputEditText.text.toString()
                         if (PhoneNumberUtil.getInstance().isPhoneNumberValid(newRegionNumber, newLocalPhoneNumber)) {
@@ -87,7 +90,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     }
 
-                    mDialogView.dialogCancelBtn.setOnClickListener {
+                    mDialogView.enterPhoneDialogCancelBtn.setOnClickListener {
                         mAlertDialog.dismiss()
                     }
                     false

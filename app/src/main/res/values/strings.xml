@@ -23,7 +23,7 @@
     <string name="pref_key_lover_local_phone_number" translatable="false">pref_key_lover_local_phone_number</string>
     <string name="pref_key_trigger_time_send_letter_reminder" translatable="false">pref_key_trigger_time_send_letter_reminder</string>
     <string name="pref_key_is_feature_active_send_letter_reminder" translatable="false">pref_key_is_feature_active_send_letter_reminder</string>
-    <string name="pref_title_target_phone_number">Phone number</string>
+    <string name="pref_title_target_phone_number">Lover\'\s phone number</string>
     <string name="pref_dialog_title_target_phone_number">Lover\'s number</string>
     <string name="pref_key_local_letters_database_populated_after_app_installed" translatable="false">pref_key_local_letters_database_populated_after_app_installed</string>
     <string name="pref_key_default_letters_downloaded" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
