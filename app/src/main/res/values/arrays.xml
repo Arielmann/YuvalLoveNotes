@@ -1,45 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Reply Preference -->
-    <string-array name="onboarding_page_titles">
-        <item>Letters</item>
-        <item>Write</item>
-        <item>Never forget</item>
-    </string-array>
-
-    <string-array name="onboarding_page_descriptions">
-        <item name="app_description">The easiest way to send letters to your loved one, even if your\'\e not Shakespeare</item>
-        <item name="description_app_create_or_choose_letters">Compose letters that make your loved one smile, or pick one from our beautiful collection</item>
-        <item name="description_you_get_reminders">We will remind you once a week to send a letter so you won\'\t miss a chance to strengthen your relationship</item>
-    </string-array>
-
-    <string-array name="openers">
-
-        <item name="opener_sweetie">Sweetie,</item>
-        <item name="opener_baby">Baby,</item>
-        <item name="opener_honey">Honey,</item>
-        <item name="opener_to_my_beauty">My beauty,</item>
-        <item name="opener_to_my_beauty2">Beautiful girl,</item>
-        <item name="opener_babe">Babe,</item>
-        <item name="opener_sweetheart">Sweetheart,</item>
-        <item name="opener_princess">Princess,</item>
-        <item name="opener_darling">Darling,</item>
-        <item name="opener_my_dear">My dear,</item>
-        <item name="opener_my_love">My love,</item>
-        <item name="opener_my_one_and_only">My one and only,</item>
-        <item name="opener_love_of_my_life">Love of my life,</item>
-        <item name="opener_my_life">My life,</item>
-        <item name="opener_to_my_beautiful_woman">To my beautiful woman,</item>
-        <item name="opener_my_soul">To my soulmate,</item>
-        <item name="opener_sugar">Sugar,</item>
-        <item name="opener_angel">Angel,</item>
-        <item name="opener_doll">Doll,</item>
-        <item name="opener_dream_girl">Dream girl,</item>
-        <item name="opener_buttercup" translatable="false">Buttercup,</item>
-        <item name="opener_my_beautiful_princess">My beautiful princess,</item>
-        <item name="opener_my_kushkushit">Sunshine,</item>
-        <item name="opener_to_my_special_one">To my special one,</item>
-
-    </string-array>
 
     <string-array name="letters">
 
@@ -680,22 +640,6 @@
 
 
 
-    </string-array>
-
-
-    <string-array name="closures" tools:ignore="InconsistentArrays">
-        <item name="closure_me">Me</item>
-        <item name="closure_your_man">Your man</item>
-        <item name="closure_waiting_for_you">Waiting for you</item>
-        <item name="closure_love_and_appreciate">Love and appreciate 💜</item>
-        <item name="closure_big_love">Big love ❤</item>
-        <item name="closure_with_love_me">With love 💞,\n Me</item>
-        <item name="closure_your_always_me">Always 😘,\n Me</item>
-        <item name="closure_your_always_forever">Yours forever 🌠,\n Me</item>
-        <item name="closure_my_heart_is_yours">My heart is yours 💝</item>
-        <item name="closure_you_are_always_with_me">You are always with me</item>
-        <item name="closure_you_complete_me">You complete me</item>
-        <item name="closure_yours_truly">Yours truly</item>
     </string-array>
 
 

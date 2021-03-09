@@ -149,7 +149,7 @@ internal object ArielDefaultLoveDataSetInitial : InitialLettersDataSet {
             LoveClosure("MORE6330-5L96-1D23-6GDB-489590B565F4", "התנור שלך ;-)"))
 
     init {
-        letters.addAll(DefaultLoveDataSet.getLetters())
+//        letters.addAll(DefaultLoveDataSet.getLetters())
         phrases.forEach(){
             letters.add(generateRandomLetter(it))
         }

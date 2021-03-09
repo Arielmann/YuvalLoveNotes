@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.vh_letter_list.view.*
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
-import subtext.yuvallovenotes.crossapplication.logic.adapter.DefaultDiffUtilCallback
+import subtext.yuvallovenotes.crossapplication.listsadapter.DefaultDiffUtilCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.databinding.VhLetterListBinding
 import java.lang.ref.WeakReference

@@ -109,6 +109,7 @@ class RegistrationViewModel : ViewModel() {
     private val downloadDefaultLettersCallback = object : NetworkCallback<MutableList<LoveLetter>> {
         override fun onSuccess(response: MutableList<LoveLetter>) {
             viewModelScope.launch(Dispatchers.IO) {
+                prepareLetterListForUsage(response)
                 loveItemsRepository.insertAllLoveLetters(response)
             }
 
@@ -119,6 +120,16 @@ class RegistrationViewModel : ViewModel() {
                 appRegistrationCallback?.onSuccess()
             } else {
                 d(TAG, "Notifications registration callback: Waiting for other registration processes to complete")
+            }
+        }
+
+        private fun prepareLetterListForUsage(letters: MutableList<LoveLetter>) {
+            val loverNickname = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_nickname_fallback))
+            letters.forEach {
+                if(it.autoInsertLoverNicknameAsOpener){
+                    it.text = loverNickname + it.text
+                    it.autoInsertLoverNicknameAsOpener = false
+                }
             }
         }
 
@@ -168,7 +179,7 @@ class RegistrationViewModel : ViewModel() {
 
         if (!isLettersFetchingCompletedBefore) {
             d(TAG, "Requesting initial database download")
-            loveItemsRepository.requestLoveLettersFromServer(inferLanguageFromLocale(), 0, downloadDefaultLettersCallback)
+            loveItemsRepository.fetchLettersFromServer(inferLanguageFromLocale(), 0, downloadDefaultLettersCallback)
         } else {
             d(TAG, "Initial letters database download is not required")
         }

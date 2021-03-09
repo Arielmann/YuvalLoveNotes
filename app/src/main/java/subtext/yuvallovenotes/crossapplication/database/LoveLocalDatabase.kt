@@ -35,12 +35,12 @@ abstract class LoveLocalDatabase : RoomDatabase() {
         private val TAG: String = LoveLocalDatabase::class.java.simpleName
         private val loveDataSet = inferDataSet()
 
-        private fun inferDataSet(): InitialLettersDataSet {
+        private fun inferDataSet(): InitialLettersDataSet? {
             val deviceId = LoveUtils.getDeviceId()
             if(deviceId == BuildConfig.ARIEL_DEVICE_ID) {
                 return ArielDefaultLoveDataSetInitial
             }
-            return DefaultLoveDataSet
+            return null
         }
 
 
@@ -75,8 +75,7 @@ abstract class LoveLocalDatabase : RoomDatabase() {
                     val wasDataBasePopulatedFirstTimeKey = YuvalLoveNotesApp.context.getString(R.string.pref_key_local_letters_database_populated_after_app_installed)
                     //Todo: set to be correct condition
                     if (!sharedPrefs.getBoolean(wasDataBasePopulatedFirstTimeKey, false)) { //Only populate once, after app is installed
-                        d(TAG, "Populating letters list")
-//                        populateLettersList(database)
+                        populateLettersList(database)
                         sharedPrefs.edit().putBoolean(wasDataBasePopulatedFirstTimeKey, true).apply()
                     } else {
                         d(TAG, "Initial database population is not required")
@@ -104,13 +103,13 @@ abstract class LoveLocalDatabase : RoomDatabase() {
             return letter
         }*/
 
-   /*     private fun populateLettersList(db: LoveLocalDatabase) {
+        private fun populateLettersList(db: LoveLocalDatabase) {
             GlobalScope.launch(Dispatchers.IO) {
-                loveDataSet.getPhrases().forEach {
-                    db.loveDao().insertLoveLetter(generateRandomLetter(it))
+                loveDataSet?.getLetters()?.forEach {
+                    db.loveDao().insertLoveLetter(it)
                 }
             }
-        }*/
+        }
     }
 
 }

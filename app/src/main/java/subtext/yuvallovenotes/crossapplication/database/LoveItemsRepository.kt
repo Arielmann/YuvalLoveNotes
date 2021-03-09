@@ -128,7 +128,7 @@ class LoveItemsRepository {
         loveLettersNetworkService.uploadLetters(letters)
     }
 
-    fun requestLoveLettersFromServer(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {
-        startOperationIfNetworkAvailable({loveLettersNetworkService.requestLoveLetters(language, offset, callback)}, callback)
+    fun fetchLettersFromServer(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {
+        startOperationIfNetworkAvailable({loveLettersNetworkService.fetchLetters(language, offset, callback)}, callback)
     }
 }

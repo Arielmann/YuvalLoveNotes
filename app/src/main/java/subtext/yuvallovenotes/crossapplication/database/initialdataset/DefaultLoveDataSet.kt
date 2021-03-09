@@ -27,7 +27,7 @@ object DefaultLoveDataSet : InitialLettersDataSet {
     private val letters = generateLettersList()
 
     private fun generateLettersList(): MutableList<LoveLetter> {
-        val result = mutableListOf<LoveLetter>()
+      /*  val result = mutableListOf<LoveLetter>()
         val lettersTexts = LoveUtils.getAllItemsFromArrayFile(R.array.letters)
         lettersTexts.forEachIndexed { index, text ->
             val lines: List<String> = text.split(System.getProperty("line.separator"))
@@ -43,7 +43,8 @@ object DefaultLoveDataSet : InitialLettersDataSet {
 //            Log.d(TAG, "letter: ${letter.text}")
             result.add(letter)
         }
-        return result
+        return result*/
+        return mutableListOf()
     }
 
     override fun getLetters(): MutableList<LoveLetter> {

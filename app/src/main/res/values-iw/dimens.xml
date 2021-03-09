@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="margin_activity_horizontal">16dp</dimen>
-    <dimen name="margin_activity_vertical">16dp</dimen>
-    <dimen name="padding_appbar">16dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
-    <dimen name="padding_top_appbar">8dp</dimen>
-    <dimen name="padding_main_tabs_empty_btn_text">16dp</dimen>
-    <dimen name="width_nav_back_btn">25dp</dimen>
-    <dimen name="height_nav_back_btn">25dp</dimen>
     <dimen name="radius_slightly_rounded_view">5dp</dimen>
     <dimen name="size_input_text_enter_details">23sp</dimen>
     <dimen name="size_letters_text">20sp</dimen>

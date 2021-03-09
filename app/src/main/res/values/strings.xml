@@ -10,7 +10,6 @@
     <!-- Messages Preferences -->
     <string name="pref_key_device_registered_to_push_notifications" translatable="false">pref_key_device_registered_to_push_notifications</string>
     <string name="pref_key_user_registered_in_server" translatable="false">pref_key_user_registered_in_server</string>
-    <string name="pref_key_random_identifier" translatable="false">pref_key_random_identifier</string>
     <string name="pref_key_user_name" translatable="false">pref_key_user_name</string>
     <string name="pref_key_lover_nickname" translatable="false">pref_key_lover_nickname</string>
     <string name="pref_key_lover_phone_region_number" translatable="false">pref_key_lover_phone_region_number</string>
@@ -24,7 +23,6 @@
     <string name="pref_key_trigger_time_send_letter_reminder" translatable="false">pref_key_trigger_time_send_letter_reminder</string>
     <string name="pref_key_is_feature_active_send_letter_reminder" translatable="false">pref_key_is_feature_active_send_letter_reminder</string>
     <string name="pref_title_target_phone_number">Lover\'\s phone number</string>
-    <string name="pref_dialog_title_target_phone_number">Lover\'s number</string>
     <string name="pref_key_local_letters_database_populated_after_app_installed" translatable="false">pref_key_local_letters_database_populated_after_app_installed</string>
     <string name="pref_key_default_letters_downloaded" translatable="false">pref_key_server_letters_downloaded_after_app_installed</string>
     <string name="pref_key_current_letter_id" translatable="false">pref_key_current_letter_id</string>
@@ -40,8 +38,6 @@
     <string name="title_what_is_your_lovers_phone_number">Lover\'s number</string>
     <string name="title_letter_list_is_empty">No letters to display</string>
     <string name="title_empty_letter_deleted">Empty letter deleted</string>
-    <string name="title_letter_deleted">Letter deleted</string>
-    <string name="title_undo">Undo</string>
     <string name="title_share">Share</string>
     <string name="title_delete">Delete</string>
     <string name="title_ok">OK</string>
@@ -50,7 +46,6 @@
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="title_letter_will_be_deleted_forever">The letter will be deleted forever</string>
     <string name="title_letters_will_be_deleted_forever">The letters will be deleted forever</string>
-    <string name="hint_your_words_here">Your words here</string>
     <string name="error_msg_whatsapp_not_installed">Whatsapp is not install on your phone. Please install the app and try again</string>
     <string name="title_next">Next</string>
     <string name="title_done">Done</string>
@@ -70,25 +65,16 @@
     <string name="error_no_network_connection">Operation failed, Please make sure you have a network connection and try again</string>
     <string name="error_login_default_network_failure">A problem occurred while registering. Please try again in a minute</string>
 
-
     <!--Content Descriptions-->
     <string name="content_desc_new_letter" translatable="false">New Letter</string>
     <string name="content_desc_share_with_whatsapp" translatable="false">Share with whatsapp</string>
-    <string name="content_desc_more_options" translatable="false">More options</string>
-    <string name="content_desc_create_letter" translatable="false">Create letter screen</string>
     <string name="content_desc_all_letters" translatable="false">All letters screen</string>
-    <string name="content_desc_back" translatable="false">Back</string>
-    <string name="content_desc_app_name" translatable="false">Love Notes</string>
 
     <!--Ads-->
     <string name="app_ads_id" translatable="false">ca-app-pub-9760042484356207~5572026732</string>
-    <string name="app_ads_test_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
-    <string name="interstitial_ads_test_id" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="device_test_ads_id" translatable="false">"3B037641D94AB165A5765E19F00076B5"</string>
 
     <!--Backendless tables-->
-    <string name="backendless_table_name_letters_english" translatable="false">LoveLettersEnglish</string>
-    <string name="backendless_table_name_letters_hebrew" translatable="false">LoveLettersHebrew</string>
 
     <!--Misc-->
     <string name="default_country_code" translatable="false">IL</string> <!--Israel-->
@@ -96,7 +82,6 @@
     <string name="label_activity_settings" translatable="false">SettingsActivity</string>
     <string name="hyphen" translatable="false">-</string>
     <string name="user_name_as_closure_fallback">Me</string>
-    <string name="user_name_fallback">You</string>
-    <string name="lover_nickname_fallback">My love</string>
+    <string name="lover_nickname_fallback">Baby,</string>
 
 </resources>

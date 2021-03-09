@@ -1,28 +1,13 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="margin_activity_horizontal">16dp</dimen>
-    <dimen name="margin_activity_vertical">16dp</dimen>
-    <dimen name="padding_appbar">16dp</dimen>
     <dimen name="margin_fab">16dp</dimen>
-    <dimen name="padding_top_appbar">8dp</dimen>
-    <dimen name="margin_love_generator_button">65dp</dimen>
-    <dimen name="main_tabs_buttons_height">50dp</dimen>
-    <dimen name="main_tabs_buttons_width">77dp</dimen>
-    <dimen name="padding_main_tabs_empty_btn_text">16dp</dimen>
-    <dimen name="margin_top_love_writer_tab_send_button">16dp</dimen>
-    <dimen name="margin_top_love_writer_tab_edit_text">35dp</dimen>
-    <dimen name="height_love_writer_short_edit_text_max">75dp</dimen>
     <dimen name="padding_letters_recycler_view">16dp</dimen>
     <dimen name="size_input_text_enter_details">22sp</dimen>
     <dimen name="size_input_text_enter_phone_number">18sp</dimen>
     <dimen name="size_app_description_text">22sp</dimen>
-    <dimen name="width_nav_back_btn">25dp</dimen>
-    <dimen name="height_nav_back_btn">25dp</dimen>
-    <dimen name="padding_more_options_dialog_buttons">4dp</dimen>
     <dimen name="size_instructor_text_enter_details">20sp</dimen>
     <dimen name="radius_slightly_rounded_view">5dp</dimen>
     <dimen name="size_letters_text">20sp</dimen>
-    <dimen name="radius_rounded_view">15dp</dimen>
     <dimen name="size_registration_button_text">24sp</dimen>
     <dimen name="padding_edit_text_default">8dp</dimen>
     <dimen name="height_registration_edit_text">58dp</dimen>
