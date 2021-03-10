@@ -53,7 +53,7 @@
         android:id="@+id/loverNicknameUpperImageView"
         android:layout_width="@dimen/width_registration_upper_image"
         android:layout_height="@dimen/height_registration_upper_image"
-        android:layout_marginTop="@dimen/margin_top_registration_upper_image"
+        android:layout_marginTop="24dp"
         android:src="@drawable/registration_man_writing_letter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
     <TextView
         android:id="@+id/loverDetailsTitleIv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
         android:text="@string/title_write"
         android:textColor="@color/white"
@@ -70,14 +70,14 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameUpperImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameBackgroundDecorationsDotsAndStars" />
 
     <TextView
         android:id="@+id/loverNicknameAppDescriptionTV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/letters_font_medium"
         android:gravity="center"
@@ -86,14 +86,23 @@
         android:textSize="@dimen/size_app_description_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverDetailsTitleIv" />
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameBackgroundDecorations" />
+
+    <View
+        android:id="@+id/loverNicknameMiddleBarrierView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameContinueBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/enterLoverNicknameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_start_instructor_text_enter_details"
-        android:layout_marginTop="@dimen/margin_top_instructor_text_enter_details"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/letters_font_regular"
         android:gravity="start"
         android:text="@string/title_what_is_your_lover_nickname"
@@ -110,15 +119,15 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/height_registration_edit_text"
         android:layout_marginStart="22dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="22dp"
         android:background="@drawable/background_white_shadowed_slightly_rounded"
+        android:fontFamily="@font/letters_font_medium"
         android:gravity="start|center_vertical"
-        android:textColor="@color/detailsInputColor"
+        android:inputType="text"
         android:paddingStart="@dimen/padding_edit_text_default"
         android:paddingEnd="@dimen/padding_edit_text_default"
-        android:fontFamily="@font/letters_font_medium"
-        android:inputType="text"
+        android:textColor="@color/detailsInputColor"
         android:textSize="@dimen/size_input_text_enter_details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -129,9 +138,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@null"
         android:fontFamily="@font/letters_font_medium"
         android:foreground="?attr/selectableItemBackground"
@@ -142,8 +150,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameInputEditText" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

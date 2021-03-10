@@ -1,7 +1,6 @@
 package subtext.yuvallovenotes.crossapplication.models.loveitems
 
 import androidx.room.Entity
-import androidx.room.TypeConverter
 import subtext.yuvallovenotes.crossapplication.models.users.Gender
 import java.util.UUID
 

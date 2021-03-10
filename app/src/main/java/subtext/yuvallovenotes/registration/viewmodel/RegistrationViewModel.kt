@@ -45,7 +45,7 @@ class RegistrationViewModel : ViewModel() {
      * 2. Register the device to the push notifications service
      * 3. Download letters database from server
      *
-     * Note that database download and device registration are silently executed during
+     * Note that database download and device registration are silently executed duringMALE
      * the registration process before user asks top register so most chances that they won't be required.
      *
      * @param user An user details object that are not yet verified to be in the data base.
