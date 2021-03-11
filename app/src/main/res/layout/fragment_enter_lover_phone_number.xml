@@ -16,6 +16,57 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/enterLoverPhoneNumberBackgroundDecorationsCL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/loverNameBackgroundDecorations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.15"
+                android:src="@drawable/registration_background_decorations"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/loverNameBackgroundDecorationsDotsAndStars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/registration_background_decorating_dots_and_stars"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loverNumberBackButtonContainingCL"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/loverNumberBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:src="@drawable/ic_arrow_back_white_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlHardcoded" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <Button
             android:id="@+id/loverNumberChooseFromContactsBtn"
             android:layout_width="match_parent"
@@ -95,32 +146,14 @@
             app:layout_constraintTop_toTopOf="@+id/loversPhoneNumberRegionInputEditText"
             tools:ignore="RtlHardcoded,TextFields" />
 
-        <ImageView
-            android:id="@+id/loverNameBackgroundDecorations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:alpha="0.15"
-            android:src="@drawable/registration_background_decorations"
-            app:layout_constraintBottom_toBottomOf="@+id/loverNumberUpperIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/loverNumberUpperIV" />
-
-        <ImageView
-            android:id="@+id/loverNameBackgroundDecorationsDotsAndStars"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/registration_background_decorating_dots_and_stars"
-            app:layout_constraintBottom_toBottomOf="@+id/loverNumberUpperIV"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/loverNumberUpperIV"
             android:layout_width="@dimen/width_registration_upper_image"
             android:layout_height="@dimen/height_registration_upper_image"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="24dp"
             android:src="@drawable/registration_lovers_on_letter"
+            app:layout_constraintBottom_toTopOf="@+id/loverNumberRememberTitleTV"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="parent"
@@ -140,16 +173,17 @@
         <TextView
             android:id="@+id/loverNumberRememberTitleTV"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/letters_general_font_bold"
             android:gravity="center"
             android:text="@string/title_remember"
             android:textColor="@color/white"
-            android:textSize="50sp"
+            android:textSize="55sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loveNumberAppDescriptionTV"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loverNameBackgroundDecorationsDotsAndStars" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/enterPhoneDialogHyphenTV"
@@ -176,13 +210,14 @@
             android:text="@string/description_you_get_reminders"
             android:textColor="@color/white"
             android:textSize="@dimen/size_app_description_text"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/loverNumberRememberTitleTV" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/enterLoverNumberTV"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
@@ -193,7 +228,8 @@
             android:textSize="@dimen/size_instructor_text_enter_details"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/loversPhoneNumberRegionInputEditText"
             app:layout_constraintTop_toBottomOf="@+id/loveNumberAppDescriptionTV" />
 
         <TextView
@@ -211,27 +247,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/loverNumberChooseFromContactsBtn" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/loverNumberBackButtonContainingCL"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:id="@+id/loverNumberBackBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@null"
-                android:foreground="?attr/selectableItemBackground"
-                android:src="@drawable/ic_arrow_back_white_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="RtlHardcoded" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

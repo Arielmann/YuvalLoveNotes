@@ -29,32 +29,43 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/loverNicknameBackgroundDecorations"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/loverNicknameBackgroundDecorationsCL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:alpha="0.15"
-        android:src="@drawable/registration_background_decorations"
-        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/loverNicknameUpperImageView" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/loverNicknameBackgroundDecorationsDotsAndStars"
-        android:layout_width="363dp"
-        android:layout_height="277dp"
-        android:src="@drawable/registration_background_decorating_dots_and_stars"
-        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameUpperImageView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/loverNicknameBackgroundDecorations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.15"
+            android:src="@drawable/registration_background_decorations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/loverNicknameBackgroundDecorationsDotsAndStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/registration_background_decorating_dots_and_stars"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/loverNicknameUpperImageView"
         android:layout_width="@dimen/width_registration_upper_image"
         android:layout_height="@dimen/height_registration_upper_image"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
         android:src="@drawable/registration_man_writing_letter"
+        app:layout_constraintBottom_toTopOf="@+id/loverDetailsTitleIv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,15 +73,16 @@
     <TextView
         android:id="@+id/loverDetailsTitleIv"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/title_write"
         android:textColor="@color/white"
-        android:textSize="60sp"
+        android:textSize="55sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameBackgroundDecorationsDotsAndStars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/loverNicknameAppDescriptionTV"
@@ -86,30 +98,30 @@
         android:textSize="@dimen/size_app_description_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loverNicknameBackgroundDecorations" />
+        app:layout_constraintTop_toBottomOf="@+id/loverDetailsTitleIv" />
 
     <View
-        android:id="@+id/loverNicknameMiddleBarrierView"
+        android:id="@+id/middlePositioningView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintBottom_toBottomOf="@+id/loverNicknameContinueBtn"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameAppDescriptionTV" />
 
     <TextView
         android:id="@+id/enterLoverNicknameTV"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_start_instructor_text_enter_details"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/letters_font_regular"
         android:gravity="start"
         android:text="@string/title_what_is_your_lover_nickname"
         android:textColor="@color/white"
         android:textSize="@dimen/size_instructor_text_enter_details"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/loverNicknameInputEditText"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/loverNicknameInputEditText"
         app:layout_constraintTop_toBottomOf="@+id/loverNicknameAppDescriptionTV" />

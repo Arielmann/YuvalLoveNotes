@@ -127,7 +127,7 @@ class RegistrationViewModel : ViewModel() {
             val loverNickname = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_nickname_fallback))
             letters.forEach {
                 if(it.autoInsertLoverNicknameAsOpener){
-                    it.text = loverNickname + it.text
+                    it.text = loverNickname + "," + it.text
                     it.autoInsertLoverNicknameAsOpener = false
                 }
             }
