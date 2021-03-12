@@ -30,6 +30,7 @@ object LoveUtils {
         return object {}.javaClass.enclosingMethod.name
     }
 
+    @Suppress("DEPRECATION")
     fun isNetworkAvailable(context: Context?): Boolean {
         if (context == null) return false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -86,6 +87,7 @@ object LoveUtils {
         countryCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             context.resources.configuration.locales[0].country
         } else {
+            @Suppress("DEPRECATION")
             context.resources.configuration.locale.country
         }
 //        Log.d(TAG, "Country code: $countryCode")
@@ -143,26 +145,9 @@ object LoveUtils {
         }
     }
 
-    fun getAllItemsFromArrayFile(@ArrayRes resource: Int): MutableList<String> {
-        return YuvalLoveNotesApp.context.resources.getStringArray(resource).toMutableList()
-    }
-
     @SuppressLint("HardwareIds")
     fun getDeviceId(): String {
         return Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID).toString()
     }
 
-    fun setLocale(language: String, country: String) {
-        val locale = Locale(language, country)
-        // here we update locale for date formatters
-        Locale.setDefault(locale)
-        // here we update locale for app resources
-        val context: Context = YuvalLoveNotesApp.context
-        val res: Resources = context.resources
-        val config: Configuration = res.configuration
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            config.setLocales(LocaleList(locale))
-        }
-        res.updateConfiguration(config, res.displayMetrics)
-    }
 }

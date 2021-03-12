@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="default_alarm_clock_hour_of_day">17</integer>
-    <integer name="default_alarm_clock_minute">00</integer>
-</resources>

@@ -32,7 +32,6 @@ class YuvalLoveNotesApp : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-        LoveUtils.setLocale("en", "EN")
         setupKoin()
         setupAds()
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
