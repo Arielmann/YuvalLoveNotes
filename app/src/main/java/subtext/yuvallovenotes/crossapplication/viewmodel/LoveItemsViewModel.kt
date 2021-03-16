@@ -3,7 +3,6 @@ package subtext.yuvallovenotes.crossapplication.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log
 import android.util.Log.d
 import android.util.Log.e
 import android.widget.Toast
@@ -21,12 +20,11 @@ import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.events.LoveLetterEvent
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
-import subtext.yuvallovenotes.crossapplication.models.localization.inferLanguageFromLocale
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
-import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
-import java.lang.ref.WeakReference
+import java.util.*
 
 class LoveItemsViewModel(context: Context) : ViewModel() {
 
@@ -35,14 +33,18 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
+    val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent> = MutableLiveData()
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     internal var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
+    var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
+    var currentLetterIndex = -1
     var currentLetter: LoveLetter? = null
         set(value) {
             if (!value?.id.isNullOrBlank()) {
                 sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
             }
+            currentLetterIndex++
             field = value
         }
 
@@ -141,7 +143,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         }
     }
 
-    internal fun randomLetter(): LoveLetter {
+    fun randomLetter(): LoveLetter {
         val optionalLetters = getFilteredLetters()
         var result = optionalLetters.randomOrNull()
         if (result == null) {
@@ -226,7 +228,8 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     fun openWhatsapp(context: Context, text: String) {
         d(TAG, "Opening Whatsapp")
         val sendWhatsapp = WhatsAppSender()
-        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "") ?: ""
+        val phoneNumber: String = sharedPrefs.getString(context.getString(R.string.pref_key_lover_full_target_phone_number), "")
+                ?: ""
         sendWhatsapp.send(context, phoneNumber, text)
     }
 
@@ -250,5 +253,57 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                 d(TAG, "onAdDismissedFullScreenContent")
             }
         }
+    }
+
+    /**
+     * Retrieving the next letter from the list of already displayed letters (like Ctrl+Y for letters)
+     */
+    fun getNextLetterFromDisplayedLettersList(): LoveLetter? {
+        return if (displayedLettersList.count() > 1) {
+            if (displayedLettersList.getOrNull(currentLetterIndex + 1) != null) {
+                displayedLettersList[++currentLetterIndex]
+            } else {
+                null
+            }
+        }else{
+            null
+        }
+    }
+
+    /**
+     * Retrieving the previous letter from the list of already displayed letters (like Ctrl+Z for letters)
+     */
+    fun getPreviousLetterFromDisplayedLettersList(): LoveLetter? {
+        return if (displayedLettersList.count() > 1) {
+            if (displayedLettersList.getOrNull(currentLetterIndex - 1) != null) {
+                displayedLettersList.getOrNull(--currentLetterIndex)
+            } else {
+                null
+            }
+        }else{
+            null
+        }
+    }
+
+    fun onRandomLetterGenerated(letter: LoveLetter) {
+        currentLetter = letter
+        if(currentLetterIndex != displayedLettersList.size) {
+            d(TAG, "displayedLettersList size: ${displayedLettersList.size}")
+            displayedLettersList = displayedLettersList.subList(0, currentLetterIndex - 1)
+        }
+        currentLetterIndex = displayedLettersList.size
+        if (currentLetter!!.text.isEmpty()) {
+            emptyGeneratedLetterEvent.postValue(LoveLetterEvent())
+        } else {
+            displayedLettersList.add(currentLetter)
+            d(TAG, "Generated letter text: ${currentLetter?.text}")
+        }
+    }
+
+    fun createNewLetter() {
+        val newLetter = LoveLetter()
+        newLetter.isCreatedByUser = true
+        insertLetter(newLetter)
+        currentLetter = newLetter
     }
 }

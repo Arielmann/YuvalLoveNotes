@@ -154,7 +154,6 @@
         android:layout_marginBottom="16dp"
         android:background="@null"
         android:fontFamily="@font/letters_font_medium"
-        android:foreground="?attr/selectableItemBackground"
         android:text="@string/title_next"
         android:textAllCaps="false"
         android:textColor="@color/black"

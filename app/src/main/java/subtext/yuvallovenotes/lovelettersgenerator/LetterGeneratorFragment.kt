@@ -75,9 +75,16 @@ class LetterGeneratorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         observeLettersListChanges()
+        observeScreenEvents()
         displayLetterDataForFirstTime()
         binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
         setButtonsOnClickListeners()
+    }
+
+    private fun observeScreenEvents() {
+        loveItemsViewModel.emptyGeneratedLetterEvent.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
+        }
     }
 
     private fun setButtonsOnClickListeners() {
@@ -114,6 +121,24 @@ class LetterGeneratorFragment : Fragment() {
                     true
                 }
 
+                R.id.menuActionNextLetter -> {
+                    val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
+                    if (nextLetter != null) {
+                        loveItemsViewModel.currentLetter = nextLetter
+                        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+                    }
+                    true
+                }
+
+                R.id.menuActionPreviousLetter -> {
+                    val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
+                    if (prevLetter != null) {
+                        loveItemsViewModel.currentLetter = prevLetter
+                        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+                    }
+                    true
+                }
+
                 else -> false
             }
         }
@@ -128,11 +153,8 @@ class LetterGeneratorFragment : Fragment() {
                 binding.lettersGeneratorEditText.setText(letter.text)
             } ?: createRandomLettersData {
                 d(TAG, "No specific letter, generate random one and set its text")
-                loveItemsViewModel.currentLetter = loveItemsViewModel.randomLetter()
-                if (loveItemsViewModel.currentLetter!!.text.isEmpty()) {
-                    Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
-                }
-                d(TAG, "generated letter text: ${loveItemsViewModel.currentLetter?.text}")
+                val newLetter = loveItemsViewModel.randomLetter()
+                loveItemsViewModel.onRandomLetterGenerated(newLetter)
                 binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
             }
         }
@@ -140,7 +162,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun createRandomLettersData(onCompletion: () -> Unit = {}) {
-        loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, Observer<MutableList<LoveLetter>> { letters ->
+        loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, { letters ->
             d(TAG, "Love items size: ${letters?.size}")
             onCompletion.invoke()
         })
@@ -151,17 +173,18 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun displayNewLetter() {
-        //Todo: cleanup
         loveItemsViewModel.deleteLetterIfEmpty(loveItemsViewModel.currentLetter)
         val newLetter = loveItemsViewModel.randomLetter()
-        if (loveItemsViewModel.currentLetter!!.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size!! > 1) {
+        if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size!! > 1) {
             displayNewLetter()
             return
         }
-        loveItemsViewModel.currentLetter = newLetter
+        loveItemsViewModel.onRandomLetterGenerated(newLetter)
+        /*loveItemsViewModel.currentLetter = newLetter
         if (loveItemsViewModel.currentLetter!!.text.isEmpty()) {
             Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
-        }
+        } else {
+        }*/
         binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
         binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
         binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
@@ -215,8 +238,6 @@ class LetterGeneratorFragment : Fragment() {
 
     private val whatsappSendListener: View.OnClickListener = View.OnClickListener {
         showAd {
-            if (LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID) {
-            } //TODO: use this if statement
             Sentry.captureMessage("User sent message with whatsapp")
             loveItemsViewModel.openWhatsapp(requireContext(), binding.lettersGeneratorEditText.text.toString())
             loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->

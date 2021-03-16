@@ -12,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
@@ -94,10 +93,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
 
     private fun setOnClickListeners() {
         binding.createLetterBtn.setOnClickListener {
-            val newLetter = LoveLetter()
-            newLetter.isCreatedByUser = true
-            loveItemsViewModel.insertLetter(newLetter)
-            loveItemsViewModel.currentLetter = newLetter
+           loveItemsViewModel.createNewLetter()
             findNavController().popBackStack()
         }
     }
