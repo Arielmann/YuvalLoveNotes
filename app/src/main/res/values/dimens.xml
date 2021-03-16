@@ -2,17 +2,17 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="margin_fab">16dp</dimen>
     <dimen name="padding_letters_recycler_view">16dp</dimen>
-    <dimen name="size_input_text_enter_details">22sp</dimen>
+    <dimen name="size_input_text_enter_details">22dp</dimen>
     <dimen name="size_input_text_enter_phone_number">18sp</dimen>
-    <dimen name="size_app_description_text">18sp</dimen>
-    <dimen name="size_instructor_text_enter_details">20sp</dimen>
+    <dimen name="size_app_description_text">18dp</dimen>
+    <dimen name="size_instructor_text_enter_details">20dp</dimen>
     <dimen name="radius_slightly_rounded_view">5dp</dimen>
     <dimen name="size_letters_text">20sp</dimen>
-    <dimen name="size_registration_button_text">24sp</dimen>
+    <dimen name="size_registration_button_text">24dp</dimen>
     <dimen name="padding_edit_text_default">8dp</dimen>
     <dimen name="height_registration_edit_text">58dp</dimen>
     <dimen name="margin_top_instructor_text_enter_details">34dp</dimen>
-    <dimen name="custom_button_text_size">18sp</dimen>
+    <dimen name="custom_button_text_size">18dp</dimen>
     <dimen name="margin_start_instructor_text_enter_details">8dp</dimen>
     <dimen name="margin_top_registration_upper_image">111dp</dimen>
     <dimen name="width_registration_upper_image">200dp</dimen>
