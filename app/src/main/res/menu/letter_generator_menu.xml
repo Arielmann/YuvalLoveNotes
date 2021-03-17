@@ -32,7 +32,7 @@
         android:gravity="left"
         android:orderInCategory="75"
         android:title="@string/title_next_letter"
-        android:icon="@drawable/ic_redo_white_24"
+        android:icon="@drawable/ic_next_faded_white_24"
         app:showAsAction="ifRoom" />
 
     <item
@@ -40,7 +40,7 @@
         android:gravity="left"
         android:orderInCategory="75"
         android:title="@string/title_previous_letter"
-        android:icon="@drawable/ic_undo_white_24"
+        android:icon="@drawable/ic_previous_faded_white_24"
         app:showAsAction="ifRoom" />
 
     <item

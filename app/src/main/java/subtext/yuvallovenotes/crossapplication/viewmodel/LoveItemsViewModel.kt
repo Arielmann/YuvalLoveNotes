@@ -34,6 +34,8 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
 
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
     val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent> = MutableLiveData()
+    val noNextLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
+    val noPreviousLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
     var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     internal var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
@@ -44,7 +46,6 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
             if (!value?.id.isNullOrBlank()) {
                 sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
             }
-            currentLetterIndex++
             field = value
         }
 
@@ -259,45 +260,61 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
      * Retrieving the next letter from the list of already displayed letters (like Ctrl+Y for letters)
      */
     fun getNextLetterFromDisplayedLettersList(): LoveLetter? {
-        return if (displayedLettersList.count() > 1) {
+        d(TAG, "next letter. displayedLettersList size: ${displayedLettersList.size}")
+        d(TAG, "next letter. currentLetterIndex: $currentLetterIndex")
+        var result: LoveLetter? = null
+        if (displayedLettersList.count() > 1) {
             if (displayedLettersList.getOrNull(currentLetterIndex + 1) != null) {
-                displayedLettersList[++currentLetterIndex]
+                result = displayedLettersList[++currentLetterIndex]
+                if (displayedLettersList.getOrNull(currentLetterIndex + 1) == null) {
+                    noNextLetter.postValue(LoveLetterEvent())
+                }
+
             } else {
-                null
+                noNextLetter.postValue(LoveLetterEvent())
             }
-        }else{
-            null
+        } else {
+            noNextLetter.postValue(LoveLetterEvent())
         }
+        return result
     }
 
     /**
      * Retrieving the previous letter from the list of already displayed letters (like Ctrl+Z for letters)
      */
     fun getPreviousLetterFromDisplayedLettersList(): LoveLetter? {
-        return if (displayedLettersList.count() > 1) {
+        d(TAG, "prev letter. displayedLettersList size: ${displayedLettersList.size}")
+        d(TAG, "prev letter. currentLetterIndex: $currentLetterIndex")
+        var result: LoveLetter? = null
+        if (displayedLettersList.count() > 1) {
             if (displayedLettersList.getOrNull(currentLetterIndex - 1) != null) {
-                displayedLettersList.getOrNull(--currentLetterIndex)
+                result = displayedLettersList.getOrNull(--currentLetterIndex)
+                if (displayedLettersList.getOrNull(currentLetterIndex - 1) == null) {
+                    noPreviousLetter.postValue(LoveLetterEvent())
+                }
             } else {
-                null
+                noPreviousLetter.postValue(LoveLetterEvent())
             }
-        }else{
-            null
+        } else {
+            noPreviousLetter.postValue(LoveLetterEvent())
         }
+        return result
     }
 
-    fun onRandomLetterGenerated(letter: LoveLetter) {
+    fun onLetterGenerated(letter: LoveLetter) {
         currentLetter = letter
-        if(currentLetterIndex != displayedLettersList.size) {
-            d(TAG, "displayedLettersList size: ${displayedLettersList.size}")
-            displayedLettersList = displayedLettersList.subList(0, currentLetterIndex - 1)
+        if (currentLetterIndex >= 0 && currentLetterIndex + 1 != displayedLettersList.size) {
+            d(TAG, "sublisting. displayedLettersList: ${displayedLettersList.size}")
+            d(TAG, "sublisting. currentLetterIndex: ${displayedLettersList.size}")
+            displayedLettersList = displayedLettersList.subList(0, currentLetterIndex + 1)
+            d(TAG, "after sublisting. displayedLettersList: ${displayedLettersList.size}")
         }
         currentLetterIndex = displayedLettersList.size
-        if (currentLetter!!.text.isEmpty()) {
-            emptyGeneratedLetterEvent.postValue(LoveLetterEvent())
-        } else {
-            displayedLettersList.add(currentLetter)
-            d(TAG, "Generated letter text: ${currentLetter?.text}")
-        }
+        noNextLetter.postValue(LoveLetterEvent())
+        displayedLettersList.add(currentLetter)
+        d(TAG, "Generated letter text: ${currentLetter?.text}")
+        d(TAG, "onRandomLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
+        d(TAG, "onRandomLetterGenerated currentLetterIndex: $currentLetterIndex")
     }
 
     fun createNewLetter() {
