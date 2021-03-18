@@ -10,10 +10,9 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
@@ -30,12 +29,12 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         private const val DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION: Int = 1
     }
 
-    private var currentLetterId: String = ""
     private lateinit var binding: FragmentLetterListBinding
-    private val loveItemsViewModel: LoveItemsViewModel = get()
+    private lateinit var loveItemsViewModel: LoveItemsViewModel
     private lateinit var lettersListAdapter: LetterListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        loveItemsViewModel = ViewModelProvider(requireActivity()).get(LoveItemsViewModel::class.java)
         binding = FragmentLetterListBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,12 +45,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         setupLetterList()
         setOnClickListeners()
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
-        obtainCurrentLetterId()
         setupFragmentLettersListToolbar()
-    }
-
-    private fun obtainCurrentLetterId() {
-        currentLetterId = loveItemsViewModel.getCurrentLetterId()
     }
 
     /**
@@ -66,7 +60,6 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             }
         }
     }
-
 
     private fun setupFragmentLettersListToolbar() {
         binding.letterListToolBar.menu.clear()
@@ -101,7 +94,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
     private fun setupLetterList() {
 
         val onLetterOpenRequest: (letter: LoveLetter) -> Unit = { letter ->
-            loveItemsViewModel.currentLetter = letter
+            loveItemsViewModel.onLetterPickedForEditing(letter)
             LetterListFragmentDirections.navigateToLetterGenerator(letter.id)
             findNavController().popBackStack()
         }

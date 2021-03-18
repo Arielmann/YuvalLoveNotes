@@ -5,13 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log.d
 import android.util.Log.e
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.backendless.async.callback.AsyncCallback
-import com.backendless.exceptions.BackendlessFault
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
@@ -20,31 +17,34 @@ import org.koin.java.KoinJavaComponent.get
 import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.events.LoveLetterEvent
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
+import subtext.yuvallovenotes.crossapplication.events.LoveLetterEvent
 import subtext.yuvallovenotes.crossapplication.models.loveitems.*
 import subtext.yuvallovenotes.lovelettersgenerator.whatsappsender.WhatsAppSender
 import java.util.*
 
-class LoveItemsViewModel(context: Context) : ViewModel() {
+class LoveItemsViewModel : ViewModel() {
 
     companion object {
         private val TAG: String = LoveItemsViewModel::class.simpleName!!
     }
 
-    private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
+    private val loveItemsRepository: LoveItemsRepository = get(LoveItemsRepository::class.java)
+    private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
+    private var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
+    private var currentLetterIndex = -1
     val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent> = MutableLiveData()
+    val onEmptyLetterDeleted: MutableLiveData<LoveLetterEvent> = MutableLiveData()
     val noNextLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
     val noPreviousLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
-    var loveItemsFromNetwork: MutableList<LoveItem> = mutableListOf()
-    private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
-    internal var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
-    var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
-    var currentLetterIndex = -1
+    val onLetterPickedForEditing: MutableLiveData<LoveLetterEvent> = MutableLiveData()
+    var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
+
     var currentLetter: LoveLetter? = null
         set(value) {
+            d(TAG, "New current letter: ${value?.id}")
             if (!value?.id.isNullOrBlank()) {
-                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
+                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).commit()
             }
             field = value
         }
@@ -62,52 +62,11 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
         return optionalLetters ?: mutableListOf()
     }
 
-    //todo: cleanup
-    val findAllLoveDataBackendlessListener = object : AsyncCallback<List<LoveItem>> {
-        override fun handleResponse(response: List<LoveItem>?) {
-
-            if (response.isNullOrEmpty()) {
-                handleFault(BackendlessFault("Bad response. Result returned from server is $response"))
-                return
-            }
-            loveItemsFromNetwork = response.toMutableList()
-
-            val allPhrases: List<LovePhrase> = response.filterIsInstance<LovePhrase>().shuffled()
-            insertAllPhrases(allPhrases)
-            val openers: List<LoveOpener> = response.filterIsInstance<LoveOpener>()
-            insertAllOpeners(openers)
-            val closures: List<LoveClosure> = response.filterIsInstance<LoveClosure>()
-            insertAllClosures(closures)
-        }
-
-        override fun handleFault(fault: BackendlessFault?) {
-            Toast.makeText(YuvalLoveNotesApp.context, fault.toString(), Toast.LENGTH_LONG).show()
-        }
-    }
-
-    internal fun insertAllOpeners(openers: List<LoveOpener>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.insertAllLoveOpeners(openers)
-        }
-    }
-
-    internal fun insertAllPhrases(phrases: List<LovePhrase>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.insertAllLovePhrases(phrases)
-        }
-    }
-
-    internal fun insertAllClosures(closures: List<LoveClosure>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            loveItemsRepository.insertAllLoveClosures(closures)
-        }
-    }
-
     internal fun getLetterById(id: String): LiveData<LoveLetter?> {
         return loveItemsRepository.getLoveLetterById(id)
     }
 
-    internal fun insertLetter(letter: LoveLetter) {
+    private fun insertLetter(letter: LoveLetter) {
         viewModelScope.launch(Dispatchers.IO) {
             loveItemsRepository.insertLetter(letter)
         }
@@ -137,6 +96,7 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
             val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                 letters.forEach { letter ->
                     loveItemsRepository.deleteLetterSync(letter)
+                    displayedLettersList.remove(letter)
                 }
                 return@async
             }
@@ -163,14 +123,15 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     fun getCurrentLetterId(): String {
-        return sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), "")!!
+        val currentId = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), "")!!
+        return currentId
     }
 
     /**
      * Deleting a letter if its empty.
      * Returns true if letter was deleted
      */
-    internal fun deleteLetterIfEmpty(letter: LoveLetter?): Boolean {
+    internal fun deleteIfEmptyLetter(letter: LoveLetter?): Boolean {
         var isDeleted = false
         letter?.let {
             if (it.text.isBlank()) {
@@ -181,6 +142,8 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
                     }
                     waitForDeletion.await()
                     isDeleted = true
+                    onEmptyLetterDeleted.postValue(LoveLetterEvent())
+                    displayedLettersList.remove(letter)
                 }
             }
         }
@@ -302,25 +265,34 @@ class LoveItemsViewModel(context: Context) : ViewModel() {
     }
 
     fun onLetterGenerated(letter: LoveLetter) {
+        noNextLetter.postValue(LoveLetterEvent())
+        d(TAG, "onLetterGenerated letter id: ${letter.id}")
+        d(TAG, "onLetterGenerated currentLetter id: ${currentLetter?.id}")
+        if (currentLetter?.id == letter.id) {
+            d(TAG, "No need to update current letter because it identical to target letter")
+            return
+        }
         currentLetter = letter
-        if (currentLetterIndex >= 0 && currentLetterIndex + 1 != displayedLettersList.size) {
-            d(TAG, "sublisting. displayedLettersList: ${displayedLettersList.size}")
-            d(TAG, "sublisting. currentLetterIndex: ${displayedLettersList.size}")
+        if (currentLetterIndex >= 0 && currentLetterIndex + 1 != displayedLettersList.size && displayedLettersList.size > 1) {
             displayedLettersList = displayedLettersList.subList(0, currentLetterIndex + 1)
-            d(TAG, "after sublisting. displayedLettersList: ${displayedLettersList.size}")
         }
         currentLetterIndex = displayedLettersList.size
-        noNextLetter.postValue(LoveLetterEvent())
         displayedLettersList.add(currentLetter)
-        d(TAG, "Generated letter text: ${currentLetter?.text}")
-        d(TAG, "onRandomLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
-        d(TAG, "onRandomLetterGenerated currentLetterIndex: $currentLetterIndex")
+        d(TAG, "onLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
+        d(TAG, "onLetterGenerated currentLetterIndex: $currentLetterIndex")
     }
 
     fun createNewLetter() {
         val newLetter = LoveLetter()
         newLetter.isCreatedByUser = true
         insertLetter(newLetter)
-        currentLetter = newLetter
+        onLetterPickedForEditing(newLetter)
+    }
+
+    fun onLetterPickedForEditing(letter: LoveLetter) {
+        d(TAG, "onLetterPickedForEditing")
+        displayedLettersList.clear()
+        currentLetterIndex = -1
+        onLetterGenerated(letter)
     }
 }

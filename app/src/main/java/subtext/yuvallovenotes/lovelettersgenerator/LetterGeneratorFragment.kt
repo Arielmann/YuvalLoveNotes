@@ -4,7 +4,8 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextWatcher
-import android.util.Log.*
+import android.util.Log.d
+import android.util.Log.w
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +13,12 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import io.sentry.Sentry
-import org.koin.android.ext.android.get
-import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
-import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
@@ -37,7 +35,27 @@ class LetterGeneratorFragment : Fragment() {
     private lateinit var binding: FragmentLetterGeneratorBinding
 
     private var interstitialAd: InterstitialAd? = null
-    private var loveItemsViewModel: LoveItemsViewModel = get()
+    private lateinit var loveItemsViewModel: LoveItemsViewModel
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
+        loveItemsViewModel = ViewModelProvider(requireActivity()).get(LoveItemsViewModel::class.java)
+        checkIfRegistrationNeeded()
+        loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
+            this.interstitialAd = ad
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //Todo: handle UI when there are next and previous letters
+        super.onViewCreated(view, savedInstanceState)
+        setupToolbar()
+        observeLettersListChanges()
+        observeViewmodelEvents()
+        displayLetterDataForFirstTime()
+        setButtonsOnClickListeners()
+    }
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -53,15 +71,6 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
-        checkIfRegistrationNeeded()
-        loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
-            this.interstitialAd = ad
-        }
-        return binding.root
-    }
-
     private fun checkIfRegistrationNeeded() {
         if (!loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
@@ -73,17 +82,7 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
-        observeLettersListChanges()
-        observeScreenEvents()
-        displayLetterDataForFirstTime()
-        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
-        setButtonsOnClickListeners()
-    }
-
-    private fun observeScreenEvents() {
+    private fun observeViewmodelEvents() {
         loveItemsViewModel.emptyGeneratedLetterEvent.observe(viewLifecycleOwner) {
             Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
         }
@@ -98,6 +97,14 @@ class LetterGeneratorFragment : Fragment() {
             if (binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION) != null) {
                 binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_next_faded_white_24)
             }
+        }
+
+        loveItemsViewModel.onEmptyLetterDeleted.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
+        }
+
+        loveItemsViewModel.onLetterPickedForEditing.observe(viewLifecycleOwner) {
+            updateLetterEditText()
         }
     }
 
@@ -136,13 +143,14 @@ class LetterGeneratorFragment : Fragment() {
                 }
 
                 R.id.menuActionNextLetter -> {
+
                     val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
                     if (nextLetter != null) {
                         if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
                             binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_previous_white_24)
                         }
                         loveItemsViewModel.currentLetter = nextLetter
-                        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+                        updateLetterEditText()
                     }
                     true
                 }
@@ -154,7 +162,7 @@ class LetterGeneratorFragment : Fragment() {
                             binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_next_white_24)
                         }
                         loveItemsViewModel.currentLetter = prevLetter
-                        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+                        updateLetterEditText()
                     }
                     true
                 }
@@ -164,18 +172,30 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
+    }
+
+
+    private fun updateLetterEditText() {
+        binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
+        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
+    }
+
     private fun displayLetterDataForFirstTime() {
         val letterId = loveItemsViewModel.getCurrentLetterId()
         d(TAG, "letterId: $letterId")
         val observer: Observer<LoveLetter> = Observer { letter ->
             letter?.let {
                 loveItemsViewModel.onLetterGenerated(letter)
-                binding.lettersGeneratorEditText.setText(letter.text)
+                updateLetterEditText()
             } ?: createRandomLettersData {
                 d(TAG, "No specific letter, generate random one and set its text")
                 val newLetter = loveItemsViewModel.randomLetter()
                 loveItemsViewModel.onLetterGenerated(newLetter)
-                binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
+                updateLetterEditText()
             }
         }
         loveItemsViewModel.getLetterById(letterId).observeOnce(viewLifecycleOwner, observer) //Checking if specific letter should be displayed
@@ -193,9 +213,11 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun displayNewLetter() {
-        loveItemsViewModel.deleteLetterIfEmpty(loveItemsViewModel.currentLetter)
+        if(loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)){
+            Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
+        }
         val newLetter = loveItemsViewModel.randomLetter()
-        if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size!! > 1) {
+        if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size > 1) {
             displayNewLetter()
             return
         }
@@ -203,19 +225,20 @@ class LetterGeneratorFragment : Fragment() {
             binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_previous_white_24)
         }
         loveItemsViewModel.onLetterGenerated(newLetter)
-        binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
-        binding.lettersGeneratorEditText.setText(loveItemsViewModel.currentLetter?.text)
-        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
+        updateLetterEditText()
         binding.lettersGeneratorEditText.requestFocus()
     }
 
     private fun onNavigationToLettersListRequested() {
-        if (loveItemsViewModel.deleteLetterIfEmpty(loveItemsViewModel.currentLetter)) {
+        if(loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)){
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }
-        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id
-                ?: "")
-        findNavController().navigate(action)
+        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id ?: "")
+        try {
+            findNavController().navigate(action)
+        } catch (e: java.lang.IllegalArgumentException) {
+            e.printStackTrace()
+        }
     }
 
     private fun showReallyDeleteDialog() {
@@ -274,8 +297,6 @@ class LetterGeneratorFragment : Fragment() {
         val shareIntent = loveItemsViewModel.generateShareIntent(loveItemsViewModel.currentLetter)
         if (shareIntent.resolveActivity(requireActivity().packageManager) != null) {
             showAd {
-                if (LoveUtils.getDeviceId() != BuildConfig.ARIEL_DEVICE_ID) {
-                } //TODO: use this if statement
                 Sentry.captureMessage("User is sharing letter in general sharing options")
                 startActivity(shareIntent)
                 loveItemsViewModel.loadInterstitialAd(requireContext()) { ad ->
@@ -287,9 +308,11 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
+    //todo: check if deleting when screen off?
     override fun onStop() {
         super.onStop()
-        loveItemsViewModel.deleteLetterIfEmpty(loveItemsViewModel.currentLetter)
+        binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
+        loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)
     }
 }
 

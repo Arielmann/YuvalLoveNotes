@@ -6,6 +6,6 @@ import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 val viewModelModule = module {
-    viewModel { LoveItemsViewModel(get()) }
+    viewModel { LoveItemsViewModel() } //todo: remove
     viewModel { RegistrationViewModel() }
 }
