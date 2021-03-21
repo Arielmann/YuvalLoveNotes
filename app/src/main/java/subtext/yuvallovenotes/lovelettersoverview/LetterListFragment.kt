@@ -41,11 +41,12 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupViewModel()
+        observeDataUpdates()
         setupLetterList()
         setOnClickListeners()
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
         setupFragmentLettersListToolbar()
+        loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
     }
 
     /**
@@ -70,15 +71,10 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         }
     }
 
-    private fun setupViewModel() {
-        observeDataUpdates()
-    }
-
     private fun observeDataUpdates() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
             // Update the cached copy of the letters in the adapter.
             letters.let {
-//                Log.d(TAG, "Updating letters list UI. letters: {$letters}")
                 lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
             }
         }
@@ -86,7 +82,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
 
     private fun setOnClickListeners() {
         binding.createLetterBtn.setOnClickListener {
-           loveItemsViewModel.createNewLetter()
+            loveItemsViewModel.createNewLetter()
             findNavController().popBackStack()
         }
     }
@@ -141,6 +137,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
                 DialogInterface.BUTTON_POSITIVE -> {
                     d(TAG, "Deleting letters")
                     loveItemsViewModel.deleteLettersSync(letters.toList())
+                    loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
                     d(TAG, "Deleting completed")
                     lettersListAdapter.exitSelectionMode()
                     LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)

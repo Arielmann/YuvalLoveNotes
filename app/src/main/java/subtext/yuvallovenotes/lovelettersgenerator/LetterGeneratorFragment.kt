@@ -4,11 +4,10 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Log.d
 import android.util.Log.w
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
 import androidx.fragment.app.Fragment
@@ -48,7 +47,6 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //Todo: handle UI when there are next and previous letters
         super.onViewCreated(view, savedInstanceState)
         setupToolbar()
         observeLettersListChanges()
@@ -87,24 +85,48 @@ class LetterGeneratorFragment : Fragment() {
             Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
         }
 
-        loveItemsViewModel.noPreviousLetter.observe(viewLifecycleOwner) {
-            if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
-                binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_previous_faded_white_24)
+        loveItemsViewModel.noPreviousLetters.observe(viewLifecycleOwner) {
+            validatePreviousLetterMenuItemExistence {
+                binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_faded_24)
             }
         }
 
-        loveItemsViewModel.noNextLetter.observe(viewLifecycleOwner) {
-            if (binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION) != null) {
-                binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_next_faded_white_24)
+        loveItemsViewModel.previousLettersFound.observe(viewLifecycleOwner) {
+            validatePreviousLetterMenuItemExistence {
+                binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
             }
         }
 
-        loveItemsViewModel.onEmptyLetterDeleted.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
+        loveItemsViewModel.noNextLetters.observe(viewLifecycleOwner) {
+            validateNextLetterMenuItemExistence {
+                binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24_faded)
+            }
+        }
+
+        loveItemsViewModel.nextLettersFound.observe(viewLifecycleOwner) {
+            validateNextLetterMenuItemExistence {
+                binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
+            }
         }
 
         loveItemsViewModel.onLetterPickedForEditing.observe(viewLifecycleOwner) {
             updateLetterEditText()
+        }
+    }
+
+    private fun validatePreviousLetterMenuItemExistence(onValid: () -> Unit) {
+        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
+            onValid.invoke()
+        } else {
+            Log.e(TAG, "Could not update previous letter menu item because it's null")
+        }
+    }
+
+    private fun validateNextLetterMenuItemExistence(onValid: () -> Unit) {
+        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
+            onValid.invoke()
+        } else {
+            Log.e(TAG, "Could not update previous letter menu item because it's null")
         }
     }
 
@@ -146,8 +168,9 @@ class LetterGeneratorFragment : Fragment() {
 
                     val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
                     if (nextLetter != null) {
-                        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
-                            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_previous_white_24)
+                        validatePreviousLetterMenuItemExistence {
+                            loveItemsViewModel.requestDisplayedLettersStateUpdate()
+//                            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
                         }
                         loveItemsViewModel.currentLetter = nextLetter
                         updateLetterEditText()
@@ -158,8 +181,9 @@ class LetterGeneratorFragment : Fragment() {
                 R.id.menuActionPreviousLetter -> {
                     val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
                     if (prevLetter != null) {
-                        if (binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION) != null) {
-                            binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_next_white_24)
+                        validateNextLetterMenuItemExistence {
+                            loveItemsViewModel.requestDisplayedLettersStateUpdate()
+//                            binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
                         }
                         loveItemsViewModel.currentLetter = prevLetter
                         updateLetterEditText()
@@ -175,8 +199,8 @@ class LetterGeneratorFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
+        loveItemsViewModel.requestDisplayedLettersStateUpdate()
     }
-
 
     private fun updateLetterEditText() {
         binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
@@ -213,24 +237,22 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun displayNewLetter() {
-        if(loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)){
+      /*  if (loveItemsViewModel.deleteEmptyLetters()) {
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
-        }
+        }*/
         val newLetter = loveItemsViewModel.randomLetter()
         if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size > 1) {
             displayNewLetter()
             return
         }
-        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
-            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_previous_white_24)
-        }
+
         loveItemsViewModel.onLetterGenerated(newLetter)
         updateLetterEditText()
         binding.lettersGeneratorEditText.requestFocus()
     }
 
     private fun onNavigationToLettersListRequested() {
-        if(loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)){
+        if(loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}){
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }
         val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id ?: "")
@@ -308,11 +330,15 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    //todo: check if deleting when screen off?
     override fun onStop() {
         super.onStop()
         binding.lettersGeneratorEditText.removeTextChangedListener(onLetterTextChanged)
-        loveItemsViewModel.deleteIfEmptyLetter(loveItemsViewModel.currentLetter)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        d(TAG, "onDestroy")
+        loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
     }
 }
 

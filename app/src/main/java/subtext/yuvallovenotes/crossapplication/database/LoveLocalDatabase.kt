@@ -23,7 +23,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 8, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 9, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class LoveLocalDatabase : RoomDatabase() {
 

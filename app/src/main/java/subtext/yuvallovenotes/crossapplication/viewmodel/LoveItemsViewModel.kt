@@ -33,18 +33,20 @@ class LoveItemsViewModel : ViewModel() {
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
     private var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
     private var currentLetterIndex = -1
-    val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent> = MutableLiveData()
-    val onEmptyLetterDeleted: MutableLiveData<LoveLetterEvent> = MutableLiveData()
-    val noNextLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
-    val noPreviousLetter: MutableLiveData<LoveLetterEvent> = MutableLiveData()
-    val onLetterPickedForEditing: MutableLiveData<LoveLetterEvent> = MutableLiveData()
+    val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val onEmptyLetterDeletedEvent = LoveLetterEvent(Unit)
+    val noNextLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val noPreviousLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val previousLettersFound: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val nextLettersFound: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val onLetterPickedForEditing: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
 
     var currentLetter: LoveLetter? = null
         set(value) {
             d(TAG, "New current letter: ${value?.id}")
             if (!value?.id.isNullOrBlank()) {
-                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).commit()
+                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
             }
             field = value
         }
@@ -93,10 +95,17 @@ class LoveItemsViewModel : ViewModel() {
 
     internal fun deleteLettersSync(letters: List<LoveLetter>) {
         runBlocking {
+            d(TAG, "deleteLettersSync for letter ${letters.first()}")
             val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                 letters.forEach { letter ->
+                /*    if (displayedLettersList.remove(letter)) {
+                        d(TAG, "Deleted letter also removed from displayed letters list")
+                        currentLetterIndex--
+                    }else{
+                        d(TAG, "Deleted letter wasn't found in displayed letters list")
+                    }*/
                     loveItemsRepository.deleteLetterSync(letter)
-                    displayedLettersList.remove(letter)
+                    cleanDisplayListFromCorruptedLetters { it.id == letter.id }
                 }
                 return@async
             }
@@ -128,26 +137,29 @@ class LoveItemsViewModel : ViewModel() {
     }
 
     /**
-     * Deleting a letter if its empty.
-     * Returns true if letter was deleted
+     * Deleting a all letters that satisfies the given condition.
+     * Used for preventing empty or deleted letters from remaining in the displayed letters list
      */
-    internal fun deleteIfEmptyLetter(letter: LoveLetter?): Boolean {
+    internal fun cleanDisplayListFromCorruptedLetters(validationFunction: (letter: LoveLetter) -> Boolean): Boolean {
         var isDeleted = false
-        letter?.let {
-            if (it.text.isBlank()) {
-                d(TAG, "deleting empty letter from data base")
-                runBlocking {
-                    val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
-                        loveItemsRepository.deleteLetterSync(letter)
+        with(displayedLettersList.listIterator()) { //Prevents concurrent modification exception
+            forEach { letter ->
+                letter?.let {
+                    if (validationFunction.invoke(it)) {
+                        d(TAG, "deleting empty letter from data base")
+                        runBlocking {
+                            val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
+                                loveItemsRepository.deleteLetterSync(letter)
+                            }
+                            isDeleted = true
+                            waitForDeletion.await()
+                            currentLetterIndex--
+                            remove()
+                        }
                     }
-                    waitForDeletion.await()
-                    isDeleted = true
-                    onEmptyLetterDeleted.postValue(LoveLetterEvent())
-                    displayedLettersList.remove(letter)
                 }
             }
         }
-//        d(TAG, "love letters list size: " + getFilteredLetters().size)
         return isDeleted
     }
 
@@ -223,21 +235,21 @@ class LoveItemsViewModel : ViewModel() {
      * Retrieving the next letter from the list of already displayed letters (like Ctrl+Y for letters)
      */
     fun getNextLetterFromDisplayedLettersList(): LoveLetter? {
-        d(TAG, "next letter. displayedLettersList size: ${displayedLettersList.size}")
-        d(TAG, "next letter. currentLetterIndex: $currentLetterIndex")
+//        d(TAG, "next letter. displayedLettersList size: ${displayedLettersList.size}")
+//        d(TAG, "next letter. currentLetterIndex: $currentLetterIndex")
         var result: LoveLetter? = null
         if (displayedLettersList.count() > 1) {
             if (displayedLettersList.getOrNull(currentLetterIndex + 1) != null) {
                 result = displayedLettersList[++currentLetterIndex]
                 if (displayedLettersList.getOrNull(currentLetterIndex + 1) == null) {
-                    noNextLetter.postValue(LoveLetterEvent())
+                    noNextLetters.postValue(LoveLetterEvent(Unit))
                 }
 
             } else {
-                noNextLetter.postValue(LoveLetterEvent())
+                noNextLetters.postValue(LoveLetterEvent(Unit))
             }
         } else {
-            noNextLetter.postValue(LoveLetterEvent())
+            noNextLetters.postValue(LoveLetterEvent(Unit))
         }
         return result
     }
@@ -253,33 +265,34 @@ class LoveItemsViewModel : ViewModel() {
             if (displayedLettersList.getOrNull(currentLetterIndex - 1) != null) {
                 result = displayedLettersList.getOrNull(--currentLetterIndex)
                 if (displayedLettersList.getOrNull(currentLetterIndex - 1) == null) {
-                    noPreviousLetter.postValue(LoveLetterEvent())
+                    noPreviousLetters.postValue(LoveLetterEvent(Unit))
                 }
             } else {
-                noPreviousLetter.postValue(LoveLetterEvent())
+                noPreviousLetters.postValue(LoveLetterEvent(Unit))
             }
         } else {
-            noPreviousLetter.postValue(LoveLetterEvent())
+            noPreviousLetters.postValue(LoveLetterEvent(Unit))
         }
         return result
     }
 
     fun onLetterGenerated(letter: LoveLetter) {
-        noNextLetter.postValue(LoveLetterEvent())
-        d(TAG, "onLetterGenerated letter id: ${letter.id}")
-        d(TAG, "onLetterGenerated currentLetter id: ${currentLetter?.id}")
         if (currentLetter?.id == letter.id) {
             d(TAG, "No need to update current letter because it identical to target letter")
             return
         }
+        noNextLetters.postValue(LoveLetterEvent(Unit))
+//        d(TAG, "onLetterGenerated letter id: ${letter.id}")
+//        d(TAG, "onLetterGenerated currentLetter id: ${currentLetter?.id}")
         currentLetter = letter
         if (currentLetterIndex >= 0 && currentLetterIndex + 1 != displayedLettersList.size && displayedLettersList.size > 1) {
             displayedLettersList = displayedLettersList.subList(0, currentLetterIndex + 1)
         }
         currentLetterIndex = displayedLettersList.size
         displayedLettersList.add(currentLetter)
-        d(TAG, "onLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
-        d(TAG, "onLetterGenerated currentLetterIndex: $currentLetterIndex")
+        requestDisplayedLettersStateUpdate()
+//        d(TAG, "onLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
+//        d(TAG, "onLetterGenerated currentLetterIndex: $currentLetterIndex")
     }
 
     fun createNewLetter() {
@@ -294,5 +307,29 @@ class LoveItemsViewModel : ViewModel() {
         displayedLettersList.clear()
         currentLetterIndex = -1
         onLetterGenerated(letter)
+    }
+
+    /**
+     * Triggers a displayed letters list checkout that will fire
+     * events according to the list's state
+     */
+    fun requestDisplayedLettersStateUpdate() {
+//        d(TAG, "requestDisplayedLettersState displayedLettersList size: ${displayedLettersList.size}")
+//        d(TAG, "requestDisplayedLettersState currentLetterIndex: $currentLetterIndex")
+        if (currentLetterIndex + 1 == displayedLettersList.size) {
+            d(TAG, "requestDisplayedLettersState no next letter found")
+            noNextLetters.postValue(LoveLetterEvent(Unit))
+        } else if (displayedLettersList.count() > 1) {
+            d(TAG, "requestDisplayedLettersState next letters found")
+            nextLettersFound.postValue(LoveLetterEvent(Unit))
+        }
+
+        if (currentLetterIndex <= 0) {
+            d(TAG, "requestDisplayedLettersStateNot no previous letters found")
+            noPreviousLetters.postValue(LoveLetterEvent(Unit))
+        } else {
+            d(TAG, "requestDisplayedLettersState previous letters found")
+            previousLettersFound.postValue(LoveLetterEvent(Unit))
+        }
     }
 }
