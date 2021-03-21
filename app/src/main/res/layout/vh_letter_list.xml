@@ -26,14 +26,24 @@
         card:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/letterListSelectionCheckbox"
+            android:id="@+id/letterListFavouriteCheckbox"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:alpha="0"
-            android:button="@drawable/custom_checkbox"
+            android:button="@drawable/favourite_letter_selection_checkbox"
             android:gravity="top|center_horizontal"
             card:layout_constraintEnd_toEndOf="parent"
             card:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/letterListSelectionCheckbox"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="8dp"
+            android:alpha="0"
+            android:button="@drawable/letter_selection_checkbox"
+            android:gravity="top|center_horizontal"
+            card:layout_constraintEnd_toEndOf="parent"
+            card:layout_constraintTop_toBottomOf="@+id/letterListFavouriteCheckbox" />
 
         <ImageView
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"

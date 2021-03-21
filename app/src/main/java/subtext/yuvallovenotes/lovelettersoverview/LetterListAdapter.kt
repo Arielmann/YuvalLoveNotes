@@ -21,7 +21,7 @@ import kotlin.collections.HashSet
 /**
  * Adapter for managing the display of the [LoveLetter] list created by the user
  */
-class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: LoveLetter) -> Unit, val lettersSelectionListener: ItemSelectionCallback) : ListAdapter<LoveLetter, LetterListAdapter.LetterListViewHolder>(DefaultDiffUtilCallback<LoveLetter>()) {
+class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: LoveLetter) -> Unit) : ListAdapter<LoveLetter, LetterListAdapter.LetterListViewHolder>(DefaultDiffUtilCallback<LoveLetter>()) {
 
     companion object {
         private val TAG: String = LetterListAdapter::class.simpleName!!
@@ -31,6 +31,9 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
     private val boundViewHolders: MutableSet<LetterListViewHolder> = HashSet()
     var isSelectionModeActive: Boolean = false
     var selectedLetters: MutableSet<LoveLetter> = mutableSetOf()
+    var favoriteLetters: MutableSet<LoveLetter> = mutableSetOf()
+    lateinit var lettersSelectionListener: ItemSelectionCallback<LoveLetter>
+    lateinit var favouriteLetterSelectionListener: ItemSelectionCallback<LoveLetter>
     private var isRightToLeft: Boolean = context.resources.getBoolean(R.bool.is_right_to_left)
     private val weakContext: WeakReference<Context> = WeakReference(context)
 
@@ -42,7 +45,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                     val selectedPosition = bindingAdapterPosition
                     val selectedLetter = currentList[selectedPosition]
                     selectedLetters.add(selectedLetter)
-                    lettersSelectionListener.onItemSelected()
+                    lettersSelectionListener.onItemSelected(selectedLetter)
                     binding.letterListSelectionCheckbox.isChecked = true
                     boundViewHolders.forEach { holder ->
                         holder.binding.letterListSelectionCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
@@ -59,34 +62,57 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
 
                 //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
-                    onLetterSelectionOperationRequestedByUser(selectedLetter)
+                    onUserPressedSelectLetterCheckbox(selectedLetter)
                 } else {
                     onLetterOpenRequest.invoke(selectedLetter)
                 }
             }
-
 
             itemView.letterListSelectionCheckbox.setOnClickListener { view ->
                 //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
                     val selectedPosition = bindingAdapterPosition
                     val selectedLetter = currentList[selectedPosition]
-                    onLetterSelectionOperationRequestedByUser(selectedLetter)
+                    onUserPressedSelectLetterCheckbox(selectedLetter)
                 }
+            }
+
+            itemView.letterListFavouriteCheckbox.setOnClickListener { view ->
+                //Capture Clicks in Selection Mode
+                val selectedPosition = bindingAdapterPosition
+                val selectedLetter = currentList[selectedPosition]
+                onUserPressedFavouriteLetterCheckbox(selectedLetter)
+            }
+        }
+
+        /**
+         * Called when user would like to add or remove a letter from the favorite letters list
+         */
+        private fun onUserPressedFavouriteLetterCheckbox(letter: LoveLetter) {
+            if (favoriteLetters.contains(letter)) {
+                favoriteLetters.remove(letter)
+                letter.isFavourite = false
+                favouriteLetterSelectionListener.onItemSelected(letter)
+                binding.letterListFavouriteCheckbox.isChecked = false
+            } else {
+                favoriteLetters.add(letter)
+                letter.isFavourite = true
+                favouriteLetterSelectionListener.itemWillBeRemovedFromSelectionList(letter)
+                binding.letterListFavouriteCheckbox.isChecked = true
             }
         }
 
         /**
          * Called when user would like to add or remove a letter from the selected letters list
          */
-        private fun onLetterSelectionOperationRequestedByUser(selectedLetter: LoveLetter) {
+        private fun onUserPressedSelectLetterCheckbox(selectedLetter: LoveLetter) {
             if (selectedLetters.contains(selectedLetter)) {
-                lettersSelectionListener.itemWillBeRemovedFromSelectionList()
+                lettersSelectionListener.itemWillBeRemovedFromSelectionList(selectedLetter)
                 selectedLetters.remove(selectedLetter)
                 binding.letterListSelectionCheckbox.isChecked = false
             } else {
                 selectedLetters.add(selectedLetter)
-                lettersSelectionListener.onItemSelected()
+                lettersSelectionListener.onItemSelected(selectedLetter)
                 binding.letterListSelectionCheckbox.isChecked = true
             }
         }
@@ -97,6 +123,8 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                 binding.letterListSelectionCheckbox.alpha = 1f
                 binding.letterListSelectionCheckbox.isChecked = selectedLetters.contains(letter)
             }
+
+            binding.letterListFavouriteCheckbox.isChecked = favoriteLetters.contains(letter)
 
             binding.letterListViewHolderTextTV.text = letter.text
             if (isRightToLeft) {

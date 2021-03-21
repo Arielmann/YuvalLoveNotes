@@ -7,6 +7,7 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -21,7 +22,7 @@ import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterListBinding
 
 
-class LetterListFragment : Fragment(), ItemSelectionCallback {
+class LetterListFragment : Fragment() {
 
     companion object {
         private val TAG = LetterListFragment::class.simpleName!!
@@ -46,7 +47,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         setOnClickListeners()
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
         setupFragmentLettersListToolbar()
-        loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
+        loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
     }
 
     /**
@@ -87,6 +88,52 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
         }
     }
 
+    private val favouriteLetterSelectionListener = object : ItemSelectionCallback<LoveLetter> {
+        override fun onItemSelected(item: LoveLetter) {
+            loveItemsViewModel.updateLetter(item)
+        }
+
+        override fun itemWillBeRemovedFromSelectionList(item: LoveLetter) {
+            loveItemsViewModel.updateLetter(item)
+        }
+
+    }
+
+    private val letterSelectionListener = object : ItemSelectionCallback<LoveLetter> {
+        override fun onItemSelected(item: LoveLetter) {
+            d(TAG, "onItemSelected")
+            if (lettersListAdapter.selectedLetters.size == 1 && !lettersListAdapter.isSelectionModeActive) {
+                d(TAG, "Entering selection mode")
+                binding.letterListToolBar.inflateMenu(R.menu.letter_list_item_selected_menu)
+                binding.letterListToolBar.setNavigationIcon(R.drawable.ic_baseline_close_white_24)
+                binding.letterListToolBar.setNavigationOnClickListener { exitSelectionMode() }
+                binding.letterListToolBar.setOnMenuItemClickListener(selectedLettersMenuClickListener)
+            }
+
+            if (binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) { //If menu is inflated
+                binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_delete_white_24dp)
+            }
+
+            if (lettersListAdapter.areAllItemsSelected()) {
+                binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_unselect_all_24)
+            }
+
+
+        }
+
+        override fun itemWillBeRemovedFromSelectionList(item: LoveLetter) {
+            d(TAG, "Love letter will be removed from selection list")
+            if (lettersListAdapter.areAllItemsSelected()) {
+                binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_select_all_24)
+            }
+
+            if (lettersListAdapter.selectedLetters.size == 1) {
+                d(TAG, "Removing the last letter from the selection list and exiting selection mode")
+                exitSelectionMode()
+            }
+        }
+    }
+
     private fun setupLetterList() {
 
         val onLetterOpenRequest: (letter: LoveLetter) -> Unit = { letter ->
@@ -95,7 +142,9 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
             findNavController().popBackStack()
         }
 
-        lettersListAdapter = LetterListAdapter(requireContext(), onLetterOpenRequest, this)
+        lettersListAdapter = LetterListAdapter(requireContext(), onLetterOpenRequest)
+        lettersListAdapter.lettersSelectionListener = letterSelectionListener
+        lettersListAdapter.favouriteLetterSelectionListener = favouriteLetterSelectionListener
 
         binding.lettersRV.apply {
             lettersListAdapter.setHasStableIds(true)
@@ -137,7 +186,7 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
                 DialogInterface.BUTTON_POSITIVE -> {
                     d(TAG, "Deleting letters")
                     loveItemsViewModel.deleteLettersSync(letters.toList())
-                    loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
+                    loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
                     d(TAG, "Deleting completed")
                     lettersListAdapter.exitSelectionMode()
                     LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
@@ -160,39 +209,6 @@ class LetterListFragment : Fragment(), ItemSelectionCallback {
                 .setMessage(msg)
                 .setPositiveButton(getString(R.string.title_ok), dialogClickListener)
                 .setNegativeButton(getString(R.string.title_cancel), dialogClickListener).show()
-    }
-
-    override fun onItemSelected() {
-        d(TAG, "onItemSelected")
-        if (lettersListAdapter.selectedLetters.size == 1 && !lettersListAdapter.isSelectionModeActive) {
-            d(TAG, "Entering selection mode")
-            binding.letterListToolBar.inflateMenu(R.menu.letter_list_item_selected_menu)
-            binding.letterListToolBar.setNavigationIcon(R.drawable.ic_baseline_close_white_24)
-            binding.letterListToolBar.setNavigationOnClickListener { exitSelectionMode() }
-            binding.letterListToolBar.setOnMenuItemClickListener(selectedLettersMenuClickListener)
-        }
-
-        if (binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) { //If menu is inflated
-            binding.letterListToolBar.menu.getItem(DELETE_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_delete_white_24dp)
-        }
-
-        if (lettersListAdapter.areAllItemsSelected()) {
-            binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_unselect_all_24)
-        }
-
-
-    }
-
-    override fun itemWillBeRemovedFromSelectionList() {
-        d(TAG, "Love letter will be removed from selection list")
-        if (lettersListAdapter.areAllItemsSelected()) {
-            binding.letterListToolBar.menu.getItem(SELECT_ALL_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_baseline_select_all_24)
-        }
-
-        if (lettersListAdapter.selectedLetters.size == 1) {
-            d(TAG, "Removing the last letter from the selection list and exiting selection mode")
-            exitSelectionMode()
-        }
     }
 
     private fun exitSelectionMode() {
