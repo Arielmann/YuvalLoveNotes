@@ -49,6 +49,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                     binding.letterListSelectionCheckbox.isChecked = true
                     boundViewHolders.forEach { holder ->
                         holder.binding.letterListSelectionCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
+                        holder.binding.letterListFavouriteCheckbox.animate().alpha(0f).setDuration(CHECKBOX_FADE_DURATION).start()
                     }
                     isSelectionModeActive = true
                     return@OnLongClickListener true
@@ -90,14 +91,14 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
          */
         private fun onUserPressedFavouriteLetterCheckbox(letter: LoveLetter) {
             if (favoriteLetters.contains(letter)) {
-                favoriteLetters.remove(letter)
                 letter.isFavourite = false
-                favouriteLetterSelectionListener.onItemSelected(letter)
+                favouriteLetterSelectionListener.itemWillBeRemovedFromSelectionList(letter)
+                favoriteLetters.remove(letter)
                 binding.letterListFavouriteCheckbox.isChecked = false
             } else {
                 favoriteLetters.add(letter)
                 letter.isFavourite = true
-                favouriteLetterSelectionListener.itemWillBeRemovedFromSelectionList(letter)
+                favouriteLetterSelectionListener.onItemSelected(letter)
                 binding.letterListFavouriteCheckbox.isChecked = true
             }
         }
@@ -120,11 +121,13 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
 
         fun bind(letter: LoveLetter) {
             if (isSelectionModeActive) {
+                binding.letterListFavouriteCheckbox.alpha = 0f
                 binding.letterListSelectionCheckbox.alpha = 1f
                 binding.letterListSelectionCheckbox.isChecked = selectedLetters.contains(letter)
             }
 
-            binding.letterListFavouriteCheckbox.isChecked = favoriteLetters.contains(letter)
+            val possibleFavouriteLetter: LoveLetter? = favoriteLetters.find { it.id == letter.id }
+            binding.letterListFavouriteCheckbox.isChecked = letter.isFavourite
 
             binding.letterListViewHolderTextTV.text = letter.text
             if (isRightToLeft) {
@@ -190,6 +193,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
         isSelectionModeActive = false
         selectedLetters.clear()
         boundViewHolders.forEach { holder ->
+            holder.binding.letterListFavouriteCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
             holder.binding.letterListSelectionCheckbox.animate().alpha(0f).setDuration(CHECKBOX_FADE_DURATION).start()
             holder.binding.letterListSelectionCheckbox.isChecked = false
         }

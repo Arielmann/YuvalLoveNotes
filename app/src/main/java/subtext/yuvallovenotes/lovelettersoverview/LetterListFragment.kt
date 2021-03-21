@@ -76,6 +76,7 @@ class LetterListFragment : Fragment() {
         loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
             // Update the cached copy of the letters in the adapter.
             letters.let {
+                d(TAG, "Letters list updated")
                 lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
             }
         }

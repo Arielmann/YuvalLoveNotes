@@ -38,12 +38,12 @@
             android:id="@+id/letterListSelectionCheckbox"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginTop="8dp"
             android:alpha="0"
             android:button="@drawable/letter_selection_checkbox"
             android:gravity="top|center_horizontal"
             card:layout_constraintEnd_toEndOf="parent"
-            card:layout_constraintTop_toBottomOf="@+id/letterListFavouriteCheckbox" />
+            card:layout_constraintStart_toStartOf="@+id/letterListFavouriteCheckbox"
+            card:layout_constraintTop_toBottomOf="@+id/button2" />
 
         <ImageView
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"
@@ -73,6 +73,16 @@
             card:layout_constraintStart_toEndOf="@+id/letterListViewHolderWrittenByUserIconIV"
             card:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            card:layout_constraintBottom_toBottomOf="@+id/letterListFavouriteCheckbox"
+            card:layout_constraintEnd_toEndOf="@+id/letterListFavouriteCheckbox"
+            card:layout_constraintStart_toStartOf="@+id/letterListFavouriteCheckbox"
+            card:layout_constraintTop_toTopOf="@+id/letterListFavouriteCheckbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
