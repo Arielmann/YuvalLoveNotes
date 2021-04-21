@@ -7,17 +7,18 @@ import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.listsadapter.CustomLinearLayout
 import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
+import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterListBinding
 
@@ -42,13 +43,20 @@ class LetterListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeDataUpdates()
+        loveItemsViewModel.loveLetters.observeOnce(viewLifecycleOwner, loveLettersListObserver)
         setupLetterList()
         setOnClickListeners()
         requireActivity().onBackPressedDispatcher.addCallback(requireActivity(), onBackPressedCallback)
         setupFragmentLettersListToolbar()
         loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
     }
+
+    private val loveLettersListObserver: Observer<MutableList<LoveLetter>?> = Observer<MutableList<LoveLetter>?> {
+        d(TAG, "Letters list updated")
+        lettersListAdapter.submitList(mutableListOf())
+        lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
+    }
+
 
     /**
      * Setting up the onBackPressed functionality for this fragment
@@ -65,20 +73,11 @@ class LetterListFragment : Fragment() {
 
     private fun setupFragmentLettersListToolbar() {
         binding.letterListToolBar.menu.clear()
+//        binding.letterListToolBar.inflateMenu(R.menu.letter_list_menu)
         binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24);
         binding.letterListToolBar.setNavigationOnClickListener {
             d(TAG, "Navigating to previous screen")
             findNavController().popBackStack()
-        }
-    }
-
-    private fun observeDataUpdates() {
-        loveItemsViewModel.loveLetters.observe(viewLifecycleOwner) { letters ->
-            // Update the cached copy of the letters in the adapter.
-            letters.let {
-                d(TAG, "Letters list updated")
-                lettersListAdapter.submitList(loveItemsViewModel.getFilteredLetters().sortedBy { !it.isCreatedByUser })
-            }
         }
     }
 
@@ -91,10 +90,14 @@ class LetterListFragment : Fragment() {
 
     private val favouriteLetterSelectionListener = object : ItemSelectionCallback<LoveLetter> {
         override fun onItemSelected(item: LoveLetter) {
+            loveItemsViewModel.loveLetters.removeObserver(loveLettersListObserver)
+            d(TAG, "Removing observer")
             loveItemsViewModel.updateLetter(item)
         }
 
         override fun itemWillBeRemovedFromSelectionList(item: LoveLetter) {
+            loveItemsViewModel.loveLetters.removeObserver(loveLettersListObserver)
+            d(TAG, "Removing observer")
             loveItemsViewModel.updateLetter(item)
         }
 
@@ -150,7 +153,7 @@ class LetterListFragment : Fragment() {
         binding.lettersRV.apply {
             lettersListAdapter.setHasStableIds(true)
             binding.lettersRV.adapter = lettersListAdapter
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = CustomLinearLayout(requireContext())
         }
     }
 
@@ -188,8 +191,9 @@ class LetterListFragment : Fragment() {
                     d(TAG, "Deleting letters")
                     loveItemsViewModel.deleteLettersSync(letters.toList())
                     loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
-                    d(TAG, "Deleting completed")
+                    d(TAG, "Deletion completed")
                     lettersListAdapter.exitSelectionMode()
+                    loveItemsViewModel.loveLetters.observe(viewLifecycleOwner, loveLettersListObserver)
                     LoveUtils.setupFragmentDefaultToolbar(this, binding.letterListToolBar)
                 }
 

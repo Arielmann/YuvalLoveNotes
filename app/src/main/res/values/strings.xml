@@ -40,8 +40,9 @@
     <string name="title_empty_letter_deleted">Empty letter deleted</string>
     <string name="title_share">Share</string>
     <string name="title_delete">Delete</string>
-    <string name="title_next_letter">Next letter</string>
-    <string name="title_previous_letter">Previous letter</string>
+    <string name="title_next_letter" translatable="false">Next letter</string>
+    <string name="title_previous_letter" translatable="false">Previous letter</string>
+    <string name="title_favourites" translatable="false">Favourites</string>
     <string name="title_ok">OK</string>
     <string name="title_cancel">Cancel</string>
     <string name="title_choose_from_contacts">Choose from contacts</string>

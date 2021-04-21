@@ -12,6 +12,13 @@
     card:cardPreventCornerOverlap="false"
     card:cardUseCompatPadding="true">
 
+    <Button
+        android:id="@+id/favouriteLettersSupportBtn"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="end"
+        android:background="@null" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/letterListViewHolderCL"
         android:layout_width="match_parent"
@@ -27,8 +34,8 @@
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/letterListFavouriteCheckbox"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:button="@drawable/favourite_letter_selection_checkbox"
             android:gravity="top|center_horizontal"
             card:layout_constraintEnd_toEndOf="parent"
@@ -36,14 +43,13 @@
 
         <androidx.appcompat.widget.AppCompatCheckBox
             android:id="@+id/letterListSelectionCheckbox"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:alpha="0"
             android:button="@drawable/letter_selection_checkbox"
             android:gravity="top|center_horizontal"
             card:layout_constraintEnd_toEndOf="parent"
-            card:layout_constraintStart_toStartOf="@+id/letterListFavouriteCheckbox"
-            card:layout_constraintTop_toBottomOf="@+id/button2" />
+            card:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/letterListViewHolderWrittenByUserIconIV"
@@ -66,23 +72,13 @@
             android:maxLines="7"
             android:text="My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really really My really really really rMy really reallyMy really really really rMy really really My really really really rMy really really My really really really rMy really really  My really really really rMy really really My really really really rMy really really My really really really rMy really really vMy really really really rMy really really  really rMy really really really r My really really really r My really really really r long letter"
             android:textAlignment="gravity"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             card:layout_constraintBottom_toBottomOf="parent"
             card:layout_constraintEnd_toStartOf="@+id/letterListSelectionCheckbox"
             card:layout_constraintStart_toEndOf="@+id/letterListViewHolderWrittenByUserIconIV"
             card:layout_constraintTop_toTopOf="parent"
             tools:ignore="HardcodedText" />
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@null"
-            card:layout_constraintBottom_toBottomOf="@+id/letterListFavouriteCheckbox"
-            card:layout_constraintEnd_toEndOf="@+id/letterListFavouriteCheckbox"
-            card:layout_constraintStart_toStartOf="@+id/letterListFavouriteCheckbox"
-            card:layout_constraintTop_toTopOf="@+id/letterListFavouriteCheckbox" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

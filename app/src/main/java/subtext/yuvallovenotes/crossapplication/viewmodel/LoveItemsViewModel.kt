@@ -98,17 +98,12 @@ class LoveItemsViewModel : ViewModel() {
             d(TAG, "deleteLettersSync for letter ${letters.first()}")
             val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                 letters.forEach { letter ->
-                /*    if (displayedLettersList.remove(letter)) {
-                        d(TAG, "Deleted letter also removed from displayed letters list")
-                        currentLetterIndex--
-                    }else{
-                        d(TAG, "Deleted letter wasn't found in displayed letters list")
-                    }*/
                     loveItemsRepository.deleteLetterSync(letter)
                     cleanDisplayListFromCorruptedLetters { it.id == letter.id }
                 }
                 return@async
             }
+            loveLetters.value?.removeAll(letters)
             waitForDeletion.await()
         }
     }

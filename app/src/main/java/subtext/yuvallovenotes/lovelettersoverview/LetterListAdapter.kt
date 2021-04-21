@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.vh_letter_list.view.*
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.listsadapter.DefaultDiffUtilCallback
+import subtext.yuvallovenotes.crossapplication.listsadapter.ItemSelectionCallback
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.databinding.VhLetterListBinding
 import java.lang.ref.WeakReference
@@ -50,6 +50,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
                     boundViewHolders.forEach { holder ->
                         holder.binding.letterListSelectionCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
                         holder.binding.letterListFavouriteCheckbox.animate().alpha(0f).setDuration(CHECKBOX_FADE_DURATION).start()
+                        holder.binding.favouriteLettersSupportBtn.visibility = View.GONE
                     }
                     isSelectionModeActive = true
                     return@OnLongClickListener true
@@ -63,14 +64,14 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
 
                 //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
-                    onUserPressedSelectLetterCheckbox(selectedLetter)
+                    binding.letterListSelectionCheckbox.performClick()
+//                    onUserPressedSelectLetterCheckbox(selectedLetter)
                 } else {
                     onLetterOpenRequest.invoke(selectedLetter)
                 }
             }
 
             itemView.letterListSelectionCheckbox.setOnClickListener { view ->
-                //Capture Clicks in Selection Mode
                 if (isSelectionModeActive) {
                     val selectedPosition = bindingAdapterPosition
                     val selectedLetter = currentList[selectedPosition]
@@ -79,7 +80,6 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
             }
 
             itemView.letterListFavouriteCheckbox.setOnClickListener { view ->
-                //Capture Clicks in Selection Mode
                 val selectedPosition = bindingAdapterPosition
                 val selectedLetter = currentList[selectedPosition]
                 onUserPressedFavouriteLetterCheckbox(selectedLetter)
@@ -123,11 +123,13 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
             if (isSelectionModeActive) {
                 binding.letterListFavouriteCheckbox.alpha = 0f
                 binding.letterListSelectionCheckbox.alpha = 1f
+                binding.favouriteLettersSupportBtn.visibility = View.GONE
+                binding.letterListFavouriteCheckbox.visibility = View.GONE
                 binding.letterListSelectionCheckbox.isChecked = selectedLetters.contains(letter)
             }
 
-            val possibleFavouriteLetter: LoveLetter? = favoriteLetters.find { it.id == letter.id }
             binding.letterListFavouriteCheckbox.isChecked = letter.isFavourite
+            binding.favouriteLettersSupportBtn.setOnClickListener { binding.letterListFavouriteCheckbox.performClick() }
 
             binding.letterListViewHolderTextTV.text = letter.text
             if (isRightToLeft) {
@@ -147,8 +149,12 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
             constraintSet.clone(binding.letterListViewHolderCL)
             constraintSet.clear(R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.START)
             constraintSet.clear(R.id.letterListSelectionCheckbox, ConstraintSet.START)
+            constraintSet.clear(R.id.letterListFavouriteCheckbox, ConstraintSet.START)
+            constraintSet.clear(R.id.favouriteLettersSupportBtn, ConstraintSet.START)
             constraintSet.connect(R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, 16)
             constraintSet.connect(R.id.letterListSelectionCheckbox, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 8)
+            constraintSet.connect(R.id.letterListFavouriteCheckbox, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 8)
+            constraintSet.connect(R.id.favouriteLettersSupportBtn, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 8)
             constraintSet.clear(R.id.letterListViewHolderTextTV, ConstraintSet.START)
             constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.END, R.id.letterListSelectionCheckbox, ConstraintSet.START, 24)
             constraintSet.connect(R.id.letterListViewHolderTextTV, ConstraintSet.START, R.id.letterListViewHolderWrittenByUserIconIV, ConstraintSet.END, 24)
@@ -193,9 +199,11 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
         isSelectionModeActive = false
         selectedLetters.clear()
         boundViewHolders.forEach { holder ->
+            holder.binding.letterListFavouriteCheckbox.visibility = View.VISIBLE
             holder.binding.letterListFavouriteCheckbox.animate().alpha(1f).setDuration(CHECKBOX_FADE_DURATION).start()
             holder.binding.letterListSelectionCheckbox.animate().alpha(0f).setDuration(CHECKBOX_FADE_DURATION).start()
             holder.binding.letterListSelectionCheckbox.isChecked = false
+            holder.binding.favouriteLettersSupportBtn.visibility = View.VISIBLE
         }
     }
 

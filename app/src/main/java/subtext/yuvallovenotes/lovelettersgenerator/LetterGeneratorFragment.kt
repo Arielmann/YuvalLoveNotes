@@ -233,16 +233,16 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private val letterGeneratorListener: View.OnClickListener = View.OnClickListener {
-        displayNewLetter()
+        displayNewRandomLetter()
     }
 
-    private fun displayNewLetter() {
+    private fun displayNewRandomLetter() {
       /*  if (loveItemsViewModel.deleteEmptyLetters()) {
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }*/
         val newLetter = loveItemsViewModel.randomLetter()
         if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size > 1) {
-            displayNewLetter()
+            displayNewRandomLetter()
             return
         }
 
