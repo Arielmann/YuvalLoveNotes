@@ -1,0 +1,642 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Reply Preference -->
+
+    <string-array name="letters">
+
+        <item name="letter_0_man_to_woman">
+            Babe,
+            \n\n
+            Just wanted to say thank you for who you are. I\'\m grateful for what you bring into my life, I\'\m grateful for our relationship, and grateful for myself for choosing you.
+            \n\n
+            Your lady
+        </item>
+
+        <item name="letter_1_man_to_woman">
+            Sweetie,
+            \n\n
+            Even if I don\'\t tell you this every single day, I want you to know that you are a big, shining light in my life.
+            \n\n
+            Me
+        </item>
+
+        <item name="letter_2_man_to_woman">
+            Honey,
+            \n\n
+            I\'\m happy to have you with me because we have a special bond. I know this because I can feel it. The world is full of opportunities
+            and distractions, and within all this choosing you was one of the wisest things I\'\ve done.
+            \n\n
+            BIG LOVE 💜
+        </item>
+
+        <item name="letter_3_man_to_woman">
+            Prince,
+            \n\n
+            We have been through so many things, joy and difficulties and pleasure and pain. When I look backward and see how much you\'\ve taught me about myself,
+            all I have left is to thank you.
+            \n\n
+            Waiting for you
+        </item>
+
+        <item name="letter_4_man_to_woman">
+            Sugar,
+            \n\n
+            When was the last time I told you that you\'\re my string man? You know what, it doesn\'\t matter, it\'\s always a good time to tell you this again :)
+            \n\n
+            Your woman
+        </item>
+
+        <item name="letter_5_man_to_woman">
+            Baby,
+            \n\n
+            Our love is a beautiful thing, deep and beautiful. It\'\s a cozy home to return to after a long day and a source of power to move on.
+            Always remember that you are the force of direction of my life.
+            \n\n
+            Love you 💜
+        </item>
+
+        <item name="letter_6_man_to_woman">
+            To my man,
+            \n\n
+            I want you to know that there is always something beautiful in your smile and that this beauty radiates on your whole environment. When you read this
+            sentence and smile to yourself, know that another little light is entering this world.
+            \n\n
+            Waiting for you, always 🌸
+            <!--     תזכרי תמיד שיש משהו מהמם בחיוך שלך, הוא מקרין עליי ועל כל הסביבה. ברגע שאת קוראת את המשפט הזה ומחייכת לעצמך, תדעי שעוד קצת אור נכנס לעולם.-->
+        </item>
+
+        <item name="letter_7_man_to_woman">
+            Doll,
+            \n\n
+            You bring happiness into my life and stability and a sense of home, a warm place to return to. And it\'\s just good to know that you\'\re by my side.
+            \n\n
+            Love and appreciate ❤
+            <!--את מביאה שמחה לתוך החיים שלי וגם יציבות ותחושה של בית ומקום חם לחזור אליו. זה כיף, פשוט כיף לדעת שאת איתי.-->
+        </item>
+
+        <item name="letter_8_man_to_woman">
+            Darlin\'\,
+            \n\n
+            Regardless of how many times I told you I love you, it\'\s always a good time to repeat the message :)
+            \n\n
+            Your man
+            <!--מבלי קשר לכמות הפעמים שאמרתי לך שאני אוהב אותך, זה תמיד זמן טוב להגיד לך פעם נוספת :)-->
+        </item>
+
+        <item name="letter_9_man_to_woman">
+            Gorgeous,
+            \n\n
+            After all, it\'\s a simple thing -  I chose you because I feel good with you. You\'\re a source of inspiration and power in my life and I simply love it when we are together.
+            \n\n
+            With love ❤
+            <!--   בסוף זה נורא פשוט, אני איתך כי טוב לי איתך, כי את מקור של השראה וכוח בחיים שלי, וכי אני פשוט אוהב שאנחנו יחד.-->
+        </item>
+
+        <item name="letter_10_man_to_woman">
+            My soulmate,
+            \n\n
+            Every relationship has its complexity, its challenges, and its beauty. I want you to know that I\'\m with you in this completely. I chose you to walk a long road, and I know that in the end we\'\ll both be better people simply by walking it together.
+            \n\n
+            Happy that we chose each other
+            <!--לכל מערכת היחסים יש את המורכבות שלה, האתגרים שלה והיופי שלה. אני איתך גם בזה וגם בזה. בחרתי בך כי טוב לי איתך, ומעבר לכך, כי את הופכת אותי לאדם טוב הרבה יותר.-->
+        </item>
+
+        <item name="letter_11_man_to_woman">
+            Baby,
+            \n\n
+            I was very happy to wake up in the morning with you and I can\'\t wait to snuggle with you again tonight.
+            \n\n
+            Waiting for you…
+        </item>
+
+        <item name="letter_12_man_to_woman">
+            Angel,
+            \n\n
+            I love your perfume, your hair, the food you make, your smile.. you\'\re a gift I got right into my life and that\'\s where I would like you to stay.
+            \n\n
+            Served with a big smile 🙂
+            <!--אני אוהב את הבושם שלך, את השיער שלך, את האוכל שאת מכינה, את החיוך שלך, את מתנה שקיבלתי ישר אל תוך החיים שלי.-->
+        </item>
+
+        <item name="letter_13_man_to_woman">
+            To the pretty woman who walks down my street,
+            \n\n
+            You\'\re a source of goodness and pleasure in my life and I\'\ve learned a lot from you. Even if sometimes my presence is weaker, remember that our relationship
+            is a blessing to both of us.
+            \n\n
+            You man
+            <!--את מקור של טוב ושל עונג בחיים שלי ואני לומד ממך המון. גם אם לפעמים הנוכחות שלי חלשה יותר, תזכרי שהקשר שלנו הוא ברכה, בשבילי ובשבילך.-->
+        </item>
+
+        <item name="letter_14_man_to_woman"> All the single gentlemen.. n\
+                                All the single gentlemen.. n\
+                                All the single gentlemen.. n\
+                                Now put your hands up.. n\
+                                \n\n
+
+                               That\'\s Beyoncé\'\s new hit baby, I can\'\t take part in it because
+                               we have a good relationship and when it\'\s good
+                               you don\'\t have to jump around \n \n
+
+                               Maybe we should go on a date and see her concert? later on we
+                               can get to a store and get you some shoes you wanted for a long time, or
+                               some other little gift.. doesn\'\t matter, as long as we hang out together.
+                               \n\n
+                               Always with you ❤
+
+            <!--     n\ ..מי שלא קופץ רווק
+                                     מי שלא קופץ רווק..
+                                     \n\n
+     זה השיר החדש מאמי, לא אני כתבתי
+                                      אותו ואני גם לא משתתף בו - כי לנו יש זוגיות
+                                      טובה, וכשטוב לא צריכים לקפוץ..\n \n
+
+                                      אולי נעשה דייט ונלך למשחק כדורגל? אני מבטיח
+                                      שאחר כך נלך לחנות ונקנה לך את הבגד ההוא
+                                      שרצית המון זמן.. או מתנה קטנה אחרת, העיקר
+                                      שנבלה קצת יחד 😘
+                                     \n\n
+             תמיד איתך ❤                       -->
+            </item>
+
+        <item name="letter_15_man_to_woman">
+                  To be inside you is a moment of exaltation, as the world becomes transparent and there\'\s only us, connected in the union of hearts. I will always cherish these moments when you remind me without words the thing that I desire the most,
+                      more than any goal I set, big or small. I will always want to come back to you at the end of the day and this is what this effort is all about. \n\n
+                      \n\n
+                      For many more years of passion ❤
+            <!--         להיות בתוכך זה רגע של התעלות, כשהעולם נעלם באור שקוף ונשארים רק שנינו, מחוברים באיחוד של לבבות. תמיד אנצור לך את הרגעים האלו, כשאת מזכירה לי ללא מילים את הדבר שאני כל כך חושק בו, מעבר לכל מטרה קטנה וגדולה שאציב לעצמי. בסופו של כל יום אני רוצה לחזור אלייך וזו גם הסיבה לכל המאמץ שאני משקיע שם בחוץ, כדי שיהיה מקום לשוב אליו ולהיות איתך.-->
+        </item>
+
+        <item name="letter_16_man_to_woman">
+
+            Commitment.\n \n
+
+            Commitment is the frame for our relationship, its source of stability and anchor for the
+            passion and intimacy we\'\ve built. I\'\m committed to you out of choice and know that it is
+            one of the greatest gifts we hand to one another. I want you to remember that you\'\re a source of
+            confidence in my life, a physical and emotional home to return to.
+            \n \n
+            For many more years of commitment,\n
+            Your prince
+
+            <!--               מחויבות. זוהי המסגרת של הקשר שלנו, מה שנותן יציבות
+                        ועוגן לתשוקה ולאינטימיות שבנינו. אני מחויב לך מתוך בחירה,
+                        ומתוך ההבנה שזו אחת המתנות הגדולות ביותר שאנו מעניקים זה לזו.
+                        אני רוצה שתזכרי שאת מקור הביטחון והיציבות שלי ובית פיזי ורגשי חם לשוב אליו.-->
+        </item>
+
+        <item name="letter_17_man_to_woman">
+            Intimacy.
+            /n/n
+            Intimacy is the ability to honestly share my inner world and listen fully to what you share yourself.\n
+            Intimacy is a major piece of what we\'\ve built, it\'\s an emotional commitment. \n
+            When we dwell in it I accept you the way you are, and you do the same for me. When our emotional
+            needs get fulfilled our love strengthens.
+             /n/n
+            For many more years of intimacy,/n
+            Your man
+            <!--           אינטימיות. אינטימיות היא היכולת לשתף את הקישקעס שלי בכנות ולהקשיב באופן מלא לשיתופים שלך.
+                        האינטימיות היא חלק מרכזי בקשר שלנו, המחוביות הרגשית הזו. בתוך האינטימיות אני מקבל אותך
+                        כמו שאת, ואת מקבלת אותי, וכשהצרכים הרגשיים שלנו מתמלאים גם האהבה שלנו מתחזקת.-->
+        </item>
+
+        <item name="letter_18_man_to_woman">
+            Baby,
+            \n\n
+            There are many reasons why I love being with you. For example, when you make food I love feeling throughout the tastes that you care about me and that I\'\m important for you. I want you
+            to know how much you\'\re important to me as well.
+            \n\n
+            Happy that we are together :)
+            <!--כיף לי איתך בגלל כל מיני דברים. למשל כשאת מכינה לי אוכל אני אוהב להרגיש דרך הטעמים שאכפת לך ממני ושאני חשוב לך, ורוצה שתדעי שגם את חשובה לי.-->
+        </item>
+
+        <item name="letter_19_man_to_woman">
+            Nugget,
+            \n\n
+            It feels good to wake up with you in the morning. Even when your hair is messy and your voice tone is sleepy, you\'\re always my beauty.
+            \n\n
+            Lost of hearts ❤❤
+            <!--            כיף לי כשאני מתעורר איתך בבוקר. גם כשהשיער מפוזר והקול ישנוני, את תמיד היפה שלי.-->
+        </item>
+
+        <item name="letter_20_man_to_woman">
+            Flower,
+            \n\n
+            Just wanted you to know that I\'\m very thankful for our relationship. You\'\re a special woman with depth and wisdom and it\'\s a great privilege to be with you.
+            \n\n
+            Your man ✨
+            <!--            תדעי שאני אומר תודה על הקשר שלנו. את אישה מיוחדת עם עומק וחוכמה וזו זכות גדולה להיות איתך.-->
+        </item>
+
+        <item name="letter_22_man_to_woman">
+            To my amazing woman,
+            \n\n
+            You\'\re like the ocean and your feelings are like the waves. Sometimes calm, sometimes raging, sometimes sweeping, but always in motion, in an unquestionable power.
+            And me? I just like being the ship that sails upon your water.
+            \n\n
+            Yours truly 🌊
+            <!--את כמו האוקיינוס ורגשותייך הם כמו הגלים. לפעמים רגועים, לפעמים גועשים, אך תמיד תמיד בתנועה, בעוצמה שאין לפקפק בה. ואני? אני פשוט גאה להיות הספינה ששטה לה על פני המים שלך.-->
+        </item>
+
+        <item name="letter_23_man_to_woman">
+            Hon,
+            \n\n
+            Your beauty has its own magic. You\'\re radiating because you exist, when your happy, sad, angry, or loving. That beauty cannot be taken from you because it\'\s engraved into who you are. When you realize that and it becomes transparent within your life, everything around you starts smiling back.
+
+            \n\n
+            Love, \n
+            Your man
+
+            <!--         ליופי שלך יש זוהר מיוחד, חתימה ייחודית משלו. את קורנת מעצם קיומך, גם כשאת שמחה וגם כשאת כועסת, עצובה או אוהבת. לא ניתן לקחת ממך את היופי הזה כי הוא טבוע בתוך מי שאת. כשאת מפנימה את הדבר הזה והוא נהפך לחלק שקוף בתוך היומיום שלך ואז גם החיים עצמם (כן ביבי, אני משתמש בסלוגן שלך) מתחילים לחייך.-->
+        </item>
+
+        <item name="letter_24_man_to_woman">
+            Baby Angel,
+            \n\n
+            Our relationship is the best event in town with a huge number of attractions. There\'\s are award-winning games, kids\'\ activities, and a band that plays according to the mood of the crowd. But most important, it has me and you so even if there aren\'\t activities and a band and nobody is looking we still enjoy being together and that\'\s where the magic starts.
+            \n\n
+             Until next melody 🎵
+            <!--         הקשר שלנו הוא האירוע הכי שווה בעיר, הכי חם ועם הכי הרבה אטרקציות. יש בו הגרלות של פרסים, הפעלות לילדים וגם להקה שמנגנת לפי מצב הרוח. אבל הכי חשוב, יש לו אותי ואותך וגם כשאין באמת הפעלות ולהקה ואף אחד לא מסתכל אנחנו עדיין נהנים להיות יחד, וזה סוד הקסם.
+                      עד המנגינה הבאה 🎵-->
+        </item>
+
+        <item name="letter_25_man_to_woman">
+            Babe,
+            \n\n
+            The president just called and invited us to the next cabinet meeting to present our relationship as a representative sample of good people
+            that love being with each other. I told him we\'\ve already scheduled a date but can make an appointment next week. Nobody will take the fun from us 😘
+            \n\n
+            With love,\n
+            Your very connected guy ;)
+            <!--            לפני זמן קצר התקשר רה"מ ואמר שהוא מזמין אותנו לישיבת הממשלה להציג את הקשר שלנו
+            כמדגם מייצג של אנשים טובים שכיף להם יחד. אמרתי לו שיש לנו דייט בלו"ז אבל שאפשר בשבוע הבא, אף אחד לא ייקח מאיתנו את הכיף 😘-->
+        </item>
+
+        <item name="letter_26_man_to_woman">
+            Candy,
+            \n\n
+            I love it when you smile at me, it gives back the color to my face and I don\'\t need anything else.
+            \n\n
+            Kisses 😘
+            <!--         אני אוהב כשאת מחייכת אליי, זה מחזיר לי את הצבע לפנים, ואני לא צריך יותר מזה.-->
+        </item>
+
+        <item name="letter_27_man_to_woman">
+            Miss beauty,
+            \n\n
+            I wrote a song for you and put it in the drawer. When I entered the room again it magically disappeared. And then I thought to myself that it\'\s not that bad, because I\'\ve got this app to tell you how wonderful you are
+            \n\n
+            Love you,\n
+            Me
+            <!--     כתבתי לך שיר על דף נייר והנחתי על המגירה וכשנכנסתי שוב לחדר הוא נעלם כלא היה. ואז חשבתי לעצמי שזה לא כל כך נורא, כי גם באפליקציה הזו אני יכול לומר לך כמה את נהדרת.-->
+        </item>
+
+        <item name="letter_28_man_to_woman">
+            Babe,
+            \n\n
+            According to the legend. Aladdin took Jasmine on a date on a flying carpet. In our case, the carpet mainly needs to be cleaned from dust, but the magic will never, ever disappear 😍
+            \n\n
+            With love,\n
+            Your private prince ;)
+            <!--            לפי האגדה, אלאדין הזמין את יסמין לדייט על שטיח מעופף. במקרה שלנו את השטיח בעיקר צריך לנקות מאבק, אבל הקסם לעולם, לעולם לא ייעלם 😍-->
+        </item>
+
+        <item name="letter_29_man_to_woman">
+            My lady,
+            \n\n
+            If there were no cars in the world I would have come to pick you up in a carriage.
+            And if all carriages were taken I will give you a piggyback.
+            And if I\'\ll be too old for this as well, Then we can always walk hand in hand along the road around our neighborhood
+            \n\n
+            Waiting to pick you up ;)
+            <!--    אם לא היה אוטו הייתי אוסף אותך בכרכרה, ואם לא כרכרה אז שק קמח על הכתפיים. ואם כבר אהיה זקן מידי גם בשביל זה, תמיד נוכל ללכת יד ביד לאורך השביל מחוץ לבית 😊-->
+        </item>
+
+        <item name="letter_30_man_to_woman">
+            To the most beloved woman,
+            \n\n
+            According to the Jewish tradition, 40 days before a person is born a transcendent echo is heard in the upper worlds declaring his partner for his current lifetime.
+            I personally never heard that voice, was too busy in the womb\'\s little politics. However, I\'\m really happy about the arrangement the good Lord has made for me.
+            \n\n
+            Me ✨
+            <!--          לפי המסורת היהודית, 40 יום בטרם לידתו של אדם יוצאת בת קול ומכריזה על הזיווג שלו בחיים האלו.
+            אני באופן אישי לא שמעתי את בת הקול, הייתי עסוק בפוליטיקות הקטנות של הרחם, אבל אני ממש מבסוט ממה שהאל הטוב סידר לי :)-->
+        </item>
+
+        <item name="letter_31_man_to_woman">
+            Beautiful,
+            \n\n
+            Like they say in Gibberish: kljdsf fdalfkjhaed ldfmgds kljfdgsad mkdfgasdfk adfkja… loosely translated this means that you\'\re always inside me and will never leave.
+            \n\n
+            Forever yours ;)
+            <!--כמו שאומרים ב\\'יבריש: גכעלחי ךףחדלגכ ילחךגכע ךףלגדכ יחלכג. ובתרגום חופשי: את תמיד איתי בפנים ולעולם לא תעזבי.-->
+        </item>
+
+
+        <item name="letter_32_man_to_woman">
+            Sweetheart,
+            \n\n
+            At the end of the road, when we\'\ll be old, we\'\ll sit together at a round solid wood table and drink raspberry-based wine, maybe we\'\ll also play bridge, who knows? The most important thing is that we\'\ll do this together.
+            \n\n
+            With love, \n
+            Your future old man 🧃
+            <!--   בסוף הדרך, כשנהיה זקנים, נשב יחד אל שולחן פלסטיק עגול ונשתה מיץ פטל סחוט של ויטמינציק\'\. אולי גם נשחק ברדי\'\, מי יודע? העיקר שנעשה את זה יחד :)-->
+        </item>
+
+        <item name="letter_33_man_to_woman">
+            Sunshine,
+            \n\n
+            Justin Bieber wrote in one of his songs, that being with you is like doing an academic degree in Love. OK he didn\'\t really write this, but I can imagine him doing so :)\n
+            That way or another, I feel that life beside you are my big university to the professions of love, and that in the end I won\'\t get a degree, but the smile you have on your face after living a life worth the effort.
+            \n\n
+             Your educated man 🎓
+            <!--אייל גולן שר פעם שלהיות איתך זה כמו לעשות תואר ראשון באהבה. טוב לא באמת, אבל זה מתאים לו.
+            כך או כך אני מרגיש שהחיים לצידך הם האוניברסיטה הגדולה שלי למקצועות האהבה,
+            רק שבסוף לא יוצאים עם תואר אלא עם חיוך על חיים שהיו שווים את המאמץ :)-->
+        </item>
+
+        <item name="letter_34_man_to_woman">
+            To my beautiful woman,
+            \n\n
+            I love you like the gardener loves his flower, like the jeweler loves his jewelry, like the poet loves his songs, like accountant loves his yearly reports, like the painter loves his brushes, like a child loves his smartphone..
+            Well you get the point, and it also loves the sentence in which it\'\s written. That way or another, you\'\re very important to me and our relationship is here to stay, like a beautiful sculpture that has been with us for many years
+            (and the sculptor really loves 😉)
+            \n\n
+            Yours truly, \n
+            Your smartass ;)
+            <!--        אני אוהב אותך כמו שגנן אוהב את הפרח שלו, כמו שצורף אוהב את התכשיט שלו, כמו שמשורר אוהב את הפואמה שלו,
+            כמו שרו"ח אוהב את הדוח"ות שלו, כמו שצבעי אוהב את המברשת שלו, כמו שילד אוהב את הפלאפון שלו...
+            טוב את מבינה את הנקודה, וגם היא אוהבת את המשפט שהיא כתובה בו. כך או כך, את מאוד חשובה לי והקשר שלנו כאן כדי להישאר, כמו פסל יפה שאיתנו כבר המון שנים (והפסל מאוד אהב להכין 😉).-->
+        </item>
+
+        <item name="letter_35_man_to_woman">
+            Lollipop,
+            \n\n
+            Our love is like the oceans, filled with many great things. It has waves, sometimes calm and other times stormy, and also foam and sand and a popsicles seller walking around making
+            children happy, and everything is important and has its place. Our relationship is deep, meaningful, and colorful and I\'\m happy that we share it together.
+            \n\n
+           Love you a million! 🌊
+            <!--   האהבה שלנו היא כמו הים, מלאה בכל טוב. יש בה גלים, לפעמים שקטים ולפעמים סוערים,
+            ויש גם קצף ואדמה ומדוזות ומוכר של ארטיקים שהולך על החול בצעקות, והכל חשוב והכל במקומו.
+            הקשר שלנו משמעותי, עמוק ומגוון, ואני שמח שאנחנו חולקים אותו יחד.        -->
+        </item>
+
+        <item name="letter_36_man_to_woman">
+
+            The beaver - builds dams \n
+            The turtle - has an entire house on its back \n
+            The pigeon - sent our mail for thousands of years \n
+            And in this relationship, I sometimes feel what it\'\s like to be them. Sometimes I build, sometimes I take my time, and sometimes I send you letters. That way or another, everything I do within it I try
+            to make with great love and commitment.
+            \n\n
+            You\'\re very important to me and I\'\m proud of what we\'\ve built throughout the time ❤
+
+            <!--            בובונת,
+                        \n\n
+                   בוב הבנאי - אדריכל בחסד. \n
+                        סמי הכבאי - מציל חיים. \n
+                         \n .דר דוור - מחלק דואר
+                         ובקשר שלנו גם אני כמוהם. לפעמים בונה, לפעמים מכבה שרפות, ולפעמים שולח לך מכתבים, אבל הכל הכל עושה מתוך מחויבות ואהבה גדולה.
+                        \n\n
+                       תמיד איתך ❤-->
+        </item>
+
+        <item name="letter_37_man_to_woman">
+            Buttercup,
+            \n\n
+            When you feel beautiful I also become more beautiful, and when you smile I also do. Your light and the motion of your moods radiates on mine, and my emotional
+            world is connected with yours in a way that is saved for lovers. That is why it\'\s so important to me that you\'\ll be happy and fulfilled, because what\'\s yours is mine and vice versa,
+            and that\'\s why I\'\m always here for you.
+            \n\n
+           Me ❤
+
+            <!--   כשאת יפה גם אני יפה יותר, וכשאת מחייכת גם אני מחייך. האור ומצב הרוח שלך מקרינים על שלי ועולמי הרגשי קשור אל שלך באופן השמור לאוהבים.
+                        לכן גם חשוב לי כל כך שתהיי מאושרת ומוגשמת, שהרי מה ששלך שלי ולהיפך, ולכן אני תמיד כאן בשבילך.
+                        \n\n
+                       תמיד איתך ❤-->
+        </item>
+
+        <item name="letter_38_man_to_woman">
+            Darling,
+            \n\n
+            The door was locked by a mysterious spell and the princess had no choice but to dangle her long, beautiful hair through the window and all the way down. \n
+            And then, in a flash of wisdom that seemed to be rising from a deep dream, the prince shouted: "No need to go crazy, I have a better solution". He got out of his car a ladder
+            he bought in the tool shop on climbed all the way to her. \n So we might not always be doing this by the book, but I\'\m always and will always keep looking for the
+            right way to get to your heart, my princess :)
+            \n
+            Your modern knight in shiny armor ⚔️
+
+            <!--הדלת הייתה נעולה בכישוף מיוחד ולנסיכה לא הייתה ברירה אלא לשלשל את שערותיה היפות, החזקות מבעד לחלון וכל הדרך מטה.
+                        ואז, בהבזק של חוכמה שהגיעה כמו מתוך חלום עמוק, אמר לה הנסיך: "עזבי אותך מאמי סתם סיבוך", הוציא מהאוטו סולם שרכש בטמבוריה ועלה עד אליה.
+                        אז אולי אנחנו לא תמיד עושים הכל לפי הספר, אבל אני תמיד תמיד מחפש ותמיד אמשיך לחפש את הדרך הנכונה להגיע אלייך, נסיכה שלי :)
+                        \n\n
+                       האביר המודרני שלך ⚔️-->
+        </item>
+
+        <item name="letter_39_man_to_woman">
+
+            Update:
+            \n
+            I had a few errands in town today and I also went to the municipality to fill a form for getting an
+            "I love my woman diploma". They\'\ve asked me why I love you. I told them that you\'\re wonderful and that ever since you came into my life
+            they are soooo much better. The official smiled and issued it on for me on the spot.
+            \n\n
+            It\'\s valid forever :)
+
+            <!--  עדכון קטן:
+              \n\n
+  היו לי סידורים בעיר היום והלכתי גם למשרד הפנים, ביקשתי טופס כדי להוציא תעודה שמראה שאני אוהב את האישה שלי.
+   שאלו אותי שם למה אני אוהב אותה, אמרתי להם שהיא נפלאה ושמאז שהיא בחיים שלי הם כל כך הרבה יותר טובים. הפקיד חייך והנפיק לי את זה במקום :)
+              \n\n
+            היא בתוקף לנצח :)-->
+        </item>
+
+        <item name="letter_40_man_to_woman">
+            Imagine the following situation baby:
+            \n\n
+            The two of us are sitting comfortably on the deck of a ship on its way to the Caribbeans. The wind blows our air, fish are jumping all around. A waiter comes to serve some Pin‎a Colada and suddenly he falls
+            on the floor and spills the beverage on our feet. Is it good or bad? Depends on how you look at it :) \n The point is that our relationship has a lot of beauty and power to it, and even if it\'\s not perfect it doesn\'\t have to be.
+            It\'\s good the way it is and that\'\s the way I like it.
+            \n\n
+            Love you ❤
+            <!--    דמייני את הסיטואציה מאמי:
+                \n\n
+                דמייני את הסיטואציה: שנינו יושבים על ספינה בדרך לאיים הקאריביים, הרוח בשיער, הדגים מקפצים בים סביב, ובקבוק קריסטל בצבע רדיואקטיבי על השולחן...
+                 😅 \n הנקודה היא שיש הרבה יופי וכוח בקשר שלנו וגם אם הוא לא מושלם הוא לא צריך להיות - הוא טוב ויפה כמו שהוא ובגלל זה אני בוחר להישאר איתך בכל יום מחדש
+                \n\n
+                ️שמח שאנחנו יחד-->
+        </item>
+
+        <item name="letter_41_man_to_woman">
+            Princess,
+
+            I hired a harpist to come and play for us, but she turned out to be a harpy and didn\'\t want to play nicely.
+            For me it doesn\'\t matter. With or without music, I want you to know that I love you the way you are ❤
+            \n\n
+            Your event producer ;)
+
+            <!--נסיכה שלי,
+            \n\n
+            שכרתי לנו נגן נבל שיבוא לפרוט לך על נפלאותייך, אבל הסתבר שהוא נבל וניסה לברוח עם הכסף מבלי לפרוט לנו.
+            לי זה לא משנה, עם או בלי מוזיקה תדעי שאני אוהב אותך כמו שאת 💜
+            \n\n
+             האמרגן שלך-->
+        </item>
+
+        <item name="letter_42_man_to_woman">
+            All rights over this relationship are reserved to us ©. You may not copy, distribute, intervene, gossip, fight, make a selfie,
+            leave hair in the shower, adopt a cat, or buy an apartment without prior written permission of the publishers. Notwithstanding the above,
+            you may love without limitation and write your partner how much you love being with her.
+            \n\n
+            For further information, please leave your details and our representative will contact you shortly ❤
+
+
+            <!--     כל הזכויות על הקשר הזה שמורות לנו ©. אין להעביר, להעתיק, להתערב, לרכל, לריב, לעשות סלפי,
+                 להשאיר שערות במקלחת, להביא כלב או לקנות דירה ללא אישור בכתב מהמוציאים לאור 🌞.
+                 על אף האמור לעיל - מותר לאהוב ללא הגבלה ולכתוב לבן הזוג כמה כיף להיות איתו :)
+                 \n\n
+                  ליצירת קשר השאירי פרטים ונציגנו יחזור אלייך בהקדם ❤-->
+        </item>
+
+        <item name="letter_43_man_to_woman">
+            Sunshine,
+            \n\n
+            Our political journalist reports that the new amendment to the constitution: \'\Love\'\
+            had become an operative part of the constitution. All couples are required to express their affection
+            towards one another or their relationship will be forwarded to the lovers-exceptions committee for a hearing.
+            That was the opening headline of all national newspapers, luckily I don\'\t need this to tell you that
+            you\'\re my gorgeous and will always be 💜
+
+            <!--       כתבנו בכנסת מוסר כי \'\חוק יסוד: אהבה\'\ עבר היום בקריאה שנייה ושלישית.
+                        בני הזוג בארץ מתבקשים להביע את חיבתם זה כלפי זו או שהקשר שלהם יעבור לועדת אוהבים-חריגים.
+                         זה היה האייטם שפתח את המהדורה המרכזית, מזל שאני לא צריך אותו כדי לומר לך שאת המהממת שלי ושתמיד תשארי כזו 💜-->
+
+        </item>
+
+        <item name="letter_44_man_to_woman">
+            Sweetie,
+            \n\n
+            When I traveled forward in time to the year 3010, people didn\'\t need to touch each other
+            because they could enter a relationship through Augmented reality and choose with a frighting amount of accuracy
+            the looks and character of their virtual partner. \n
+            And I thought to myself: I\'\m so lucky to be here with you and love you the way you are, with no need of any virtual reality 🌸
+            \n\n
+            Yours, today and in 3010
+            <!--
+            כשנסעתי בזמן לשנת 3010 אנשים לא היו צריכים לגעת אחד בשני כי הם יכלו
+                        להיכנס לקשר דרך Augmented reality ולבחור בדיוק מפחיד את המראה החיצוני
+                        ותכונות האופי של בן הזוג הוירטואלי שלהם. ואמרתי לעצמי - איזה מזל שאני פה איתך ואוהב אותך כמו שאת, עם כל מה שיש בפנים 🌸
+
+                        שלך תמיד-->
+
+        </item>
+
+        <item name="letter_45_man_to_woman">
+            My beautiful flower,
+            \n\n
+            I send you lots of Artichoke hearts so you know how much I love you. And if there\'\s anything that pisses you off, just flush out the water and don\'\t worry, I\'\m always here
+            for you and wishing only good for us both.
+            \n\n
+            Your man
+            <!-- שולח לך מלא לבבות של ארטישוק שתדעי כמה אני אוהב אותך. ואם יש איזשהם דברים לך על העצבים 🐢 - פשוט תתני להם חסה ואל תדאגי, אני תמיד כאן בשבילך ורוצה שיהיה לנו טוב.
+                        \n\n
+                        הגבר שלך-->
+        </item>
+
+        <item name="letter_46_man_to_woman">
+            I scream you scream we\'\ll scream for a great relationship 🍦 \n
+            You\'\re my little ice-cream and no way I share you with anybody. You\'\re mine and mine only ;)
+            \n\n
+            Your candy seller
+            <!--יש לי את הבת זוג הכי טובה, הכי טובה ומשובחה, קנו ממנה ילדים, קוקו-אה-אה. לא באמת מאמי, אין מצב שאני מתחלק בך עם אף אחד את המשובחה שלי ושלי בלבד! 🍦
+                        מוכר הגלידת שלך-->
+        </item>
+
+
+        <item name="letter_47_man_to_woman">
+            I make a 10% annual return on my relationship!\n
+            That\'\s what I said to our investment Advisor during our meeting. He stared at me with the look of \'\Where is the closest mental institution to your residence?\'\ \n
+            I saw the apprehension in his eyes and told him with a smile \'\You didn\'\t get me right. Every year I become a 10% better person thanks to my partner.\'\
+            We didn\'\t come out with a million-dollar investment out of this meeting, but on every occasion such as the one described above (imaginary or not), I get a better sense of how much
+            you mean for me and how much light you bring into my life.
+            \n\n
+            Your investor 📈
+
+            <!--אני עושה על הזוגיות שלי 10% תשואה בשנה! כך אמרתי ליועץ ההשקעות שלנו בשיחה אישית. הוא הסתכל עליי במבט של \'\היכן בית החולים הקרוב לביתך?\'\, אבל אני ראיתי את החשש בעיניו,
+                      ואמרתי לו \'\לא הבנת. בכל שנה אני נהיה אדם טוב יותר ב10% בזכות בת הזוג שלי\'\ וחייכתי בקלילות.
+                      לא יצאה איזו השקעה של מיליונים מאותה פגישה, אבל בכל מאורע כזה, ולא אכפת לי שהוא דמיוני, אני יודע יותר ויותר כמה את משמעותית ומביאה אור לתוך החיים שלי...
+                               \n\n
+                        המשקיע שלך 📈-->
+        </item>
+
+        <item name="letter_48_man_to_woman">
+            To the most special girl,
+            \n\n
+            It\'\s never too late to appreciate the great woman I have. I got during this life the gift of being with you and our relationship makes me stronger
+            and gives me a warm place to come back to after a long day.\n
+            This isn\'\t a physical place, it\'\s not full of things I\'\ve bought and doesn\'\t have a real estate value. Instead, it has one gorgeous woman to give and receive love, and
+            That\'\s what really makes a difference.
+            \n\n
+            Love,\n
+            Me
+            <!--       לבחורה הכי מיוחדת,
+                   \n\n
+                 אף פעם לא מאוחר מידי להעריך את האישה הטובה שיש לי. זכיתי בחיים האלו להיות איתך והקשר שלנו מחזק אותי, נותן לי מקום חם לחזור אליו אחרי יום ארוך.
+                   זהו איננו מקום פיזי, הוא לא מלא בחפצים ואין לו שווי נדל\"\ני, אך יש בו אישה מהממת אחת כדי לתת ולקבל אהבה, וזה מה ששווה באמת.
+                   \n\n
+                   אוהב \n
+                   אני-->
+        </item>
+
+
+        <item name="letter_49_man_to_woman">
+            Babe,
+            \n\n
+            Just wanted to say that I had a good time being with you today. I\'\m happy that it\'\s good for us being together and would like it to continue this way :)
+            \n\n
+            Your man
+            <!--      רק רציתי לומר שהיה לי כיף איתך היום. אני שמח שטוב לנו יחד ורוצה שככה זה יימשך :)
+                  \n\n
+                  הגבר שלך-->
+        </item>
+
+
+        <item name="letter_50_man_to_woman">
+            Beautiful,
+            \n\n
+            Just wanted to say that I loved what you wore today. I love seeing you beautiful and radiating, it\'\s something that I\'\ll never stop admiring.
+            \n\n
+            Me
+            <!--
+            רק רציתי לומר שאהבתי את מה שלבשת היום. כיף לי לראות אותך יפה וקורנת, זה משהו שלעולם אמשיך להתפעל ממנו ☀️
+            אני-->
+        </item>
+
+        <item name="letter_51_man_to_woman">
+            Babe,
+            \n\n
+            You\'\re beautiful, I love you, and no other words are needed.
+            \n\n
+            Your guy ⭐
+            <!--
+            אני-->
+        </item>
+
+        <item name="letter_52_man_to_woman">
+            Sweetie,
+            \n\n
+            What can I do for you that will make your day better? That will make you happier?
+            <!--מה אני יכול לעשות עבורך היום, שיעשה את היום שלך לטוב יותר? או שיעשה אותך שמחה יותר?-->
+        </item>
+
+        <item name="letter_53_man_to_woman">
+            Sugar,
+            \n\n
+            If you\'\d felt how many times you\'\ve made me smile you would be so happy.
+            If all the good things we went through together were assembled into one feeling in your heart, you would have felt completely fulfilled, flooded with our love. \n
+            It\'\s a great blessing that we found each other.
+        </item>
+
+    </string-array>
+
+
+</resources>
