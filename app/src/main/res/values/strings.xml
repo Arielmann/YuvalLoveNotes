@@ -5,6 +5,7 @@
     <!--Login-->
     <string name="description_main">The easiest way to send letters to your loved one, even if your\'e not Shakespeare</string>
     <string name="description_app_create_or_choose_letters">Compose letters that make your loved one smile, or pick one from our beautiful collection</string>
+    <string name="description_app_send_letters_easily">Immediately send letters to your lover via Whatsapp or any other social medium</string>
     <string name="description_you_get_reminders">We will remind you once a week to send a letter so you won\'t miss a chance to strengthen your relationship</string>
 
     <!-- Messages Preferences -->
@@ -35,6 +36,7 @@
     <string name="title_letters_list">Letters List</string>
     <string name="title_what_is_your_name">Your first name</string>
     <string name="title_what_is_your_lover_nickname">Lover\'s nickname</string>
+    <string name="title_what_is_your_gender">Your gender</string>
     <string name="title_what_is_your_lovers_phone_number">Lover\'s number</string>
     <string name="title_letter_list_is_empty">No letters to display</string>
     <string name="title_empty_letter_deleted">Empty letter deleted</string>
@@ -53,6 +55,7 @@
     <string name="title_next">Next</string>
     <string name="title_done">Done</string>
     <string name="title_write">Write</string>
+    <string name="title_spread_love">Spread love</string>
     <string name="title_remember">Remember</string>
 
     <!--Notification titles-->

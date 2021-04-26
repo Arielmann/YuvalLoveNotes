@@ -13,6 +13,7 @@
     <string name="title_letters_list">רשימת מכתבים</string>
     <string name="title_what_is_your_name">שם פרטי</string>
     <string name="title_what_is_your_lover_nickname">כינוי חיבה של בן/בת הזוג</string>
+    <string name="title_what_is_your_gender">מה המין שלך?</string>
     <string name="title_what_is_your_lovers_phone_number">טלפון של בן/בת הזוג</string>
     <string name="title_letter_list_is_empty">אין מכתבים ברשימה</string>
     <string name="title_empty_letter_deleted">מכתב ריק נמחק</string>
@@ -46,5 +47,7 @@
     <string name="lover_nickname_fallback">מאמי,</string>
     <string name="error_msg_whatsapp_not_installed">וואטסאפ לא מותקן על המכשיר שלך</string>
     <string name="title_letters_will_be_deleted_forever">המכתבים יימחקו לנצח</string>
+    <string name="title_spread_love">לפזר אהבה</string>
+    <string name="description_app_send_letters_easily">שלח את המכתבים בקלות דרך וואטסאפ או אפליקציות אחרות</string>
 
 </resources>
