@@ -10,6 +10,7 @@ import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.google.i18n.phonenumbers.PhoneNumberUtil
@@ -44,9 +45,9 @@ class SettingsActivity : AppCompatActivity() {
         val isRightToLeft: Boolean = resources.getBoolean(R.bool.is_right_to_left)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-        if(isRightToLeft){
+        if (isRightToLeft) {
             binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24);
-        }else {
+        } else {
             binding.settingsToolBar.navigationIcon = ContextCompat.getDrawable(this, R.drawable.ic_arrow_back_white_24);
         }
         binding.settingsToolBar.setNavigationOnClickListener { backBtn ->
@@ -82,9 +83,11 @@ class SettingsActivity : AppCompatActivity() {
                         if (PhoneNumberUtil.getInstance().isPhoneNumberValid(newRegionNumber, newLocalPhoneNumber)) {
                             mAlertDialog.dismiss()
                             val newFullNumber = newRegionNumber.plus(newLocalPhoneNumber)
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_phone_region_number), newRegionNumber).apply()
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_local_phone_number), newLocalPhoneNumber).apply()
-                            sharedPrefs.edit().putString(resources.getString(R.string.pref_key_lover_full_target_phone_number), newFullNumber).apply()
+                            sharedPrefs.edit {
+                                putString(resources.getString(R.string.pref_key_lover_phone_region_number), newRegionNumber)
+                                putString(resources.getString(R.string.pref_key_lover_local_phone_number), newLocalPhoneNumber)
+                                putString(resources.getString(R.string.pref_key_lover_full_target_phone_number), newFullNumber)
+                            }
                         } else {
                             Toast.makeText(requireContext(), resources.getString(R.string.error_invalid_lover_number_inserted), Toast.LENGTH_LONG).show()
                         }

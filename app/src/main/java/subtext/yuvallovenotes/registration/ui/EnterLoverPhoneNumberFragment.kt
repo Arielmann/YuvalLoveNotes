@@ -123,8 +123,8 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         val callback = object : AppRegistrationCallback {
             override fun onSuccess() {
                 d(TAG, "User registered successfully")
-                findNavController().popBackStack(R.id.enterUserDetailsFragment, false)
-                findNavController().navigate(EnterUserDetailsFragmentDirections.navigateToLetterGenerator())
+                findNavController().popBackStack(R.id.enterUserNameFragment, false)
+                findNavController().navigate(EnterUserNameFragmentDirections.navigateToLetterGenerator())
             }
 
             override fun onError(error: String) {

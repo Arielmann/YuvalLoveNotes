@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log.*
 import androidx.core.content.edit
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.backendless.push.DeviceRegistrationResult
@@ -14,8 +15,10 @@ import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
+import subtext.yuvallovenotes.crossapplication.events.LoveLetterEvent
 import subtext.yuvallovenotes.crossapplication.models.localization.inferLanguageFromLocale
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
+import subtext.yuvallovenotes.crossapplication.models.users.Gender
 import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
@@ -26,16 +29,48 @@ import subtext.yuvallovenotes.registration.network.AppRegistrationCallback
 import java.util.*
 
 
-class RegistrationViewModel : ViewModel() {
+class RegistrationViewModel() : ViewModel() {
 
     companion object {
         private val TAG = RegistrationViewModel::class.simpleName
     }
 
     private val registrationRepository: RegistrationRepository = KoinJavaComponent.get(RegistrationRepository::class.java)
-    private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository()
+    private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository() // In order to save time, server data fetching is done during the registration process
     private val sharedPrefs: SharedPreferences = KoinJavaComponent.get(SharedPreferences::class.java)
     private var appRegistrationCallback: AppRegistrationCallback? = null
+
+    private var onUserGenderChangedToMan: MutableLiveData<LoveLetterEvent<String>?> = MutableLiveData(LoveLetterEvent(""))
+    private var onUserGenderChangedToWoman: MutableLiveData<LoveLetterEvent<String>?> = MutableLiveData(LoveLetterEvent(""))
+
+    var userName: String? = ""
+        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), "")
+        private set(value) {
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), field).apply()
+            field = value
+        }
+
+    var userGender: Gender = Gender.MAN
+        set(value) {
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_gender), field.name).apply()
+            field = value
+        }
+
+    var loverNickName: String? = ""
+        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), "")
+        private set(value) {
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), field).apply()
+            field = value
+        }
+
+    var loverGender: Gender = Gender.WOMAN
+        set(value) {
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_gender), field.name).apply()
+            field = value
+        }
+
+
+
 
     /**
      * Request a registration, i.e, if the input data is valid, register the user.
@@ -126,7 +161,7 @@ class RegistrationViewModel : ViewModel() {
         private fun prepareLetterListForUsage(letters: MutableList<LoveLetter>) {
             val loverNickname = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_nickname_fallback))
             letters.forEach {
-                if(it.autoInsertLoverNicknameAsOpener){
+                if (it.autoInsertLoverNicknameAsOpener) {
                     it.text = loverNickname + "," + it.text
                     it.autoInsertLoverNicknameAsOpener = false
                 }
@@ -237,12 +272,14 @@ class RegistrationViewModel : ViewModel() {
         d(TAG, "Saving user data to shared prefs: $user") //todo: remove user details logging
         val context = YuvalLoveNotesApp.context
         sharedPrefs.edit {
-            putString(context.getString(R.string.pref_key_user_name), user.randomIdentifier)
+            putString(context.getString(R.string.pref_key_user_random_identifier), user.randomIdentifier)
             putString(context.getString(R.string.pref_key_user_name), user.userName)
+            putString(context.getString(R.string.pref_key_user_gender), user.userGender)
             putString(context.getString(R.string.pref_key_user_phone_region_number), user.userPhone.regionNumber)
             putString(context.getString(R.string.pref_key_user_local_phone_number), user.userPhone.localNumber)
             putString(context.getString(R.string.pref_key_user_full_target_phone_number), user.userPhone.fullNumber)
             putString(context.getString(R.string.pref_key_lover_nickname), user.loverNickName)
+            putString(context.getString(R.string.pref_key_lover_gender), user.loverGender)
             putString(context.getString(R.string.pref_key_lover_phone_region_number), user.loverPhone.regionNumber)
             putString(context.getString(R.string.pref_key_lover_local_phone_number), user.loverPhone.localNumber)
             putString(context.getString(R.string.pref_key_lover_full_target_phone_number), user.loverPhone.fullNumber)
@@ -254,7 +291,10 @@ class RegistrationViewModel : ViewModel() {
         val context = YuvalLoveNotesApp.context
 
         val userName = sharedPrefs.getString(context.getString(R.string.pref_key_user_name).takeUnless { it.isBlank() }, "")!!
+        val userGender = sharedPrefs.getString(context.getString(R.string.pref_key_user_gender).takeUnless { it.isBlank() }, "")!!
+
         val loverNickName = sharedPrefs.getString(context.getString(R.string.pref_key_lover_nickname).takeUnless { it.isBlank() }, "")!!
+        val loverGender = sharedPrefs.getString(context.getString(R.string.pref_key_lover_gender).takeUnless { it.isBlank() }, "")!!
 
         val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
         val loverRegionNumber = sharedPrefs.getString(context.getString(R.string.pref_key_lover_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
@@ -265,18 +305,24 @@ class RegistrationViewModel : ViewModel() {
         val userLocalNumber = sharedPrefs.getString(context.getString(R.string.pref_key_user_local_phone_number), "")!!
         val userPhone = LoveLettersUser.Phone(userRegionNumber, userLocalNumber)
 
-        val result = UnRegisteredLoveLettersUser(userName, loverNickName, userPhone, loverPhone)
+        val result = UnRegisteredLoveLettersUser(userName, userGender, loverNickName, loverGender, userPhone, loverPhone)
         return result
     }
 
+    //todo: use livedata for informing the results
     fun saveLoverNickname(loverNickName: String): Boolean {
         return if (loverNickName.isNotBlank()) {
-            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), loverNickName).apply()
+            this.loverNickName = loverNickName
             true
         } else {
             w(TAG, "Empty lover nickname inserted")
             false
         }
+    }
+
+    //todo: validate input and use livedata (logic currently in the caller)
+    fun onUserNameSubmitted(name: String) {
+        this.userName = name
     }
 
 }

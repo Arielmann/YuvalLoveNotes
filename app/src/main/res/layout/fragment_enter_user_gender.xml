@@ -131,7 +131,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderTV"
         app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTV"
-        app:srcCompat="@drawable/avatar_man" />
+        app:srcCompat="@drawable/avatar_man_selected" />
 
     <ImageView
         android:id="@+id/userGenderWomanAvatarIV"
@@ -141,7 +141,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/userGenderManAvatarIV"
         app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderAppDescriptionTV"
         app:layout_constraintTop_toTopOf="@+id/userGenderManAvatarIV"
-        app:srcCompat="@drawable/avatar_woman" />
+        app:srcCompat="@drawable/avatar_woman_deep_blue_bg" />
 
     <Button
         android:id="@+id/chooseUserGenderContinueBtn"

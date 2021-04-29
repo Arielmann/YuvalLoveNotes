@@ -9,9 +9,11 @@ open class LoveLettersUser() {
         private val TAG: String = LoveLettersUser::class.simpleName!!
     }
 
-    constructor(name: String, loverNickname: String, userPhone: Phone, loverPhone: Phone) : this() {
+    constructor(name: String, userGender: String, loverNickname: String, loverGender: String, userPhone: Phone, loverPhone: Phone) : this() {
         this.userName = name
+        this.userGender = userGender
         this.loverNickName = loverNickname
+        this.loverGender = loverGender
         this.randomIdentifier = UUID.randomUUID().toString()
         this.loverPhone = loverPhone
         this.userPhone = userPhone
@@ -22,7 +24,9 @@ open class LoveLettersUser() {
      */
     constructor(response: BackendlessUser) : this() {
         this.userName = response.properties[PropertyKey.USER_NAME.tablePropertyKey] as String
+        this.userGender = response.properties[PropertyKey.USER_GENDER.tablePropertyKey] as String
         this.loverNickName = response.properties[PropertyKey.LOVER_NICK_NAME.tablePropertyKey] as String
+        this.loverGender = response.properties[PropertyKey.LOVER_GENDER.tablePropertyKey] as String
         this.randomIdentifier = response.properties[PropertyKey.RANDOM_IDENTIFIER.tablePropertyKey] as String
         val loverPhoneRegionNumber = response.properties[PropertyKey.LOVER_PHONE_REGION_NUMBER.tablePropertyKey] as String
         val loverPhoneLocalNumber = response.properties[PropertyKey.LOVER_PHONE_LOCAL_NUMBER.tablePropertyKey] as String
@@ -31,7 +35,7 @@ open class LoveLettersUser() {
 
     var randomIdentifier: String? = null
         set(value) {
-            if(value != null) {
+            if (value != null) {
                 properties[PropertyKey.RANDOM_IDENTIFIER] = value
             }
             field = value
@@ -48,9 +52,21 @@ open class LoveLettersUser() {
             field = value
         }
 
+    var userGender: String = ""
+        set(value) {
+            properties[PropertyKey.USER_GENDER] = value
+            field = value
+        }
+
     var loverNickName: String = ""
         set(value) {
             properties[PropertyKey.LOVER_NICK_NAME] = value
+            field = value
+        }
+
+    var loverGender: String = ""
+        set(value) {
+            properties[PropertyKey.LOVER_GENDER] = value
             field = value
         }
 
@@ -96,11 +112,13 @@ open class LoveLettersUser() {
 
     enum class PropertyKey(val tablePropertyKey: String) {
         USER_NAME("userName"),
+        USER_GENDER("userGender"),
         USER_PHONE_REGION_NUMBER("userPhoneRegionNumber"),
         USER_PHONE_LOCAL_NUMBER("userPhoneLocalNumber"),
         USER_PHONE_FULL_NUMBER("userPhoneFullNumber"),
         RANDOM_IDENTIFIER("randomIdentifier"),
         LOVER_NICK_NAME("loverNickname"),
+        LOVER_GENDER("loverGender"),
         LOVER_PHONE_REGION_NUMBER("loverPhoneRegionNumber"),
         LOVER_PHONE_LOCAL_NUMBER("loverPhoneLocalNumber"),
         LOVER_PHONE_FULL_NUMBER("loverPhoneFullNumber"),

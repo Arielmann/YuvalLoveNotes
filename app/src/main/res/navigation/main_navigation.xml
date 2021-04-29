@@ -6,14 +6,14 @@
     app:startDestination="@id/letterGeneratorFragment"> <!--todo: starts in enter user name fragment-->
 
     <fragment
-        android:id="@+id/enterUserDetailsFragment"
-        android:name="subtext.yuvallovenotes.registration.ui.EnterUserDetailsFragment"
+        android:id="@+id/enterUserNameFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterUserNameFragment"
         android:label="fragment_letter_generator"
         tools:layout="@layout/fragment_enter_user_name">
 
         <action
-            android:id="@+id/navigate_to_lover_name"
-            app:destination="@id/enterLoveDetailsFragment"
+            android:id="@+id/navigate_to_user_gender"
+            app:destination="@id/enterUserGenderFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_left"
@@ -22,12 +22,28 @@
         <action
             android:id="@+id/navigate_to_letter_generator"
             app:destination="@id/letterGeneratorFragment"
-            app:popUpTo="@id/enterUserDetailsFragment"
+            app:popUpTo="@id/enterUserNameFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"
             app:exitAnim="@anim/fade_out"
             app:popEnterAnim="@anim/fade_in"
             app:popExitAnim="@anim/fade_out" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterUserGenderFragment"
+        android:name="subtext.yuvallovenotes.registration.ui.EnterUserGenderFragment"
+        android:label="fragment_user_gender"
+        tools:layout="@layout/fragment_enter_user_gender">
+
+        <action
+            android:id="@+id/navigate_to_lover_name"
+            app:destination="@id/enterLoveDetailsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
@@ -82,7 +98,7 @@
 
         <action
             android:id="@+id/navigate_to_enter_user_name"
-            app:destination="@id/enterUserDetailsFragment"
+            app:destination="@id/enterUserNameFragment"
             app:popUpTo="@id/letterGeneratorFragment"
             app:popUpToInclusive="true"
             app:enterAnim="@anim/fade_in"

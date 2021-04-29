@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_registration"
-    tools:context=".registration.ui.EnterUserDetailsFragment">
+    tools:context=".registration.ui.EnterUserNameFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/enterLoverPhoneNumberMainCL"
