@@ -14,7 +14,6 @@ import subtext.yuvallovenotes.BuildConfig
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.database.initialdataset.ArielDefaultLoveDataSetInitial
-import subtext.yuvallovenotes.crossapplication.database.initialdataset.DefaultLoveDataSet
 import subtext.yuvallovenotes.crossapplication.database.initialdataset.InitialLettersDataSet
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
@@ -23,7 +22,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 
 
-@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 9, exportSchema = false)
+@Database(entities = [LoveLetter::class, LoveOpener::class, LovePhrase::class, LoveClosure::class], version = 10, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class LoveLocalDatabase : RoomDatabase() {
 

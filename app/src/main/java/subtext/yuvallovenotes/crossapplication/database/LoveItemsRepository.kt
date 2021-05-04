@@ -10,6 +10,7 @@ import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveClosure
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveOpener
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LovePhrase
+import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.network.BackendlessNetworkServiceImpl
 import subtext.yuvallovenotes.crossapplication.network.LoveLettersNetworkService
 import subtext.yuvallovenotes.crossapplication.network.NetworkCallback
@@ -128,7 +129,7 @@ class LoveItemsRepository {
         loveLettersNetworkService.uploadLetters(letters)
     }
 
-    fun fetchLettersFromServer(language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {
-        startOperationIfNetworkAvailable({loveLettersNetworkService.fetchLetters(language, offset, callback)}, callback)
+    fun fetchLettersFromServer(user: LoveLettersUser, language: Language, offset: Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>) {
+        startOperationIfNetworkAvailable({loveLettersNetworkService.fetchLetters(user, language, offset, callback)}, callback)
     }
 }

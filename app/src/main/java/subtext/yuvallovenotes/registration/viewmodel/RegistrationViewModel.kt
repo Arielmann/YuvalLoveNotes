@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log.*
 import androidx.core.content.edit
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.backendless.push.DeviceRegistrationResult
@@ -15,7 +14,6 @@ import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.database.LoveItemsRepository
-import subtext.yuvallovenotes.crossapplication.events.LoveLetterEvent
 import subtext.yuvallovenotes.crossapplication.models.localization.inferLanguageFromLocale
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
 import subtext.yuvallovenotes.crossapplication.models.users.Gender
@@ -40,36 +38,35 @@ class RegistrationViewModel() : ViewModel() {
     private val sharedPrefs: SharedPreferences = KoinJavaComponent.get(SharedPreferences::class.java)
     private var appRegistrationCallback: AppRegistrationCallback? = null
 
-    private var onUserGenderChangedToMan: MutableLiveData<LoveLetterEvent<String>?> = MutableLiveData(LoveLetterEvent(""))
-    private var onUserGenderChangedToWoman: MutableLiveData<LoveLetterEvent<String>?> = MutableLiveData(LoveLetterEvent(""))
-
-    var userName: String? = ""
-        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), "")
+    var userName: String = ""
+        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), "")!!
         private set(value) {
-            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), field).apply()
+            if (value.isNotEmpty()) {
+                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_name), value).apply()
+            }
             field = value
         }
 
     var userGender: Gender = Gender.MAN
         set(value) {
-            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_gender), field.name).apply()
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_gender), value.name).apply()
             field = value
         }
 
-    var loverNickName: String? = ""
-        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), "")
+    var loverNickname: String = ""
+        get() = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), "")!!
         private set(value) {
-            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), field).apply()
+            if (value.isNotEmpty()) {
+                sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), value).apply()
+            }
             field = value
         }
 
     var loverGender: Gender = Gender.WOMAN
         set(value) {
-            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_gender), field.name).apply()
+            sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_gender), value.name).apply()
             field = value
         }
-
-
 
 
     /**
@@ -80,7 +77,7 @@ class RegistrationViewModel() : ViewModel() {
      * 2. Register the device to the push notifications service
      * 3. Download letters database from server
      *
-     * Note that database download and device registration are silently executed duringMALE
+     * Note that database download and device registration are silently executed during
      * the registration process before user asks top register so most chances that they won't be required.
      *
      * @param user An user details object that are not yet verified to be in the data base.
@@ -117,6 +114,13 @@ class RegistrationViewModel() : ViewModel() {
         val isUserRegistered = sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
         if (!isUserRegistered) {
             registrationRepository.registerUser(user, registerUserCallback)
+        } else {
+            if (allRegistrationProcessesFinished()) {
+                d(TAG, "User already registered. All registration processes completed")
+                appRegistrationCallback?.onSuccess()
+            } else {
+                d(TAG, "User registration callback: Waiting for other registration processes to complete")
+            }
         }
     }
 
@@ -137,7 +141,8 @@ class RegistrationViewModel() : ViewModel() {
 
         override fun onFailure(message: String) {
             e(TAG, "User registration failure: $message")
-            appRegistrationCallback?.onError(message)
+            val msgForDisplay = YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure)
+            appRegistrationCallback?.onError(msgForDisplay)
         }
     }
 
@@ -170,10 +175,11 @@ class RegistrationViewModel() : ViewModel() {
 
         override fun onFailure(message: String) {
             e(TAG, "Error while downloading letters from server: $message")
+            appRegistrationCallback?.onError("")
         }
     }
 
-    fun requestDeviceRegistration(context: Context) {
+    private fun requestDeviceRegistration(context: Context) {
         val isDeviceRegistered = sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
         if (!isDeviceRegistered) {
             val locale = Locale.getDefault().toString()
@@ -183,11 +189,11 @@ class RegistrationViewModel() : ViewModel() {
                 pushNotificationChannels.add("general_english")
             }
 
-            registrationRepository.registerToPushNotificationsService(pushNotificationChannels, registerNotificationsCallback)
+            registrationRepository.registerToPushNotificationsService(pushNotificationChannels, deviceRegisterNotificationsCallback)
         }
     }
 
-    private val registerNotificationsCallback = object : NetworkCallback<DeviceRegistrationResult> {
+    private val deviceRegisterNotificationsCallback = object : NetworkCallback<DeviceRegistrationResult> {
 
         override fun onSuccess(response: DeviceRegistrationResult) {
             d(TAG, "Device registered to notifications")
@@ -203,7 +209,7 @@ class RegistrationViewModel() : ViewModel() {
 
         override fun onFailure(message: String) {
             e(TAG, "Device registration failure: $message")
-            appRegistrationCallback?.onError(message)
+            appRegistrationCallback?.onError("")
         }
     }
 
@@ -214,9 +220,7 @@ class RegistrationViewModel() : ViewModel() {
 
         if (!isLettersFetchingCompletedBefore) {
             d(TAG, "Requesting initial database download")
-            loveItemsRepository.fetchLettersFromServer(inferLanguageFromLocale(), 0, downloadDefaultLettersCallback)
-        } else {
-            d(TAG, "Initial letters database download is not required")
+            loveItemsRepository.fetchLettersFromServer(getUserFromSharedPrefsData(), inferLanguageFromLocale(), 0, downloadDefaultLettersCallback, )
         }
     }
 
@@ -274,12 +278,12 @@ class RegistrationViewModel() : ViewModel() {
         sharedPrefs.edit {
             putString(context.getString(R.string.pref_key_user_random_identifier), user.randomIdentifier)
             putString(context.getString(R.string.pref_key_user_name), user.userName)
-            putString(context.getString(R.string.pref_key_user_gender), user.userGender)
+            putString(context.getString(R.string.pref_key_user_gender), user.userGender.name)
             putString(context.getString(R.string.pref_key_user_phone_region_number), user.userPhone.regionNumber)
             putString(context.getString(R.string.pref_key_user_local_phone_number), user.userPhone.localNumber)
             putString(context.getString(R.string.pref_key_user_full_target_phone_number), user.userPhone.fullNumber)
             putString(context.getString(R.string.pref_key_lover_nickname), user.loverNickName)
-            putString(context.getString(R.string.pref_key_lover_gender), user.loverGender)
+            putString(context.getString(R.string.pref_key_lover_gender), user.loverGender.name)
             putString(context.getString(R.string.pref_key_lover_phone_region_number), user.loverPhone.regionNumber)
             putString(context.getString(R.string.pref_key_lover_local_phone_number), user.loverPhone.localNumber)
             putString(context.getString(R.string.pref_key_lover_full_target_phone_number), user.loverPhone.fullNumber)
@@ -291,10 +295,10 @@ class RegistrationViewModel() : ViewModel() {
         val context = YuvalLoveNotesApp.context
 
         val userName = sharedPrefs.getString(context.getString(R.string.pref_key_user_name).takeUnless { it.isBlank() }, "")!!
-        val userGender = sharedPrefs.getString(context.getString(R.string.pref_key_user_gender).takeUnless { it.isBlank() }, "")!!
+        val userGender = Gender.valueOf(sharedPrefs.getString(context.getString(R.string.pref_key_user_gender).takeUnless { it.isBlank() }, "MAN")!!)
 
         val loverNickName = sharedPrefs.getString(context.getString(R.string.pref_key_lover_nickname).takeUnless { it.isBlank() }, "")!!
-        val loverGender = sharedPrefs.getString(context.getString(R.string.pref_key_lover_gender).takeUnless { it.isBlank() }, "")!!
+        val loverGender = Gender.valueOf(sharedPrefs.getString(context.getString(R.string.pref_key_lover_gender).takeUnless { it.isBlank() }, "WOMAN")!!)
 
         val defaultRegion = PhoneNumberUtil.getInstance().getDeviceDefaultCountryCode()
         val loverRegionNumber = sharedPrefs.getString(context.getString(R.string.pref_key_lover_phone_region_number).takeUnless { it.isBlank() }, defaultRegion)!!
@@ -309,10 +313,10 @@ class RegistrationViewModel() : ViewModel() {
         return result
     }
 
-    //todo: use livedata for informing the results
+    //todo: Logic is currently in the fragment livedata for informing the results
     fun saveLoverNickname(loverNickName: String): Boolean {
         return if (loverNickName.isNotBlank()) {
-            this.loverNickName = loverNickName
+            this.loverNickname = loverNickName
             true
         } else {
             w(TAG, "Empty lover nickname inserted")

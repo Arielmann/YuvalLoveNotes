@@ -5,9 +5,9 @@ package subtext.yuvallovenotes.crossapplication.models.users
  */
 //Todo: check if can create as class members outside of constructor
 class UnRegisteredLoveLettersUser(userName: String,
-        userGender: String,
+        userGender: Gender,
         loverNickName: String,
-        loverGender: String,
+        loverGender: Gender,
         userPhone: Phone,
         loverPhone: Phone) : LoveLettersUser(userName, userGender, loverNickName, loverGender, userPhone, loverPhone) {
 

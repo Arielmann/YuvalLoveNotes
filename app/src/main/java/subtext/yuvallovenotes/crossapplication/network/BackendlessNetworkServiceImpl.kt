@@ -16,6 +16,7 @@ import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
 import subtext.yuvallovenotes.crossapplication.models.localization.Language
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
+import subtext.yuvallovenotes.crossapplication.models.users.Gender
 import subtext.yuvallovenotes.crossapplication.models.users.LoveLettersUser
 import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLettersUser
 
@@ -40,14 +41,14 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
                     callback.onSuccess(LoveLettersUser(response))
                 } else {
                     e(TAG, "Error in backendless user registration. Null user retrieved from server")
-                    val networkError = YuvalLoveNotesApp.context.getString(R.string.error_login_default_network_failure)
+                    val networkError = YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure)
                     callback.onFailure(networkError)
                 }
             }
 
             override fun handleFault(fault: BackendlessFault?) {
                 e(TAG, "Error in backendless user registration: $fault")
-                val networkError = YuvalLoveNotesApp.context.getString(R.string.error_login_default_network_failure)
+                val networkError = YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure)
                 callback.onFailure(networkError)
             }
         })
@@ -70,7 +71,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
                     callback?.onSuccess(response)
                 } else {
                     e(TAG, "Error while registering device to push notifications service: operation succeeded with null callback")
-                    val networkError = YuvalLoveNotesApp.context.getString(R.string.error_login_default_network_failure)
+                    val networkError = YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure)
                     callback?.onFailure(networkError)
                 }
             }
@@ -91,7 +92,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
      * @param offset Integer of the first index in the database where the search will begin from
      * @param callback A callback to be invoked with list of results or an error message
      */
-    override fun fetchLetters(language: Language, offset: Int, callback: NetworkCallback<MutableList<LoveLetter>>) {
+    override fun fetchLetters(user: LoveLettersUser, language: Language, offset: Int, callback: NetworkCallback<MutableList<LoveLetter>>) {
         val queryBuilder = DataQueryBuilder.create()
         queryBuilder.whereClause = "language = '${language.tableFieldName}'"
         queryBuilder.setPageSize(DEFAULT_PAGE_SIZE)
@@ -106,19 +107,19 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
                     callback.onSuccess(response)
                     if (response.size == DEFAULT_PAGE_SIZE) {
                         //Get next 100 items
-                        fetchLetters(language, offset + 100, callback)
+                        fetchLetters(user, language, offset + 100, callback)
                     } else {
                         prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), true).apply()
                     }
                 } else {
                     if (language != Language.ENGLISH) {
-                        fetchLetters(Language.ENGLISH, 0, callback)
+                        fetchLetters(user, Language.ENGLISH, 0, callback)
                     }
                 }
             }
 
             override fun handleFault(backendlessFault: BackendlessFault) {
-                e(TAG, "Letters fetch request failure: ${backendlessFault}")
+                e(TAG, "Letters fetch request failure: $backendlessFault")
                 callback.onFailure(backendlessFault.toString())
             }
         })

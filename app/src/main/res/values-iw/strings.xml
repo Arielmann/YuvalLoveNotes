@@ -40,7 +40,7 @@
     <string name="error_parsing_contact_number">אירעה שגיאה בעת בחירה באיש קשר. אנא נסה שנית</string>
     <string name="error_no_external_app_found_for_sharing_content">לא ניתן למצוא אפליקציה שיכולה לשתף את המכתב</string>
     <string name="error_no_network_connection">בעיית התחברות. בבקשה וודא שיש לך חיבור לאינטרנט ונסה שוב</string>
-    <string name="error_login_default_network_failure">התרחשה בעיה בעת ניסיון הכניסה לשירות. נסה שוב בעוד דקה</string>
+    <string name="error_default_registration_failure">התרחשה בעיה בעת ההרשמה לשירות. נסה שוב בעוד דקה</string>
 
     <!--Misc-->
     <string name="user_name_as_closure_fallback">אני</string>

@@ -72,7 +72,7 @@
     <string name="error_parsing_contact_number">There was an error while choosing from contacts, please try again</string>
     <string name="error_no_external_app_found_for_sharing_content">Could not find any application that is able to share this</string>
     <string name="error_no_network_connection">Operation failed, Please make sure you have a network connection and try again</string>
-    <string name="error_login_default_network_failure">A problem occurred while registering. Please try again in a minute</string>
+    <string name="error_default_registration_failure">A problem occurred while registering. Please try again in a minute</string>
 
     <!--Content Descriptions-->
     <string name="content_desc_new_letter" translatable="false">New Letter</string>

@@ -161,7 +161,9 @@ class LoveItemsViewModel : ViewModel() {
     fun isLoginProcessCompleted(): Boolean {
         val sharedPrefs = get(SharedPreferences::class.java)
         val context = YuvalLoveNotesApp.context
-        return sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false) && sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
+        return sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
+                && sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
+                && sharedPrefs.getBoolean(context.getString(R.string.pref_key_default_letters_downloaded), false)
     }
 
     fun loadInterstitialAd(context: Context, onSuccess: (InterstitialAd) -> Unit) {

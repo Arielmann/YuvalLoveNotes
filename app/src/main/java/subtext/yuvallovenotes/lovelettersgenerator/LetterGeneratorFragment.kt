@@ -70,7 +70,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun checkIfRegistrationNeeded() {
-        if (loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
+        if (!loveItemsViewModel.isLoginProcessCompleted()) { //todo: this should be !loveItemsViewModel.isLoginProcessCompleted()
             try {
                 findNavController().navigate(LetterGeneratorFragmentDirections.navigateToEnterUserName())
             } catch (e: IllegalArgumentException) {
