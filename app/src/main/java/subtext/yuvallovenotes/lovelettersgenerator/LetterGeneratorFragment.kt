@@ -29,6 +29,7 @@ class LetterGeneratorFragment : Fragment() {
         private val TAG = LetterGeneratorFragment::class.simpleName
         private const val NEXT_LETTER_MENU_ITEM_POSITION: Int = 1
         private const val PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION: Int = 2
+        private const val MAKE_LETTER_FAVOURITE_ITEM_POSITION: Int = 3
     }
 
     private lateinit var binding: FragmentLetterGeneratorBinding
@@ -112,6 +113,14 @@ class LetterGeneratorFragment : Fragment() {
         loveItemsViewModel.onLetterPickedForEditing.observe(viewLifecycleOwner) {
             updateLetterEditText()
         }
+
+        loveItemsViewModel.onLetterAddedToFavourites.observe(viewLifecycleOwner) {
+            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favorite_yellow)
+        }
+
+        loveItemsViewModel.onLetterRemovedFromFavourites.observe(viewLifecycleOwner) {
+            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favorite_border_white)
+        }
     }
 
     private fun validatePreviousLetterMenuItemExistence(onValid: () -> Unit) {
@@ -161,6 +170,11 @@ class LetterGeneratorFragment : Fragment() {
 
                 R.id.menuActionDelete -> {
                     showReallyDeleteDialog()
+                    true
+                }
+
+                R.id.menuActionMakeFavourite -> {
+                    loveItemsViewModel.switchCurrentLetterFavouriteState()
                     true
                 }
 
@@ -237,9 +251,9 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun displayNewRandomLetter() {
-      /*  if (loveItemsViewModel.deleteEmptyLetters()) {
-            Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
-        }*/
+        /*  if (loveItemsViewModel.deleteEmptyLetters()) {
+              Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
+          }*/
         val newLetter = loveItemsViewModel.randomLetter()
         if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size > 1) {
             displayNewRandomLetter()
@@ -252,10 +266,11 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun onNavigationToLettersListRequested() {
-        if(loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}){
+        if (loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }) {
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }
-        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id ?: "")
+        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id
+                ?: "")
         try {
             findNavController().navigate(action)
         } catch (e: java.lang.IllegalArgumentException) {
@@ -338,7 +353,7 @@ class LetterGeneratorFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         d(TAG, "onDestroy")
-        loveItemsViewModel.cleanDisplayListFromCorruptedLetters{it.text.isBlank()}
+        loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
     }
 }
 

@@ -19,6 +19,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.android.droidcafeinput.MainActivity">
 
+<!--
     <item
         android:id="@+id/menuActionDelete"
         android:gravity="left"
@@ -26,6 +27,7 @@
         android:title="@string/title_favourites"
         android:icon="@drawable/icon_two_hearts"
         app:showAsAction="ifRoom" />
+-->
 
 
 </menu>

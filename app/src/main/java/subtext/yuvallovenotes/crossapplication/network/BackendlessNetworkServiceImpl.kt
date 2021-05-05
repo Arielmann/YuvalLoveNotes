@@ -94,7 +94,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
      */
     override fun fetchLetters(user: LoveLettersUser, language: Language, offset: Int, callback: NetworkCallback<MutableList<LoveLetter>>) {
         val queryBuilder = DataQueryBuilder.create()
-        queryBuilder.whereClause = "language = '${language.tableFieldName}'"
+        queryBuilder.whereClause = "language = '${language.tableFieldName}' and senderGender = '${user.userGender}' and receiverGender = '${user.loverGender}'"
         queryBuilder.setPageSize(DEFAULT_PAGE_SIZE)
         queryBuilder.setOffset(offset)
         d(TAG, "Executing love letters fetch request")

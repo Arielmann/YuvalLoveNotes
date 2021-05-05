@@ -85,6 +85,10 @@ class LoveItemsRepository {
         loveDao.deleteLoveLetterSync(letter.id)
     }
 
+    suspend fun deleteAllLoveLetters() {
+        loveDao.deleteAllLoveLetters()
+    }
+
     fun getAllLocalDBLoveOpeners(): LiveData<List<LoveOpener>> {
         return loveDao.getAllLoveOpeners()
     }

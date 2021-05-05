@@ -11,5 +11,6 @@
     <color name="whiteGray">#F8F8F8</color>
     <color name="iconsPrimaryColor">#fa6153</color>
     <color name="allItemsSelectedColor">#FFFB00</color>
+    <color name="letterIsFavouriteInLettersGeneratorScreen">#FFFB00</color>
     <color name="detailsInputColor">#2A3A4A</color>
 </resources>

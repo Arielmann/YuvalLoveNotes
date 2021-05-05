@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
-import subtext.yuvallovenotes.YuvalLoveNotesApp
-import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 

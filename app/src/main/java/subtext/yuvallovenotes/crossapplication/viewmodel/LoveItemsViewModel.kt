@@ -3,8 +3,7 @@ package subtext.yuvallovenotes.crossapplication.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.util.Log.d
-import android.util.Log.e
+import android.util.Log.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,6 +39,8 @@ class LoveItemsViewModel : ViewModel() {
     val previousLettersFound: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val nextLettersFound: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val onLetterPickedForEditing: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val onLetterAddedToFavourites: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
+    val onLetterRemovedFromFavourites: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     var loveLetters: LiveData<MutableList<LoveLetter>?> = MutableLiveData()
 
     var currentLetter: LoveLetter? = null
@@ -78,6 +79,22 @@ class LoveItemsViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             loveItemsRepository.updateLetter(currentLetter)
         }
+    }
+
+    internal fun switchCurrentLetterFavouriteState() {
+        currentLetter?.let {
+            it.isFavourite = !it.isFavourite
+
+            if(it.isFavourite){
+                onLetterAddedToFavourites.postValue(LoveLetterEvent(Unit))
+            }else{
+                onLetterRemovedFromFavourites.postValue(LoveLetterEvent(Unit))
+            }
+
+            viewModelScope.launch(Dispatchers.IO) {
+                loveItemsRepository.updateLetter(it)
+            }
+        } ?: w(TAG, "Warning: Tried to update a nul letter")
     }
 
     internal fun updateLettersArchiveStatusSync(letters: List<LoveLetter>, isArchive: Boolean) {

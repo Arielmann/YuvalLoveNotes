@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.backendless.push.DeviceRegistrationResult
 import com.google.i18n.phonenumbers.PhoneNumberUtil
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
@@ -47,9 +49,18 @@ class RegistrationViewModel() : ViewModel() {
             field = value
         }
 
+    /**
+     * Gender of this user. Only settable upon registration.
+     * Upon setting, all letters will be deleted to allow new ones to be
+     * downloaded according to the new gender.
+     */
     var userGender: Gender = Gender.MAN
         set(value) {
             sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_gender), value.name).apply()
+            sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), false).apply()
+            CoroutineScope(Dispatchers.IO).launch {
+                loveItemsRepository.deleteAllLoveLetters()
+            }
             field = value
         }
 
@@ -62,9 +73,18 @@ class RegistrationViewModel() : ViewModel() {
             field = value
         }
 
+    /**
+     * Gender of this lover. Only settable upon registration.
+     * Upon setting, all letters will be deleted to allow new ones to be
+     * downloaded according to the new gender.
+     */
     var loverGender: Gender = Gender.WOMAN
         set(value) {
             sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_gender), value.name).apply()
+            sharedPrefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), false).apply() //
+            CoroutineScope(Dispatchers.IO).launch {
+                loveItemsRepository.deleteAllLoveLetters()
+            }
             field = value
         }
 
@@ -220,7 +240,7 @@ class RegistrationViewModel() : ViewModel() {
 
         if (!isLettersFetchingCompletedBefore) {
             d(TAG, "Requesting initial database download")
-            loveItemsRepository.fetchLettersFromServer(getUserFromSharedPrefsData(), inferLanguageFromLocale(), 0, downloadDefaultLettersCallback, )
+            loveItemsRepository.fetchLettersFromServer(getUserFromSharedPrefsData(), inferLanguageFromLocale(), 0, downloadDefaultLettersCallback)
         }
     }
 

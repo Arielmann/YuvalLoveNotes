@@ -33,7 +33,7 @@
         android:orderInCategory="75"
         android:title="@string/title_next_letter"
         android:icon="@drawable/ic_next_faded_white_24"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menuActionPreviousLetter"
@@ -41,7 +41,15 @@
         android:orderInCategory="75"
         android:title="@string/title_previous_letter"
         android:icon="@drawable/ic_previous_faded_white_24"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/menuActionMakeFavourite"
+        android:gravity="left"
+        android:orderInCategory="75"
+        android:title="@string/title_next_letter"
+        android:icon="@drawable/ic_baseline_favorite_border_white"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/menuActionShare"
