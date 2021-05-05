@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_registration">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/chooseUserGenderBackButtonContainingCL"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/chooseUserGenderBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back_white_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chooseUserGenderBackgroundDecorationsCL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/chooseUserGenderBackgroundDecorations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0.15"
+            android:src="@drawable/registration_background_decorations"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/chooseUserGenderBackgroundDecorationsDotsAndStars"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/registration_background_decorating_dots_and_stars"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/chooseUserGenderUpperImageView"
+        android:layout_width="@dimen/width_registration_upper_image"
+        android:layout_height="@dimen/height_registration_upper_image"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/registration_man_writing_letter"
+        app:layout_constraintBottom_toTopOf="@+id/loverDetailsTitleIv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseUserGenderTitleIv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_spread_love"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseUserGenderAppDescriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/letters_font_medium"
+        android:gravity="center"
+        android:text="@string/description_app_send_letters_easily"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_app_description_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTitleIv" />
+
+    <View
+        android:id="@+id/middlePositioningView"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loverNicknameAppDescriptionTV" />
+
+    <TextView
+        android:id="@+id/chooseUserGenderTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/letters_font_regular"
+        android:gravity="start"
+        android:text="@string/title_what_is_your_gender"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/chooseUserGenderAppDescriptionTV"
+        app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderAppDescriptionTV" />
+
+    <ImageView
+        android:id="@+id/userGenderManAvatarIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderTV"
+        app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTV"
+        app:srcCompat="@drawable/avatar_man_selected" />
+
+    <ImageView
+        android:id="@+id/userGenderWomanAvatarIV"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userGenderManAvatarIV"
+        app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderAppDescriptionTV"
+        app:layout_constraintTop_toTopOf="@+id/userGenderManAvatarIV"
+        app:srcCompat="@drawable/avatar_woman_deep_blue_bg" />
+
+    <Button
+        android:id="@+id/chooseUserGenderContinueBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@null"
+        android:fontFamily="@font/letters_font_medium"
+        android:text="@string/title_next"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="@dimen/size_registration_button_text"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

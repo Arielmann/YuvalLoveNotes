@@ -5,6 +5,7 @@
     <dimen name="size_input_text_enter_details">22dp</dimen>
     <dimen name="size_input_text_enter_phone_number">18sp</dimen>
     <dimen name="size_app_description_text">18dp</dimen>
+    <dimen name="size_app_description_text_small">14dp</dimen>
     <dimen name="size_instructor_text_enter_details">20dp</dimen>
     <dimen name="radius_slightly_rounded_view">5dp</dimen>
     <dimen name="size_letters_text">20sp</dimen>
@@ -17,5 +18,6 @@
     <dimen name="margin_top_registration_upper_image">111dp</dimen>
     <dimen name="width_registration_upper_image">200dp</dimen>
     <dimen name="height_registration_upper_image">200dp</dimen>
+    <dimen name="width_registration_upper_image_small">150dp</dimen>
     <dimen name="user_name_title_min_height">125dp</dimen>
 </resources>
