@@ -9,17 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
+import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
+import subtext.yuvallovenotes.databinding.FragmentEnterUserName800hBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 class EnterUserNameFragment : Fragment() {
 
     lateinit var binding : FragmentEnterUserNameBinding
+    lateinit var bindingh800 : FragmentEnterUserName800hBinding
     private val registrationViewModel = get<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentEnterUserNameBinding.inflate(inflater, container, false)
-        return binding.root
+        return inflater.inflate(LoveUtils.getLayoutsProvider().registrationUserNameId, container, false);
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

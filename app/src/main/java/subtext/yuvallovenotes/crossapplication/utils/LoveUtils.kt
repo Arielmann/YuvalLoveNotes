@@ -3,21 +3,18 @@ package subtext.yuvallovenotes.crossapplication.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import android.os.LocaleList
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
-import androidx.annotation.ArrayRes
-import androidx.annotation.RequiresApi
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.YuvalLoveNotesApp
+import subtext.yuvallovenotes.crossapplication.ui.LayoutProvider
 import java.lang.reflect.InvocationTargetException
 import java.util.*
 
@@ -148,6 +145,22 @@ object LoveUtils {
     @SuppressLint("HardwareIds")
     fun getDeviceId(): String {
         return Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID).toString()
+    }
+
+    fun getLayoutsProvider(): LayoutProvider {
+        val context = YuvalLoveNotesApp.context
+        val config: Configuration = context.resources.configuration
+
+        return if (config.screenHeightDp <= 800) {
+            val layoutProvider = LayoutProvider()
+            layoutProvider.registrationUserNameId = R.layout.fragment_enter_user_name_800h
+            layoutProvider.registrationLoveNicknameId = R.layout.fragment_enter_lover_nickname_800h
+            layoutProvider.registrationUserGenderId = R.layout.fragment_enter_user_gender_800h
+            layoutProvider.registrationLoverPhoneId = R.layout.fragment_enter_lover_phone_number_800h
+            LayoutProvider()
+        } else {
+            LayoutProvider()
+        }
     }
 
 }
