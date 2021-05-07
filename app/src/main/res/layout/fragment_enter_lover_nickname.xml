@@ -60,8 +60,8 @@
 
     <ImageView
         android:id="@+id/loverNicknameUpperImageView"
-        android:layout_width="@dimen/width_registration_upper_image"
-        android:layout_height="@dimen/height_registration_upper_image"
+        android:layout_width="@dimen/registration_upper_image"
+        android:layout_height="@dimen/registration_upper_image"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/registration_man_writing_letter"
@@ -74,6 +74,22 @@
         android:id="@+id/loverDetailsTitleTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_write"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/loverDetailsTitleShadowTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:alpha="0.5"
         android:gravity="center"
         android:text="@string/title_write"
         android:textColor="@color/white"

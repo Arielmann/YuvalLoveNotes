@@ -7,13 +7,13 @@ import android.widget.*
 import androidx.annotation.LayoutRes
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
-import subtext.yuvallovenotes.databinding.FragmentEnterLoverNickname800hBinding
+import subtext.yuvallovenotes.databinding.FragmentEnterLoverNickname600hBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
 
-class EnterLoveNicknameH800BindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup, val attachToRoot: Boolean) : EnterLoveNicknameBinding {
+class EnterLoveNickname600hBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup?, val attachToRoot: Boolean) : EnterLoveNicknameBinding {
 
-    val binding = FragmentEnterLoverNickname800hBinding.inflate(inflater, container, false)
+    val binding = FragmentEnterLoverNickname600hBinding.inflate(inflater, container, false)
 
 
     override fun loverNicknameBackButtonContainingCL(): ConstraintLayout {
@@ -24,8 +24,12 @@ class EnterLoveNicknameH800BindingImpl(val inflater: LayoutInflater, @Nullable v
         return binding.enterLoverNicknameTV
     }
 
-    override fun loverDetailsTitleIv(): TextView {
+    override fun loverDetailsTitleTV(): TextView {
         return binding.loverDetailsTitleTV
+    }
+
+    override fun loverDetailsTitleShadowTV(): TextView {
+        return binding.loverDetailsTitleShadowTV
     }
 
     override fun loverNicknameAppDescriptionTV(): TextView {
@@ -63,6 +67,10 @@ class EnterLoveNicknameH800BindingImpl(val inflater: LayoutInflater, @Nullable v
 
     override fun middlePositioningView(): View {
         return binding.loverNicknameUpperImageView
+    }
+
+    override fun root(): View {
+        return binding.root
     }
 
 }

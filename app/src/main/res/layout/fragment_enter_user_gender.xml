@@ -60,8 +60,8 @@
 
     <ImageView
         android:id="@+id/chooseUserGenderUpperImageView"
-        android:layout_width="@dimen/width_registration_upper_image"
-        android:layout_height="@dimen/height_registration_upper_image"
+        android:layout_width="@dimen/registration_upper_image"
+        android:layout_height="@dimen/registration_upper_image"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/registration_man_writing_letter"
@@ -69,36 +69,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/chooseUserGenderTitleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/title_spread_love"
-        android:textColor="@color/white"
-        android:textSize="55dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/chooseUserGenderAppDescriptionTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/letters_font_medium"
-        android:gravity="center"
-        android:text="@string/description_app_send_letters_easily"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_app_description_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTitleTV" />
 
     <View
         android:id="@+id/middlePositioningView"
@@ -128,8 +98,9 @@
         android:id="@+id/userGenderManAvatarIV"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:layout_marginStart="25dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderTV"
+        app:layout_constraintStart_toStartOf="@+id/chooseUserGenderTV"
         app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTV"
         app:srcCompat="@drawable/avatar_man_selected" />
 
@@ -137,9 +108,9 @@
         android:id="@+id/userGenderWomanAvatarIV"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="41dp"
         app:layout_constraintBottom_toBottomOf="@+id/userGenderManAvatarIV"
-        app:layout_constraintEnd_toEndOf="@+id/chooseUserGenderAppDescriptionTV"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/userGenderManAvatarIV"
         app:srcCompat="@drawable/avatar_woman_deep_blue_bg" />
 
@@ -160,5 +131,53 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/chooseUserGenderTitleTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/title_spread_love"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseUserGenderTitleShadowTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="6dp"
+        android:alpha="0.5"
+        android:gravity="center"
+        android:text="@string/title_spread_love"
+        android:textColor="@color/white"
+        android:textSize="55dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/chooseUserGenderAppDescriptionTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/chooseUserGenderAppDescriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/letters_font_medium"
+        android:gravity="center"
+        android:text="@string/description_app_send_letters_easily"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_app_description_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseUserGenderTitleTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

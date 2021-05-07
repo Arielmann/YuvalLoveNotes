@@ -9,6 +9,9 @@ import android.os.Build
 import android.provider.Settings
 import android.telephony.TelephonyManager
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.annotation.Nullable
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -147,19 +150,15 @@ object LoveUtils {
         return Settings.Secure.getString(YuvalLoveNotesApp.context.contentResolver, Settings.Secure.ANDROID_ID).toString()
     }
 
-    fun getLayoutsProvider(): LayoutProvider {
+    fun getLayoutsProvider(inflater: LayoutInflater, @Nullable container: ViewGroup?, attachToRoot: Boolean): LayoutProvider {
         val context = YuvalLoveNotesApp.context
         val config: Configuration = context.resources.configuration
 
-        return if (config.screenHeightDp <= 800) {
-            val layoutProvider = LayoutProvider()
-            layoutProvider.registrationUserNameId = R.layout.fragment_enter_user_name_800h
-            layoutProvider.registrationLoveNicknameId = R.layout.fragment_enter_lover_nickname_800h
-            layoutProvider.registrationUserGenderId = R.layout.fragment_enter_user_gender_800h
-            layoutProvider.registrationLoverPhoneId = R.layout.fragment_enter_lover_phone_number_800h
-            LayoutProvider()
+        Log.d(TAG, "Inferring layouts for screen height dp: " + config.screenHeightDp)
+        return if (config.screenHeightDp <= 600) {
+            LayoutProvider.height800Screen(inflater, container, attachToRoot)
         } else {
-            LayoutProvider()
+            LayoutProvider.default(inflater, container, attachToRoot)
         }
     }
 

@@ -12,13 +12,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterUserGenderBinding
 
-class EnterUserGenderBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup, val attachToRoot: Boolean) : EnterUserGenderBinding {
+class EnterUserGenderBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup?, val attachToRoot: Boolean) : EnterUserGenderBinding {
 
     val binding = FragmentEnterUserGenderBinding.inflate(inflater, container, false)
 
-    override fun chooseUserGenderTitleIv(): TextView {
+    override fun chooseUserGenderTitleTV(): TextView {
         return binding.chooseUserGenderTitleTV
+    }
 
+    override fun chooseUserGenderTitleShadowTV(): TextView {
+        return binding.chooseUserGenderTitleShadowTV
     }
 
     override fun chooseUserGenderTV(): TextView {
@@ -43,7 +46,6 @@ class EnterUserGenderBindingImpl(val inflater: LayoutInflater, @Nullable val con
         return binding.userGenderWomanAvatarIV
 
     }
-
 
     override fun chooseUserGenderAppDescriptionTV(): TextView {
         return binding.chooseUserGenderAppDescriptionTV
@@ -73,6 +75,10 @@ class EnterUserGenderBindingImpl(val inflater: LayoutInflater, @Nullable val con
     override fun chooseUserGenderUpperImageView(): ImageView {
         return binding.chooseUserGenderUpperImageView
 
+    }
+
+    override fun root(): View {
+        return binding.root
     }
 
     override fun middlePositioningView(): View {

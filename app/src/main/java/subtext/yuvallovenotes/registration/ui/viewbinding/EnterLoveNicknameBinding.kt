@@ -3,12 +3,13 @@ package subtext.yuvallovenotes.registration.ui.viewbinding
 import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
+import subtext.yuvallovenotes.crossapplication.viewbinding.Binding
 
-interface EnterLoveNicknameBinding {
+interface EnterLoveNicknameBinding : Binding {
     fun loverNicknameBackButtonContainingCL(): ConstraintLayout
     fun enterLoverNicknameTV(): TextView
-    fun loverDetailsTitleIv(): TextView
+    fun loverDetailsTitleTV(): TextView
+    fun loverDetailsTitleShadowTV(): TextView
     fun loverNicknameAppDescriptionTV(): TextView
     fun loverNicknameBackBtn(): ImageButton
     fun loverNicknameBackgroundDecorations(): ImageView

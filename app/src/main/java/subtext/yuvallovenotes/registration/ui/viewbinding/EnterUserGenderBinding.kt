@@ -6,10 +6,11 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import subtext.yuvallovenotes.databinding.FragmentEnterUserGenderBinding
+import subtext.yuvallovenotes.crossapplication.viewbinding.Binding
 
-interface EnterUserGenderBinding {
-    fun chooseUserGenderTitleIv(): TextView
+interface EnterUserGenderBinding : Binding {
+    fun chooseUserGenderTitleTV(): TextView
+    fun chooseUserGenderTitleShadowTV(): TextView
     fun chooseUserGenderTV(): TextView
     fun chooseUserGenderBackBtn(): ImageButton
     fun userGenderManAvatarIV(): ImageView

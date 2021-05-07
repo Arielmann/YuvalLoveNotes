@@ -10,15 +10,19 @@ import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.constraintlayout.widget.ConstraintLayout
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
-import subtext.yuvallovenotes.databinding.FragmentEnterUserGender800hBinding
+import subtext.yuvallovenotes.databinding.FragmentEnterUserGender600hBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterUserGenderBinding
 
-class EnterUserGenderH800BindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup, val attachToRoot: Boolean) : EnterUserGenderBinding {
+class EnterUserGender600hBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup?, val attachToRoot: Boolean) : EnterUserGenderBinding {
 
-    val binding = FragmentEnterUserGender800hBinding.inflate(inflater, container, false)
+    val binding = FragmentEnterUserGender600hBinding.inflate(inflater, container, false)
 
-    override fun chooseUserGenderTitleIv(): TextView {
+    override fun chooseUserGenderTitleTV(): TextView {
         return binding.chooseUserGenderTitleTV
+    }
+
+    override fun chooseUserGenderTitleShadowTV(): TextView {
+        return binding.chooseUserGenderTitleShadowTV
     }
 
     override fun chooseUserGenderTV(): TextView {
@@ -64,6 +68,10 @@ class EnterUserGenderH800BindingImpl(val inflater: LayoutInflater, @Nullable val
 
     override fun chooseUserGenderUpperImageView(): ImageView {
         return binding.chooseUserGenderUpperImageView
+    }
+
+    override fun root(): View {
+        return binding.root
     }
 
     override fun middlePositioningView(): View {

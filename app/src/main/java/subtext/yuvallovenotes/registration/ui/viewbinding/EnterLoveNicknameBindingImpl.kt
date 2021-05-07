@@ -10,7 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import subtext.yuvallovenotes.databinding.FragmentEnterLoverNicknameBinding
 import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
 
-class EnterLoveNicknameBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup, val attachToRoot: Boolean) : EnterLoveNicknameBinding {
+class EnterLoveNicknameBindingImpl(val inflater: LayoutInflater, @Nullable val container: ViewGroup?, val attachToRoot: Boolean) : EnterLoveNicknameBinding {
 
     val binding = FragmentEnterLoverNicknameBinding.inflate(inflater, container, false)
 
@@ -23,9 +23,13 @@ class EnterLoveNicknameBindingImpl(val inflater: LayoutInflater, @Nullable val c
 
     }
 
-    override fun loverDetailsTitleIv(): TextView {
+    override fun loverDetailsTitleTV(): TextView {
         return binding.loverDetailsTitleTV
 
+    }
+
+    override fun loverDetailsTitleShadowTV(): TextView {
+        return binding.loverDetailsTitleShadowTV
     }
 
     override fun loverNicknameAppDescriptionTV(): TextView {
@@ -71,6 +75,10 @@ class EnterLoveNicknameBindingImpl(val inflater: LayoutInflater, @Nullable val c
 
     override fun middlePositioningView(): View {
         return binding.loverNicknameUpperImageView
+    }
+
+    override fun root(): View {
+        return binding.root
     }
 
 }

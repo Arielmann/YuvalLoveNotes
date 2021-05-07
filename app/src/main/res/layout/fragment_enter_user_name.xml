@@ -39,67 +39,16 @@
 
     <ImageView
         android:id="@+id/userNameUpperIV"
-        android:layout_width="@dimen/width_registration_upper_image"
-        android:layout_height="@dimen/height_registration_upper_image"
+        android:layout_width="@dimen/registration_upper_image"
+        android:layout_height="@dimen/registration_upper_image"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/registration_lovers_and_letter_in_envelope"
-        app:layout_constraintBottom_toTopOf="@+id/userNameTitleIV"
+        app:layout_constraintBottom_toTopOf="@+id/userNameTitleCL"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="ContentDescription" />
-
-    <ImageView
-        android:id="@+id/userNameTitleIV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
-        android:contentDescription="@string/app_name"
-        android:gravity="center"
-        android:src="@drawable/letters_title_mom_small"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/userNameTitleShadowIV"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="3dp"
-        android:alpha="0.5"
-        android:contentDescription="@string/app_name"
-        android:gravity="center"
-        android:src="@drawable/letters_title_mom_small"
-        app:layout_constraintBottom_toBottomOf="@+id/userNameTitleIV"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/userNameTitleIV"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-    <TextView
-        android:id="@+id/userNameAppDescriptionTV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:fontFamily="@font/letters_font_medium"
-        android:gravity="center"
-        android:text="@string/description_main"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_app_description_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userNameTitleIV" />
 
     <TextView
         android:id="@+id/enterUserNameTV"
@@ -110,7 +59,7 @@
         android:gravity="start"
         android:text="@string/title_what_is_your_name"
         android:textColor="@color/white"
-        android:textSize="@dimen/size_instructor_text_enter_details"
+        android:textSize="22dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/userNameInputEditText"
         app:layout_constraintHorizontal_bias="0.0"
@@ -167,6 +116,70 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="UnusedAttribute" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userNameTitleCL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/lowerPositioningView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/userNameTitleIV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:src="@drawable/letters_title_mom_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/userNameTitleShadowIV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:alpha="0.5"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:src="@drawable/letters_title_mom_small"
+            app:layout_constraintBottom_toBottomOf="@+id/userNameTitleIV"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/userNameTitleIV"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/userNameAppDescriptionTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/letters_font_medium"
+        android:gravity="center"
+        android:text="@string/description_main"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userNameTitleCL" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

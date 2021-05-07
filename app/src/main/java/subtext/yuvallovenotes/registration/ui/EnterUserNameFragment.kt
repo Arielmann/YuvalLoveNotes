@@ -10,32 +10,30 @@ import androidx.navigation.fragment.findNavController
 import org.koin.android.ext.android.get
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.utils.LoveUtils
-import subtext.yuvallovenotes.databinding.FragmentEnterUserName800hBinding
-import subtext.yuvallovenotes.databinding.FragmentEnterUserNameBinding
+import subtext.yuvallovenotes.registration.ui.viewbinding.EnterUserNameBinding
 import subtext.yuvallovenotes.registration.viewmodel.RegistrationViewModel
 
 class EnterUserNameFragment : Fragment() {
 
-    lateinit var binding : FragmentEnterUserNameBinding
-    lateinit var bindingh800 : FragmentEnterUserName800hBinding
+    lateinit var binding : EnterUserNameBinding
     private val registrationViewModel = get<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentEnterUserNameBinding.inflate(inflater, container, false)
-        return inflater.inflate(LoveUtils.getLayoutsProvider().registrationUserNameId, container, false);
+        binding = LoveUtils.getLayoutsProvider(inflater, container, false).enterUserNameBinding
+        return binding.root()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.userNameInputEditText.requestFocus()
+        binding.userNameInputEditText().requestFocus()
         setupUserNameEditText()
         setOnDoneButtonClickListener()
     }
 
     private fun setOnDoneButtonClickListener() {
-        binding.userNameContinueBtn.setOnClickListener {
-            if (binding.userNameInputEditText.text.isNotBlank()) {
-                registrationViewModel.onUserNameSubmitted(binding.userNameInputEditText.text.toString())
+        binding.userNameContinueBtn().setOnClickListener {
+            if (binding.userNameInputEditText().text.isNotBlank()) {
+                registrationViewModel.onUserNameSubmitted(binding.userNameInputEditText().text.toString())
                 findNavController().navigate(EnterUserNameFragmentDirections.navigateToUserGender())
             } else {
                 Toast.makeText(requireContext(), resources.getString(R.string.error_no_user_name_inserted), Toast.LENGTH_LONG).show()
@@ -44,8 +42,8 @@ class EnterUserNameFragment : Fragment() {
     }
 
     private fun setupUserNameEditText() {
-        binding.userNameInputEditText.requestFocus()
+        binding.userNameInputEditText().requestFocus()
         val userName = registrationViewModel.userName
-        binding.userNameInputEditText.setText(userName)
+        binding.userNameInputEditText().setText(userName)
     }
 }
