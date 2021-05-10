@@ -33,7 +33,6 @@ class LoveItemsViewModel : ViewModel() {
     private var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
     private var currentLetterIndex = -1
     val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
-    val onEmptyLetterDeletedEvent = LoveLetterEvent(Unit)
     val noNextLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val noPreviousLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val previousLettersFound: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
@@ -48,6 +47,8 @@ class LoveItemsViewModel : ViewModel() {
             d(TAG, "New current letter: ${value?.id}")
             if (!value?.id.isNullOrBlank()) {
                 sharedPrefs.edit().putString(YuvalLoveNotesApp.context.getString(R.string.pref_key_current_letter_id), value!!.id).apply()
+                notifyRelevantLetterFavouriteStateObservers(value)
+                notifyRelevantDisplayLettersStateObservers()
             }
             field = value
         }
@@ -84,17 +85,24 @@ class LoveItemsViewModel : ViewModel() {
     internal fun switchCurrentLetterFavouriteState() {
         currentLetter?.let {
             it.isFavourite = !it.isFavourite
-
-            if(it.isFavourite){
-                onLetterAddedToFavourites.postValue(LoveLetterEvent(Unit))
-            }else{
-                onLetterRemovedFromFavourites.postValue(LoveLetterEvent(Unit))
-            }
-
+            notifyRelevantLetterFavouriteStateObservers(it)
             viewModelScope.launch(Dispatchers.IO) {
                 loveItemsRepository.updateLetter(it)
             }
         } ?: w(TAG, "Warning: Tried to update a nul letter")
+    }
+
+    /**
+     * Notifies the observers of changes in a [LoveLetter]'s favourite
+     * state. The triggered observers will be determined by the letter's favourite boolean's state
+     * so updates regarding this data could take place
+     */
+    private fun notifyRelevantLetterFavouriteStateObservers(letter: LoveLetter) {
+        if (letter.isFavourite) {
+            onLetterAddedToFavourites.postValue(LoveLetterEvent(Unit))
+        } else {
+            onLetterRemovedFromFavourites.postValue(LoveLetterEvent(Unit))
+        }
     }
 
     internal fun updateLettersArchiveStatusSync(letters: List<LoveLetter>, isArchive: Boolean) {
@@ -292,7 +300,8 @@ class LoveItemsViewModel : ViewModel() {
 
     fun onLetterGenerated(letter: LoveLetter) {
         if (currentLetter?.id == letter.id) {
-            d(TAG, "No need to update current letter because it identical to target letter")
+            notifyRelevantLetterFavouriteStateObservers(letter) //Necessary since the favourite letter's view might still need update
+            d(TAG, "No need to update current letter data because it identical to target letter")
             return
         }
         noNextLetters.postValue(LoveLetterEvent(Unit))
@@ -304,7 +313,7 @@ class LoveItemsViewModel : ViewModel() {
         }
         currentLetterIndex = displayedLettersList.size
         displayedLettersList.add(currentLetter)
-        requestDisplayedLettersStateUpdate()
+        notifyRelevantDisplayLettersStateObservers()
 //        d(TAG, "onLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
 //        d(TAG, "onLetterGenerated currentLetterIndex: $currentLetterIndex")
     }
@@ -324,10 +333,10 @@ class LoveItemsViewModel : ViewModel() {
     }
 
     /**
-     * Triggers a displayed letters list checkout that will fire
-     * events according to the list's state
+     * Notifies the observers of the display letters list about changes in the list.
+     * The observers that will be notified are determined by the list's state.
      */
-    fun requestDisplayedLettersStateUpdate() {
+    fun notifyRelevantDisplayLettersStateObservers() {
 //        d(TAG, "requestDisplayedLettersState displayedLettersList size: ${displayedLettersList.size}")
 //        d(TAG, "requestDisplayedLettersState currentLetterIndex: $currentLetterIndex")
         if (currentLetterIndex + 1 == displayedLettersList.size) {

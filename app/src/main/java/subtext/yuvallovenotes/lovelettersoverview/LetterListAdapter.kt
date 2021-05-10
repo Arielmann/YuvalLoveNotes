@@ -31,7 +31,7 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
     private val boundViewHolders: MutableSet<LetterListViewHolder> = HashSet()
     var isSelectionModeActive: Boolean = false
     var selectedLetters: MutableSet<LoveLetter> = mutableSetOf()
-    var favoriteLetters: MutableSet<LoveLetter> = mutableSetOf()
+    var favouriteLetters: MutableSet<LoveLetter> = mutableSetOf()
     lateinit var lettersSelectionListener: ItemSelectionCallback<LoveLetter>
     lateinit var favouriteLetterSelectionListener: ItemSelectionCallback<LoveLetter>
     private var isRightToLeft: Boolean = context.resources.getBoolean(R.bool.is_right_to_left)
@@ -87,16 +87,16 @@ class LetterListAdapter(context: Context, val onLetterOpenRequest: (letter: Love
         }
 
         /**
-         * Called when user would like to add or remove a letter from the favorite letters list
+         * Called when user would like to add or remove a letter from the favourite letters list
          */
         private fun onUserPressedFavouriteLetterCheckbox(letter: LoveLetter) {
-            if (favoriteLetters.contains(letter)) {
+            if (favouriteLetters.contains(letter)) {
                 letter.isFavourite = false
                 favouriteLetterSelectionListener.itemWillBeRemovedFromSelectionList(letter)
-                favoriteLetters.remove(letter)
+                favouriteLetters.remove(letter)
                 binding.letterListFavouriteCheckbox.isChecked = false
             } else {
-                favoriteLetters.add(letter)
+                favouriteLetters.add(letter)
                 letter.isFavourite = true
                 favouriteLetterSelectionListener.onItemSelected(letter)
                 binding.letterListFavouriteCheckbox.isChecked = true

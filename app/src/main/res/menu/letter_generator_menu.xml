@@ -48,7 +48,7 @@
         android:gravity="left"
         android:orderInCategory="75"
         android:title="@string/title_next_letter"
-        android:icon="@drawable/ic_baseline_favorite_border_white"
+        android:icon="@drawable/ic_baseline_favourite_border_white"
         app:showAsAction="always" />
 
     <item

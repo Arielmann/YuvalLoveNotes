@@ -115,11 +115,11 @@ class LetterGeneratorFragment : Fragment() {
         }
 
         loveItemsViewModel.onLetterAddedToFavourites.observe(viewLifecycleOwner) {
-            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favorite_yellow)
+            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_white)
         }
 
         loveItemsViewModel.onLetterRemovedFromFavourites.observe(viewLifecycleOwner) {
-            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favorite_border_white)
+            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_border_white)
         }
     }
 
@@ -183,10 +183,11 @@ class LetterGeneratorFragment : Fragment() {
                     val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
                     if (nextLetter != null) {
                         validatePreviousLetterMenuItemExistence {
-                            loveItemsViewModel.requestDisplayedLettersStateUpdate()
+                            loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
 //                            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
                         }
                         loveItemsViewModel.currentLetter = nextLetter
+                        loveItemsViewModel.onLetterGenerated(nextLetter)
                         updateLetterEditText()
                     }
                     true
@@ -196,7 +197,7 @@ class LetterGeneratorFragment : Fragment() {
                     val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
                     if (prevLetter != null) {
                         validateNextLetterMenuItemExistence {
-                            loveItemsViewModel.requestDisplayedLettersStateUpdate()
+                            loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
 //                            binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
                         }
                         loveItemsViewModel.currentLetter = prevLetter
@@ -213,7 +214,7 @@ class LetterGeneratorFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
-        loveItemsViewModel.requestDisplayedLettersStateUpdate()
+        loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
     }
 
     private fun updateLetterEditText() {
