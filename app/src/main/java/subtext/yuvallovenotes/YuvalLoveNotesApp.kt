@@ -33,19 +33,6 @@ class YuvalLoveNotesApp : Application() {
         setupKoin()
         setupAds()
         Backendless.initApp(this, BuildConfig.BACKENDLESS_APP_ID, BuildConfig.BACKENDLESS_ANDROID_API_KEY)
-        val repo = LoveItemsRepository()
-        val lettersStrings = resources.getStringArray(R.array.letters_woman_to_man).toList()
-        val finalLetters = mutableListOf<LoveLetter>()
-        lettersStrings.forEachIndexed{ index, text ->
-            val letter = LoveLetter()
-            letter.groupNumber = index
-            letter.text = text
-            letter.receiverGender = Gender.MAN
-            letter.senderGender = Gender.WOMAN
-            letter.language = Language.ENGLISH.tableFieldName
-            finalLetters.add(letter)
-        }
-        repo.uploadLetters(finalLetters)
     }
 
     private fun setupAds() {

@@ -7,7 +7,7 @@ import subtext.yuvallovenotes.crossapplication.models.users.UnRegisteredLoveLett
 
 interface LoveLettersNetworkService {
 
-    fun fetchLetters(user: LoveLettersUser, language: Language, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>)
+    fun fetchLetters(user: LoveLettersUser, language: Language, pagingCall: Boolean, offset : Int = 0, callback: NetworkCallback<MutableList<LoveLetter>>)
     fun uploadLetters(letters: List<LoveLetter>)
 
 }

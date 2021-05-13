@@ -3,6 +3,8 @@ package subtext.yuvallovenotes.crossapplication.viewmodel
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Handler
+import android.os.Looper
 import android.util.Log.*
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -30,8 +32,8 @@ class LoveItemsViewModel : ViewModel() {
 
     private val loveItemsRepository: LoveItemsRepository = get(LoveItemsRepository::class.java)
     private val sharedPrefs: SharedPreferences = get(SharedPreferences::class.java)
-    private var displayedLettersList: MutableList<LoveLetter?> = mutableListOf()
     private var currentLetterIndex = -1
+    private var lettersHistoryList: MutableList<LoveLetter?> = mutableListOf()
     val emptyGeneratedLetterEvent: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val noNextLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
     val noPreviousLetters: MutableLiveData<LoveLetterEvent<Unit>> = MutableLiveData()
@@ -70,7 +72,7 @@ class LoveItemsViewModel : ViewModel() {
         return loveItemsRepository.getLoveLetterById(id)
     }
 
-    private fun insertLetter(letter: LoveLetter) {
+    private fun insertLetterToDB(letter: LoveLetter) {
         viewModelScope.launch(Dispatchers.IO) {
             loveItemsRepository.insertLetter(letter)
         }
@@ -136,6 +138,11 @@ class LoveItemsViewModel : ViewModel() {
     fun randomLetter(): LoveLetter {
         val optionalLetters = getFilteredLetters()
         var result = optionalLetters.randomOrNull()
+
+        if (currentLetter?.text == result?.text && optionalLetters.size > 1) { //If it's the same letter request new one
+            return randomLetter()
+        }
+
         if (result == null) {
             result = LoveLetter()
             result.isCreatedByUser = true
@@ -162,25 +169,33 @@ class LoveItemsViewModel : ViewModel() {
      */
     internal fun cleanDisplayListFromCorruptedLetters(validationFunction: (letter: LoveLetter) -> Boolean): Boolean {
         var isDeleted = false
-        with(displayedLettersList.listIterator()) { //Prevents concurrent modification exception
+        with(lettersHistoryList.listIterator()) { //Prevents concurrent modification exception
             forEach { letter ->
                 letter?.let {
                     if (validationFunction.invoke(it)) {
-                        d(TAG, "deleting empty letter from data base")
+                        d(TAG, "Deleting letter from data base")
                         runBlocking {
                             val waitForDeletion = CoroutineScope(Dispatchers.IO).async {
                                 loveItemsRepository.deleteLetterSync(letter)
                             }
                             isDeleted = true
                             waitForDeletion.await()
-                            currentLetterIndex--
-                            remove()
                         }
+                        currentLetterIndex--
+                        remove()
                     }
                 }
             }
         }
         return isDeleted
+    }
+
+    fun clearLettersHistory() {
+        i(TAG, "Clearing letters history")
+        lettersHistoryList.clear()
+        currentLetterIndex = -1
+        noNextLetters.value = LoveLetterEvent(Unit)
+        noPreviousLetters.value = LoveLetterEvent(Unit)
     }
 
     fun isLoginProcessCompleted(): Boolean {
@@ -260,10 +275,10 @@ class LoveItemsViewModel : ViewModel() {
 //        d(TAG, "next letter. displayedLettersList size: ${displayedLettersList.size}")
 //        d(TAG, "next letter. currentLetterIndex: $currentLetterIndex")
         var result: LoveLetter? = null
-        if (displayedLettersList.count() > 1) {
-            if (displayedLettersList.getOrNull(currentLetterIndex + 1) != null) {
-                result = displayedLettersList[++currentLetterIndex]
-                if (displayedLettersList.getOrNull(currentLetterIndex + 1) == null) {
+        if (lettersHistoryList.count() > 1) {
+            if (lettersHistoryList.getOrNull(currentLetterIndex + 1) != null) {
+                result = lettersHistoryList[++currentLetterIndex]
+                if (lettersHistoryList.getOrNull(currentLetterIndex + 1) == null) {
                     noNextLetters.postValue(LoveLetterEvent(Unit))
                 }
 
@@ -280,13 +295,13 @@ class LoveItemsViewModel : ViewModel() {
      * Retrieving the previous letter from the list of already displayed letters (like Ctrl+Z for letters)
      */
     fun getPreviousLetterFromDisplayedLettersList(): LoveLetter? {
-        d(TAG, "prev letter. displayedLettersList size: ${displayedLettersList.size}")
+        d(TAG, "prev letter. displayedLettersList size: ${lettersHistoryList.size}")
         d(TAG, "prev letter. currentLetterIndex: $currentLetterIndex")
         var result: LoveLetter? = null
-        if (displayedLettersList.count() > 1) {
-            if (displayedLettersList.getOrNull(currentLetterIndex - 1) != null) {
-                result = displayedLettersList.getOrNull(--currentLetterIndex)
-                if (displayedLettersList.getOrNull(currentLetterIndex - 1) == null) {
+        if (lettersHistoryList.count() > 1) {
+            if (lettersHistoryList.getOrNull(currentLetterIndex - 1) != null) {
+                result = lettersHistoryList.getOrNull(--currentLetterIndex)
+                if (lettersHistoryList.getOrNull(currentLetterIndex - 1) == null) {
                     noPreviousLetters.postValue(LoveLetterEvent(Unit))
                 }
             } else {
@@ -304,15 +319,16 @@ class LoveItemsViewModel : ViewModel() {
             d(TAG, "No need to update current letter data because it identical to target letter")
             return
         }
+
         noNextLetters.postValue(LoveLetterEvent(Unit))
 //        d(TAG, "onLetterGenerated letter id: ${letter.id}")
 //        d(TAG, "onLetterGenerated currentLetter id: ${currentLetter?.id}")
         currentLetter = letter
-        if (currentLetterIndex >= 0 && currentLetterIndex + 1 != displayedLettersList.size && displayedLettersList.size > 1) {
-            displayedLettersList = displayedLettersList.subList(0, currentLetterIndex + 1)
+        if (currentLetterIndex >= 0 && currentLetterIndex + 1 != lettersHistoryList.size && lettersHistoryList.size > 1) {
+            lettersHistoryList = lettersHistoryList.subList(0, currentLetterIndex + 1)
         }
-        currentLetterIndex = displayedLettersList.size
-        displayedLettersList.add(currentLetter)
+        currentLetterIndex = lettersHistoryList.size
+        lettersHistoryList.add(currentLetter)
         notifyRelevantDisplayLettersStateObservers()
 //        d(TAG, "onLetterGenerated displayedLettersList size: ${displayedLettersList.size}")
 //        d(TAG, "onLetterGenerated currentLetterIndex: $currentLetterIndex")
@@ -321,14 +337,13 @@ class LoveItemsViewModel : ViewModel() {
     fun createNewLetter() {
         val newLetter = LoveLetter()
         newLetter.isCreatedByUser = true
-        insertLetter(newLetter)
+        insertLetterToDB(newLetter)
         onLetterPickedForEditing(newLetter)
     }
 
     fun onLetterPickedForEditing(letter: LoveLetter) {
         d(TAG, "onLetterPickedForEditing")
-        displayedLettersList.clear()
-        currentLetterIndex = -1
+        clearLettersHistory()
         onLetterGenerated(letter)
     }
 
@@ -339,20 +354,32 @@ class LoveItemsViewModel : ViewModel() {
     fun notifyRelevantDisplayLettersStateObservers() {
 //        d(TAG, "requestDisplayedLettersState displayedLettersList size: ${displayedLettersList.size}")
 //        d(TAG, "requestDisplayedLettersState currentLetterIndex: $currentLetterIndex")
-        if (currentLetterIndex + 1 == displayedLettersList.size) {
-            d(TAG, "requestDisplayedLettersState no next letter found")
-            noNextLetters.postValue(LoveLetterEvent(Unit))
-        } else if (displayedLettersList.count() > 1) {
-            d(TAG, "requestDisplayedLettersState next letters found")
-            nextLettersFound.postValue(LoveLetterEvent(Unit))
-        }
 
-        if (currentLetterIndex <= 0) {
-            d(TAG, "requestDisplayedLettersStateNot no previous letters found")
-            noPreviousLetters.postValue(LoveLetterEvent(Unit))
-        } else {
-            d(TAG, "requestDisplayedLettersState previous letters found")
-            previousLettersFound.postValue(LoveLetterEvent(Unit))
-        }
+        Handler(Looper.getMainLooper()).postDelayed(Runnable { //Runnable helps the logic to be putten in its right place in the event loop
+            if (getFilteredLetters().size == 1) {
+                d(TAG, "Optional letters pool contains only one letter. Clear history as it cannot exists")
+                clearLettersHistory()
+                return@Runnable
+            }
+
+            d(TAG, "currentLetterIndex: $currentLetterIndex")
+            d(TAG, "lettersHistoryList size: " + lettersHistoryList.size)
+            if (currentLetterIndex + 1 == lettersHistoryList.size) {
+                d(TAG, "No next letter found")
+                noNextLetters.value = LoveLetterEvent(Unit)
+            } else if (lettersHistoryList.count() > 1) {
+                d(TAG, "Next letters found")
+                nextLettersFound.value = LoveLetterEvent(Unit)
+            }
+
+            if (currentLetterIndex + 1 <= 0) {
+                d(TAG, "No previous letters found")
+                noPreviousLetters.value = LoveLetterEvent(Unit)
+            } else if(currentLetterIndex > 0) {
+                d(TAG, "Previous letters found")
+                previousLettersFound.value = LoveLetterEvent(Unit)
+            }
+
+        }, 0)
     }
 }

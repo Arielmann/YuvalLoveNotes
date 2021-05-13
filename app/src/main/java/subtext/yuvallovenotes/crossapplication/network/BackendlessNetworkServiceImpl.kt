@@ -92,7 +92,11 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
      * @param offset Integer of the first index in the database where the search will begin from
      * @param callback A callback to be invoked with list of results or an error message
      */
-    override fun fetchLetters(user: LoveLettersUser, language: Language, offset: Int, callback: NetworkCallback<MutableList<LoveLetter>>) {
+    override fun fetchLetters(user: LoveLettersUser,
+            language: Language,
+            pagingCall: Boolean,
+            offset: Int,
+            callback: NetworkCallback<MutableList<LoveLetter>>) {
         val queryBuilder = DataQueryBuilder.create()
         queryBuilder.whereClause = "language = '${language.tableFieldName}' and senderGender = '${user.userGender}' and receiverGender = '${user.loverGender}'"
         queryBuilder.setPageSize(DEFAULT_PAGE_SIZE)
@@ -107,19 +111,18 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
                     callback.onSuccess(response)
                     if (response.size == DEFAULT_PAGE_SIZE) {
                         //Get next 100 items
-                        fetchLetters(user, language, offset + 100, callback)
+                        fetchLetters(user, language, true, offset + 100, callback)
                     } else {
                         prefs.edit().putBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), true).apply()
                     }
                 } else {
-                    if (language != Language.ENGLISH) {
-                        fetchLetters(user, Language.ENGLISH, 0, callback)
+                    if (!pagingCall) {
+                        callback.onFailure("Null or empty response")
                     }
                 }
             }
 
             override fun handleFault(backendlessFault: BackendlessFault) {
-                e(TAG, "Letters fetch request failure: $backendlessFault")
                 callback.onFailure(backendlessFault.toString())
             }
         })

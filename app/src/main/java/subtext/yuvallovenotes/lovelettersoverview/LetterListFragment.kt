@@ -74,7 +74,7 @@ class LetterListFragment : Fragment() {
     private fun setupFragmentLettersListToolbar() {
         binding.letterListToolBar.menu.clear()
 //        binding.letterListToolBar.inflateMenu(R.menu.letter_list_menu)
-        binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24);
+        binding.letterListToolBar.setNavigationIcon(R.drawable.ic_arrow_back_white_24)
         binding.letterListToolBar.setNavigationOnClickListener {
             d(TAG, "Navigating to previous screen")
             findNavController().popBackStack()
@@ -191,6 +191,7 @@ class LetterListFragment : Fragment() {
                     d(TAG, "Deleting letters")
                     loveItemsViewModel.deleteLettersSync(letters.toList())
                     loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }
+                    loveItemsViewModel.clearLettersHistory()
                     d(TAG, "Deletion completed")
                     lettersListAdapter.exitSelectionMode()
                     loveItemsViewModel.loveLetters.observe(viewLifecycleOwner, loveLettersListObserver)

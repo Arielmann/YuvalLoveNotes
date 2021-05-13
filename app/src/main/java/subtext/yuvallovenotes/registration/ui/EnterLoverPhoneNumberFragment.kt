@@ -49,7 +49,8 @@ class EnterLoverPhoneNumberFragment : Fragment() {
         binding.loverNumberBackBtn().setOnClickListener { findNavController().popBackStack() }
         binding.loverNumberBackButtonContainingCL().setOnClickListener { findNavController().popBackStack() }
         binding.loversLocalPhoneNumberInputEditText().requestFocus()
-        registrationViewModel.requestLoveLettersFromServer()
+        registrationViewModel.requestLoveLettersFromServer(false)
+        registrationViewModel.requestDeviceRegistration(false)
     }
 
     private fun setPickNumberFromUserContactsFeature() {
@@ -125,9 +126,7 @@ class EnterLoverPhoneNumberFragment : Fragment() {
             override fun onError(error: String) {
                 binding.loverNumberProgressBar().hide()
                 binding.root().animate().alpha(1f).setDuration(100).start()
-                if(error.isNotBlank()) {
-                    Toast.makeText(YuvalLoveNotesApp.context, error, Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(YuvalLoveNotesApp.context, error, Toast.LENGTH_LONG).show()
             }
 
         }

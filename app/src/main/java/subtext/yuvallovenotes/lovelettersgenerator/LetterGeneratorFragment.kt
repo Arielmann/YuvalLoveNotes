@@ -18,6 +18,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAd
 import io.sentry.Sentry
 import subtext.yuvallovenotes.R
 import subtext.yuvallovenotes.crossapplication.models.loveitems.LoveLetter
+import subtext.yuvallovenotes.crossapplication.utils.observeAndIgnoreInitialNotification
 import subtext.yuvallovenotes.crossapplication.utils.observeOnce
 import subtext.yuvallovenotes.crossapplication.viewmodel.LoveItemsViewModel
 import subtext.yuvallovenotes.databinding.FragmentLetterGeneratorBinding
@@ -27,15 +28,14 @@ class LetterGeneratorFragment : Fragment() {
 
     companion object {
         private val TAG = LetterGeneratorFragment::class.simpleName
-        private const val NEXT_LETTER_MENU_ITEM_POSITION: Int = 1
-        private const val PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION: Int = 2
         private const val MAKE_LETTER_FAVOURITE_ITEM_POSITION: Int = 3
     }
 
     private lateinit var binding: FragmentLetterGeneratorBinding
-
     private var interstitialAd: InterstitialAd? = null
     private lateinit var loveItemsViewModel: LoveItemsViewModel
+    private var previousHistoryLetterMenuItemPosition: Int = 1
+    private var nextHistoryLetterMenuItemPosition: Int = 2
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentLetterGeneratorBinding.inflate(inflater, container, false)
@@ -54,6 +54,47 @@ class LetterGeneratorFragment : Fragment() {
         observeViewmodelEvents()
         displayLetterDataForFirstTime()
         setButtonsOnClickListeners()
+        configViewsAccordingToLayoutDirection()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
+        loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
+    }
+
+    private var onNextLetterRequired: () -> Unit = {
+        val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
+        if (nextLetter != null) {
+            validatePreviousLetterMenuItemExistence {
+                loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
+//                            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
+            }
+            loveItemsViewModel.currentLetter = nextLetter
+            loveItemsViewModel.onLetterGenerated(nextLetter)
+            updateLetterEditText()
+        }
+    }
+
+    private var onPreviousLetterRequired: () -> Unit = {
+        val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
+        if (prevLetter != null) {
+            validateNextLetterMenuItemExistence {
+                loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
+//                            binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
+            }
+            loveItemsViewModel.currentLetter = prevLetter
+            updateLetterEditText()
+        }
+    }
+
+    private fun configViewsAccordingToLayoutDirection() {
+        if (resources.getBoolean(R.bool.is_right_to_left)) {
+            previousHistoryLetterMenuItemPosition = 2
+            nextHistoryLetterMenuItemPosition = 1
+        } else {
+            onNextLetterRequired = onPreviousLetterRequired.also { onPreviousLetterRequired = onNextLetterRequired } //Swapping logic
+        }
     }
 
     private val onLetterTextChanged: TextWatcher = object : TextWatcher {
@@ -86,27 +127,32 @@ class LetterGeneratorFragment : Fragment() {
             Toast.makeText(requireContext(), getString(R.string.title_letter_list_is_empty), LENGTH_LONG).show()
         }
 
-        loveItemsViewModel.noPreviousLetters.observe(viewLifecycleOwner) {
+
+        loveItemsViewModel.previousLettersFound.observeAndIgnoreInitialNotification(viewLifecycleOwner) {
             validatePreviousLetterMenuItemExistence {
-                binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_faded_24)
+                d(TAG, "Setting image: ic_arrow_back_24")
+                binding.letterGeneratorToolbar.menu.getItem(previousHistoryLetterMenuItemPosition).setIcon(R.drawable.ic_arrow_back_24)
             }
         }
 
-        loveItemsViewModel.previousLettersFound.observe(viewLifecycleOwner) {
+        loveItemsViewModel.nextLettersFound.observeAndIgnoreInitialNotification(viewLifecycleOwner) {
+            validateNextLetterMenuItemExistence {
+                d(TAG, "Setting image: ic_arrow_forward_24")
+                binding.letterGeneratorToolbar.menu.getItem(nextHistoryLetterMenuItemPosition).setIcon(R.drawable.ic_arrow_forward_24)
+            }
+        }
+
+        loveItemsViewModel.noPreviousLetters.observeAndIgnoreInitialNotification(viewLifecycleOwner) {
             validatePreviousLetterMenuItemExistence {
-                binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
+                d(TAG, "Setting image: ic_arrow_back_faded_24")
+                binding.letterGeneratorToolbar.menu.getItem(previousHistoryLetterMenuItemPosition).setIcon(R.drawable.ic_arrow_back_faded_24)
             }
         }
 
-        loveItemsViewModel.noNextLetters.observe(viewLifecycleOwner) {
+        loveItemsViewModel.noNextLetters.observeAndIgnoreInitialNotification(viewLifecycleOwner) {
             validateNextLetterMenuItemExistence {
-                binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24_faded)
-            }
-        }
-
-        loveItemsViewModel.nextLettersFound.observe(viewLifecycleOwner) {
-            validateNextLetterMenuItemExistence {
-                binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
+                d(TAG, "Setting image: ic_arrow_forward_faded_24")
+                binding.letterGeneratorToolbar.menu.getItem(nextHistoryLetterMenuItemPosition).setIcon(R.drawable.ic_arrow_forward_faded_24)
             }
         }
 
@@ -115,16 +161,16 @@ class LetterGeneratorFragment : Fragment() {
         }
 
         loveItemsViewModel.onLetterAddedToFavourites.observe(viewLifecycleOwner) {
-            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_white)
+            binding.letterGeneratorToolbar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_white)
         }
 
         loveItemsViewModel.onLetterRemovedFromFavourites.observe(viewLifecycleOwner) {
-            binding.letterGeneratorToolBar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_border_white)
+            binding.letterGeneratorToolbar.menu.getItem(MAKE_LETTER_FAVOURITE_ITEM_POSITION).setIcon(R.drawable.ic_baseline_favourite_border_white)
         }
     }
 
     private fun validatePreviousLetterMenuItemExistence(onValid: () -> Unit) {
-        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
+        if (binding.letterGeneratorToolbar.menu.getItem(previousHistoryLetterMenuItemPosition) != null) {
             onValid.invoke()
         } else {
             Log.e(TAG, "Could not update previous letter menu item because it's null")
@@ -132,7 +178,7 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun validateNextLetterMenuItemExistence(onValid: () -> Unit) {
-        if (binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION) != null) {
+        if (binding.letterGeneratorToolbar.menu.getItem(nextHistoryLetterMenuItemPosition) != null) {
             onValid.invoke()
         } else {
             Log.e(TAG, "Could not update previous letter menu item because it's null")
@@ -152,9 +198,9 @@ class LetterGeneratorFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        binding.letterGeneratorToolBar.inflateMenu(R.menu.letter_generator_menu)
+        binding.letterGeneratorToolbar.inflateMenu(R.menu.letter_generator_menu)
 
-        binding.letterGeneratorToolBar.setOnMenuItemClickListener { item ->
+        binding.letterGeneratorToolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
 
                 R.id.menuActionSettings -> {
@@ -179,42 +225,18 @@ class LetterGeneratorFragment : Fragment() {
                 }
 
                 R.id.menuActionNextLetter -> {
-
-                    val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
-                    if (nextLetter != null) {
-                        validatePreviousLetterMenuItemExistence {
-                            loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
-//                            binding.letterGeneratorToolBar.menu.getItem(PREVIOUS_SELECTED_LETTERS_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_back_24)
-                        }
-                        loveItemsViewModel.currentLetter = nextLetter
-                        loveItemsViewModel.onLetterGenerated(nextLetter)
-                        updateLetterEditText()
-                    }
+                    onNextLetterRequired.invoke()
                     true
                 }
 
                 R.id.menuActionPreviousLetter -> {
-                    val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
-                    if (prevLetter != null) {
-                        validateNextLetterMenuItemExistence {
-                            loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
-//                            binding.letterGeneratorToolBar.menu.getItem(NEXT_LETTER_MENU_ITEM_POSITION).setIcon(R.drawable.ic_arrow_forward_24)
-                        }
-                        loveItemsViewModel.currentLetter = prevLetter
-                        updateLetterEditText()
-                    }
+                    onPreviousLetterRequired.invoke()
                     true
                 }
 
                 else -> false
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        binding.lettersGeneratorEditText.addTextChangedListener(onLetterTextChanged)
-        loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
     }
 
     private fun updateLetterEditText() {
@@ -256,11 +278,6 @@ class LetterGeneratorFragment : Fragment() {
               Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
           }*/
         val newLetter = loveItemsViewModel.randomLetter()
-        if (loveItemsViewModel.currentLetter?.text == newLetter.text && loveItemsViewModel.getFilteredLetters().size > 1) {
-            displayNewRandomLetter()
-            return
-        }
-
         loveItemsViewModel.onLetterGenerated(newLetter)
         updateLetterEditText()
         binding.lettersGeneratorEditText.requestFocus()
@@ -270,8 +287,7 @@ class LetterGeneratorFragment : Fragment() {
         if (loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }) {
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }
-        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id
-                ?: "")
+        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id ?: "")
         try {
             findNavController().navigate(action)
         } catch (e: java.lang.IllegalArgumentException) {
@@ -287,6 +303,7 @@ class LetterGeneratorFragment : Fragment() {
                         d(TAG, "Deleting letter")
 //                        loveItemsViewModel.updateLettersArchiveStatusSync(listOf(it), true)
                         loveItemsViewModel.deleteLettersSync(listOf(it))
+                        loveItemsViewModel.clearLettersHistory()
                         d(TAG, "Deleting completed")
                         letterGeneratorListener.onClick(view)
                     }

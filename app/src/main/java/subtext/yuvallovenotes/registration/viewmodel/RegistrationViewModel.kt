@@ -10,7 +10,6 @@ import com.backendless.push.DeviceRegistrationResult
 import com.google.i18n.phonenumbers.PhoneNumberUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.koin.java.KoinJavaComponent
 import subtext.yuvallovenotes.R
@@ -35,6 +34,8 @@ class RegistrationViewModel() : ViewModel() {
         private val TAG = RegistrationViewModel::class.simpleName
     }
 
+    private var displayDeviceRegistrationErrorToUser: Boolean = true
+    private var displayRequestLoveLettersErrorToUser: Boolean = true
     private val registrationRepository: RegistrationRepository = KoinJavaComponent.get(RegistrationRepository::class.java)
     private val loveItemsRepository: LoveItemsRepository = LoveItemsRepository() // In order to save time, server data fetching is done during the registration process
     private val sharedPrefs: SharedPreferences = KoinJavaComponent.get(SharedPreferences::class.java)
@@ -106,9 +107,8 @@ class RegistrationViewModel() : ViewModel() {
     fun requestRegistration(user: UnRegisteredLoveLettersUser, registrationCallback: AppRegistrationCallback) {
         appRegistrationCallback = registrationCallback
         if (userInputValidation(user, registrationCallback)) {
-            val context = YuvalLoveNotesApp.context
-            requestUserRegistration(user, context)
-            requestDeviceRegistration(context)
+            requestUserRegistration(user)
+            requestDeviceRegistration()
             requestLoveLettersFromServer()
         }
     }
@@ -130,8 +130,8 @@ class RegistrationViewModel() : ViewModel() {
         return isValid
     }
 
-    private fun requestUserRegistration(user: UnRegisteredLoveLettersUser, context: Context) {
-        val isUserRegistered = sharedPrefs.getBoolean(context.getString(R.string.pref_key_user_registered_in_server), false)
+    private fun requestUserRegistration(user: UnRegisteredLoveLettersUser) {
+        val isUserRegistered = sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_user_registered_in_server), false)
         if (!isUserRegistered) {
             registrationRepository.registerUser(user, registerUserCallback)
         } else {
@@ -167,6 +167,7 @@ class RegistrationViewModel() : ViewModel() {
     }
 
     private val downloadDefaultLettersCallback = object : NetworkCallback<MutableList<LoveLetter>> {
+
         override fun onSuccess(response: MutableList<LoveLetter>) {
             viewModelScope.launch(Dispatchers.IO) {
                 prepareLetterListForUsage(response)
@@ -183,6 +184,13 @@ class RegistrationViewModel() : ViewModel() {
             }
         }
 
+        override fun onFailure(message: String) {
+            if(displayRequestLoveLettersErrorToUser) {
+                e(TAG, "Error while downloading letters from server: $message")
+                appRegistrationCallback?.onError(YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure))
+            }
+        }
+
         private fun prepareLetterListForUsage(letters: MutableList<LoveLetter>) {
             val loverNickname = sharedPrefs.getString(YuvalLoveNotesApp.context.getString(R.string.pref_key_lover_nickname), YuvalLoveNotesApp.context.getString(R.string.lover_nickname_fallback))
             letters.forEach {
@@ -192,15 +200,11 @@ class RegistrationViewModel() : ViewModel() {
                 }
             }
         }
-
-        override fun onFailure(message: String) {
-            e(TAG, "Error while downloading letters from server: $message")
-            appRegistrationCallback?.onError("")
-        }
     }
 
-    private fun requestDeviceRegistration(context: Context) {
-        val isDeviceRegistered = sharedPrefs.getBoolean(context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
+    fun requestDeviceRegistration(displayDeviceRegistrationErrorToUser: Boolean = true) {
+        this.displayDeviceRegistrationErrorToUser = displayDeviceRegistrationErrorToUser
+        val isDeviceRegistered = sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_device_registered_to_push_notifications), false)
         if (!isDeviceRegistered) {
             val locale = Locale.getDefault().toString()
             val pushNotificationChannels = mutableListOf(locale)
@@ -229,16 +233,17 @@ class RegistrationViewModel() : ViewModel() {
 
         override fun onFailure(message: String) {
             e(TAG, "Device registration failure: $message")
-            appRegistrationCallback?.onError("")
+            if(displayDeviceRegistrationErrorToUser) {
+                appRegistrationCallback?.onError(YuvalLoveNotesApp.context.getString(R.string.error_default_registration_failure))
+            }
         }
     }
 
+    fun requestLoveLettersFromServer(displayRequestLoveLettersErrorToUser: Boolean = true) {
+        this.displayRequestLoveLettersErrorToUser = displayRequestLoveLettersErrorToUser
+        val isLettersFetchingCompleted = sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), false)
 
-    fun requestLoveLettersFromServer() {
-
-        val isLettersFetchingCompletedBefore = sharedPrefs.getBoolean(YuvalLoveNotesApp.context.getString(R.string.pref_key_default_letters_downloaded), false)
-
-        if (!isLettersFetchingCompletedBefore) {
+        if (!isLettersFetchingCompleted) {
             d(TAG, "Requesting initial database download")
             loveItemsRepository.fetchLettersFromServer(getUserFromSharedPrefsData(), inferLanguageFromLocale(), 0, downloadDefaultLettersCallback)
         }
