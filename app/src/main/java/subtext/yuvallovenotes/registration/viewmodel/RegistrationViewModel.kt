@@ -28,7 +28,7 @@ import subtext.yuvallovenotes.registration.network.AppRegistrationCallback
 import java.util.*
 
 
-class RegistrationViewModel() : ViewModel() {
+class RegistrationViewModel : ViewModel() {
 
     companion object {
         private val TAG = RegistrationViewModel::class.simpleName

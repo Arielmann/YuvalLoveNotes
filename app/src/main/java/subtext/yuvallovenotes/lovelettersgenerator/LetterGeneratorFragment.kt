@@ -49,12 +49,12 @@ class LetterGeneratorFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupToolbar()
         observeLettersListChanges()
         observeViewmodelEvents()
         displayLetterDataForFirstTime()
         setButtonsOnClickListeners()
         configViewsAccordingToLayoutDirection()
+        setupToolbar()
     }
 
     override fun onStart() {
@@ -63,7 +63,8 @@ class LetterGeneratorFragment : Fragment() {
         loveItemsViewModel.notifyRelevantDisplayLettersStateObservers()
     }
 
-    private var onNextLetterRequired: () -> Unit = {
+    private val onNextLetterRequired: () -> Unit = {
+        d(TAG, "onNextLetterRequired")
         val nextLetter = loveItemsViewModel.getNextLetterFromDisplayedLettersList()
         if (nextLetter != null) {
             validatePreviousLetterMenuItemExistence {
@@ -76,7 +77,8 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
-    private var onPreviousLetterRequired: () -> Unit = {
+    private val onPreviousLetterRequired: () -> Unit = {
+        d(TAG, "onPreviousLetterRequired")
         val prevLetter = loveItemsViewModel.getPreviousLetterFromDisplayedLettersList()
         if (prevLetter != null) {
             validateNextLetterMenuItemExistence {
@@ -88,12 +90,20 @@ class LetterGeneratorFragment : Fragment() {
         }
     }
 
+    private var chosenOnNextLetterRequired = onNextLetterRequired
+    private var chosenOnPreviousNextLetterRequired = onPreviousLetterRequired
+
     private fun configViewsAccordingToLayoutDirection() {
         if (resources.getBoolean(R.bool.is_right_to_left)) {
             previousHistoryLetterMenuItemPosition = 2
             nextHistoryLetterMenuItemPosition = 1
+            d(TAG, "Right to left")
         } else {
-            onNextLetterRequired = onPreviousLetterRequired.also { onPreviousLetterRequired = onNextLetterRequired } //Swapping logic
+            d(TAG, "Left to right")
+            //I've created pointers that pointing to immutable anonymous functions (the 'onPreviousLetterRequired' and 'onNextLetterRequired').
+            // This way I can change logic according to layout directions.
+            chosenOnNextLetterRequired = onPreviousLetterRequired
+            chosenOnPreviousNextLetterRequired = onNextLetterRequired
         }
     }
 
@@ -199,7 +209,7 @@ class LetterGeneratorFragment : Fragment() {
 
     private fun setupToolbar() {
         binding.letterGeneratorToolbar.inflateMenu(R.menu.letter_generator_menu)
-
+        binding.letterGeneratorToolbar.menu.getItem(previousHistoryLetterMenuItemPosition).setIcon(R.drawable.ic_arrow_back_faded_24)
         binding.letterGeneratorToolbar.setOnMenuItemClickListener { item ->
             when (item?.itemId) {
 
@@ -225,12 +235,22 @@ class LetterGeneratorFragment : Fragment() {
                 }
 
                 R.id.menuActionNextLetter -> {
-                    onNextLetterRequired.invoke()
+                /*    if (resources.getBoolean(R.bool.is_right_to_left)) {
+                        d(TAG, "Next clicked")
+                    } else {
+                        d(TAG, "Previous clicked")
+                    }*/
+                    chosenOnNextLetterRequired.invoke()
                     true
                 }
 
                 R.id.menuActionPreviousLetter -> {
-                    onPreviousLetterRequired.invoke()
+                   /* if (resources.getBoolean(R.bool.is_right_to_left)) {
+                        d(TAG, "Previous clicked")
+                    } else {
+                        d(TAG, "Next clicked")
+                    }*/
+                    chosenOnPreviousNextLetterRequired.invoke()
                     true
                 }
 
@@ -287,7 +307,8 @@ class LetterGeneratorFragment : Fragment() {
         if (loveItemsViewModel.cleanDisplayListFromCorruptedLetters { it.text.isBlank() }) {
             Toast.makeText(requireContext(), getString(R.string.title_empty_letter_deleted), LENGTH_LONG).show()
         }
-        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id ?: "")
+        val action = LetterGeneratorFragmentDirections.navigateToLetterList(loveItemsViewModel.currentLetter?.id
+                ?: "")
         try {
             findNavController().navigate(action)
         } catch (e: java.lang.IllegalArgumentException) {

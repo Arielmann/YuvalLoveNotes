@@ -3,8 +3,8 @@
     <string name="app_name_toolbar" translatable="false">Letters</string>
 
     <!--Login-->
-    <string name="description_main">The easiest way to send letters to your loved one, even if your\'e not Shakespeare</string>
-    <string name="description_app_create_or_choose_letters">Compose letters that make your loved one smile, or pick one from our beautiful collection</string>
+    <string name="description_main">The easiest way to send letters to your loved one even if you\'re not Shakespeare</string>
+    <string name="description_app_create_or_choose_letters">Compose letters that make your loved one smile or pick one from our beautiful collection</string>
     <string name="description_app_send_letters_easily">Immediately send letters to your lover via Whatsapp or any other application</string>
     <string name="description_you_get_reminders">We will remind you once a week to send a letter so you won\'t miss a chance to strengthen your relationship</string>
 

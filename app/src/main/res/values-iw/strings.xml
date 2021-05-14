@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Letters</string>
-    <string name="description_main">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג, גם אם אתה לא שייקספיר.</string>
-    <string name="description_app_create_or_choose_letters">צור מכתבים שיגרמו למאמי שלך לחייך, או בחר מתוך האוסף הנהדר שלנו.</string>
+    <string name="description_main">הדרך הנוחה ביותר לשלוח מכתבים לבת הזוג גם אם אתה לא שייקספיר.</string>
+    <string name="description_app_create_or_choose_letters">צור מכתבים שיגרמו למאמי שלך לחייך או בחר מתוך האוסף הנהדר שלנו.</string>
     <string name="description_you_get_reminders">פעם בשבוע נזכיר לך לשלוח מכתב ולחזק את הקשר שלכם.</string>
 
     <!-- Messages Preferences -->

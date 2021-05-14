@@ -92,7 +92,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
      * @param offset Integer of the first index in the database where the search will begin from
      * @param callback A callback to be invoked with list of results or an error message
      */
-    override fun fetchLetters(user: LoveLettersUser,
+    override fun  fetchLetters(user: LoveLettersUser,
             language: Language,
             pagingCall: Boolean,
             offset: Int,
@@ -133,7 +133,7 @@ object BackendlessNetworkServiceImpl : UserRegistrationNetworkService, LoveLette
             Backendless.Data.of(LoveLetter::class.java).create(letters, object : AsyncCallback<List<String>?> {
 
                 override fun handleResponse(response: List<String>?) {
-                    i(TAG, "Objects have been saved")
+                    i(TAG, "Objects saved")
                 }
 
                 override fun handleFault(fault: BackendlessFault) {
